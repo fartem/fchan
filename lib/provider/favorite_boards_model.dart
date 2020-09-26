@@ -1,22 +1,25 @@
 import 'package:fchan/entities/board.dart';
+import 'package:fchan/logic/db/database.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteBoardsModel with ChangeNotifier {
-  final List<Board> favoriteBoards = [];
+  final Database _database;
 
-  void refreshFavoriteBoards(List<Board> favorites) {
-    favoriteBoards.clear();
-    favoriteBoards.addAll(favorites);
-    notifyListeners();
+  FavoriteBoardsModel(this._database);
+
+  Future<List<Board>> favoriteBoards() => _database.favoriteBoards();
+
+  Future<Board> addFavoriteBoard(Board board) {
+    return _database.addToFavorites(board).then((value) {
+      notifyListeners();
+      return value;
+    });
   }
 
-  void addFavoriteBoard(Board board) {
-    favoriteBoards.add(board);
-    notifyListeners();
-  }
-
-  void removeFavoriteBoard(Board board) {
-    favoriteBoards.remove(board);
-    notifyListeners();
+  Future<Board> removeFavoriteBoard(Board board) {
+    return _database.removeFromFavorites(board).then((value) {
+      notifyListeners();
+      return value;
+    });
   }
 }

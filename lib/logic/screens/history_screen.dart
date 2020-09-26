@@ -8,33 +8,45 @@ import 'package:provider/provider.dart';
 
 class HistoryScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => HistoryState();
+  State<StatefulWidget> createState() => _HistoryState();
 }
 
-class HistoryState extends State<HistoryScreen> {
+class _HistoryState extends State<HistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Consumer<HistoryModel>(
         builder: (context, model, child) {
-          if (model.history.isEmpty) {
-            return Text(
-                context.fChanWords().historyIsEmptyMessage,
-            );
-          }
-          return StaggeredGridView.countBuilder(
-            crossAxisCount: 4,
-            staggeredTileBuilder: (index) => StaggeredTile.fit(2),
-            itemBuilder: (context, index) {
-              Thread thread = model.history[index];
-              return ThreadListItem.forThread(
-                  context,
-                  thread,
-                  context.fChanWords(),
-                  () => null
-              );
+          return FutureBuilder<List<Thread>>(
+            future: model.historyThreads(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data.isEmpty) {
+                  return Text(
+                    context.fChanWords().historyIsEmptyMessage,
+                  );
+                }
+                return StaggeredGridView.countBuilder(
+                  crossAxisCount: 4,
+                  staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+                  itemBuilder: (context, index) {
+                    Thread thread = snapshot.data[index];
+                    return ThreadListItem.forThread(
+                        context,
+                        thread,
+                        context.fChanWords(),
+                        () => null,
+                    );
+                  },
+                  itemCount: snapshot.data.length,
+                );
+              } else if (snapshot.hasError) {
+                return Text(
+                  context.fChanWords().historyLoadErrorMessage,
+                );
+              }
+              return CircularProgressIndicator();
             },
-            itemCount: model.history.length,
           );
         },
       ),

@@ -1,12 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/extensions/duration_extensions.dart';
+import 'package:fchan/logic/widgets/cached_network_image_with_loader.dart';
 import 'package:fchan/logic/words/fchan_words.dart';
-import 'package:fchan/provider/bookmark_threads_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ThreadListItem {
@@ -58,15 +56,16 @@ class ThreadListItem {
                     onSelected: (threadPopupMenuAction) async {
                       switch (threadPopupMenuAction) {
                         case ThreadPopupMenuAction.bookmark:
-                          if (context.read<BookmarkThreadsModel>().bookmarks.contains(thread)) {
-                            context.read<BookmarkThreadsModel>().removeThreadFromBookmarks(
-                                thread
-                            );
-                          } else {
-                            context.read<BookmarkThreadsModel>().addThreadToBookmarks(
-                                thread
-                            );
-                          }
+                          // TODO: refactor this
+                          // if (context.read<BookmarkThreadsModel>().bookmarks.contains(thread)) {
+                          //   context.read<BookmarkThreadsModel>().removeThreadFromBookmarks(
+                          //       thread
+                          //   );
+                          // } else {
+                          //   context.read<BookmarkThreadsModel>().addThreadToBookmarks(
+                          //       thread
+                          //   );
+                          // }
                           break;
                         case ThreadPopupMenuAction.openLink:
                           launch(thread.threadUrl);
@@ -82,16 +81,10 @@ class ThreadListItem {
                 ],
               ),
               if (thread.imageUrl != null)
-                CachedNetworkImage(
-                  width: thread.imageWidth.toDouble(),
-                  height: thread.imageHeight.toDouble(),
-                  imageUrl: thread.imageUrl,
-                  progressIndicatorBuilder: (context, url, downloadProgress) {
-                    return Center(
-                        child: CircularProgressIndicator(),
-                    );
-                  },
-                  errorWidget: (context, url, error) => Container(),
+                CachedNetworkImageWithLoader(
+                  thread.imageUrl,
+                  thread.imageWidth.toDouble(),
+                  thread.imageHeight.toDouble(),
                 ),
               if (thread.sub != null)
                 Align(

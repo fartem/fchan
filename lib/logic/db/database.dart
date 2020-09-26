@@ -9,4 +9,8 @@ abstract class Database {
   Future<List<Thread>> historyThreads();
   Future<Thread> addToHistory(Thread thread);
   Future<Thread> removeFromHistory(Thread thread);
+
+  Future<List<Thread>> bookmarks();
+  Future<Thread> addToBookmarks(Thread thread);
+  Future<Thread> removeFromBookmarks(Thread thread);
 }

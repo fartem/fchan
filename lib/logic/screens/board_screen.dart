@@ -1,12 +1,12 @@
 import 'package:fchan/entities/board.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
-import 'package:fchan/logic/api/4chan_api.dart';
-import 'package:fchan/logic/db/database.dart';
+import 'package:fchan/logic/api/chan_api.dart';
 import 'package:fchan/logic/routes/fchan_route.dart';
 import 'package:fchan/logic/widgets/thread_list_item.dart';
 import 'package:fchan/provider/history_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -17,16 +17,28 @@ class BoardScreen extends StatefulWidget {
   BoardScreen(this._board);
 
   @override
-  State<StatefulWidget> createState() => BoardState(_board);
+  State<StatefulWidget> createState() => _BoardState(_board);
 }
 
-class BoardState extends State<BoardScreen> {
+class _BoardState extends State<BoardScreen> {
   final ChanApi _chanApi = GetIt.I.get();
-  final Database _database = GetIt.I.get();
+
+  final ScrollController _scrollController = ScrollController();
+  bool showFab = true;
 
   final Board _board;
 
-  BoardState(this._board);
+  _BoardState(this._board);
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      setState(() {
+        showFab = _scrollController.position.userScrollDirection != ScrollDirection.reverse;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,22 +63,32 @@ class BoardState extends State<BoardScreen> {
                       thread,
                       context.fChanWords(),
                       () async {
-                        context.read<HistoryModel>().addToHistory(thread);
-                        await _database.addToHistory(thread);
-                        Navigator.pushNamed(
-                            context,
-                            FChanRoute.threadScreen,
-                            arguments: thread,
+                        await context.read<HistoryModel>().addToHistory(thread);
+                        context.push(
+                          FChanRoute.threadScreen,
+                          arguments: thread,
                         );
                       }
                   );
                 },
                 itemCount: snapshot.data.length,
+                controller: _scrollController,
               );
             } else if (snapshot.hasError) {
-              return Text('No impl');
+              return Text(
+                context.fChanWords().boardsLoadErrorMessage,
+              );
             }
             return CircularProgressIndicator();
+          },
+        ),
+      ),
+      floatingActionButton: Visibility(
+        visible: showFab,
+        child: FloatingActionButton(
+          child: Icon(Icons.refresh),
+          onPressed: () {
+
           },
         ),
       ),

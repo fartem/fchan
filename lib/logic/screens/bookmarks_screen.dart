@@ -9,39 +9,48 @@ import 'package:provider/provider.dart';
 
 class BookmarksScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => BookmarksState();
+  State<StatefulWidget> createState() => _BookmarksState();
 }
 
-class BookmarksState extends State<BookmarksScreen> {
+class _BookmarksState extends State<BookmarksScreen> {
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Consumer<BookmarkThreadsModel>(
         builder: (context, model, child) {
-          if (model.bookmarks.isNotEmpty) {
-            return StaggeredGridView.countBuilder(
-              crossAxisCount: 4,
-              staggeredTileBuilder: (index) => StaggeredTile.fit(2),
-              itemBuilder: (context, index) {
-                Thread thread = model.bookmarks[index];
-                return ThreadListItem.forThread(
-                    context,
-                    thread,
-                    context.fChanWords(),
-                    () async {
-                      Navigator.pushNamed(
+          return FutureBuilder<List<Thread>>(
+            future: model.bookmarks(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data.isEmpty) {
+                  return Text(
+                    context.fChanWords().boardsIsEmptyMessage,
+                  );
+                }
+                return StaggeredGridView.countBuilder(
+                  crossAxisCount: 4,
+                  staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+                  itemBuilder: (context, index) {
+                    Thread thread = snapshot.data[index];
+                    return ThreadListItem.forThread(
                         context,
-                        FChanRoute.threadScreen,
-                        arguments: thread,
-                      );
-                    }
+                        thread,
+                        context.fChanWords(),
+                        () => context.push(
+                          FChanRoute.threadScreen,
+                          arguments: thread,
+                        ),
+                    );
+                  },
+                  itemCount: snapshot.data.length,
                 );
-              },
-              itemCount: model.bookmarks.length,
-            );
-          }
-          return Text(
-              context.fChanWords().bookmarksIsEmptyMessage,
+              } else if (snapshot.hasError) {
+                return Text(
+                  context.fChanWords().bookmarksLoadErrorMessage,
+                );
+              }
+              return CircularProgressIndicator();
+            },
           );
         },
       ),

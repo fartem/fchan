@@ -7,17 +7,21 @@ class FakeDatabase extends Database {
     Board(
       'g',
       'Technology',
+      true,
     ),
     Board(
       'b',
       'Random',
+      true,
     ),
     Board(
       'wg',
       'Wallpapers/General',
+      true,
     ),
   ];
   final List<Thread> _history = [];
+  final List<Thread> _bookmarks = [];
 
   @override
   Future<List<Board>> favoriteBoards() async {
@@ -50,6 +54,23 @@ class FakeDatabase extends Database {
   @override
   Future<Thread> removeFromHistory(Thread thread) async {
     _history.remove(thread);
+    return thread;
+  }
+
+  @override
+  Future<List<Thread>> bookmarks() async {
+    return _bookmarks;
+  }
+
+  @override
+  Future<Thread> addToBookmarks(Thread thread) async {
+    _bookmarks.add(thread);
+    return thread;
+  }
+
+  @override
+  Future<Thread> removeFromBookmarks(Thread thread) async {
+    _bookmarks.remove(thread);
     return thread;
   }
 }

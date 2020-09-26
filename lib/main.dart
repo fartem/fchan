@@ -1,7 +1,10 @@
 import 'package:fchan/extensions/build_context_extensions.dart';
+import 'package:fchan/feature/feature_flag.dart';
 import 'package:fchan/logic/api/fchan_api.dart';
 import 'package:fchan/logic/db/database.dart';
 import 'package:fchan/logic/db/fake_database.dart';
+import 'package:fchan/logic/gallery/fake_gallery.dart';
+import 'package:fchan/logic/gallery/gallery.dart';
 import 'package:fchan/logic/routes/fchan_route.dart';
 import 'package:fchan/logic/screens/board_screen.dart';
 import 'package:fchan/logic/screens/bookmarks_screen.dart';
@@ -14,18 +17,20 @@ import 'package:fchan/logic/screens/thread_screen.dart';
 import 'package:fchan/logic/words/fchan_words.dart';
 import 'package:fchan/provider/bookmark_threads_model.dart';
 import 'package:fchan/provider/favorite_boards_model.dart';
+import 'package:fchan/provider/gallery_model.dart';
 import 'package:fchan/provider/history_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
-import 'logic/api/4chan_api.dart';
+import 'logic/api/chan_api.dart';
 
 void main() {
   final GetIt getIt = GetIt.I;
   getIt.registerSingleton<ChanApi>(FChanApi());
   getIt.registerSingleton<Database>(FakeDatabase());
   getIt.registerSingleton<FChanWords>(FChanWordsImpl());
+  getIt.registerSingleton<Gallery>(FakeGallery());
   runApp(FChanApp());
 }
 
@@ -35,24 +40,29 @@ class FChanApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => FavoriteBoardsModel(),
+          create: (_) => FavoriteBoardsModel(
+            GetIt.I.get(),
+          ),
         ),
         ChangeNotifierProvider(
-          create: (_) => HistoryModel(),
+          create: (_) => HistoryModel(
+            GetIt.I.get(),
+          ),
         ),
         ChangeNotifierProvider(
-          create: (_) => BookmarkThreadsModel(),
+          create: (_) => BookmarkThreadsModel(
+            GetIt.I.get(),
+          ),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => GalleryModel(
+            GetIt.I.get(),
+          ),
         ),
       ],
       child: MaterialApp(
         onGenerateRoute: (settings) {
           switch (settings.name) {
-            case FChanRoute.initialScreen:
-              return MaterialPageRoute(
-                  builder: (context) {
-                    return InitScreen();
-                  }
-              );
             case FChanRoute.homeScreen:
               return MaterialPageRoute(
                   builder: (context) {
@@ -81,7 +91,7 @@ class FChanApp extends StatelessWidget {
               return null;
           }
         },
-        initialRoute: FChanRoute.initialScreen,
+        initialRoute: FChanRoute.homeScreen,
         title: 'FChan',
       ),
     );
@@ -103,38 +113,61 @@ class _FChanState extends State<FChan> {
       NavigationPage(
         FavoriteBoardsScreen(),
         context.fChanWords().boardsTitle,
+        BottomNavigationBarItem(
+          title: Text(
+            context.fChanWords().homeTitle,
+          ),
+          icon: Icon(Icons.home),
+        ),
       ),
       NavigationPage(
         HistoryScreen(),
         context.fChanWords().historyTitle,
+        BottomNavigationBarItem(
+          title: Text(
+            context.fChanWords().historyTitle,
+          ),
+          icon: Icon(Icons.history),
+        ),
       ),
-      NavigationPage(
-        GalleryScreen(),
-        context.fChanWords().galleryTitle,
-      ),
+      if (FChanFeatureFlag.showGallery)
+        NavigationPage(
+          GalleryScreen(),
+          context.fChanWords().galleryTitle,
+          BottomNavigationBarItem(
+            title: Text(
+              context.fChanWords().galleryTitle,
+            ),
+            icon: Icon(Icons.image),
+          ),
+        ),
       NavigationPage(
         BookmarksScreen(),
         context.fChanWords().bookmarksTitle,
+        BottomNavigationBarItem(
+          title: Text('Bookmarks'),
+          icon: Icon(Icons.bookmark),
+        ),
       ),
-      NavigationPage(
-        SettingsScreen(),
-        context.fChanWords().settingsTitle,
-      ),
+      if (FChanFeatureFlag.showSettings)
+        NavigationPage(
+          SettingsScreen(),
+          context.fChanWords().settingsTitle,
+          BottomNavigationBarItem(
+            title: Text('Settings'),
+            icon: Icon(Icons.settings),
+          ),
+        ),
     ];
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            _screens[_currentIndex].title
+            _screens[_currentIndex].title,
         ),
         actions: [
           IconButton(
             icon: Icon(Icons.edit),
-            onPressed: () {
-              Navigator.pushNamed(
-                  context,
-                  FChanRoute.exploreBoardsScreen,
-              );
-            },
+            onPressed: () => context.push(FChanRoute.exploreBoardsScreen),
           ),
         ],
       ),
@@ -142,28 +175,8 @@ class _FChanState extends State<FChan> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentIndex,
-        items: [
-          BottomNavigationBarItem(
-            title: Text('Home'),
-            icon: Icon(Icons.home),
-          ),
-          BottomNavigationBarItem(
-            title: Text('History'),
-            icon: Icon(Icons.history),
-          ),
-          BottomNavigationBarItem(
-            title: Text('Gallery'),
-            icon: Icon(Icons.image),
-          ),
-          BottomNavigationBarItem(
-            title: Text('Bookmarks'),
-            icon: Icon(Icons.bookmark),
-          ),
-          BottomNavigationBarItem(
-            title: Text('Settings'),
-            icon: Icon(Icons.settings),
-          ),
-        ],
+        // TODO: performance?
+        items: _screens.map((screen) => screen.bottomNavigationBarItem).toList(),
         onTap: (selectedIndex) {
           setState(() {
             _currentIndex = selectedIndex;
@@ -177,40 +190,11 @@ class _FChanState extends State<FChan> {
 class NavigationPage {
   final StatefulWidget screen;
   final String title;
+  final BottomNavigationBarItem bottomNavigationBarItem;
 
   NavigationPage(
       this.screen,
-      this.title
+      this.title,
+      this.bottomNavigationBarItem,
   );
-}
-
-class InitScreen extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => InitState();
-}
-
-class InitState extends State<InitScreen> {
-  @override
-  void initState() {
-    super.initState();
-    final Database database = GetIt.I.get();
-    Future.microtask(() async {
-      context.read<FavoriteBoardsModel>().refreshFavoriteBoards(
-        await database.favoriteBoards(),
-      );
-      Navigator.pushReplacementNamed(
-        context,
-        FChanRoute.homeScreen,
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-          child: CircularProgressIndicator()
-      ),
-    );
-  }
 }

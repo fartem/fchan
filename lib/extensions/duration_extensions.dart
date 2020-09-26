@@ -1,5 +1,4 @@
 extension DurationExtensions on Duration {
-  // TODO: localized prefix
   String formatToTime() {
     int seconds = this.inSeconds;
 

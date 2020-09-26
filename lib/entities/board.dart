@@ -1,13 +1,27 @@
 class Board {
   final String board;
   final String title;
+  final bool isFavorite;
 
-  Board(this.board, this.title);
+  Board(
+      this.board,
+      this.title,
+      this.isFavorite
+  );
 
   factory Board.fromJson(Map<String, dynamic> json) {
     return Board(
       json['board'],
       json['title'],
+      false,
+    );
+  }
+
+  factory Board.fromSchema(Map<String, dynamic> schema) {
+    return Board(
+      schema['board'],
+      schema['title'],
+      schema['is_favorite'],
     );
   }
 

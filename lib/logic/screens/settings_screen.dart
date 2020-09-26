@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => SettingsState();
+  State<StatefulWidget> createState() => _SettingsState();
 }
 
-class SettingsState extends State<SettingsScreen> {
+class _SettingsState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Center(

@@ -7,24 +7,35 @@ import 'package:provider/provider.dart';
 
 class FavoriteBoardsScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => FavoriteBoardsState();
+  State<StatefulWidget> createState() => _FavoriteBoardsState();
 }
 
-class FavoriteBoardsState extends State<FavoriteBoardsScreen> {
+class _FavoriteBoardsState extends State<FavoriteBoardsScreen> {
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Consumer<FavoriteBoardsModel>(
         builder: (context, model, child) {
-          if (model.favoriteBoards.isEmpty) {
-            return Text(
-                context.fChanWords().boardsIsEmptyMessage,
-            );
-          }
-          return ListView(
-            children: model.favoriteBoards
-                .map((e) => _boardListItem(context, e))
-                .toList(),
+          return FutureBuilder<List<Board>>(
+            future: model.favoriteBoards(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data.isEmpty) {
+                  return Text(
+                    context.fChanWords().boardsIsEmptyMessage,
+                  );
+                }
+                return ListView.builder(
+                  itemBuilder: (context, index) => _boardListItem(context, snapshot.data[index]),
+                  itemCount: snapshot.data.length,
+                );
+              } else if (snapshot.hasError) {
+                return Text(
+                  context.fChanWords().boardsLoadErrorMessage,
+                );
+              }
+              return CircularProgressIndicator();
+            },
           );
         },
       ),
@@ -33,16 +44,11 @@ class FavoriteBoardsState extends State<FavoriteBoardsScreen> {
 
   Widget _boardListItem(BuildContext context, Board board) {
     return ListTile(
-      title: Text(
-        "/${board.board}/ - ${board.title}"
+      title: Text(board.toString()),
+      onTap: () => context.push(
+        FChanRoute.boardScreen,
+        arguments: board,
       ),
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          FChanRoute.boardScreen,
-          arguments: board,
-        );
-      },
     );
   }
 }

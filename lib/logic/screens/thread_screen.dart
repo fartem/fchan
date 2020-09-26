@@ -2,8 +2,11 @@ import 'package:fchan/entities/post.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:fchan/extensions/duration_extensions.dart';
-import 'package:fchan/logic/api/4chan_api.dart';
+import 'package:fchan/logic/api/chan_api.dart';
+import 'package:fchan/logic/gallery/gallery.dart';
+import 'package:fchan/logic/widgets/cached_network_image_with_loader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:get_it/get_it.dart';
 
@@ -13,15 +16,27 @@ class ThreadScreen extends StatefulWidget {
   ThreadScreen(this._thread);
 
   @override
-  State<StatefulWidget> createState() => ThreadState(_thread);
+  State<StatefulWidget> createState() => _ThreadState(_thread);
 }
 
-class ThreadState extends State<ThreadScreen> {
+class _ThreadState extends State<ThreadScreen> {
   final ChanApi _chanApi = GetIt.I.get();
+  final Gallery _gallery = GetIt.I.get();
+
+  final ScrollController _scrollController = ScrollController();
+  bool showFab = true;
 
   final Thread _thread;
 
-  ThreadState(this._thread);
+  _ThreadState(this._thread);
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      showFab = _scrollController.position.userScrollDirection != ScrollDirection.reverse;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,17 +61,31 @@ class ThreadState extends State<ThreadScreen> {
           future: _chanApi.fetchPosts(_thread.board, _thread),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return ListView(
-                children: snapshot.data
-                    .map((e) => _postListItem(e))
-                    .toList(),
+              if (snapshot.data.isEmpty) {
+                return Text(
+                  context.fChanWords().boardsIsEmptyMessage,
+                );
+              }
+              return ListView.builder(
+                itemBuilder: (context, index) => _postListItem(snapshot.data[index]),
+                itemCount: snapshot.data.length,
+                controller: _scrollController,
               );
             } else if (snapshot.hasError) {
               return Text(
-                  context.fChanWords().postsInThreadIsEmptyMessage,
+                  context.fChanWords().postsLoadErrorMessage,
               );
             }
             return CircularProgressIndicator();
+          },
+        ),
+      ),
+      floatingActionButton: Visibility(
+        visible: showFab,
+        child: FloatingActionButton(
+          child: Icon(Icons.refresh),
+          onPressed: () {
+
           },
         ),
       ),
@@ -77,49 +106,48 @@ class ThreadState extends State<ThreadScreen> {
                       Align(
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
-                              "${post.no} (${post.timeFromPublish.formatToTime()})"
+                              "${post.no} (${post.timeFromPublish.formatToTime()})",
                           ),
                       ),
                       if (post.imageUrl != null)
                         Align(
                             alignment: AlignmentDirectional.centerStart,
                             child: Text(
-                                "${post.ext} (${post.imageWidth}x${post.imageHeight})"
+                                "${post.ext} (${post.imageWidth}x${post.imageHeight})",
                             ),
                         ),
                     ],
                   ),
                 ),
-                Icon(Icons.more_vert),
+                // TODO: add post without image handling
+                PopupMenuButton<PostPopupMenuAction>(
+                  itemBuilder: (context) => PostPopupMenuAction.values
+                      .map((e) {
+                        return PopupMenuItem<PostPopupMenuAction>(
+                          value: e,
+                          child: Text(e.toString()),
+                        );
+                      })
+                      .toList(),
+                  onSelected: (postPopupMenuAction) async {
+                    switch (postPopupMenuAction) {
+                      case PostPopupMenuAction.saveImageToGallery:
+
+                        break;
+                    }
+                  },
+                ),
               ],
             ),
             if (post.imageUrl != null)
               Align(
                 alignment: AlignmentDirectional.centerStart,
-                child: Image.network(
+                child: CachedNetworkImageWithLoader(
                   post.imageUrl,
-                  width: post.imageThumbnailWidth.toDouble(),
-                  height: post.imageThumbnailHeight.toDouble(),
+                  post.imageThumbnailWidth.toDouble(),
+                  post.imageThumbnailHeight.toDouble(),
                 ),
               ),
-              // Align(
-              //   alignment: AlignmentDirectional.centerStart,
-              //   child: CachedNetworkImage(
-              //     width: post.imageThumbnailWidth.toDouble(),
-              //     height: post.imageThumbnailHeight.toDouble(),
-              //     imageUrl: post.imageUrl,
-              //     progressIndicatorBuilder: (context, url, downloadProgress) {
-              //       return Center(
-              //           child: CircularProgressIndicator()
-              //       );
-              //     },
-              //     errorWidget: (context, url, error) {
-              //       return Icon(
-              //         Icons.error,
-              //       );
-              //     },
-              //   ),
-              // ),
             if (post.sub != null)
               Align(
                   alignment: AlignmentDirectional.centerStart,
@@ -139,4 +167,8 @@ class ThreadState extends State<ThreadScreen> {
       ),
     );
   }
+}
+
+enum PostPopupMenuAction {
+  saveImageToGallery,
 }
