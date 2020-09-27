@@ -1,13 +1,15 @@
+import 'dart:async';
+
 import 'package:fchan/entities/post.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
-import 'package:fchan/extensions/duration_extensions.dart';
+import 'package:fchan/extensions/int_extensions.dart';
 import 'package:fchan/logic/api/chan_api.dart';
 import 'package:fchan/logic/gallery/gallery.dart';
-import 'package:fchan/logic/widgets/cached_network_image_with_loader.dart';
+import 'package:fchan/logic/widgets/post_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:get_it/get_it.dart';
 
 class ThreadScreen extends StatefulWidget {
@@ -20,11 +22,16 @@ class ThreadScreen extends StatefulWidget {
 }
 
 class _ThreadState extends State<ThreadScreen> {
+  static final int _timeToRefreshInSeconds = 120;
+
   final ChanApi _chanApi = GetIt.I.get();
   final Gallery _gallery = GetIt.I.get();
 
   final ScrollController _scrollController = ScrollController();
-  bool showFab = true;
+  bool _showFab = true;
+
+  Timer _timer;
+  int time = _timeToRefreshInSeconds;
 
   final Thread _thread;
 
@@ -34,8 +41,27 @@ class _ThreadState extends State<ThreadScreen> {
   void initState() {
     super.initState();
     _scrollController.addListener(() {
-      showFab = _scrollController.position.userScrollDirection != ScrollDirection.reverse;
+      setState(() {
+        _showFab = _scrollController.position.userScrollDirection != ScrollDirection.reverse;
+      });
     });
+    _timer = Timer.periodic(
+      Duration(seconds: 1),
+      (timer) {
+        if (time == 0) {
+          time = _timeToRefreshInSeconds;
+        }
+        setState(() {
+          time--;
+        });
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -48,7 +74,7 @@ class _ThreadState extends State<ThreadScreen> {
         actions: [
           IconButton(
             icon: Icon(
-                Icons.more_vert
+              Icons.more_vert,
             ),
             onPressed: () {
 
@@ -67,13 +93,13 @@ class _ThreadState extends State<ThreadScreen> {
                 );
               }
               return ListView.builder(
-                itemBuilder: (context, index) => _postListItem(snapshot.data[index]),
+                itemBuilder: (context, index) => PostWidget(snapshot.data[index]),
                 itemCount: snapshot.data.length,
                 controller: _scrollController,
               );
             } else if (snapshot.hasError) {
               return Text(
-                  context.fChanWords().postsLoadErrorMessage,
+                context.fChanWords().postsLoadErrorMessage,
               );
             }
             return CircularProgressIndicator();
@@ -81,94 +107,20 @@ class _ThreadState extends State<ThreadScreen> {
         ),
       ),
       floatingActionButton: Visibility(
-        visible: showFab,
+        visible: _showFab,
         child: FloatingActionButton(
-          child: Icon(Icons.refresh),
+          child: Text(
+            '${context.fChanWords().commonRefreshText}\n${time.secondsToTime()}',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 12,
+            ),
+          ),
           onPressed: () {
-
+            time = _timeToRefreshInSeconds;
           },
         ),
       ),
     );
   }
-
-  Widget _postListItem(Post post) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      Align(
-                          alignment: AlignmentDirectional.centerStart,
-                          child: Text(
-                              "${post.no} (${post.timeFromPublish.formatToTime()})",
-                          ),
-                      ),
-                      if (post.imageUrl != null)
-                        Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            child: Text(
-                                "${post.ext} (${post.imageWidth}x${post.imageHeight})",
-                            ),
-                        ),
-                    ],
-                  ),
-                ),
-                // TODO: add post without image handling
-                PopupMenuButton<PostPopupMenuAction>(
-                  itemBuilder: (context) => PostPopupMenuAction.values
-                      .map((e) {
-                        return PopupMenuItem<PostPopupMenuAction>(
-                          value: e,
-                          child: Text(e.toString()),
-                        );
-                      })
-                      .toList(),
-                  onSelected: (postPopupMenuAction) async {
-                    switch (postPopupMenuAction) {
-                      case PostPopupMenuAction.saveImageToGallery:
-
-                        break;
-                    }
-                  },
-                ),
-              ],
-            ),
-            if (post.imageUrl != null)
-              Align(
-                alignment: AlignmentDirectional.centerStart,
-                child: CachedNetworkImageWithLoader(
-                  post.imageUrl,
-                  post.imageThumbnailWidth.toDouble(),
-                  post.imageThumbnailHeight.toDouble(),
-                ),
-              ),
-            if (post.sub != null)
-              Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Html(
-                      data: post.sub,
-                  ),
-              ),
-            if (post.com != null)
-              Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Html(
-                      data: post.com,
-                  ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-enum PostPopupMenuAction {
-  saveImageToGallery,
 }

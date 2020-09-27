@@ -2,8 +2,7 @@ import 'package:fchan/entities/board.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:fchan/logic/api/chan_api.dart';
-import 'package:fchan/logic/routes/fchan_route.dart';
-import 'package:fchan/logic/widgets/thread_list_item.dart';
+import 'package:fchan/logic/widgets/thread_widget.dart';
 import 'package:fchan/provider/history_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -56,21 +55,13 @@ class _BoardState extends State<BoardScreen> {
               return StaggeredGridView.countBuilder(
                 crossAxisCount: 4,
                 staggeredTileBuilder: (index) => StaggeredTile.fit(2),
-                itemBuilder: (context, index) {
-                  Thread thread = snapshot.data[index];
-                  return ThreadListItem.forThread(
-                      context,
-                      thread,
-                      context.fChanWords(),
-                      () async {
-                        await context.read<HistoryModel>().addToHistory(thread);
-                        context.push(
-                          FChanRoute.threadScreen,
-                          arguments: thread,
-                        );
-                      }
-                  );
-                },
+                itemBuilder: (context, index) => ThreadWidget(
+                  snapshot.data[index],
+                  () async {
+                    // TODO: extract thread from snapshot before save to History
+                    await context.read<HistoryModel>().addToHistory(snapshot.data[index]);
+                  },
+                ),
                 itemCount: snapshot.data.length,
                 controller: _scrollController,
               );
@@ -86,7 +77,9 @@ class _BoardState extends State<BoardScreen> {
       floatingActionButton: Visibility(
         visible: showFab,
         child: FloatingActionButton(
-          child: Icon(Icons.refresh),
+          child: Icon(
+            Icons.refresh,
+          ),
           onPressed: () {
 
           },

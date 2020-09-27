@@ -25,7 +25,7 @@ class _GalleryState extends State<GalleryScreen> {
               if (snapshot.hasData) {
                 if (snapshot.data.isEmpty) {
                   return Text(
-                    context.fChanWords().galleryIsEmptyMessage
+                    context.fChanWords().galleryIsEmptyMessage,
                   );
                 }
                 return StaggeredGridView.countBuilder(

@@ -7,9 +7,9 @@ extension BuildContextExtensions on BuildContext {
 
   void push(String route, { arguments }) {
     Navigator.pushNamed(
-        this,
-        route,
-        arguments: arguments
+      this,
+      route,
+      arguments: arguments,
     );
   }
 }

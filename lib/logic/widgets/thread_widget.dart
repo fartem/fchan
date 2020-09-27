@@ -1,19 +1,25 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:fchan/entities/thread.dart';
+import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:fchan/extensions/duration_extensions.dart';
+import 'package:fchan/logic/routes/fchan_route.dart';
 import 'package:fchan/logic/widgets/cached_network_image_with_loader.dart';
+import 'package:fchan/logic/widgets/html_text_widget.dart';
 import 'package:fchan/logic/words/fchan_words.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ThreadListItem {
-  static Widget forThread(
-      BuildContext context,
-      Thread thread,
-      FChanWords fChanWords,
-      Function() onTap
-  ) {
+class ThreadWidget extends StatelessWidget {
+  final Thread _thread;
+  final Function _threadClickAdditionalAction;
+
+  ThreadWidget(
+      this._thread,
+      this._threadClickAdditionalAction,
+  );
+
+  @override
+  Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(2.0),
       child: Padding(
@@ -29,15 +35,23 @@ class ThreadListItem {
                         Align(
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
-                            _prepareThreadDateAndImageFormatInfo(thread),
+                            _prepareThreadDateAndImageFormatInfo(_thread),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                            ),
                           ),
                         ),
                         Align(
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
                             _prepareThreadRepliesAndImagesInfo(
-                                thread,
-                                fChanWords
+                              context.fChanWords(),
+                              _thread,
+                            ),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
                             ),
                           ),
                         ),
@@ -56,56 +70,65 @@ class ThreadListItem {
                     onSelected: (threadPopupMenuAction) async {
                       switch (threadPopupMenuAction) {
                         case ThreadPopupMenuAction.bookmark:
-                          // TODO: refactor this
-                          // if (context.read<BookmarkThreadsModel>().bookmarks.contains(thread)) {
-                          //   context.read<BookmarkThreadsModel>().removeThreadFromBookmarks(
-                          //       thread
-                          //   );
-                          // } else {
-                          //   context.read<BookmarkThreadsModel>().addThreadToBookmarks(
-                          //       thread
-                          //   );
-                          // }
+                        // TODO: refactor this
+                        // if (context.read<BookmarkThreadsModel>().bookmarks.contains(thread)) {
+                        //   context.read<BookmarkThreadsModel>().removeThreadFromBookmarks(
+                        //       thread
+                        //   );
+                        // } else {
+                        //   context.read<BookmarkThreadsModel>().addThreadToBookmarks(
+                        //       thread
+                        //   );
+                        // }
                           break;
                         case ThreadPopupMenuAction.openLink:
-                          launch(thread.threadUrl);
+                          launch(_thread.threadUrl);
                           break;
                         case ThreadPopupMenuAction.copyLink:
                           await FlutterClipboard.copy(
-                            thread.threadUrl
+                              _thread.threadUrl
                           );
                           break;
                       }
                     },
+                    child: Icon(
+                      Icons.more_vert,
+                    ),
                   ),
                 ],
               ),
-              if (thread.imageUrl != null)
+              if (_thread.imageUrl != null)
                 CachedNetworkImageWithLoader(
-                  thread.imageUrl,
-                  thread.imageWidth.toDouble(),
-                  thread.imageHeight.toDouble(),
+                  _thread.imageUrl,
+                  _thread.imageWidth.toDouble(),
+                  _thread.imageHeight.toDouble(),
                 ),
-              if (thread.sub != null)
+              if (_thread.sub != null)
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: Text(
-                    thread.sub,
+                    _thread.sub,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-              if (thread.com != null)
+              if (_thread.com != null)
                 Align(
                   alignment: AlignmentDirectional.centerStart,
-                  child: Html(
-                    data: thread.com,
+                  child: HtmlTextWidget(
+                    _thread.com,
                   ),
                 ),
             ],
           ),
-          onTap: () => onTap(),
+          onTap: () {
+            _threadClickAdditionalAction.call();
+            context.push(
+                FChanRoute.threadScreen,
+                arguments: _thread
+            );
+          }
         ),
       ),
     );
@@ -118,8 +141,8 @@ class ThreadListItem {
   }
 
   static String _prepareThreadRepliesAndImagesInfo(
-      Thread thread,
-      FChanWords fChanWords
+      FChanWords fChanWords,
+      Thread thread
   ) {
     String replies = "${thread.replies == 0 ? "" : "${thread.replies} ${fChanWords.repliesTitle}"}";
     String images = "${thread.images == 0 ? "" : "${thread.images} ${fChanWords.imagesTitle}"}";

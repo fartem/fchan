@@ -165,6 +165,7 @@ class _FChanState extends State<FChan> {
             _screens[_currentIndex].title,
         ),
         actions: [
+          // TODO: show only on Home Screen
           IconButton(
             icon: Icon(Icons.edit),
             onPressed: () => context.push(FChanRoute.exploreBoardsScreen),

@@ -26,6 +26,10 @@ abstract class FChanWords {
 
   String get repliesTitle;
   String get imagesTitle;
+
+  String get commonRefreshText;
+  String get commonReplyText;
+  String get commonRepliesText;
 }
 
 class FChanWordsImpl extends FChanWords {
@@ -87,4 +91,13 @@ class FChanWordsImpl extends FChanWords {
 
   @override
   String get imagesTitle => 'Img';
+
+  @override
+  String get commonRefreshText => 'Refresh';
+
+  @override
+  String get commonReplyText => 'Reply';
+
+  @override
+  String get commonRepliesText => 'Replies';
 }

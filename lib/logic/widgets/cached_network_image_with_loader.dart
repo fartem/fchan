@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:path_provider/path_provider.dart';
@@ -9,7 +8,11 @@ class CachedNetworkImageWithLoader extends StatelessWidget {
   final double width;
   final double height;
 
-  CachedNetworkImageWithLoader(this.url, this.width, this.height);
+  CachedNetworkImageWithLoader(
+      this.url,
+      this.width,
+      this.height,
+  );
 
   @override
   Widget build(BuildContext context) {
