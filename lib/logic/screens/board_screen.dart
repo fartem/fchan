@@ -1,7 +1,9 @@
 import 'package:fchan/entities/board.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
-import 'package:fchan/logic/api/chan_api.dart';
+import 'package:fchan/logic/repository/repository.dart';
+import 'package:fchan/logic/widgets/centered_circular_progress_indicator_widget.dart';
+import 'package:fchan/logic/widgets/centered_text_widget.dart';
 import 'package:fchan/logic/widgets/thread_widget.dart';
 import 'package:fchan/provider/history_model.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ class BoardScreen extends StatefulWidget {
 }
 
 class _BoardState extends State<BoardScreen> {
-  final ChanApi _chanApi = GetIt.I.get();
+  final FChanRepository _fChanRepository = GetIt.I.get();
 
   final ScrollController _scrollController = ScrollController();
   bool showFab = true;
@@ -47,32 +49,37 @@ class _BoardState extends State<BoardScreen> {
           _board.toString(),
         )
       ),
-      body: Center(
-        child: FutureBuilder<List<Thread>>(
-          future: _chanApi.fetchCatalogPage(_board),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return StaggeredGridView.countBuilder(
-                crossAxisCount: 4,
-                staggeredTileBuilder: (index) => StaggeredTile.fit(2),
-                itemBuilder: (context, index) => ThreadWidget(
-                  snapshot.data[index],
-                  () async {
-                    // TODO: extract thread from snapshot before save to History
-                    await context.read<HistoryModel>().addToHistory(snapshot.data[index]);
-                  },
-                ),
-                itemCount: snapshot.data.length,
-                controller: _scrollController,
-              );
-            } else if (snapshot.hasError) {
-              return Text(
-                context.fChanWords().boardsLoadErrorMessage,
+      body: FutureBuilder<List<Thread>>(
+        future: _fChanRepository.catalogForBoard(_board),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data.isEmpty) {
+              return CenteredTextWidget(
+                context.fChanWords().catalogIsEmpty,
               );
             }
-            return CircularProgressIndicator();
-          },
-        ),
+            return StaggeredGridView.countBuilder(
+              crossAxisCount: 4,
+              staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+              itemBuilder: (context, index) {
+                final thread = snapshot.data[index];
+                return ThreadWidget(
+                  thread,
+                  () async {
+                    await context.read<HistoryModel>().addToHistory(snapshot.data[index]);
+                  },
+                );
+              },
+              itemCount: snapshot.data.length,
+              controller: _scrollController,
+            );
+          } else if (snapshot.hasError) {
+            return CenteredTextWidget(
+              context.fChanWords().commonErrorMessage,
+            );
+          }
+          return CenteredCircularProgressIndicatorWidget();
+        },
       ),
       floatingActionButton: Visibility(
         visible: showFab,

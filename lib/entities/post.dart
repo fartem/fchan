@@ -1,6 +1,3 @@
-import 'package:fchan/entities/board.dart';
-import 'package:fchan/extensions/int_extensions.dart';
-
 class Post {
   final int no;
   final String sub;
@@ -10,8 +7,9 @@ class Post {
   final String imageUrl;
   final int imageWidth;
   final int imageHeight;
-  final int imageThumbnailWidth;
-  final int imageThumbnailHeight;
+  final String thumbnailImageUrl;
+  final int thumbnailImageWidth;
+  final int thumbnailImageHeight;
   final String ext;
 
   Post(
@@ -23,24 +21,9 @@ class Post {
       this.imageUrl,
       this.imageWidth,
       this.imageHeight,
-      this.imageThumbnailWidth,
-      this.imageThumbnailHeight,
+      this.thumbnailImageUrl,
+      this.thumbnailImageWidth,
+      this.thumbnailImageHeight,
       this.ext,
   );
-
-  factory Post.fromJson(Map<String, dynamic> json, Board board) {
-    return Post(
-      json['no'],
-      json['sub'],
-      json['com'],
-      json['replies'],
-      DateTime.now().difference((json['time'] as int).dateTimeFromUnixTimestamp()),
-      json['filename'] != null ? "https://i.4cdn.org/${board.board}/${json['tim']}${json['ext']}" : null,
-      json['w'],
-      json['h'],
-      json['tn_w'],
-      json['tn_h'],
-      json['ext'],
-    );
-  }
 }

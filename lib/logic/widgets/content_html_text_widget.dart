@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 
-class HtmlTextWidget extends StatelessWidget {
-  final String text;
+class ContentHtmlTextWidget extends StatelessWidget {
+  final String _text;
 
-  HtmlTextWidget(this.text);
+  ContentHtmlTextWidget(this._text);
 
   @override
   Widget build(BuildContext context) {
     return Html(
-      data: text,
+      data: _text,
       style: {
         'a': Style(
           color: Colors.red[700],

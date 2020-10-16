@@ -2,7 +2,7 @@ import 'package:fchan/entities/post.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:fchan/extensions/duration_extensions.dart';
 import 'package:fchan/logic/widgets/cached_network_image_with_loader.dart';
-import 'package:fchan/logic/widgets/html_text_widget.dart';
+import 'package:fchan/logic/widgets/content_html_text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +26,7 @@ class PostWidget extends StatelessWidget {
                       Align(
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
-                          "${_post.no} (${_post.timeFromPublish.formatToTime()})",
+                          '${_post.no} (${_post.timeFromPublish.formatToTime()})',
                           style: TextStyle(
                             fontSize: 12,
                             color: Colors.grey[700],
@@ -37,7 +37,7 @@ class PostWidget extends StatelessWidget {
                         Align(
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
-                            "${_post.ext} (${_post.imageWidth}x${_post.imageHeight})",
+                            '${_post.ext} (${_post.imageWidth}x${_post.imageHeight})',
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey[700],
@@ -47,29 +47,8 @@ class PostWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                // TODO: add post without image handling
-                PopupMenuButton<PostPopupMenuAction>(
-                  itemBuilder: (context) => PostPopupMenuAction.values
-                      .map((e) {
-                        return PopupMenuItem<PostPopupMenuAction>(
-                          value: e,
-                          child: Text(e.toString()),
-                        );
-                      })
-                      .toList(),
-                  onSelected: (postPopupMenuAction) async {
-                    switch (postPopupMenuAction) {
-                      case PostPopupMenuAction.saveImageToGallery:
-                        break;
-                    }
-                  },
-                  child: Icon(
-                    Icons.more_vert,
-                  ),
-                ),
               ],
             ),
-            // TODO: null?
             if (_post.replies != null)
               Align(
                 alignment: AlignmentDirectional.centerStart,
@@ -82,26 +61,26 @@ class PostWidget extends StatelessWidget {
                   ),
                 ),
               ),
-            if (_post.imageUrl != null)
+            if (_post.thumbnailImageUrl != null)
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: CachedNetworkImageWithLoader(
-                  _post.imageUrl,
-                  _post.imageThumbnailWidth.toDouble(),
-                  _post.imageThumbnailHeight.toDouble(),
+                  _post.thumbnailImageUrl,
+                  _post.thumbnailImageWidth.toDouble(),
+                  _post.thumbnailImageHeight.toDouble(),
                 ),
               ),
             if (_post.sub != null)
               Align(
                 alignment: AlignmentDirectional.centerStart,
-                child: HtmlTextWidget(
+                child: ContentHtmlTextWidget(
                   _post.sub,
                 ),
               ),
             if (_post.com != null)
               Align(
                 alignment: AlignmentDirectional.centerStart,
-                child: HtmlTextWidget(
+                child: ContentHtmlTextWidget(
                   _post.com,
                 ),
               ),

@@ -13,16 +13,15 @@ extension DurationExtensions on Duration {
 
     final tokens = [];
     if (days > 0) {
-      tokens.add("$days d");
+      tokens.add('$days d');
     } else if (hours > 0) {
-      tokens.add("$hours h");
-      tokens.add("$minutes m");
+      tokens.add('$hours h');
     } else if (minutes > 0) {
-      tokens.add("$minutes m");
+      tokens.add('$minutes m');
     }
     if (tokens.isEmpty) {
-      tokens.add("$seconds s");
+      tokens.add('$seconds s');
     }
-    return tokens.join(" ");
+    return tokens.join(' ');
   }
 }

@@ -4,7 +4,7 @@ import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:fchan/extensions/duration_extensions.dart';
 import 'package:fchan/logic/routes/fchan_route.dart';
 import 'package:fchan/logic/widgets/cached_network_image_with_loader.dart';
-import 'package:fchan/logic/widgets/html_text_widget.dart';
+import 'package:fchan/logic/widgets/content_html_text_widget.dart';
 import 'package:fchan/logic/words/fchan_words.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -69,7 +69,7 @@ class ThreadWidget extends StatelessWidget {
                         .toList(),
                     onSelected: (threadPopupMenuAction) async {
                       switch (threadPopupMenuAction) {
-                        case ThreadPopupMenuAction.bookmark:
+                        // case ThreadPopupMenuAction.bookmark:
                         // TODO: refactor this
                         // if (context.read<BookmarkThreadsModel>().bookmarks.contains(thread)) {
                         //   context.read<BookmarkThreadsModel>().removeThreadFromBookmarks(
@@ -80,7 +80,7 @@ class ThreadWidget extends StatelessWidget {
                         //       thread
                         //   );
                         // }
-                          break;
+                        //   break;
                         case ThreadPopupMenuAction.openLink:
                           launch(_thread.threadUrl);
                           break;
@@ -97,11 +97,11 @@ class ThreadWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              if (_thread.imageUrl != null)
+              if (_thread.thumbnailImageUrl != null)
                 CachedNetworkImageWithLoader(
-                  _thread.imageUrl,
-                  _thread.imageWidth.toDouble(),
-                  _thread.imageHeight.toDouble(),
+                  _thread.thumbnailImageUrl,
+                  _thread.thumbnailImageWidth.toDouble(),
+                  _thread.thumbnailImageHeight.toDouble(),
                 ),
               if (_thread.sub != null)
                 Align(
@@ -116,7 +116,7 @@ class ThreadWidget extends StatelessWidget {
               if (_thread.com != null)
                 Align(
                   alignment: AlignmentDirectional.centerStart,
-                  child: HtmlTextWidget(
+                  child: ContentHtmlTextWidget(
                     _thread.com,
                   ),
                 ),
@@ -134,24 +134,25 @@ class ThreadWidget extends StatelessWidget {
     );
   }
 
-  static String _prepareThreadDateAndImageFormatInfo(Thread thread) {
+  String _prepareThreadDateAndImageFormatInfo(Thread thread) {
     String dateAtStart = thread.timeFromPublish.formatToTime();
     String imageFormat = thread.ext;
-    return "$dateAtStart ${imageFormat == null ? "" : imageFormat}";
+    return '$dateAtStart ${imageFormat == null ? '' : imageFormat}';
   }
 
-  static String _prepareThreadRepliesAndImagesInfo(
+  String _prepareThreadRepliesAndImagesInfo(
       FChanWords fChanWords,
       Thread thread
   ) {
-    String replies = "${thread.replies == 0 ? "" : "${thread.replies} ${fChanWords.repliesTitle}"}";
-    String images = "${thread.images == 0 ? "" : "${thread.images} ${fChanWords.imagesTitle}"}";
-    return "$replies $images".trim();
+    String replies = '${thread.replies == 0 ? '' : '${thread.replies} ${fChanWords.repliesTitle}'}';
+    String images = '${thread.images == 0 ? '' : '${thread.images} ${fChanWords.imagesTitle}'}';
+    return '$replies $images'.trim();
   }
 }
 
 enum ThreadPopupMenuAction {
-  bookmark,
+  // TODO: uncomment when added Bookmarks
+  // bookmark,
   openLink,
   copyLink,
 }

@@ -1,7 +1,7 @@
 import 'package:fchan/entities/board.dart';
-import 'package:fchan/extensions/int_extensions.dart';
+import 'package:fchan/entities/storage_entitiy.dart';
 
-class Thread {
+class Thread extends StorageEntity {
   final Board board;
   final String threadUrl;
   final int no;
@@ -10,10 +10,13 @@ class Thread {
   final Duration timeFromPublish;
   final int replies;
   final int images;
-  final String ext;
   final String imageUrl;
   final int imageWidth;
   final int imageHeight;
+  final String thumbnailImageUrl;
+  final int thumbnailImageWidth;
+  final int thumbnailImageHeight;
+  final String ext;
 
   Thread(
       this.board,
@@ -24,29 +27,27 @@ class Thread {
       this.timeFromPublish,
       this.replies,
       this.images,
-      this.ext,
       this.imageUrl,
       this.imageWidth,
       this.imageHeight,
-  );
-
-  factory Thread.fromJson(Map<String, dynamic> json, Board board) {
-    return Thread(
-      board,
-      "https://i.4cdn.org/${board.board}/thread/${json['no']}",
-      json['no'],
-      json['sub'],
-      json['com'],
-      DateTime.now().difference((json['time'] as int).dateTimeFromUnixTimestamp()),
-      json['replies'],
-      json['images'],
-      json['ext'],
-      json['filename'] != null ? "https://i.4cdn.org/${board.board}/${json['tim']}${json['ext']}" : null,
-      json['tn_w'],
-      json['tn_h'],
-    );
-  }
+      this.thumbnailImageUrl,
+      this.thumbnailImageWidth,
+      this.thumbnailImageHeight,
+      this.ext,
+      {id}
+  ) : super(id);
 
   @override
-  String toString() => "/${board.board}/$no";
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Thread
+          && runtimeType == other.runtimeType
+          && board == other.board
+          && no == other.no;
+
+  @override
+  int get hashCode => board.hashCode ^ no.hashCode;
+
+  @override
+  String toString() => '/${board.board}/$no';
 }

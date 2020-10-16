@@ -1,25 +1,28 @@
 import 'package:fchan/entities/thread.dart';
-import 'package:fchan/logic/db/database.dart';
+import 'package:fchan/logic/db/fchan_database.dart';
+import 'package:fchan/logic/repository/repository.dart';
 import 'package:flutter/material.dart';
 
 class HistoryModel with ChangeNotifier {
-  final Database _database;
+  final FChanRepository _fChanRepository;
 
-  HistoryModel(this._database);
+  HistoryModel(this._fChanRepository);
 
-  Future<List<Thread>> historyThreads() => _database.historyThreads();
+  Future<DataPage<Thread>> history(Portion portion) {
+    return _fChanRepository.history(portion);
+  }
 
   Future<Thread> addToHistory(Thread thread) {
-    return _database.addToHistory(thread).then((value) {
+    return _fChanRepository.addThreadToHistory(thread).then((historyThread) {
       notifyListeners();
-      return value;
+      return historyThread;
     });
   }
 
   Future<Thread> removeFromHistory(Thread thread) {
-    return _database.removeFromHistory(thread).then((value) {
+    return _fChanRepository.removeThreadFromHistory(thread).then((removedThread) {
       notifyListeners();
-      return value;
+      return removedThread;
     });
   }
 }

@@ -12,4 +12,12 @@ extension BuildContextExtensions on BuildContext {
       arguments: arguments,
     );
   }
+
+  void pushReplace(String route, { arguments }) {
+    Navigator.pushReplacementNamed(
+      this,
+      route,
+      arguments: arguments,
+    );
+  }
 }

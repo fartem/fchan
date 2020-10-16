@@ -3,26 +3,15 @@ abstract class FChanWords {
 
   String get boardsTitle;
   String get boardsIsEmptyMessage;
-  String get boardsLoadErrorMessage;
 
   String get exploreBoardsTitle;
 
+  String get catalogIsEmpty;
+
   String get historyTitle;
   String get historyIsEmptyMessage;
-  String get historyLoadErrorMessage;
-
-  String get galleryTitle;
-  String get galleryIsEmptyMessage;
-  String get galleryLoadErrorMessage;
-
-  String get bookmarksTitle;
-  String get bookmarksIsEmptyMessage;
-  String get bookmarksLoadErrorMessage;
-
-  String get settingsTitle;
 
   String get postsInThreadIsEmptyMessage;
-  String get postsLoadErrorMessage;
 
   String get repliesTitle;
   String get imagesTitle;
@@ -30,11 +19,10 @@ abstract class FChanWords {
   String get commonRefreshText;
   String get commonReplyText;
   String get commonRepliesText;
+  String get commonErrorMessage;
 }
 
 class FChanWordsImpl extends FChanWords {
-  final String commonErrorMessage = 'Data load error. Please contact to developer for additional info';
-
   @override
   String get homeTitle => 'Home';
 
@@ -45,10 +33,10 @@ class FChanWordsImpl extends FChanWords {
   String get boardsIsEmptyMessage => 'No favorite boards';
 
   @override
-  String get boardsLoadErrorMessage => commonErrorMessage;
+  String get exploreBoardsTitle => 'Explore boards';
 
   @override
-  String get exploreBoardsTitle => 'Explore boards';
+  String get catalogIsEmpty => 'Catalog is empty';
 
   @override
   String get historyTitle => 'History';
@@ -57,34 +45,7 @@ class FChanWordsImpl extends FChanWords {
   String get historyIsEmptyMessage => 'History is empty';
 
   @override
-  String get galleryTitle => 'Gallery';
-
-  @override
-  String get galleryIsEmptyMessage => 'Gallery is empty';
-
-  @override
-  String get galleryLoadErrorMessage => commonErrorMessage;
-
-  @override
-  String get bookmarksLoadErrorMessage => commonErrorMessage;
-
-  @override
-  String get bookmarksTitle => 'Bookmarks';
-
-  @override
-  String get bookmarksIsEmptyMessage => 'No bookmarks';
-
-  @override
-  String get historyLoadErrorMessage => commonErrorMessage;
-
-  @override
-  String get settingsTitle => 'Settings';
-
-  @override
   String get postsInThreadIsEmptyMessage => 'No posts';
-
-  @override
-  String get postsLoadErrorMessage => commonErrorMessage;
 
   @override
   String get repliesTitle => 'Re';
@@ -100,4 +61,7 @@ class FChanWordsImpl extends FChanWords {
 
   @override
   String get commonRepliesText => 'Replies';
+
+  @override
+  String get commonErrorMessage => 'Data load error. Please contact to developer for additional info';
 }

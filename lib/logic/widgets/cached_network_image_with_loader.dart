@@ -47,8 +47,7 @@ class ImageCacheManager extends BaseCacheManager {
 
   @override
   Future<String> getFilePath() async {
-    // TODO: replace with not temporary directory
-    final directory = await getTemporaryDirectory();
+    final directory = await getApplicationSupportDirectory();
     return '${directory.path}/$key';
   }
 }

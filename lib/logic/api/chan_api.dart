@@ -4,6 +4,6 @@ import 'package:fchan/entities/thread.dart';
 
 abstract class ChanApi {
   Future<List<Board>> fetchBoards();
-  Future<List<Thread>> fetchCatalogPage(Board board);
-  Future<List<Post>> fetchPosts(Board board, Thread thread);
+  Future<List<Thread>> fetchCatalog(Board board);
+  Future<List<Post>> fetchPosts(Thread thread);
 }

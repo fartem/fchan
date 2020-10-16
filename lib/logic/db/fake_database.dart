@@ -1,8 +1,8 @@
 import 'package:fchan/entities/board.dart';
 import 'package:fchan/entities/thread.dart';
-import 'package:fchan/logic/db/database.dart';
+import 'package:fchan/logic/db/fchan_database.dart';
 
-class FakeDatabase extends Database {
+class FakeDatabase extends FChanDatabase {
   final List<Board> _favorites = [
     Board(
       'g',
@@ -20,13 +20,21 @@ class FakeDatabase extends Database {
       true,
     ),
   ];
-  final List<Thread> _history = [];
+  final Set<Thread> _history = Set();
   final List<Thread> _bookmarks = [];
 
   @override
-  Future<List<Board>> favoriteBoards() async {
-    return _favorites;
+  Future<FChanDatabase> init() async {
+    return this;
   }
+
+  @override
+  Future<void> close() async {
+
+  }
+
+  @override
+  Future<DataPage<Board>> favoriteBoards(Portion portion) async => DataPage(_favorites, true);
 
   @override
   Future<Board> addToFavorites(Board board) async {
@@ -41,8 +49,11 @@ class FakeDatabase extends Database {
   }
 
   @override
-  Future<List<Thread>> historyThreads() async {
-    return _history;
+  Future<DataPage<Thread>> historyThreads(Portion portion) async => DataPage(_history.toList(), true);
+
+  @override
+  Future<Thread> threadFromHistory(Thread thread) {
+    return null;
   }
 
   @override
@@ -58,9 +69,7 @@ class FakeDatabase extends Database {
   }
 
   @override
-  Future<List<Thread>> bookmarks() async {
-    return _bookmarks;
-  }
+  Future<DataPage<Thread>> bookmarks(Portion portion) async => DataPage(_bookmarks, true);
 
   @override
   Future<Thread> addToBookmarks(Thread thread) async {

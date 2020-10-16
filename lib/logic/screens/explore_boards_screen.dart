@@ -1,9 +1,9 @@
 import 'package:fchan/entities/board.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
-import 'package:fchan/logic/api/chan_api.dart';
-import 'package:fchan/provider/favorite_boards_model.dart';
+import 'package:fchan/logic/widgets/centered_circular_progress_indicator_widget.dart';
+import 'package:fchan/logic/widgets/centered_text_widget.dart';
+import 'package:fchan/provider/boards_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
 class ExploreBoardsScreen extends StatefulWidget {
@@ -12,8 +12,6 @@ class ExploreBoardsScreen extends StatefulWidget {
 }
 
 class _ExploreBoardsState extends State<ExploreBoardsScreen> {
-  final ChanApi _chanApi = GetIt.I.get();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,41 +19,26 @@ class _ExploreBoardsState extends State<ExploreBoardsScreen> {
         title: Text(
           context.fChanWords().exploreBoardsTitle,
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-
-            },
-          ),
-        ],
       ),
-      body: Consumer<FavoriteBoardsModel>(
-        builder: (context, model, child) {
-          return Center(
-            child: FutureBuilder<List<Board>>(
-              // TODO: merge two lists
-              future: model.favoriteBoards().then((value) => _chanApi.fetchBoards()),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data.isEmpty) {
-                    return Text(
-                      context.fChanWords().boardsIsEmptyMessage,
-                    );
-                  }
-                  return ListView.builder(
-                    itemBuilder: (context, index) => _createBoardListItem(snapshot.data[index]),
-                    itemCount: snapshot.data.length,
-                  );
-                } else if (snapshot.hasError) {
-                  return Text(
-                    context.fChanWords().boardsLoadErrorMessage,
-                  );
-                }
-                return CircularProgressIndicator();
-              },
-            ),
-          );
+      body: FutureBuilder<List<Board>>(
+        future: context.watch<BoardsModel>().boards(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data.isEmpty) {
+              return CenteredTextWidget(
+                context.fChanWords().boardsIsEmptyMessage,
+              );
+            }
+            return ListView.builder(
+              itemBuilder: (context, index) => _createBoardListItem(snapshot.data[index]),
+              itemCount: snapshot.data.length,
+            );
+          } else if (snapshot.hasError) {
+            return CenteredTextWidget(
+              context.fChanWords().commonErrorMessage,
+            );
+          }
+          return CenteredCircularProgressIndicatorWidget();
         },
       ),
     );
@@ -68,14 +51,12 @@ class _ExploreBoardsState extends State<ExploreBoardsScreen> {
         board.isFavorite ? Icons.star : Icons.star_border,
         color: board.isFavorite ? Colors.blue : Colors.grey,
       ),
-      onTap: () {
-        setState(() async {
-          if (board.isFavorite) {
-            await context.read<FavoriteBoardsModel>().removeFavoriteBoard(board);
-          } else {
-            await context.read<FavoriteBoardsModel>().addFavoriteBoard(board);
-          }
-        });
+      onTap: () async {
+        if (!board.isFavorite) {
+          context.read<BoardsModel>().addFavoriteBoard(board);
+        } else {
+          context.read<BoardsModel>().removeFavoriteBoard(board);
+        }
       },
     );
   }
