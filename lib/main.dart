@@ -1,8 +1,6 @@
 import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:fchan/logic/api/fchan_api.dart';
 import 'package:fchan/logic/db/sqflite_database.dart';
-import 'package:fchan/logic/gallery/fake_gallery.dart';
-import 'package:fchan/logic/gallery/gallery.dart';
 import 'package:fchan/logic/repository/repository.dart';
 import 'package:fchan/logic/routes/fchan_route.dart';
 import 'package:fchan/logic/screens/board_screen.dart';
@@ -28,7 +26,6 @@ void main() {
     )
   );
   getIt.registerSingleton<FChanWords>(FChanWordsImpl());
-  getIt.registerSingleton<Gallery>(FakeGallery());
   runApp(FChanApp());
 }
 
