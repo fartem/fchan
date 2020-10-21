@@ -18,10 +18,10 @@ In development.
 * [ ] Bookmarks
 * [ ] Gallery
 
-## Download
+## Screenshots
 
 Soon.
 
-## Screenshots
+## Download
 
 Soon.
