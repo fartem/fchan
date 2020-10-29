@@ -1,4 +1,6 @@
 import 'package:fchan/entities/board.dart';
+import 'package:fchan/entities/entity_page.dart';
+import 'package:fchan/entities/entity_portion.dart';
 import 'package:fchan/entities/post.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/logic/api/chan_api.dart';
@@ -38,8 +40,8 @@ class FChanRepository {
 
   Future<List<Board>> favoriteBoards() {
     return _fChanDatabase
-        .favoriteBoards(Portion.all())
-        .then((favoriteBoards) => favoriteBoards.portion);
+        .favoriteBoards(EntityPage.all())
+        .then((favoriteBoards) => favoriteBoards.entities);
   }
 
   Future<Board> addBoardToFavorites(Board board) {
@@ -50,8 +52,8 @@ class FChanRepository {
     return _fChanDatabase.removeFromFavorites(board);
   }
 
-  Future<DataPage<Thread>> history(Portion portion) {
-    return _fChanDatabase.historyThreads(portion);
+  Future<EntityPortion<Thread>> history(EntityPage entityPage) {
+    return _fChanDatabase.historyThreads(entityPage);
   }
 
   Future<Thread> addThreadToHistory(Thread thread) {
@@ -59,21 +61,21 @@ class FChanRepository {
   }
 
   Future<Thread> removeThreadFromHistory(Thread thread) {
-    return _fChanDatabase.removeFromBookmarks(thread);
+    return _fChanDatabase.removeFromHistory(thread);
   }
 
-  Future<List<Thread>> catalogForBoard(Board board) async {
-    final threads = await _chanApi.fetchCatalog(board);
-    final result = <Thread>[];
-    for (Thread thread in threads) {
-      final historyThread = await _fChanDatabase.threadFromHistory(thread);
+  Future<EntityPortion<Thread>> catalogForBoard(
+      Board board,
+      EntityPage entityPage
+  ) async {
+    final portion = await _chanApi.fetchCatalog(board, entityPage);
+    for (var i = 0; i < portion.entities.length; i++) {
+      final historyThread = await _fChanDatabase.threadFromHistory(portion.entities[i]);
       if (historyThread != null) {
-        result.add(historyThread);
-      } else {
-        result.add(thread);
+        portion.entities[i] = historyThread;
       }
     }
-    return result;
+    return portion;
   }
 
   Future<List<Post>> postsForThread(Thread thread) {

@@ -1,5 +1,6 @@
+import 'package:fchan/entities/entity_page.dart';
+import 'package:fchan/entities/entity_portion.dart';
 import 'package:fchan/entities/thread.dart';
-import 'package:fchan/logic/db/fchan_database.dart';
 import 'package:fchan/logic/repository/repository.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,7 @@ class HistoryModel with ChangeNotifier {
 
   HistoryModel(this._fChanRepository);
 
-  Future<DataPage<Thread>> history(Portion portion) {
+  Future<EntityPortion<Thread>> history(EntityPage portion) {
     return _fChanRepository.history(portion);
   }
 

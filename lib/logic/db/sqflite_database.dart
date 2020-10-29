@@ -1,4 +1,6 @@
 import 'package:fchan/entities/board.dart';
+import 'package:fchan/entities/entity_page.dart';
+import 'package:fchan/entities/entity_portion.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/logic/db/fchan_database.dart';
 import 'package:sqflite/sqflite.dart';
@@ -32,9 +34,9 @@ class SQFLiteDatabase extends FChanDatabase {
   Future<void> close() => _sqflite.close();
 
   @override
-  Future<DataPage<Board>> favoriteBoards(Portion portion) async {
+  Future<EntityPortion<Board>> favoriteBoards(EntityPage entityPage) async {
     if (_boardsCache.isNotEmpty) {
-      return DataPage(
+      return EntityPortion(
         _boardsCache.values.where((board) => board.isFavorite).toList(),
         true,
       );
@@ -45,7 +47,7 @@ class SQFLiteDatabase extends FChanDatabase {
     ).then((rawBoards) {
       final List<Board> boards = rawBoards.map((rawBoard) => _SQFLiteSchema.boardFromDb(rawBoard)).toList();
       boards.forEach((board) => _boardsCache[board.board] = board);
-      return DataPage(
+      return EntityPortion(
         _boardsCache.values.toList(),
         true,
       );
@@ -84,12 +86,12 @@ class SQFLiteDatabase extends FChanDatabase {
   }
 
   @override
-  Future<DataPage<Thread>> historyThreads(Portion portion) {
+  Future<EntityPortion<Thread>> historyThreads(EntityPage entityPage) {
     return _sqflite.query(
       _SQFLiteSchema.tableThread,
       orderBy: '${_SQFLiteSchema.columnThreadLastSeenDate} desc',
       limit: 15,
-      offset: portion.page,
+      offset: entityPage.page,
     ).then((rawThreads) async {
       final result = <Thread>[];
       for (var rawThread in rawThreads) {
@@ -101,7 +103,7 @@ class SQFLiteDatabase extends FChanDatabase {
           _SQFLiteSchema.threadFromDb(rawThread, board),
         );
       }
-      return DataPage(
+      return EntityPortion(
         result,
         result.isEmpty || result.length < 15,
       );
@@ -153,21 +155,6 @@ class SQFLiteDatabase extends FChanDatabase {
       _SQFLiteSchema.tableThread,
       where: '${thread.id}',
     ).then((value) => thread);
-  }
-
-  @override
-  Future<DataPage<Thread>> bookmarks(Portion portion) {
-    return null;
-  }
-
-  @override
-  Future<Thread> addToBookmarks(Thread thread) {
-    return null;
-  }
-
-  @override
-  Future<Thread> removeFromBookmarks(Thread thread) {
-    return null;
   }
 }
 

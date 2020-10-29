@@ -6,7 +6,9 @@ import 'package:fchan/logic/routes/fchan_route.dart';
 import 'package:fchan/logic/widgets/cached_network_image_with_loader.dart';
 import 'package:fchan/logic/widgets/content_html_text_widget.dart';
 import 'package:fchan/logic/words/fchan_words.dart';
+import 'package:fchan/provider/history_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ThreadWidget extends StatelessWidget {
@@ -69,18 +71,6 @@ class ThreadWidget extends StatelessWidget {
                         .toList(),
                     onSelected: (threadPopupMenuAction) async {
                       switch (threadPopupMenuAction) {
-                        // case ThreadPopupMenuAction.bookmark:
-                        // TODO: refactor this
-                        // if (context.read<BookmarkThreadsModel>().bookmarks.contains(thread)) {
-                        //   context.read<BookmarkThreadsModel>().removeThreadFromBookmarks(
-                        //       thread
-                        //   );
-                        // } else {
-                        //   context.read<BookmarkThreadsModel>().addThreadToBookmarks(
-                        //       thread
-                        //   );
-                        // }
-                        //   break;
                         case ThreadPopupMenuAction.openLink:
                           launch(_thread.threadUrl);
                           break;
@@ -88,6 +78,9 @@ class ThreadWidget extends StatelessWidget {
                           await FlutterClipboard.copy(
                               _thread.threadUrl
                           );
+                          break;
+                        case ThreadPopupMenuAction.removeFromHistory:
+                          context.read<HistoryModel>().removeFromHistory(_thread);
                           break;
                       }
                     },
@@ -151,8 +144,7 @@ class ThreadWidget extends StatelessWidget {
 }
 
 enum ThreadPopupMenuAction {
-  // TODO: uncomment when added Bookmarks
-  // bookmark,
   openLink,
   copyLink,
+  removeFromHistory,
 }

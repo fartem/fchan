@@ -16,17 +16,20 @@ class CachedNetworkImageWithLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: url,
-      width: width,
-      height: height,
-      progressIndicatorBuilder: (context, url, downloadProgress) => Center(
-        child: CircularProgressIndicator(
-          value: downloadProgress.progress,
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: CachedNetworkImage(
+        imageUrl: url,
+        width: width,
+        height: height,
+        progressIndicatorBuilder: (context, url, downloadProgress) => Center(
+          child: CircularProgressIndicator(
+            value: downloadProgress.progress,
+          ),
         ),
+        errorWidget: (context, url, error) => Container(),
+        cacheManager: ImageCacheManager(),
       ),
-      errorWidget: (context, url, error) => Container(),
-      cacheManager: ImageCacheManager(),
     );
   }
 }

@@ -52,17 +52,6 @@ class _ThreadState extends State<ThreadScreen> {
         title: Text(
           _thread.toString(),
         ),
-        // TODO: thread menu
-        // actions: [
-        //   IconButton(
-        //     icon: Icon(
-        //       Icons.more_vert,
-        //     ),
-        //     onPressed: () {
-        //
-        //     },
-        //   ),
-        // ],
       ),
       body: FutureBuilder<List<Post>>(
         future: _fChanRepository.postsForThread(_thread),
@@ -89,14 +78,6 @@ class _ThreadState extends State<ThreadScreen> {
       floatingActionButton: Visibility(
         visible: _showFab,
         child: FloatingActionButton(
-          // TODO: refactor
-          // child: Text(
-          //   '${context.fChanWords().commonRefreshText}',
-          //   textAlign: TextAlign.center,
-          //   style: TextStyle(
-          //     fontSize: 12,
-          //   ),
-          // ),
           child: Icon(
             Icons.refresh,
           ),

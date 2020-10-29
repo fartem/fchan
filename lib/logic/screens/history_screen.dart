@@ -1,6 +1,7 @@
+import 'package:fchan/entities/entity_page.dart';
+import 'package:fchan/entities/entity_portion.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
-import 'package:fchan/logic/db/fchan_database.dart';
 import 'package:fchan/logic/widgets/centered_circular_progress_indicator_widget.dart';
 import 'package:fchan/logic/widgets/centered_text_widget.dart';
 import 'package:fchan/logic/widgets/thread_widget.dart';
@@ -38,11 +39,11 @@ class _HistoryState extends State<HistoryScreen> {
   void _loadHistory() async {
     if (!_isLoading && !_isLastPage) {
       _isLoading = true;
-      DataPage dataPage = await context.read<HistoryModel>().history(
-        Portion.smallPage(_page),
+      EntityPortion entityPortion = await context.read<HistoryModel>().history(
+        EntityPage.paging(_page),
       );
-      _isLastPage = dataPage.isLastPage;
-      _history.addAll(dataPage.portion);
+      _isLastPage = entityPortion.isLastPage;
+      _history.addAll(entityPortion.entities);
       _isLoading = false;
       _page++;
       setState(() {

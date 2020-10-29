@@ -1,4 +1,5 @@
 import 'package:fchan/entities/board.dart';
+import 'package:fchan/entities/entity_page.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:fchan/logic/repository/repository.dart';
@@ -28,17 +29,52 @@ class _BoardState extends State<BoardScreen> {
   bool showFab = true;
 
   final Board _board;
+  final List<Thread> _catalog = [];
+
+  int _page = 1;
+  bool _catalogIsLoading = false;
+  bool _isLastPage = false;
 
   _BoardState(this._board);
 
   @override
   void initState() {
     super.initState();
+    _loadCatalog();
     _scrollController.addListener(() {
-      setState(() {
-        showFab = _scrollController.position.userScrollDirection != ScrollDirection.reverse;
-      });
+      if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
+        _loadCatalog();
+      } else {
+        setState(() {
+          showFab = _scrollController.position.userScrollDirection != ScrollDirection.reverse;
+        });
+      }
     });
+  }
+
+  void _loadCatalog() async {
+    if (!_catalogIsLoading && !_isLastPage) {
+      _catalogIsLoading = true;
+      final portion = await _fChanRepository.catalogForBoard(
+        _board,
+        EntityPage.paging(_page),
+      );
+      if (_catalog.isNotEmpty && _catalog.last is Loader) {
+        _catalog.removeLast();
+      }
+      _catalogIsLoading = false;
+      _isLastPage = portion.isLastPage;
+      if (!_isLastPage) {
+        _page++;
+      }
+      _catalog.addAll(portion.entities);
+      if (!portion.isLastPage) {
+        _catalog.add(Loader());
+      }
+      setState(() {
+
+      });
+    }
   }
 
   @override
@@ -49,38 +85,7 @@ class _BoardState extends State<BoardScreen> {
           _board.toString(),
         )
       ),
-      body: FutureBuilder<List<Thread>>(
-        future: _fChanRepository.catalogForBoard(_board),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data.isEmpty) {
-              return CenteredTextWidget(
-                context.fChanWords().catalogIsEmpty,
-              );
-            }
-            return StaggeredGridView.countBuilder(
-              crossAxisCount: 4,
-              staggeredTileBuilder: (index) => StaggeredTile.fit(2),
-              itemBuilder: (context, index) {
-                final thread = snapshot.data[index];
-                return ThreadWidget(
-                  thread,
-                  () async {
-                    await context.read<HistoryModel>().addToHistory(snapshot.data[index]);
-                  },
-                );
-              },
-              itemCount: snapshot.data.length,
-              controller: _scrollController,
-            );
-          } else if (snapshot.hasError) {
-            return CenteredTextWidget(
-              context.fChanWords().commonErrorMessage,
-            );
-          }
-          return CenteredCircularProgressIndicatorWidget();
-        },
-      ),
+      body: _catalogPresentation(),
       floatingActionButton: Visibility(
         visible: showFab,
         child: FloatingActionButton(
@@ -94,4 +99,54 @@ class _BoardState extends State<BoardScreen> {
       ),
     );
   }
+
+  Widget _catalogPresentation() {
+    if (_catalog.isEmpty) {
+      if (_catalogIsLoading) {
+        return CenteredCircularProgressIndicatorWidget();
+      }
+      return CenteredTextWidget(
+        context.fChanWords().catalogIsEmpty,
+      );
+    }
+    return StaggeredGridView.countBuilder(
+      crossAxisCount: 4,
+      staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+      itemBuilder: (context, index) {
+        final thread = _catalog[index];
+        if (thread is Loader) {
+          // TODO: set at center
+          return CenteredCircularProgressIndicatorWidget();
+        }
+        return ThreadWidget(
+          thread,
+          () async {
+            await context.read<HistoryModel>().addToHistory(thread);
+          },
+        );
+      },
+      itemCount: _catalog.length,
+      controller: _scrollController,
+    );
+  }
+}
+
+class Loader extends Thread {
+  Loader() : super(
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+  );
 }

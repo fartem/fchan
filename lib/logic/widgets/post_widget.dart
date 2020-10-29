@@ -90,7 +90,3 @@ class PostWidget extends StatelessWidget {
     );
   }
 }
-
-enum PostPopupMenuAction {
-  saveImageToGallery,
-}
