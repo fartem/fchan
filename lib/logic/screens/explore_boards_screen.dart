@@ -1,10 +1,12 @@
-import 'package:fchan/entities/board.dart';
-import 'package:fchan/extensions/build_context_extensions.dart';
-import 'package:fchan/logic/widgets/centered_circular_progress_indicator_widget.dart';
-import 'package:fchan/logic/widgets/centered_text_widget.dart';
-import 'package:fchan/provider/boards_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../entities/board.dart';
+import '../../extensions/build_context_extensions.dart';
+import '../../extensions/theme_extensions.dart';
+import '../../provider/boards_model.dart';
+import '../widgets/centered_circular_progress_indicator_widget.dart';
+import '../widgets/centered_text_widget.dart';
 
 class ExploreBoardsScreen extends StatefulWidget {
   @override
@@ -49,7 +51,7 @@ class _ExploreBoardsState extends State<ExploreBoardsScreen> {
       title: Text(board.toString()),
       trailing: Icon(
         board.isFavorite ? Icons.star : Icons.star_border,
-        color: board.isFavorite ? Colors.blue : Colors.grey,
+        color: board.isFavorite ? context.accentColor : Colors.grey,
       ),
       onTap: () async {
         if (!board.isFavorite) {

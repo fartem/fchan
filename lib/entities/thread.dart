@@ -1,5 +1,5 @@
-import 'package:fchan/entities/board.dart';
-import 'package:fchan/entities/storage_entitiy.dart';
+import 'board.dart';
+import 'storage_entitiy.dart';
 
 class Thread extends StorageEntity {
   final Board board;

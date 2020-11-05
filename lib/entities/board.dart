@@ -1,4 +1,4 @@
-import 'package:fchan/entities/storage_entitiy.dart';
+import 'storage_entitiy.dart';
 
 class Board extends StorageEntity {
   final String board;

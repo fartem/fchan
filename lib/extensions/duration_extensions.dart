@@ -1,6 +1,6 @@
 extension DurationExtensions on Duration {
   String formatToTime() {
-    int seconds = this.inSeconds;
+    var seconds = inSeconds;
 
     final days = seconds ~/ Duration.secondsPerDay;
     seconds -= days * Duration.secondsPerDay;

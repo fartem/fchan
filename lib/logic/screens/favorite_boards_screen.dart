@@ -1,11 +1,12 @@
-import 'package:fchan/entities/board.dart';
-import 'package:fchan/extensions/build_context_extensions.dart';
-import 'package:fchan/logic/routes/fchan_route.dart';
-import 'package:fchan/logic/widgets/centered_circular_progress_indicator_widget.dart';
-import 'package:fchan/logic/widgets/centered_text_widget.dart';
-import 'package:fchan/provider/boards_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../entities/board.dart';
+import '../../extensions/build_context_extensions.dart';
+import '../../provider/boards_model.dart';
+import '../routes/fchan_route.dart';
+import '../widgets/centered_circular_progress_indicator_widget.dart';
+import '../widgets/centered_text_widget.dart';
 
 class FavoriteBoardsScreen extends StatefulWidget {
   @override

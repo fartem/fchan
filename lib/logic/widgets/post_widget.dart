@@ -1,10 +1,11 @@
-import 'package:fchan/entities/post.dart';
-import 'package:fchan/extensions/build_context_extensions.dart';
-import 'package:fchan/extensions/duration_extensions.dart';
-import 'package:fchan/logic/widgets/cached_network_image_with_loader.dart';
-import 'package:fchan/logic/widgets/content_html_text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../entities/post.dart';
+import '../../extensions/build_context_extensions.dart';
+import '../../extensions/duration_extensions.dart';
+import 'cached_network_image_with_loader.dart';
+import 'content_html_text_widget.dart';
 
 class PostWidget extends StatelessWidget {
   final Post _post;

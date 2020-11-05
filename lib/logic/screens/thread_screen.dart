@@ -1,14 +1,15 @@
-import 'package:fchan/entities/post.dart';
-import 'package:fchan/entities/thread.dart';
-import 'package:fchan/extensions/build_context_extensions.dart';
-import 'package:fchan/logic/repository/repository.dart';
-import 'package:fchan/logic/widgets/centered_circular_progress_indicator_widget.dart';
-import 'package:fchan/logic/widgets/centered_text_widget.dart';
-import 'package:fchan/logic/widgets/post_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get_it/get_it.dart';
+
+import '../../entities/post.dart';
+import '../../entities/thread.dart';
+import '../../extensions/build_context_extensions.dart';
+import '../repository/repository.dart';
+import '../widgets/centered_circular_progress_indicator_widget.dart';
+import '../widgets/centered_text_widget.dart';
+import '../widgets/post_widget.dart';
 
 class ThreadScreen extends StatefulWidget {
   final Thread _thread;

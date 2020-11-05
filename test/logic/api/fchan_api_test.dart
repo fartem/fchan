@@ -9,8 +9,8 @@ import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 void main() {
-  final MockHttpClient mockHttpClient = MockHttpClient();
-  final FChanApi fChanApi = FChanApi(mockHttpClient);
+  final mockHttpClient = MockHttpClient();
+  final fChanApi = FChanApi(mockHttpClient);
   group('Check FChanAPI', () {
     group('Check boards fetching', () {
       test('Check boards fetching success', () async {

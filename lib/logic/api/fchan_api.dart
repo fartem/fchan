@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:fchan/entities/board.dart';
-import 'package:fchan/entities/entity_page.dart';
-import 'package:fchan/entities/entity_portion.dart';
-import 'package:fchan/entities/post.dart';
-import 'package:fchan/entities/thread.dart';
-import 'package:fchan/extensions/int_extensions.dart';
-import 'package:fchan/logic/api/chan_api.dart';
 import 'package:http/http.dart';
+
+import '../../entities/board.dart';
+import '../../entities/entity_page.dart';
+import '../../entities/entity_portion.dart';
+import '../../entities/post.dart';
+import '../../entities/thread.dart';
+import '../../extensions/int_extensions.dart';
+import 'chan_api.dart';
 
 class FChanApi extends ChanApi {
   static final _boardsCache = <String, Board>{};
@@ -39,7 +40,7 @@ class FChanApi extends ChanApi {
 
   Board _boardFromJson(Map<String, dynamic> json) {
     final boardName = json['board'];
-    Board board = _boardsCache[boardName];
+    var board = _boardsCache[boardName];
     if (board == null) {
       board = Board(
         json['board'],
@@ -60,7 +61,7 @@ class FChanApi extends ChanApi {
     final response = await _client.get(uri);
     if (response.statusCode == 200) {
       Map<String, dynamic> body = jsonDecode(response.body);
-      List<Thread> parsedThreads = (body['threads'] as List)
+      final parsedThreads = (body['threads'] as List)
           .map((posts) => _threadFromJson(board, posts['posts'].first))
           .toList();
       return EntityPortion<Thread>(
@@ -128,7 +129,7 @@ class FChanApi extends ChanApi {
       filename != null ? _cdnImageUri('/${board.board}/$tim$ext').toString() : null,
       json['w'],
       json['h'],
-      filename != null ? _cdnUri('/${board.board}/${tim}s.jpg').toString() : null,
+      filename != null ? _cdnImageUri('/${board.board}/${tim}s.jpg').toString() : null,
       json['tn_w'],
       json['tn_h'],
       ext,

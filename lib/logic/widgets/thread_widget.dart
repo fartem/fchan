@@ -1,15 +1,16 @@
 import 'package:clipboard/clipboard.dart';
-import 'package:fchan/entities/thread.dart';
-import 'package:fchan/extensions/build_context_extensions.dart';
-import 'package:fchan/extensions/duration_extensions.dart';
-import 'package:fchan/logic/routes/fchan_route.dart';
-import 'package:fchan/logic/widgets/cached_network_image_with_loader.dart';
-import 'package:fchan/logic/widgets/content_html_text_widget.dart';
-import 'package:fchan/logic/words/fchan_words.dart';
-import 'package:fchan/provider/history_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../entities/thread.dart';
+import '../../extensions/build_context_extensions.dart';
+import '../../extensions/duration_extensions.dart';
+import '../../provider/history_model.dart';
+import '../routes/fchan_route.dart';
+import '../words/fchan_words.dart';
+import 'cached_network_image_with_loader.dart';
+import 'content_html_text_widget.dart';
 
 class ThreadWidget extends StatelessWidget {
   final Thread _thread;
@@ -23,10 +24,10 @@ class ThreadWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(2.0),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: InkWell(
+      margin: const EdgeInsets.all(4.0),
+      child: InkWell(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
               Row(
@@ -99,11 +100,9 @@ class ThreadWidget extends StatelessWidget {
               if (_thread.sub != null)
                 Align(
                   alignment: AlignmentDirectional.centerStart,
-                  child: Text(
+                  child: ContentHtmlTextWidget(
                     _thread.sub,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    bodyWeight: FontWeight.bold,
                   ),
                 ),
               if (_thread.com != null)
@@ -115,30 +114,30 @@ class ThreadWidget extends StatelessWidget {
                 ),
             ],
           ),
-          onTap: () {
-            _threadClickAdditionalAction.call();
-            context.push(
-                FChanRoute.threadScreen,
-                arguments: _thread
-            );
-          }
         ),
+        onTap: () {
+          _threadClickAdditionalAction.call();
+          context.push(
+            FChanRoute.threadScreen,
+            arguments: _thread,
+          );
+        }
       ),
     );
   }
 
   String _prepareThreadDateAndImageFormatInfo(Thread thread) {
-    String dateAtStart = thread.timeFromPublish.formatToTime();
-    String imageFormat = thread.ext;
+    final dateAtStart = thread.timeFromPublish.formatToTime();
+    final imageFormat = thread.ext;
     return '$dateAtStart ${imageFormat == null ? '' : imageFormat}';
   }
 
   String _prepareThreadRepliesAndImagesInfo(
       FChanWords fChanWords,
-      Thread thread
+      Thread thread,
   ) {
-    String replies = '${thread.replies == 0 ? '' : '${thread.replies} ${fChanWords.repliesTitle}'}';
-    String images = '${thread.images == 0 ? '' : '${thread.images} ${fChanWords.imagesTitle}'}';
+    final replies = '${thread.replies == 0 ? '' : '${thread.replies} ${fChanWords.repliesTitle}'}';
+    final images = '${thread.images == 0 ? '' : '${thread.images} ${fChanWords.imagesTitle}'}';
     return '$replies $images'.trim();
   }
 }

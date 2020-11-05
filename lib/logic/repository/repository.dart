@@ -1,10 +1,10 @@
-import 'package:fchan/entities/board.dart';
-import 'package:fchan/entities/entity_page.dart';
-import 'package:fchan/entities/entity_portion.dart';
-import 'package:fchan/entities/post.dart';
-import 'package:fchan/entities/thread.dart';
-import 'package:fchan/logic/api/chan_api.dart';
-import 'package:fchan/logic/db/fchan_database.dart';
+import '../../entities/board.dart';
+import '../../entities/entity_page.dart';
+import '../../entities/entity_portion.dart';
+import '../../entities/post.dart';
+import '../../entities/thread.dart';
+import '../api/chan_api.dart';
+import '../db/fchan_database.dart';
 
 class FChanRepository {
   final FChanDatabase _fChanDatabase;

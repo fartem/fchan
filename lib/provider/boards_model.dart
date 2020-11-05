@@ -1,6 +1,7 @@
-import 'package:fchan/entities/board.dart';
-import 'package:fchan/logic/repository/repository.dart';
 import 'package:flutter/material.dart';
+
+import '../entities/board.dart';
+import '../logic/repository/repository.dart';
 
 class BoardsModel with ChangeNotifier {
   final FChanRepository _fChanRepository;

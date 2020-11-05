@@ -1,24 +1,25 @@
-import 'package:fchan/extensions/build_context_extensions.dart';
-import 'package:fchan/logic/api/fchan_api.dart';
-import 'package:fchan/logic/db/sqflite_database.dart';
-import 'package:fchan/logic/repository/repository.dart';
-import 'package:fchan/logic/routes/fchan_route.dart';
-import 'package:fchan/logic/screens/board_screen.dart';
-import 'package:fchan/logic/screens/explore_boards_screen.dart';
-import 'package:fchan/logic/screens/favorite_boards_screen.dart';
-import 'package:fchan/logic/screens/history_screen.dart';
-import 'package:fchan/logic/screens/thread_screen.dart';
-import 'package:fchan/logic/theme/fchan_theme.dart';
-import 'package:fchan/logic/words/fchan_words.dart';
-import 'package:fchan/provider/boards_model.dart';
-import 'package:fchan/provider/history_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
+import 'extensions/build_context_extensions.dart';
+import 'logic/api/fchan_api.dart';
+import 'logic/db/sqflite_database.dart';
+import 'logic/repository/repository.dart';
+import 'logic/routes/fchan_route.dart';
+import 'logic/screens/board_screen.dart';
+import 'logic/screens/explore_boards_screen.dart';
+import 'logic/screens/favorite_boards_screen.dart';
+import 'logic/screens/history_screen.dart';
+import 'logic/screens/thread_screen.dart';
+import 'logic/theme/fchan_theme.dart';
+import 'logic/words/fchan_words.dart';
+import 'provider/boards_model.dart';
+import 'provider/history_model.dart';
+
 void main() {
-  final GetIt getIt = GetIt.I;
+  final getIt = GetIt.I;
   getIt.registerSingleton<FChanRepository>(
     FChanRepository(
       SQFLiteDatabase(),
@@ -37,6 +38,7 @@ class FChanApp extends StatefulWidget {
 class FChanAppState extends State<FChanApp> {
   @override
   Widget build(BuildContext context) {
+    final theme = FChanTheme();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -83,8 +85,8 @@ class FChanAppState extends State<FChanApp> {
         },
         initialRoute: FChanRoute.initScreen,
         title: 'FChan',
-        theme: FChanTheme.light,
-        darkTheme: FChanTheme.dark,
+        theme: theme.light,
+        darkTheme: theme.dark,
         themeMode: ThemeMode.system,
       ),
     );
@@ -92,7 +94,7 @@ class FChanAppState extends State<FChanApp> {
 
   @override
   void dispose() {
-    FChanRepository fChanRepository = GetIt.I.get();
+    final fChanRepository = GetIt.I.get<FChanRepository>();
     fChanRepository.dispose();
     super.dispose();
   }
@@ -109,7 +111,7 @@ class _FChanState extends State<FChan> {
   @override
   Widget build(BuildContext context) {
     // TODO: refactor this
-    final List<NavigationPage> _screens = [
+    final _screens = [
       NavigationPage(
         FavoriteBoardsScreen(),
         context.fChanWords().boardsTitle,
@@ -134,7 +136,7 @@ class _FChanState extends State<FChan> {
         [],
       ),
     ];
-    NavigationPage currentPage = _screens[_currentIndex];
+    final currentPage = _screens[_currentIndex];
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -167,7 +169,7 @@ class FChanInitState extends State<FChanInit> {
   @override
   void initState() {
     super.initState();
-    FChanRepository fChanRepository = GetIt.I.get();
+    final fChanRepository = GetIt.I.get<FChanRepository>();
     Future.microtask(() => fChanRepository.init()).then((fChanDatabase) {
       context.pushReplace(
         FChanRoute.homeScreen,

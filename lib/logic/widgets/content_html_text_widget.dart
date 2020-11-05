@@ -4,8 +4,9 @@ import 'package:flutter_html/style.dart';
 
 class ContentHtmlTextWidget extends StatelessWidget {
   final String _text;
+  final FontWeight bodyWeight;
 
-  ContentHtmlTextWidget(this._text);
+  ContentHtmlTextWidget(this._text, {this.bodyWeight = FontWeight.normal});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class ContentHtmlTextWidget extends StatelessWidget {
         'body': Style(
           margin: const EdgeInsets.all(0),
           padding: const EdgeInsets.all(0),
+          fontWeight: bodyWeight,
         ),
         'span': Style(
           // TODO: add theme

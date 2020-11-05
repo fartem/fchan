@@ -1,14 +1,15 @@
-import 'package:fchan/entities/entity_page.dart';
-import 'package:fchan/entities/entity_portion.dart';
-import 'package:fchan/entities/thread.dart';
-import 'package:fchan/extensions/build_context_extensions.dart';
-import 'package:fchan/logic/widgets/centered_circular_progress_indicator_widget.dart';
-import 'package:fchan/logic/widgets/centered_text_widget.dart';
-import 'package:fchan/logic/widgets/thread_widget.dart';
-import 'package:fchan/provider/history_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
+
+import '../../entities/entity_page.dart';
+import '../../entities/entity_portion.dart';
+import '../../entities/thread.dart';
+import '../../extensions/build_context_extensions.dart';
+import '../../provider/history_model.dart';
+import '../widgets/centered_circular_progress_indicator_widget.dart';
+import '../widgets/centered_text_widget.dart';
+import '../widgets/thread_widget.dart';
 
 class HistoryScreen extends StatefulWidget {
   @override
