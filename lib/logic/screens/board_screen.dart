@@ -72,9 +72,7 @@ class _BoardState extends State<BoardScreen> {
       if (!portion.isLastPage) {
         _catalog.add(Loader());
       }
-      setState(() {
-
-      });
+      setState(() {});
     }
   }
 

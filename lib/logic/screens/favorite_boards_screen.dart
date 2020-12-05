@@ -26,7 +26,10 @@ class _FavoriteBoardsState extends State<FavoriteBoardsScreen> {
             );
           }
           return ListView.builder(
-            itemBuilder: (context, index) => _boardListItem(context, snapshot.data[index]),
+            itemBuilder: (context, index) => _boardListItem(
+              context,
+              snapshot.data[index],
+            ),
             itemCount: snapshot.data.length,
           );
         } else if (snapshot.hasError) {

@@ -82,9 +82,7 @@ class _ThreadState extends State<ThreadScreen> {
           child: Icon(
             Icons.refresh,
           ),
-          onPressed: () {
-            setState(() {});
-          },
+          onPressed: () => setState(() {}),
         ),
       ),
     );

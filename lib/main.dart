@@ -151,9 +151,7 @@ class _FChanState extends State<FChan> {
         // TODO: performance?
         items: _screens.map((screen) => screen.bottomNavigationBarItem).toList(),
         onTap: (selectedIndex) {
-          setState(() {
-            _currentIndex = selectedIndex;
-          });
+          setState(() => _currentIndex = selectedIndex);
         },
       ),
     );

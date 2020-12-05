@@ -26,8 +26,8 @@ class FChanRepository {
     final result = <Board>[];
     boards.forEach((board) {
       final favorite = favorites.firstWhere(
-            (favorite) => favorite == board,
-            orElse: () => null,
+        (favorite) => favorite == board,
+        orElse: () => null,
       );
       if (favorite != null) {
         result.add(favorite);
@@ -38,36 +38,20 @@ class FChanRepository {
     return result;
   }
 
-  Future<List<Board>> favoriteBoards() {
-    return _fChanDatabase
-        .favoriteBoards(EntityPage.all())
-        .then((favoriteBoards) => favoriteBoards.entities);
-  }
+  Future<List<Board>> favoriteBoards() =>
+      _fChanDatabase.favoriteBoards(EntityPage.all()).then((favoriteBoards) => favoriteBoards.entities);
 
-  Future<Board> addBoardToFavorites(Board board) {
-    return _fChanDatabase.addToFavorites(board);
-  }
+  Future<Board> addBoardToFavorites(Board board) => _fChanDatabase.addToFavorites(board);
 
-  Future<Board> removeBoardFromFavorites(Board board) {
-    return _fChanDatabase.removeFromFavorites(board);
-  }
+  Future<Board> removeBoardFromFavorites(Board board) => _fChanDatabase.removeFromFavorites(board);
 
-  Future<EntityPortion<Thread>> history(EntityPage entityPage) {
-    return _fChanDatabase.historyThreads(entityPage);
-  }
+  Future<EntityPortion<Thread>> history(EntityPage entityPage) => _fChanDatabase.historyThreads(entityPage);
 
-  Future<Thread> addThreadToHistory(Thread thread) {
-    return _fChanDatabase.addToHistory(thread);
-  }
+  Future<Thread> addThreadToHistory(Thread thread) => _fChanDatabase.addToHistory(thread);
 
-  Future<Thread> removeThreadFromHistory(Thread thread) {
-    return _fChanDatabase.removeFromHistory(thread);
-  }
+  Future<Thread> removeThreadFromHistory(Thread thread) => _fChanDatabase.removeFromHistory(thread);
 
-  Future<EntityPortion<Thread>> catalogForBoard(
-      Board board,
-      EntityPage entityPage
-  ) async {
+  Future<EntityPortion<Thread>> catalogForBoard(Board board, EntityPage entityPage) async {
     final portion = await _chanApi.fetchCatalog(board, entityPage);
     for (var i = 0; i < portion.entities.length; i++) {
       final historyThread = await _fChanDatabase.threadFromHistory(portion.entities[i]);
@@ -78,7 +62,5 @@ class FChanRepository {
     return portion;
   }
 
-  Future<List<Post>> postsForThread(Thread thread) {
-    return _chanApi.fetchPosts(thread);
-  }
+  Future<List<Post>> postsForThread(Thread thread) => _chanApi.fetchPosts(thread);
 }

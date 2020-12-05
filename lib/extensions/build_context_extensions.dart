@@ -6,7 +6,7 @@ import '../logic/words/fchan_words.dart';
 extension BuildContextExtensions on BuildContext {
   FChanWords fChanWords() => GetIt.I.get();
 
-  void push(String route, { arguments }) {
+  void push(String route, {arguments}) {
     Navigator.pushNamed(
       this,
       route,
@@ -14,7 +14,7 @@ extension BuildContextExtensions on BuildContext {
     );
   }
 
-  void pushReplace(String route, { arguments }) {
+  void pushReplace(String route, {arguments}) {
     Navigator.pushReplacementNamed(
       this,
       route,

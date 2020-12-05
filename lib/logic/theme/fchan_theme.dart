@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class FChanTheme {
-
   static const _accentColors = <MaterialColor>[
     Colors.green,
     Colors.blue,
@@ -12,20 +11,22 @@ class FChanTheme {
     Colors.red,
   ];
 
-  ThemeData get light => _themeData(
-    Brightness.light,
-    _randomColor(),
-    appBarColor: Colors.grey,
-  );
-  ThemeData get dark => _themeData(
-    Brightness.dark,
-    _randomColor(),
-  );
+  ThemeData get light =>
+      _themeData(
+        Brightness.light,
+        _randomColor(),
+        appBarColor: Colors.grey,
+      );
 
-  static ThemeData _themeData(
-      Brightness brightness,
+  ThemeData get dark =>
+      _themeData(
+        Brightness.dark,
+        _randomColor(),
+      );
+
+  static ThemeData _themeData(Brightness brightness,
       Color accentColor,
-      { Color appBarColor }
+      {Color appBarColor}
   ) {
     return ThemeData(
       brightness: brightness,
@@ -43,8 +44,5 @@ class FChanTheme {
     );
   }
 
-  static Color _randomColor() {
-    return _accentColors[Random().nextInt(_accentColors.length)];
-  }
-
+  static Color _randomColor() => _accentColors[Random().nextInt(_accentColors.length)];
 }
