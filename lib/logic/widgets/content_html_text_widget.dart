@@ -6,7 +6,10 @@ class ContentHtmlTextWidget extends StatelessWidget {
   final String _text;
   final FontWeight bodyWeight;
 
-  ContentHtmlTextWidget(this._text, {this.bodyWeight = FontWeight.normal});
+  ContentHtmlTextWidget(
+    this._text, {
+    this.bodyWeight = FontWeight.normal,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +32,7 @@ class ContentHtmlTextWidget extends StatelessWidget {
           color: Colors.green[700],
         ),
       },
-      onLinkTap: (link) {
-
-      },
+      onLinkTap: (link) {},
     );
   }
 }

@@ -23,9 +23,7 @@ class FChanApi extends ChanApi {
     final uri = _cdnUri('boards.json');
     final response = await _client.get(uri);
     if (response.statusCode == 200) {
-      return (jsonDecode(response.body)['boards'] as List)
-          .map((rawBoard) => _boardFromJson(rawBoard))
-          .toList();
+      return (jsonDecode(response.body)['boards'] as List).map((rawBoard) => _boardFromJson(rawBoard)).toList();
     } else {
       throw HttpException('Cannot fetch boards from $uri');
     }
@@ -54,16 +52,15 @@ class FChanApi extends ChanApi {
 
   @override
   Future<EntityPortion<Thread>> fetchCatalog(
-      Board board,
-      EntityPage entityPage,
+    Board board,
+    EntityPage entityPage,
   ) async {
     final uri = _cdnUri('${board.board}/${entityPage.page}.json');
     final response = await _client.get(uri);
     if (response.statusCode == 200) {
       Map<String, dynamic> body = jsonDecode(response.body);
-      final parsedThreads = (body['threads'] as List)
-          .map((posts) => _threadFromJson(board, posts['posts'].first))
-          .toList();
+      final parsedThreads =
+          (body['threads'] as List).map((posts) => _threadFromJson(board, posts['posts'].first)).toList();
       return EntityPortion<Thread>(
         parsedThreads,
         entityPage.page == 10,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../entities/board.dart';
 import '../../extensions/build_context_extensions.dart';
-import '../../provider/boards_model.dart';
+import '../repository/repository.dart';
 import '../routes/fchan_route.dart';
 import '../widgets/centered_circular_progress_indicator_widget.dart';
 import '../widgets/centered_text_widget.dart';
@@ -14,10 +14,12 @@ class FavoriteBoardsScreen extends StatefulWidget {
 }
 
 class _FavoriteBoardsState extends State<FavoriteBoardsScreen> {
+  final FChanRepository _fChanRepository = GetIt.I.get();
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Board>>(
-      future: context.watch<BoardsModel>().favoriteBoards(),
+      future: _fChanRepository.favoriteBoards(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           if (snapshot.data.isEmpty) {

@@ -13,17 +13,17 @@ class Post {
   final String ext;
 
   Post(
-      this.no,
-      this.sub,
-      this.com,
-      this.replies,
-      this.timeFromPublish,
-      this.imageUrl,
-      this.imageWidth,
-      this.imageHeight,
-      this.thumbnailImageUrl,
-      this.thumbnailImageWidth,
-      this.thumbnailImageHeight,
-      this.ext,
+    this.no,
+    this.sub,
+    this.com,
+    this.replies,
+    this.timeFromPublish,
+    this.imageUrl,
+    this.imageWidth,
+    this.imageHeight,
+    this.thumbnailImageUrl,
+    this.thumbnailImageWidth,
+    this.thumbnailImageHeight,
+    this.ext,
   );
 }

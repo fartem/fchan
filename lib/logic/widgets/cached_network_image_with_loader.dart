@@ -9,9 +9,9 @@ class CachedNetworkImageWithLoader extends StatelessWidget {
   final double height;
 
   CachedNetworkImageWithLoader(
-      this.url,
-      this.width,
-      this.height,
+    this.url,
+    this.width,
+    this.height,
   );
 
   @override
@@ -22,11 +22,13 @@ class CachedNetworkImageWithLoader extends StatelessWidget {
         imageUrl: url,
         width: width,
         height: height,
-        progressIndicatorBuilder: (context, url, downloadProgress) => Center(
-          child: CircularProgressIndicator(
-            value: downloadProgress.progress,
-          ),
-        ),
+        progressIndicatorBuilder: (context, url, downloadProgress) {
+          return Center(
+            child: CircularProgressIndicator(
+              value: downloadProgress.progress,
+            ),
+          );
+        },
         errorWidget: (context, url, error) => Container(),
         cacheManager: ImageCacheManager(),
       ),
@@ -39,7 +41,7 @@ class ImageCacheManager extends BaseCacheManager {
 
   static ImageCacheManager _instance;
 
-  ImageCacheManager._(): super(key);
+  ImageCacheManager._() : super(key);
 
   factory ImageCacheManager() {
     if (_instance == null) {

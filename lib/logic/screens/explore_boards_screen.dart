@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../entities/board.dart';
 import '../../extensions/build_context_extensions.dart';
 import '../../extensions/theme_extensions.dart';
-import '../../provider/boards_model.dart';
+import '../repository/repository.dart';
 import '../widgets/centered_circular_progress_indicator_widget.dart';
 import '../widgets/centered_text_widget.dart';
 
@@ -14,6 +14,8 @@ class ExploreBoardsScreen extends StatefulWidget {
 }
 
 class _ExploreBoardsState extends State<ExploreBoardsScreen> {
+  final FChanRepository _fChanRepository = GetIt.I.get();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +25,7 @@ class _ExploreBoardsState extends State<ExploreBoardsScreen> {
         ),
       ),
       body: FutureBuilder<List<Board>>(
-        future: context.watch<BoardsModel>().boards(),
+        future: _fChanRepository.boards(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data.isEmpty) {
@@ -55,10 +57,11 @@ class _ExploreBoardsState extends State<ExploreBoardsScreen> {
       ),
       onTap: () async {
         if (!board.isFavorite) {
-          context.read<BoardsModel>().addFavoriteBoard(board);
+          await _fChanRepository.addBoardToFavorites(board);
         } else {
-          context.read<BoardsModel>().removeFavoriteBoard(board);
+          await _fChanRepository.removeBoardFromFavorites(board);
         }
+        setState(() {});
       },
     );
   }

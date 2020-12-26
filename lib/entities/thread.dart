@@ -19,31 +19,28 @@ class Thread extends StorageEntity {
   final String ext;
 
   Thread(
-      this.board,
-      this.threadUrl,
-      this.no,
-      this.sub,
-      this.com,
-      this.timeFromPublish,
-      this.replies,
-      this.images,
-      this.imageUrl,
-      this.imageWidth,
-      this.imageHeight,
-      this.thumbnailImageUrl,
-      this.thumbnailImageWidth,
-      this.thumbnailImageHeight,
-      this.ext,
-      {id}
-  ) : super(id);
+    this.board,
+    this.threadUrl,
+    this.no,
+    this.sub,
+    this.com,
+    this.timeFromPublish,
+    this.replies,
+    this.images,
+    this.imageUrl,
+    this.imageWidth,
+    this.imageHeight,
+    this.thumbnailImageUrl,
+    this.thumbnailImageWidth,
+    this.thumbnailImageHeight,
+    this.ext, {
+    id,
+  }) : super(id);
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Thread
-          && runtimeType == other.runtimeType
-          && board == other.board
-          && no == other.no;
+      other is Thread && runtimeType == other.runtimeType && board == other.board && no == other.no;
 
   @override
   int get hashCode => board.hashCode ^ no.hashCode;

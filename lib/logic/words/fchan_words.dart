@@ -2,6 +2,7 @@ abstract class FChanWords {
   String get homeTitle;
 
   String get boardsTitle;
+
   String get boardsIsEmptyMessage;
 
   String get exploreBoardsTitle;
@@ -9,16 +10,27 @@ abstract class FChanWords {
   String get catalogIsEmpty;
 
   String get historyTitle;
+
   String get historyIsEmptyMessage;
 
   String get postsInThreadIsEmptyMessage;
 
   String get repliesTitle;
+
   String get imagesTitle;
 
+  String get threadActionOpenLink;
+
+  String get threadActionCopyLink;
+
+  String get threadActionRemoveFromHistory;
+
   String get commonRefreshText;
+
   String get commonReplyText;
+
   String get commonRepliesText;
+
   String get commonErrorMessage;
 }
 
@@ -52,6 +64,15 @@ class FChanWordsImpl extends FChanWords {
 
   @override
   String get imagesTitle => 'Img';
+
+  @override
+  String get threadActionOpenLink => 'Open link';
+
+  @override
+  String get threadActionCopyLink => 'Copy link';
+
+  @override
+  String get threadActionRemoveFromHistory => 'Remove from History';
 
   @override
   String get commonRefreshText => 'Refresh';

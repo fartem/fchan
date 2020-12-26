@@ -12,13 +12,9 @@ class FChanRepository {
 
   FChanRepository(this._fChanDatabase, this._chanApi);
 
-  Future<void> init() async {
-    await _fChanDatabase.init();
-  }
+  Future<void> init() async => await _fChanDatabase.init();
 
-  Future<void> dispose() async {
-    await _fChanDatabase.close();
-  }
+  Future<void> dispose() async => await _fChanDatabase.close();
 
   Future<List<Board>> boards() async {
     final favorites = await favoriteBoards();
@@ -46,6 +42,8 @@ class FChanRepository {
   Future<Board> removeBoardFromFavorites(Board board) => _fChanDatabase.removeFromFavorites(board);
 
   Future<EntityPortion<Thread>> history(EntityPage entityPage) => _fChanDatabase.historyThreads(entityPage);
+
+  Future<bool> threadContainsInHistory(Thread thread) => _fChanDatabase.containsInHistory(thread);
 
   Future<Thread> addThreadToHistory(Thread thread) => _fChanDatabase.addToHistory(thread);
 

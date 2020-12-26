@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get_it/get_it.dart';
-import 'package:provider/provider.dart';
 
 import '../../entities/board.dart';
 import '../../entities/entity_page.dart';
 import '../../entities/thread.dart';
 import '../../extensions/build_context_extensions.dart';
-import '../../provider/history_model.dart';
 import '../repository/repository.dart';
 import '../widgets/centered_circular_progress_indicator_widget.dart';
 import '../widgets/centered_text_widget.dart';
@@ -80,10 +78,9 @@ class _BoardState extends State<BoardScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          _board.toString(),
-        )
-      ),
+          title: Text(
+        _board.toString(),
+      )),
       body: _catalogPresentation(),
       floatingActionButton: Visibility(
         visible: showFab,
@@ -127,9 +124,11 @@ class _BoardState extends State<BoardScreen> {
         }
         return ThreadWidget(
           thread,
-          () async {
-            await context.read<HistoryModel>().addToHistory(thread);
-          },
+          () async => await _fChanRepository.addThreadToHistory(thread),
+          [
+            ThreadPopupMenuAction.openLink,
+            ThreadPopupMenuAction.copyLink,
+          ],
         );
       },
       itemCount: _catalog.length,
@@ -139,21 +138,22 @@ class _BoardState extends State<BoardScreen> {
 }
 
 class Loader extends Thread {
-  Loader() : super(
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-  );
+  Loader()
+      : super(
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+        );
 }

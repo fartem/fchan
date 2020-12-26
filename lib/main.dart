@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
-import 'package:provider/provider.dart';
 
 import 'extensions/build_context_extensions.dart';
 import 'logic/api/fchan_api.dart';
@@ -15,17 +14,13 @@ import 'logic/screens/history_screen.dart';
 import 'logic/screens/thread_screen.dart';
 import 'logic/theme/fchan_theme.dart';
 import 'logic/words/fchan_words.dart';
-import 'provider/boards_model.dart';
-import 'provider/history_model.dart';
 
 void main() {
   final getIt = GetIt.I;
-  getIt.registerSingleton<FChanRepository>(
-    FChanRepository(
-      SQFLiteDatabase(),
-      FChanApi(Client()),
-    )
-  );
+  getIt.registerSingleton<FChanRepository>(FChanRepository(
+    SQFLiteDatabase(),
+    FChanApi(Client()),
+  ));
   getIt.registerSingleton<FChanWords>(FChanWordsImpl());
   runApp(FChanApp());
 }
@@ -38,57 +33,42 @@ class FChanApp extends StatefulWidget {
 class FChanAppState extends State<FChanApp> {
   @override
   Widget build(BuildContext context) {
-    final theme = FChanTheme();
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => BoardsModel(
-            GetIt.I.get(),
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => HistoryModel(
-            GetIt.I.get(),
-          ),
-        ),
-      ],
-      child: MaterialApp(
-        onGenerateRoute: (settings) {
-          switch (settings.name) {
-            case FChanRoute.initScreen:
-              return MaterialPageRoute(
-                builder: (context) => FChanInit(),
-              );
-            case FChanRoute.homeScreen:
-              return MaterialPageRoute(
-                  builder: (context) => FChan(),
-              );
-            case FChanRoute.exploreBoardsScreen:
-              return MaterialPageRoute(
-                builder: (context) => ExploreBoardsScreen(),
-              );
-            case FChanRoute.boardScreen:
-              return MaterialPageRoute(
-                builder: (context) => BoardScreen(
-                    settings.arguments,
-                )
-              );
-            case FChanRoute.threadScreen:
-              return MaterialPageRoute(
-                builder: (context) => ThreadScreen(
-                  settings.arguments,
-                )
-              );
-            default:
-              return null;
-          }
-        },
-        initialRoute: FChanRoute.initScreen,
-        title: 'FChan',
-        theme: theme.light,
-        darkTheme: theme.dark,
-        themeMode: ThemeMode.system,
-      ),
+    return MaterialApp(
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case FChanRoute.initScreen:
+            return MaterialPageRoute(
+              builder: (context) => FChanInit(),
+            );
+          case FChanRoute.homeScreen:
+            return MaterialPageRoute(
+              builder: (context) => FChan(),
+            );
+          case FChanRoute.exploreBoardsScreen:
+            return MaterialPageRoute(
+              builder: (context) => ExploreBoardsScreen(),
+            );
+          case FChanRoute.boardScreen:
+            return MaterialPageRoute(
+              builder: (context) => BoardScreen(
+                settings.arguments,
+              ),
+            );
+          case FChanRoute.threadScreen:
+            return MaterialPageRoute(
+              builder: (context) => ThreadScreen(
+                settings.arguments,
+              ),
+            );
+          default:
+            return null;
+        }
+      },
+      initialRoute: FChanRoute.initScreen,
+      title: 'FChan',
+      theme: themeLight,
+      darkTheme: themeDark,
+      themeMode: ThemeMode.system,
     );
   }
 
@@ -140,7 +120,7 @@ class _FChanState extends State<FChan> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            currentPage.title,
+          currentPage.title,
         ),
         actions: currentPage.actions,
       ),
@@ -150,9 +130,7 @@ class _FChanState extends State<FChan> {
         currentIndex: _currentIndex,
         // TODO: performance?
         items: _screens.map((screen) => screen.bottomNavigationBarItem).toList(),
-        onTap: (selectedIndex) {
-          setState(() => _currentIndex = selectedIndex);
-        },
+        onTap: (selectedIndex) => setState(() => _currentIndex = selectedIndex),
       ),
     );
   }
@@ -190,9 +168,9 @@ class NavigationPage {
   final List<IconButton> actions;
 
   NavigationPage(
-      this.screen,
-      this.title,
-      this.bottomNavigationBarItem,
-      this.actions,
+    this.screen,
+    this.title,
+    this.bottomNavigationBarItem,
+    this.actions,
   );
 }

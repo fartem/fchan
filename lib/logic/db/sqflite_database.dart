@@ -14,25 +14,27 @@ const int _currentVersion = _version1;
 class SQFLiteDatabase extends FChanDatabase {
   static final _boardsCache = <String, Board>{};
 
-  Database _sqflite;
+  Database _database;
 
   @override
   Future<FChanDatabase> init() async {
-    _sqflite = await openDatabase(
+    _database = await openDatabase(
       _sqfliteDbName,
       version: _currentVersion,
       onCreate: (db, version) async {
-        await Future.wait([
-          db.execute(createBoardTable()),
-          db.execute(createThreadTable()),
-        ]);
-      }
+        await Future.wait(
+          [
+            db.execute(createBoardTable()),
+            db.execute(createThreadTable()),
+          ],
+        );
+      },
     );
     return this;
   }
 
   @override
-  Future<void> close() => _sqflite.close();
+  Future<void> close() => _database.close();
 
   @override
   Future<EntityPortion<Board>> favoriteBoards(EntityPage entityPage) async {
@@ -42,7 +44,7 @@ class SQFLiteDatabase extends FChanDatabase {
         true,
       );
     }
-    return _sqflite.query(
+    return _database.query(
       tableBoard,
       where: '$columnBoardIsFavorite = ?',
       whereArgs: [1],
@@ -60,19 +62,23 @@ class SQFLiteDatabase extends FChanDatabase {
   Future<Board> addToFavorites(Board board) {
     board.isFavorite = true;
     if (board.isNew()) {
-      return _sqflite.insert(
+      return _database
+          .insert(
         tableBoard,
         boardToDb(board),
-      ).then((boardId) {
+      )
+          .then((boardId) {
         board.id = boardId;
         _boardsCache[board.board] = board;
         return board;
       });
     } else {
-      return _sqflite.update(
-        tableBoard,
-        boardToDb(board),
-      ).then((boardId) => board);
+      return _database
+          .update(
+            tableBoard,
+            boardToDb(board),
+          )
+          .then((boardId) => board);
     }
   }
 
@@ -80,9 +86,8 @@ class SQFLiteDatabase extends FChanDatabase {
   Future<Board> removeFromFavorites(Board board) {
     board.isFavorite = false;
     // TODO: update board in cache
-    return _sqflite.update(
+    return _database.delete(
       tableBoard,
-      boardToDb(board),
       where: '$columnId = ?',
       whereArgs: [board.id],
     ).then((boardId) {
@@ -93,21 +98,21 @@ class SQFLiteDatabase extends FChanDatabase {
 
   @override
   Future<EntityPortion<Thread>> historyThreads(EntityPage entityPage) {
-    return _sqflite.query(
+    return _database
+        .query(
       tableThread,
       orderBy: '$columnThreadLastSeenDate desc',
       limit: 15,
       offset: entityPage.page,
-    ).then((rawThreads) async {
+    )
+        .then((rawThreads) async {
       final result = <Thread>[];
       for (var rawThread in rawThreads) {
         final boardId = rawThread[columnThreadBoardId];
         final board = _boardsCache.isEmpty
             ? await _boardById(boardId)
             : _boardsCache.values.firstWhere((board) => board.id == boardId);
-        result.add(
-          threadFromDb(rawThread, board),
-        );
+        result.add(threadFromDb(rawThread, board));
       }
       return EntityPortion(
         result,
@@ -117,7 +122,7 @@ class SQFLiteDatabase extends FChanDatabase {
   }
 
   Future<Board> _boardById(int boardId) {
-    return _sqflite.query(
+    return _database.query(
       tableBoard,
       where: '$columnId = ?',
       whereArgs: [boardId],
@@ -126,7 +131,7 @@ class SQFLiteDatabase extends FChanDatabase {
 
   @override
   Future<Thread> threadFromHistory(Thread thread) {
-    return _sqflite.query(
+    return _database.query(
       tableThread,
       where: '$columnThreadUrl = ?',
       whereArgs: ['\'${thread.threadUrl}\''],
@@ -144,12 +149,23 @@ class SQFLiteDatabase extends FChanDatabase {
   }
 
   @override
+  Future<bool> containsInHistory(Thread thread) {
+    return _database.query(
+      tableThread,
+      where: '$columnThreadUrl = ?',
+      whereArgs: [thread.threadUrl],
+    ).then((value) => value.isNotEmpty);
+  }
+
+  @override
   Future<Thread> addToHistory(Thread thread) async {
     if (thread.isNew()) {
-      return _sqflite.insert(
+      return _database
+          .insert(
         tableThread,
         threadToDb(thread),
-      ).then((threadId) {
+      )
+          .then((threadId) {
         thread.id = threadId;
         return thread;
       });
@@ -159,9 +175,10 @@ class SQFLiteDatabase extends FChanDatabase {
 
   @override
   Future<Thread> removeFromHistory(Thread thread) {
-    return _sqflite.delete(
+    return _database.delete(
       tableThread,
-      where: '${thread.id}',
+      where: '$columnId = ?',
+      whereArgs: [thread.id],
     ).then((value) => thread);
   }
 }

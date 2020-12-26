@@ -2,7 +2,10 @@ class EntityPage {
   final EntityPagePortionType entityPagePortionType;
   final int page;
 
-  EntityPage._(this.entityPagePortionType, {this.page});
+  EntityPage._(
+    this.entityPagePortionType, {
+    this.page,
+  });
 
   factory EntityPage.all() {
     return EntityPage._(
