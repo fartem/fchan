@@ -34,7 +34,7 @@ class PostWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                      if (_post.imageUrl != null)
+                      if (_post.hasImage())
                         Align(
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
@@ -62,11 +62,11 @@ class PostWidget extends StatelessWidget {
                   ),
                 ),
               ),
-            if (_post.thumbnailImageUrl != null)
+            if (_post.hasImage())
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: CachedNetworkImageWithLoader(
-                  _post.thumbnailImageUrl,
+                  _post.thumbnailLink,
                   _post.thumbnailImageWidth.toDouble(),
                   _post.thumbnailImageHeight.toDouble(),
                 ),

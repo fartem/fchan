@@ -34,8 +34,7 @@ class FChanRepository {
     return result;
   }
 
-  Future<List<Board>> favoriteBoards() =>
-      _fChanDatabase.favoriteBoards(EntityPage.all()).then((favoriteBoards) => favoriteBoards.entities);
+  Future<List<Board>> favoriteBoards() => _fChanDatabase.favoriteBoards();
 
   Future<Board> addBoardToFavorites(Board board) => _fChanDatabase.addToFavorites(board);
 

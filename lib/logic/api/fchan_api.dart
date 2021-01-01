@@ -40,11 +40,7 @@ class FChanApi extends ChanApi {
     final boardName = json['board'];
     var board = _boardsCache[boardName];
     if (board == null) {
-      board = Board(
-        json['board'],
-        json['title'],
-        false,
-      );
+      board = Board.fromJson(json);
       _boardsCache[boardName] = board;
     }
     return board;
@@ -74,6 +70,8 @@ class FChanApi extends ChanApi {
     final filename = json['filename'] as String;
     final tim = json['tim'] as int;
     final ext = json['ext'] as String;
+    final imageLink = filename != null ? _cdnImageUri('/${board.board}/$tim$ext').toString() : null;
+    final thumbnailLink = filename != null ? _cdnImageUri('/${board.board}/${tim}s.jpg').toString() : null;
     return Thread(
       board,
       _cdnUri('${board.board}/thread/${json['no']}').toString(),
@@ -83,14 +81,15 @@ class FChanApi extends ChanApi {
       DateTime.now().difference((json['time'] as int).dateTimeFromUnixTimestamp()),
       json['replies'],
       json['images'],
-      filename != null ? _cdnImageUri('/${board.board}/$tim$ext').toString() : null,
+      filename,
       json['w'],
       json['h'],
-      filename != null ? _cdnImageUri('${board.board}/${tim}s.jpg').toString() : null,
       json['tn_w'],
       json['tn_h'],
       ext,
-    );
+    )
+      ..imageLink = imageLink
+      ..thumbnailLink = thumbnailLink;
   }
 
   Uri _cdnImageUri(String path) {
@@ -117,19 +116,22 @@ class FChanApi extends ChanApi {
     final filename = json['filename'] as String;
     final tim = json['tim'] as int;
     final ext = json['ext'] as String;
+    final imageLink = filename != null ? _cdnImageUri('/${board.board}/$tim$ext').toString() : null;
+    final thumbnailLink = filename != null ? _cdnImageUri('/${board.board}/${tim}s.jpg').toString() : null;
     return Post(
       json['no'],
       json['sub'],
       json['com'],
       json['replies'],
       DateTime.now().difference((json['time'] as int).dateTimeFromUnixTimestamp()),
-      filename != null ? _cdnImageUri('/${board.board}/$tim$ext').toString() : null,
+      filename,
       json['w'],
       json['h'],
-      filename != null ? _cdnImageUri('/${board.board}/${tim}s.jpg').toString() : null,
       json['tn_w'],
       json['tn_h'],
       ext,
-    );
+    )
+      ..imageLink = imageLink
+      ..thumbnailLink = thumbnailLink;
   }
 }

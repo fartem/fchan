@@ -8,7 +8,7 @@ abstract class FChanDatabase {
 
   Future<void> close();
 
-  Future<EntityPortion<Board>> favoriteBoards(EntityPage entityPage);
+  Future<List<Board>> favoriteBoards();
 
   Future<Board> addToFavorites(Board board);
 

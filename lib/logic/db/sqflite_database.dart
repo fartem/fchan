@@ -12,7 +12,7 @@ const int _version1 = 1;
 const int _currentVersion = _version1;
 
 class SQFLiteDatabase extends FChanDatabase {
-  static final _boardsCache = <String, Board>{};
+  static final _favoriteBoardsCache = <String, Board>{};
 
   Database _database;
 
@@ -37,25 +37,19 @@ class SQFLiteDatabase extends FChanDatabase {
   Future<void> close() => _database.close();
 
   @override
-  Future<EntityPortion<Board>> favoriteBoards(EntityPage entityPage) async {
-    if (_boardsCache.isNotEmpty) {
-      return EntityPortion(
-        _boardsCache.values.where((board) => board.isFavorite).toList(),
-        true,
-      );
+  Future<List<Board>> favoriteBoards() async {
+    if (_favoriteBoardsCache.isEmpty) {
+      await _database.query(
+        tableBoard,
+        where: '$columnBoardIsFavorite = ?',
+        whereArgs: [1],
+      ).then((rawBoards) {
+        final boards =
+        rawBoards.map((rawBoard) => Board.fromJson(rawBoard)).toList();
+        boards.forEach((board) => _favoriteBoardsCache[board.board] = board);
+      });
     }
-    return _database.query(
-      tableBoard,
-      where: '$columnBoardIsFavorite = ?',
-      whereArgs: [1],
-    ).then((rawBoards) {
-      final boards = rawBoards.map((rawBoard) => boardFromDb(rawBoard)).toList();
-      boards.forEach((board) => _boardsCache[board.board] = board);
-      return EntityPortion(
-        _boardsCache.values.toList(),
-        true,
-      );
-    });
+    return _favoriteBoardsCache.values.toList();
   }
 
   @override
@@ -65,18 +59,18 @@ class SQFLiteDatabase extends FChanDatabase {
       return _database
           .insert(
         tableBoard,
-        boardToDb(board),
+        board.toJson(),
       )
           .then((boardId) {
         board.id = boardId;
-        _boardsCache[board.board] = board;
+        _favoriteBoardsCache[board.board] = board;
         return board;
       });
     } else {
       return _database
           .update(
             tableBoard,
-            boardToDb(board),
+            board.toJson(),
           )
           .then((boardId) => board);
     }
@@ -85,7 +79,7 @@ class SQFLiteDatabase extends FChanDatabase {
   @override
   Future<Board> removeFromFavorites(Board board) {
     board.isFavorite = false;
-    // TODO: update board in cache
+    _favoriteBoardsCache.remove(board);
     return _database.delete(
       tableBoard,
       where: '$columnId = ?',
@@ -109,9 +103,9 @@ class SQFLiteDatabase extends FChanDatabase {
       final result = <Thread>[];
       for (var rawThread in rawThreads) {
         final boardId = rawThread[columnThreadBoardId];
-        final board = _boardsCache.isEmpty
+        final board = _favoriteBoardsCache.isEmpty
             ? await _boardById(boardId)
-            : _boardsCache.values.firstWhere((board) => board.id == boardId);
+            : _favoriteBoardsCache.values.firstWhere((board) => board.id == boardId);
         result.add(threadFromDb(rawThread, board));
       }
       return EntityPortion(
@@ -126,7 +120,7 @@ class SQFLiteDatabase extends FChanDatabase {
       tableBoard,
       where: '$columnId = ?',
       whereArgs: [boardId],
-    ).then((rawBoard) => boardFromDb(rawBoard.first));
+    ).then((rawBoard) => Board.fromJson(rawBoard.first));
   }
 
   @override
@@ -141,9 +135,9 @@ class SQFLiteDatabase extends FChanDatabase {
       }
       final rawThread = rawThreadResult.first;
       final boardId = rawThread[columnThreadBoardId];
-      final board = _boardsCache.isEmpty
+      final board = _favoriteBoardsCache.isEmpty
           ? await _boardById(boardId)
-          : _boardsCache.values.firstWhere((board) => board.id == boardId);
+          : _favoriteBoardsCache.values.firstWhere((board) => board.id == boardId);
       return threadFromDb(rawThread, board);
     });
   }
@@ -188,7 +182,7 @@ const tableThread = 'thread';
 
 const columnId = 'id';
 
-const columnBoardName = 'name';
+const columnBoardName = 'board';
 const columnBoardTitle = 'title';
 const columnBoardIsFavorite = 'is_favorite';
 
@@ -200,10 +194,9 @@ const columnThreadCom = 'com';
 const columnThreadTimeFromPublish = 'time_from_publish';
 const columnThreadReplies = 'replies';
 const columnThreadImages = 'images';
-const columnThreadImageUrl = 'image_url';
+const columnThreadFilename = 'filename';
 const columnThreadImageWidth = 'image_width';
 const columnThreadImageHeight = 'image_height';
-const columnThreadThumbnailImageUrl = 'thumbnail_image_url';
 const columnThreadThumbnailImageWidth = 'thumbnail_image_width';
 const columnThreadThumbnailImageHeight = 'thumbnail_image_height';
 const columnThreadExt = 'ext';
@@ -229,33 +222,14 @@ String createThreadTable() {
       '$columnThreadTimeFromPublish int,'
       '$columnThreadReplies int,'
       '$columnThreadImages int,'
-      '$columnThreadImageUrl text,'
+      '$columnThreadFilename text,'
       '$columnThreadImageWidth int,'
       '$columnThreadImageHeight int,'
-      '$columnThreadThumbnailImageUrl text,'
       '$columnThreadThumbnailImageWidth int,'
       '$columnThreadThumbnailImageHeight int,'
       '$columnThreadExt text,'
       '$columnThreadLastSeenDate text'
       ');';
-}
-
-Map<String, dynamic> boardToDb(Board board) {
-  return {
-    columnId: board.id,
-    columnBoardName: board.board,
-    columnBoardTitle: board.title,
-    columnBoardIsFavorite: board.isFavorite ? 1 : 0,
-  };
-}
-
-Board boardFromDb(Map<String, dynamic> data) {
-  return Board(
-    data[columnBoardName],
-    data[columnBoardTitle],
-    data[columnBoardIsFavorite] == 1,
-    id: data[columnId],
-  );
 }
 
 Map<String, dynamic> threadToDb(Thread thread) {
@@ -269,10 +243,9 @@ Map<String, dynamic> threadToDb(Thread thread) {
     columnThreadTimeFromPublish: thread.timeFromPublish.inSeconds,
     columnThreadReplies: thread.replies,
     columnThreadImages: thread.images,
-    columnThreadImageUrl: thread.imageUrl,
+    columnThreadFilename: thread.filename,
     columnThreadImageWidth: thread.imageWidth,
     columnThreadImageHeight: thread.imageHeight,
-    columnThreadThumbnailImageUrl: thread.thumbnailImageUrl,
     columnThreadThumbnailImageWidth: thread.thumbnailImageWidth,
     columnThreadThumbnailImageHeight: thread.thumbnailImageHeight,
     columnThreadExt: thread.ext,
@@ -291,10 +264,9 @@ Thread threadFromDb(Map<String, dynamic> data, Board board) {
     Duration(seconds: data[columnThreadTimeFromPublish]),
     data[columnThreadReplies],
     data[columnThreadImages],
-    data[columnThreadImageUrl],
+    data[columnThreadFilename],
     data[columnThreadImageWidth],
     data[columnThreadImageHeight],
-    data[columnThreadThumbnailImageUrl],
     data[columnThreadThumbnailImageWidth],
     data[columnThreadThumbnailImageHeight],
     data[columnThreadExt],

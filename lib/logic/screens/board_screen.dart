@@ -154,6 +154,5 @@ class Loader extends Thread {
           null,
           null,
           null,
-          null,
         );
 }

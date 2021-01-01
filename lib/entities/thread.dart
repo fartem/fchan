@@ -10,13 +10,15 @@ class Thread extends StorageEntity {
   final Duration timeFromPublish;
   final int replies;
   final int images;
-  final String imageUrl;
+  final String filename;
   final int imageWidth;
   final int imageHeight;
-  final String thumbnailImageUrl;
   final int thumbnailImageWidth;
   final int thumbnailImageHeight;
   final String ext;
+
+  String imageLink;
+  String thumbnailLink;
 
   Thread(
     this.board,
@@ -27,15 +29,16 @@ class Thread extends StorageEntity {
     this.timeFromPublish,
     this.replies,
     this.images,
-    this.imageUrl,
+    this.filename,
     this.imageWidth,
     this.imageHeight,
-    this.thumbnailImageUrl,
     this.thumbnailImageWidth,
     this.thumbnailImageHeight,
     this.ext, {
     id,
   }) : super(id);
+
+  bool hasImage() => filename != null;
 
   @override
   bool operator ==(Object other) =>
