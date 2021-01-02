@@ -8,6 +8,7 @@ import '../../entities/entity_page.dart';
 import '../../entities/entity_portion.dart';
 import '../../entities/post.dart';
 import '../../entities/thread.dart';
+import '../../entities/web_image.dart';
 import '../../extensions/int_extensions.dart';
 import 'chan_api.dart';
 
@@ -83,12 +84,8 @@ class FChanApi extends ChanApi {
       DateTime.now().difference((json['time'] as int).dateTimeFromUnixTimestamp()),
       json['replies'],
       json['images'],
-      filename != null ? _cdnImageUri('/${board.board}/$tim$ext').toString() : null,
-      json['w'],
-      json['h'],
-      filename != null ? _cdnImageUri('${board.board}/${tim}s.jpg').toString() : null,
-      json['tn_w'],
-      json['tn_h'],
+      filename != null ? WebImage(_cdnImageUri('/${board.board}/$tim$ext').toString(), json['w'], json['h']) : null,
+      filename != null ? WebImage(_cdnImageUri('/${board.board}/${tim}s.jpg').toString(), json['w'], json['h']) : null,
       ext,
     );
   }
@@ -123,12 +120,8 @@ class FChanApi extends ChanApi {
       json['com'],
       json['replies'],
       DateTime.now().difference((json['time'] as int).dateTimeFromUnixTimestamp()),
-      filename != null ? _cdnImageUri('/${board.board}/$tim$ext').toString() : null,
-      json['w'],
-      json['h'],
-      filename != null ? _cdnImageUri('/${board.board}/${tim}s.jpg').toString() : null,
-      json['tn_w'],
-      json['tn_h'],
+      filename != null ? WebImage(_cdnImageUri('/${board.board}/$tim$ext').toString(), json['w'], json['h']) : null,
+      filename != null ? WebImage(_cdnImageUri('/${board.board}/${tim}s.jpg').toString(), json['w'], json['h']) : null,
       ext,
     );
   }

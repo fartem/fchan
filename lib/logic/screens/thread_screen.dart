@@ -16,16 +16,12 @@ class ThreadScreen extends StatefulWidget {
   ThreadScreen(this._thread);
 
   @override
-  State<StatefulWidget> createState() => _ThreadState(_thread);
+  State<StatefulWidget> createState() => _ThreadState();
 }
 
 class _ThreadState extends State<ThreadScreen> {
   final ScrollController _scrollController = ScrollController();
   bool _showFab = true;
-
-  final Thread _thread;
-
-  _ThreadState(this._thread);
 
   @override
   void initState() {
@@ -50,11 +46,11 @@ class _ThreadState extends State<ThreadScreen> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              _thread.toString(),
+              widget._thread.toString(),
             ),
           ),
           body: FutureBuilder<List<Post>>(
-            future: model.postsForThread(_thread),
+            future: model.postsForThread(widget._thread),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data.isEmpty) {

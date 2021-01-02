@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
-import 'components/theme/fchan_theme.dart';
+import 'components/themes/fchan_themes.dart';
 import 'components/words/fchan_words.dart';
 import 'extensions/build_context_extensions.dart';
 import 'logic/api/fchan_api.dart';

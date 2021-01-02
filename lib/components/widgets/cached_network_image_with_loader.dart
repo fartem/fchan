@@ -4,14 +4,14 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:path_provider/path_provider.dart';
 
 class CachedNetworkImageWithLoader extends StatelessWidget {
-  final String url;
-  final double width;
-  final double height;
+  final String _url;
+  final double _width;
+  final double _height;
 
   CachedNetworkImageWithLoader(
-    this.url,
-    this.width,
-    this.height,
+    this._url,
+    this._width,
+    this._height,
   );
 
   @override
@@ -19,9 +19,9 @@ class CachedNetworkImageWithLoader extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: CachedNetworkImage(
-        imageUrl: url,
-        width: width,
-        height: height,
+        imageUrl: _url,
+        width: _width,
+        height: _height,
         progressIndicatorBuilder: (context, url, downloadProgress) {
           return Center(
             child: CircularProgressIndicator(
@@ -37,11 +37,11 @@ class CachedNetworkImageWithLoader extends StatelessWidget {
 }
 
 class ImageCacheManager extends BaseCacheManager {
-  static final String key = 'imageCache';
+  static final String _key = 'imageCache';
 
   static ImageCacheManager _instance;
 
-  ImageCacheManager._() : super(key);
+  ImageCacheManager._() : super(_key);
 
   factory ImageCacheManager() {
     if (_instance == null) {
@@ -53,6 +53,6 @@ class ImageCacheManager extends BaseCacheManager {
   @override
   Future<String> getFilePath() async {
     final directory = await getApplicationSupportDirectory();
-    return '${directory.path}/$key';
+    return '${directory.path}/$_key';
   }
 }

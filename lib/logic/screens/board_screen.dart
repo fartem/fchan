@@ -20,7 +20,7 @@ class BoardScreen extends StatefulWidget {
   BoardScreen(this._board);
 
   @override
-  State<StatefulWidget> createState() => _BoardState(_board);
+  State<StatefulWidget> createState() => _BoardState();
 }
 
 class _BoardState extends State<BoardScreen> {
@@ -29,15 +29,11 @@ class _BoardState extends State<BoardScreen> {
   final ScrollController _scrollController = ScrollController();
   bool showFab = true;
 
-  final Board _board;
-
-  _BoardState(this._board);
-
   @override
   void initState() {
     super.initState();
     _listPortionController = ListPortionController<Thread>(
-      (entityPage) => context.read<CatalogModel>().catalogPage(_board, entityPage),
+      (entityPage) => context.read<CatalogModel>().catalogPage(widget._board, entityPage),
     );
     _loadMore();
     _scrollController.addListener(() {
@@ -58,7 +54,7 @@ class _BoardState extends State<BoardScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          _board.toString(),
+          widget._board.toString(),
         ),
       ),
       body: _catalogPresentation(),

@@ -1,6 +1,6 @@
 import '../logic/db/storage_entitiy.dart';
-
 import 'board.dart';
+import 'web_image.dart';
 
 class Thread extends StorageEntity {
   final Board board;
@@ -11,12 +11,8 @@ class Thread extends StorageEntity {
   final Duration timeFromPublish;
   final int replies;
   final int images;
-  final String imageUrl;
-  final int imageWidth;
-  final int imageHeight;
-  final String thumbnailImageUrl;
-  final int thumbnailImageWidth;
-  final int thumbnailImageHeight;
+  final WebImage image;
+  final WebImage thumbnail;
   final String ext;
 
   Thread(
@@ -28,12 +24,8 @@ class Thread extends StorageEntity {
     this.timeFromPublish,
     this.replies,
     this.images,
-    this.imageUrl,
-    this.imageWidth,
-    this.imageHeight,
-    this.thumbnailImageUrl,
-    this.thumbnailImageWidth,
-    this.thumbnailImageHeight,
+    this.image,
+    this.thumbnail,
     this.ext, {
     id,
   }) : super(id);

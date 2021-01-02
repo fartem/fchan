@@ -92,11 +92,11 @@ class ThreadWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                if (_thread.thumbnailImageUrl != null)
+                if (_thread.thumbnail != null)
                   CachedNetworkImageWithLoader(
-                    _thread.thumbnailImageUrl,
-                    _thread.thumbnailImageWidth.toDouble(),
-                    _thread.thumbnailImageHeight.toDouble(),
+                    _thread.thumbnail.link,
+                    _thread.thumbnail.width.toDouble(),
+                    _thread.thumbnail.height.toDouble(),
                   ),
                 if (_thread.sub != null)
                   Align(

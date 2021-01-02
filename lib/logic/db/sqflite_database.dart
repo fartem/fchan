@@ -4,6 +4,7 @@ import '../../entities/board.dart';
 import '../../entities/entity_page.dart';
 import '../../entities/entity_portion.dart';
 import '../../entities/thread.dart';
+import '../../entities/web_image.dart';
 import 'fchan_database.dart';
 
 const String _sqfliteDbName = 'fchan.db';
@@ -44,8 +45,7 @@ class SQFLiteDatabase extends FChanDatabase {
         where: '$columnBoardIsFavorite = ?',
         whereArgs: [1],
       ).then((rawBoards) {
-        final boards =
-        rawBoards.map((rawBoard) => boardFromDb(rawBoard)).toList();
+        final boards = rawBoards.map((rawBoard) => boardFromDb(rawBoard)).toList();
         boards.forEach((board) => _favoriteBoardsCache[board.board] = board);
       });
     }
@@ -253,6 +253,8 @@ Board boardFromDb(Map<String, dynamic> data) {
 }
 
 Map<String, dynamic> threadToDb(Thread thread) {
+  final image = thread.image;
+  final thumbnail = thread.thumbnail;
   return {
     columnId: thread.id,
     columnThreadBoardId: thread.board.id,
@@ -263,12 +265,12 @@ Map<String, dynamic> threadToDb(Thread thread) {
     columnThreadTimeFromPublish: thread.timeFromPublish.inSeconds,
     columnThreadReplies: thread.replies,
     columnThreadImages: thread.images,
-    columnThreadImageUrl: thread.imageUrl,
-    columnThreadImageWidth: thread.imageWidth,
-    columnThreadImageHeight: thread.imageHeight,
-    columnThreadThumbnailImageUrl: thread.thumbnailImageUrl,
-    columnThreadThumbnailImageWidth: thread.thumbnailImageWidth,
-    columnThreadThumbnailImageHeight: thread.thumbnailImageHeight,
+    columnThreadImageUrl: image?.link,
+    columnThreadImageWidth: image?.width,
+    columnThreadImageHeight: image?.height,
+    columnThreadThumbnailImageUrl: thumbnail?.link,
+    columnThreadThumbnailImageWidth: thumbnail?.width,
+    columnThreadThumbnailImageHeight: thumbnail?.height,
     columnThreadExt: thread.ext,
     // TODO: refactor
     columnThreadLastSeenDate: DateTime.now().toIso8601String(),
@@ -276,6 +278,13 @@ Map<String, dynamic> threadToDb(Thread thread) {
 }
 
 Thread threadFromDb(Map<String, dynamic> data, Board board) {
+  final image = data[columnThreadImageUrl] != null
+      ? WebImage(data[columnThreadImageUrl], data[columnThreadImageWidth], data[columnThreadImageHeight])
+      : null;
+  final thumbnail = data[columnThreadThumbnailImageUrl] != null
+      ? WebImage(
+          data[columnThreadThumbnailImageUrl], data[columnThreadThumbnailImageWidth], data[columnThreadImageHeight])
+      : null;
   return Thread(
     board,
     data[columnThreadUrl],
@@ -285,12 +294,8 @@ Thread threadFromDb(Map<String, dynamic> data, Board board) {
     Duration(seconds: data[columnThreadTimeFromPublish]),
     data[columnThreadReplies],
     data[columnThreadImages],
-    data[columnThreadImageUrl],
-    data[columnThreadImageWidth],
-    data[columnThreadImageHeight],
-    data[columnThreadThumbnailImageUrl],
-    data[columnThreadThumbnailImageWidth],
-    data[columnThreadThumbnailImageHeight],
+    image,
+    thumbnail,
     data[columnThreadExt],
     id: data[columnId],
   );
