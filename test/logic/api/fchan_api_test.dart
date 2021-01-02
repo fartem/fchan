@@ -103,6 +103,7 @@ void main() {
           null,
           null,
           null,
+          null,
         );
         when(mockHttpClient.get(_cdnUri('/${thread.board.board}/thread/${thread.no}.json')))
             .thenAnswer((_) async => Response(postsResponse, 200));
@@ -121,6 +122,7 @@ void main() {
           ),
           'https://a.4cdn.org/po/thread/570368',
           570368,
+          null,
           null,
           null,
           null,

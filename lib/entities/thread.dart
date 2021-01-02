@@ -1,5 +1,6 @@
+import '../logic/db/storage_entitiy.dart';
+
 import 'board.dart';
-import 'storage_entitiy.dart';
 
 class Thread extends StorageEntity {
   final Board board;
@@ -10,15 +11,13 @@ class Thread extends StorageEntity {
   final Duration timeFromPublish;
   final int replies;
   final int images;
-  final String filename;
+  final String imageUrl;
   final int imageWidth;
   final int imageHeight;
+  final String thumbnailImageUrl;
   final int thumbnailImageWidth;
   final int thumbnailImageHeight;
   final String ext;
-
-  String imageLink;
-  String thumbnailLink;
 
   Thread(
     this.board,
@@ -29,16 +28,15 @@ class Thread extends StorageEntity {
     this.timeFromPublish,
     this.replies,
     this.images,
-    this.filename,
+    this.imageUrl,
     this.imageWidth,
     this.imageHeight,
+    this.thumbnailImageUrl,
     this.thumbnailImageWidth,
     this.thumbnailImageHeight,
     this.ext, {
     id,
   }) : super(id);
-
-  bool hasImage() => filename != null;
 
   @override
   bool operator ==(Object other) =>

@@ -4,15 +4,13 @@ class Post {
   final String com;
   final int replies;
   final Duration timeFromPublish;
-  final String filename;
+  final String imageUrl;
   final int imageWidth;
   final int imageHeight;
+  final String thumbnailImageUrl;
   final int thumbnailImageWidth;
   final int thumbnailImageHeight;
   final String ext;
-
-  String imageLink;
-  String thumbnailLink;
 
   Post(
     this.no,
@@ -20,13 +18,12 @@ class Post {
     this.com,
     this.replies,
     this.timeFromPublish,
-    this.filename,
+    this.imageUrl,
     this.imageWidth,
     this.imageHeight,
+    this.thumbnailImageUrl,
     this.thumbnailImageWidth,
     this.thumbnailImageHeight,
     this.ext,
   );
-
-  bool hasImage() => filename != null;
 }

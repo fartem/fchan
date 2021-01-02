@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import '../logic/words/fchan_words.dart';
+import '../components/words/fchan_words.dart';
 
 extension BuildContextExtensions on BuildContext {
   FChanWords fChanWords() => GetIt.I.get();

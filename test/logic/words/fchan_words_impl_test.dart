@@ -1,4 +1,4 @@
-import 'package:fchan/logic/words/fchan_words.dart';
+import 'package:fchan/components/words/fchan_words.dart';
 import 'package:test/test.dart';
 
 void main() {

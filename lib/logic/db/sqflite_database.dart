@@ -45,7 +45,7 @@ class SQFLiteDatabase extends FChanDatabase {
         whereArgs: [1],
       ).then((rawBoards) {
         final boards =
-        rawBoards.map((rawBoard) => Board.fromJson(rawBoard)).toList();
+        rawBoards.map((rawBoard) => boardFromDb(rawBoard)).toList();
         boards.forEach((board) => _favoriteBoardsCache[board.board] = board);
       });
     }
@@ -59,7 +59,7 @@ class SQFLiteDatabase extends FChanDatabase {
       return _database
           .insert(
         tableBoard,
-        board.toJson(),
+        boardToDb(board),
       )
           .then((boardId) {
         board.id = boardId;
@@ -70,7 +70,7 @@ class SQFLiteDatabase extends FChanDatabase {
       return _database
           .update(
             tableBoard,
-            board.toJson(),
+            boardToDb(board),
           )
           .then((boardId) => board);
     }
@@ -79,7 +79,7 @@ class SQFLiteDatabase extends FChanDatabase {
   @override
   Future<Board> removeFromFavorites(Board board) {
     board.isFavorite = false;
-    _favoriteBoardsCache.remove(board);
+    _favoriteBoardsCache.remove(board.board);
     return _database.delete(
       tableBoard,
       where: '$columnId = ?',
@@ -120,7 +120,7 @@ class SQFLiteDatabase extends FChanDatabase {
       tableBoard,
       where: '$columnId = ?',
       whereArgs: [boardId],
-    ).then((rawBoard) => Board.fromJson(rawBoard.first));
+    ).then((rawBoard) => boardFromDb(rawBoard.first));
   }
 
   @override
@@ -182,7 +182,7 @@ const tableThread = 'thread';
 
 const columnId = 'id';
 
-const columnBoardName = 'board';
+const columnBoardName = 'name';
 const columnBoardTitle = 'title';
 const columnBoardIsFavorite = 'is_favorite';
 
@@ -194,9 +194,10 @@ const columnThreadCom = 'com';
 const columnThreadTimeFromPublish = 'time_from_publish';
 const columnThreadReplies = 'replies';
 const columnThreadImages = 'images';
-const columnThreadFilename = 'filename';
+const columnThreadImageUrl = 'image_url';
 const columnThreadImageWidth = 'image_width';
 const columnThreadImageHeight = 'image_height';
+const columnThreadThumbnailImageUrl = 'thumbnail_image_url';
 const columnThreadThumbnailImageWidth = 'thumbnail_image_width';
 const columnThreadThumbnailImageHeight = 'thumbnail_image_height';
 const columnThreadExt = 'ext';
@@ -222,14 +223,33 @@ String createThreadTable() {
       '$columnThreadTimeFromPublish int,'
       '$columnThreadReplies int,'
       '$columnThreadImages int,'
-      '$columnThreadFilename text,'
+      '$columnThreadImageUrl text,'
       '$columnThreadImageWidth int,'
       '$columnThreadImageHeight int,'
+      '$columnThreadThumbnailImageUrl text,'
       '$columnThreadThumbnailImageWidth int,'
       '$columnThreadThumbnailImageHeight int,'
       '$columnThreadExt text,'
       '$columnThreadLastSeenDate text'
       ');';
+}
+
+Map<String, dynamic> boardToDb(Board board) {
+  return {
+    columnId: board.id,
+    columnBoardName: board.board,
+    columnBoardTitle: board.title,
+    columnBoardIsFavorite: board.isFavorite ? 1 : 0,
+  };
+}
+
+Board boardFromDb(Map<String, dynamic> data) {
+  return Board(
+    data[columnBoardName],
+    data[columnBoardTitle],
+    data[columnBoardIsFavorite] == 1,
+    id: data[columnId],
+  );
 }
 
 Map<String, dynamic> threadToDb(Thread thread) {
@@ -243,9 +263,10 @@ Map<String, dynamic> threadToDb(Thread thread) {
     columnThreadTimeFromPublish: thread.timeFromPublish.inSeconds,
     columnThreadReplies: thread.replies,
     columnThreadImages: thread.images,
-    columnThreadFilename: thread.filename,
+    columnThreadImageUrl: thread.imageUrl,
     columnThreadImageWidth: thread.imageWidth,
     columnThreadImageHeight: thread.imageHeight,
+    columnThreadThumbnailImageUrl: thread.thumbnailImageUrl,
     columnThreadThumbnailImageWidth: thread.thumbnailImageWidth,
     columnThreadThumbnailImageHeight: thread.thumbnailImageHeight,
     columnThreadExt: thread.ext,
@@ -264,9 +285,10 @@ Thread threadFromDb(Map<String, dynamic> data, Board board) {
     Duration(seconds: data[columnThreadTimeFromPublish]),
     data[columnThreadReplies],
     data[columnThreadImages],
-    data[columnThreadFilename],
+    data[columnThreadImageUrl],
     data[columnThreadImageWidth],
     data[columnThreadImageHeight],
+    data[columnThreadThumbnailImageUrl],
     data[columnThreadThumbnailImageWidth],
     data[columnThreadThumbnailImageHeight],
     data[columnThreadExt],

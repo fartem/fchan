@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../entities/thread.dart';
 import '../../extensions/build_context_extensions.dart';
 import '../../extensions/duration_extensions.dart';
-import '../routes/fchan_route.dart';
+import '../../logic/routes/fchan_route.dart';
 import '../words/fchan_words.dart';
 import 'cached_network_image_with_loader.dart';
 import 'content_html_text_widget.dart';
@@ -92,9 +92,9 @@ class ThreadWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                if (_thread.hasImage())
+                if (_thread.thumbnailImageUrl != null)
                   CachedNetworkImageWithLoader(
-                    _thread.thumbnailLink,
+                    _thread.thumbnailImageUrl,
                     _thread.thumbnailImageWidth.toDouble(),
                     _thread.thumbnailImageHeight.toDouble(),
                   ),
