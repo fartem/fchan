@@ -27,9 +27,17 @@ abstract class FChanWords {
 
   String get settingsTitle;
 
-  String get settingBugReport;
+  String get settingsCategoryStorage;
 
-  String get settingsClearImageCache;
+  String get settingsItemClearImageCache;
+
+  String get settingsCategoryInfo;
+
+  String get settingItemBugReport;
+
+  String get settingItemAuthor;
+
+  String get settingItemVersion;
 
   String get commonRefreshText;
 
@@ -84,10 +92,22 @@ class FChanWordsImpl extends FChanWords {
   String get settingsTitle => 'Settings';
 
   @override
-  String get settingBugReport => 'Bug report';
+  String get settingsCategoryStorage => 'Storage';
 
   @override
-  String get settingsClearImageCache => 'Clear Image Cache';
+  String get settingsItemClearImageCache => 'Clean Image Cache';
+
+  @override
+  String get settingsCategoryInfo => 'Info';
+
+  @override
+  String get settingItemBugReport => 'Bug report';
+
+  @override
+  String get settingItemAuthor => 'Author';
+
+  @override
+  String get settingItemVersion => 'Version';
 
   @override
   String get commonRefreshText => 'Refresh';

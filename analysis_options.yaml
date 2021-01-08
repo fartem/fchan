@@ -14,3 +14,4 @@ analyzer:
     avoid_catches_without_on_clauses: ignore
   exclude:
     - lib/**/*.g.dart
+    - test/.test_coverage.dart
