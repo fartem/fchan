@@ -41,47 +41,45 @@ class _ThreadState extends State<ThreadScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThreadModel>(
-      builder: (context, model, child) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              widget._thread.toString(),
-            ),
+    return Consumer<ThreadModel>(builder: (context, model, child) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            widget._thread.toString(),
           ),
-          body: FutureBuilder<List<Post>>(
-            future: model.postsForThread(widget._thread),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data.isEmpty) {
-                  return CenteredTextWidget(
-                    context.fChanWords().boardsIsEmptyMessage,
-                  );
-                }
-                return ListView.builder(
-                  itemBuilder: (context, index) => PostWidget(snapshot.data[index]),
-                  itemCount: snapshot.data.length,
-                  controller: _scrollController,
-                );
-              } else if (snapshot.hasError) {
+        ),
+        body: FutureBuilder<List<Post>>(
+          future: model.postsForThread(widget._thread),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data.isEmpty) {
                 return CenteredTextWidget(
-                  context.fChanWords().commonErrorMessage,
+                  context.fChanWords().boardsIsEmptyMessage,
                 );
               }
-              return CenteredCircularProgressIndicatorWidget();
-            },
-          ),
-          floatingActionButton: Visibility(
-            visible: _showFab,
-            child: FloatingActionButton(
-              child: Icon(
-                Icons.refresh,
-              ),
-              onPressed: () => setState(() {}),
+              return ListView.builder(
+                itemBuilder: (context, index) => PostWidget(snapshot.data[index]),
+                itemCount: snapshot.data.length,
+                controller: _scrollController,
+              );
+            } else if (snapshot.hasError) {
+              return CenteredTextWidget(
+                context.fChanWords().commonErrorMessage,
+              );
+            }
+            return CenteredCircularProgressIndicatorWidget();
+          },
+        ),
+        floatingActionButton: Visibility(
+          visible: _showFab,
+          child: FloatingActionButton(
+            child: Icon(
+              Icons.refresh,
             ),
+            onPressed: () => setState(() {}),
           ),
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 }

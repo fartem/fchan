@@ -53,7 +53,7 @@ class SQFLiteDatabase extends FChanDatabase {
   }
 
   @override
-  Future<Board> addToFavorites(Board board) {
+  Future<Board> addBoardToFavorites(Board board) {
     board.isFavorite = true;
     if (board.isNew()) {
       return _database
@@ -77,7 +77,7 @@ class SQFLiteDatabase extends FChanDatabase {
   }
 
   @override
-  Future<Board> removeFromFavorites(Board board) {
+  Future<Board> removeBoardFromFavorites(Board board) {
     board.isFavorite = false;
     _favoriteBoardsCache.remove(board.board);
     return _database.delete(
@@ -97,7 +97,7 @@ class SQFLiteDatabase extends FChanDatabase {
       tableThread,
       orderBy: '$columnThreadLastSeenDate desc',
       limit: 15,
-      offset: entityPage.page,
+      offset: entityPage.page == 1 ? 0 : entityPage.page * 15,
     )
         .then((rawThreads) async {
       final result = <Thread>[];
@@ -128,7 +128,7 @@ class SQFLiteDatabase extends FChanDatabase {
     return _database.query(
       tableThread,
       where: '$columnThreadUrl = ?',
-      whereArgs: ['\'${thread.threadUrl}\''],
+      whereArgs: [thread.threadUrl],
     ).then((rawThreadResult) async {
       if (rawThreadResult.isEmpty) {
         return null;
@@ -143,7 +143,7 @@ class SQFLiteDatabase extends FChanDatabase {
   }
 
   @override
-  Future<bool> containsInHistory(Thread thread) {
+  Future<bool> threadContainsInHistory(Thread thread) {
     return _database.query(
       tableThread,
       where: '$columnThreadUrl = ?',
@@ -152,7 +152,7 @@ class SQFLiteDatabase extends FChanDatabase {
   }
 
   @override
-  Future<Thread> addToHistory(Thread thread) async {
+  Future<Thread> addThreadToHistory(Thread thread) async {
     if (thread.isNew()) {
       return _database
           .insert(
@@ -168,7 +168,17 @@ class SQFLiteDatabase extends FChanDatabase {
   }
 
   @override
-  Future<Thread> removeFromHistory(Thread thread) {
+  Future<Thread> updateThreadInHistory(Thread thread) {
+    return _database.update(
+      tableThread,
+      threadToDb(thread),
+      where: '$columnId = ?',
+      whereArgs: [thread.id],
+    ).then((threadId) => thread);
+  }
+
+  @override
+  Future<Thread> removeThreadFromHistory(Thread thread) {
     return _database.delete(
       tableThread,
       where: '$columnId = ?',
@@ -273,7 +283,7 @@ Map<String, dynamic> threadToDb(Thread thread) {
     columnThreadThumbnailImageHeight: thumbnail?.height,
     columnThreadExt: thread.ext,
     // TODO: refactor
-    columnThreadLastSeenDate: DateTime.now().toIso8601String(),
+    columnThreadLastSeenDate: thread.lastSeenDate.toIso8601String(),
   };
 }
 
@@ -282,8 +292,8 @@ Thread threadFromDb(Map<String, dynamic> data, Board board) {
       ? WebImage(data[columnThreadImageUrl], data[columnThreadImageWidth], data[columnThreadImageHeight])
       : null;
   final thumbnail = data[columnThreadThumbnailImageUrl] != null
-      ? WebImage(
-          data[columnThreadThumbnailImageUrl], data[columnThreadThumbnailImageWidth], data[columnThreadImageHeight])
+      ? WebImage(data[columnThreadThumbnailImageUrl], data[columnThreadThumbnailImageWidth],
+          data[columnThreadThumbnailImageHeight])
       : null;
   return Thread(
     board,
@@ -297,6 +307,7 @@ Thread threadFromDb(Map<String, dynamic> data, Board board) {
     image,
     thumbnail,
     data[columnThreadExt],
+    DateTime.parse(data[columnThreadLastSeenDate]),
     id: data[columnId],
   );
 }

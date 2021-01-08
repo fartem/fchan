@@ -33,45 +33,42 @@ class _HistoryState extends State<HistoryScreen> {
         _loadMore();
       }
     });
+    context.read<HistoryModel>().addListener(() => _listPortionController?.refresh());
   }
 
   void _loadMore() => _listPortionController.loadMore().then((value) => setState(() {}));
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HistoryModel>(
-      builder: (context, model, child) {
-        final items = _listPortionController.items;
-        if (_listPortionController.isLoading && items.isEmpty) {
+    final items = _listPortionController.items;
+    if (_listPortionController.isLoading && items.isEmpty) {
+      return CenteredCircularProgressIndicatorWidget();
+    } else if (items.isEmpty) {
+      return CenteredTextWidget(
+        context.fChanWords().historyIsEmptyMessage,
+      );
+    }
+    return StaggeredGridView.countBuilder(
+      crossAxisCount: 4,
+      staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+      itemBuilder: (context, index) {
+        final item = items[index];
+        if (item == listLoader) {
+          // TODO: set at center
           return CenteredCircularProgressIndicatorWidget();
-        } else if (items.isEmpty) {
-          return CenteredTextWidget(
-            context.fChanWords().historyIsEmptyMessage,
-          );
         }
-        return StaggeredGridView.countBuilder(
-          crossAxisCount: 4,
-          staggeredTileBuilder: (index) => StaggeredTile.fit(2),
-          itemBuilder: (context, index) {
-            final item = items[index];
-            if (item == listLoader) {
-              // TODO: set at center
-              return CenteredCircularProgressIndicatorWidget();
-            }
-            final thread = item.item;
-            return ThreadWidget(
-              thread,
-              () {},
-              ThreadPopupMenuAction.values,
-              () async {
-                await model.removeFromHistory(thread);
-                setState(() => items.remove(item));
-              },
-            );
+        final thread = item.item;
+        return ThreadWidget(
+          thread,
+          () {},
+          ThreadPopupMenuAction.values,
+          () async {
+            await Provider.of<HistoryModel>(context, listen: false).removeFromHistory(thread);
+            setState(() => items.remove(item));
           },
-          itemCount: items.length,
         );
       },
+      itemCount: items.length,
     );
   }
 

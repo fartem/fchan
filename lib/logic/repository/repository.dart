@@ -36,17 +36,19 @@ class FChanRepository {
 
   Future<List<Board>> favoriteBoards() => _fChanDatabase.favoriteBoards();
 
-  Future<Board> addBoardToFavorites(Board board) => _fChanDatabase.addToFavorites(board);
+  Future<Board> addBoardToFavorites(Board board) => _fChanDatabase.addBoardToFavorites(board);
 
-  Future<Board> removeBoardFromFavorites(Board board) => _fChanDatabase.removeFromFavorites(board);
+  Future<Board> removeBoardFromFavorites(Board board) => _fChanDatabase.removeBoardFromFavorites(board);
 
   Future<EntityPortion<Thread>> history(EntityPage entityPage) => _fChanDatabase.historyThreads(entityPage);
 
-  Future<bool> threadContainsInHistory(Thread thread) => _fChanDatabase.containsInHistory(thread);
+  Future<bool> threadContainsInHistory(Thread thread) => _fChanDatabase.threadContainsInHistory(thread);
 
-  Future<Thread> addThreadToHistory(Thread thread) => _fChanDatabase.addToHistory(thread);
+  Future<Thread> addThreadToHistory(Thread thread) => _fChanDatabase.addThreadToHistory(thread);
 
-  Future<Thread> removeThreadFromHistory(Thread thread) => _fChanDatabase.removeFromHistory(thread);
+  Future<Thread> updateThreadInHistory(Thread thread) => _fChanDatabase.updateThreadInHistory(thread);
+
+  Future<Thread> removeThreadFromHistory(Thread thread) => _fChanDatabase.removeThreadFromHistory(thread);
 
   Future<EntityPortion<Thread>> catalogForBoard(Board board, EntityPage entityPage) async {
     final portion = await _chanApi.fetchCatalog(board, entityPage);

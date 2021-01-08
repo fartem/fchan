@@ -13,7 +13,13 @@ class HistoryModel extends ChangeNotifier {
   Future<EntityPortion> historyPage(EntityPage entityPage) => _fChanRepository.history(entityPage);
 
   Future<Thread> addToHistory(Thread thread) async {
-    await _fChanRepository.addThreadToHistory(thread);
+    final threadAlreadyInHistory = await _fChanRepository.threadContainsInHistory(thread);
+    thread.lastSeenDate = DateTime.now();
+    if (!threadAlreadyInHistory) {
+      await _fChanRepository.addThreadToHistory(thread);
+    } else {
+      await _fChanRepository.updateThreadInHistory(thread);
+    }
     notifyListeners();
     return thread;
   }

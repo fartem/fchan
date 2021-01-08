@@ -85,8 +85,11 @@ class FChanApi extends ChanApi {
       json['replies'],
       json['images'],
       filename != null ? WebImage(_cdnImageUri('/${board.board}/$tim$ext').toString(), json['w'], json['h']) : null,
-      filename != null ? WebImage(_cdnImageUri('/${board.board}/${tim}s.jpg').toString(), json['tn_w'], json['tn_h']) : null,
+      filename != null
+          ? WebImage(_cdnImageUri('/${board.board}/${tim}s.jpg').toString(), json['tn_w'], json['tn_h'])
+          : null,
       ext,
+      null,
     );
   }
 
@@ -121,7 +124,9 @@ class FChanApi extends ChanApi {
       json['replies'],
       DateTime.now().difference((json['time'] as int).dateTimeFromUnixTimestamp()),
       filename != null ? WebImage(_cdnImageUri('/${board.board}/$tim$ext').toString(), json['w'], json['h']) : null,
-      filename != null ? WebImage(_cdnImageUri('/${board.board}/${tim}s.jpg').toString(), json['tn_w'], json['th_h']) : null,
+      filename != null
+          ? WebImage(_cdnImageUri('/${board.board}/${tim}s.jpg').toString(), json['tn_w'], json['tn_h'])
+          : null,
       ext,
     );
   }

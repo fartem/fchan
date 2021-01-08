@@ -16,32 +16,30 @@ class FavoriteBoardsScreen extends StatefulWidget {
 class _FavoriteBoardsState extends State<FavoriteBoardsScreen> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<FavoriteBoardsModel>(
-      builder: (context, model, child) {
-        return FutureBuilder<List<Board>>(
-          future: model.favoriteBoards(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              if (snapshot.data.isEmpty) {
-                return CenteredTextWidget(
-                  context.fChanWords().boardsIsEmptyMessage,
-                );
-              }
-              return ListView.builder(
-                itemBuilder: (context, index) => _boardListItem(
-                  context,
-                  snapshot.data[index],
-                ),
-                itemCount: snapshot.data.length,
+    return Consumer<FavoriteBoardsModel>(builder: (context, model, child) {
+      return FutureBuilder<List<Board>>(
+        future: model.favoriteBoards(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data.isEmpty) {
+              return CenteredTextWidget(
+                context.fChanWords().boardsIsEmptyMessage,
               );
-            } else if (snapshot.hasError) {
-              return CenteredTextWidget('');
             }
-            return CenteredCircularProgressIndicatorWidget();
-          },
-        );
-      }
-    );
+            return ListView.builder(
+              itemBuilder: (context, index) => _boardListItem(
+                context,
+                snapshot.data[index],
+              ),
+              itemCount: snapshot.data.length,
+            );
+          } else if (snapshot.hasError) {
+            return CenteredTextWidget('');
+          }
+          return CenteredCircularProgressIndicatorWidget();
+        },
+      );
+    });
   }
 
   Widget _boardListItem(BuildContext context, Board board) {

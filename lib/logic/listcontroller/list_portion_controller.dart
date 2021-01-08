@@ -11,9 +11,7 @@ class ListPortionController<T> {
   bool isLoading = false;
   bool isLastPage = false;
 
-  ListPortionController(
-    this._portionProvider
-  );
+  ListPortionController(this._portionProvider);
 
   Future<void> loadMore() async {
     if (!isLoading && !isLastPage) {
@@ -33,7 +31,7 @@ class ListPortionController<T> {
       }
     }
   }
-  
+
   Future<void> refresh() async {
     items.clear();
     isLoading = false;

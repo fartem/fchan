@@ -15,6 +15,8 @@ class Thread extends StorageEntity {
   final WebImage thumbnail;
   final String ext;
 
+  DateTime lastSeenDate;
+
   Thread(
     this.board,
     this.threadUrl,
@@ -26,7 +28,8 @@ class Thread extends StorageEntity {
     this.images,
     this.image,
     this.thumbnail,
-    this.ext, {
+    this.ext,
+    this.lastSeenDate, {
     id,
   }) : super(id);
 

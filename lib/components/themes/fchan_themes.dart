@@ -2,23 +2,15 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-const _accentColors = <MaterialColor>[
-  Colors.green,
-  Colors.blue,
-  Colors.cyan,
-  Colors.indigo,
-  Colors.red,
-];
-
 final themeLight = _themeData(
   Brightness.light,
-  _randomColor(),
+  Colors.orangeAccent,
   appBarColor: Colors.grey,
 );
 
 final themeDark = _themeData(
   Brightness.dark,
-  _randomColor(),
+  Colors.orangeAccent,
 );
 
 ThemeData _themeData(
@@ -41,5 +33,3 @@ ThemeData _themeData(
     ),
   );
 }
-
-Color _randomColor() => _accentColors[Random().nextInt(_accentColors.length)];

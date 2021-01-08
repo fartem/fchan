@@ -15,10 +15,7 @@ class Board extends StorageEntity {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Board &&
-          runtimeType == other.runtimeType &&
-          board == other.board &&
-          title == other.title;
+      other is Board && runtimeType == other.runtimeType && board == other.board && title == other.title;
 
   @override
   int get hashCode => board.hashCode ^ title.hashCode;
