@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:path_provider/path_provider.dart';
+
+import '../../logic/cache/image_cache_manager.dart';
 
 class CachedNetworkImageWithLoader extends StatelessWidget {
   final String _url;
@@ -33,26 +33,5 @@ class CachedNetworkImageWithLoader extends StatelessWidget {
         cacheManager: ImageCacheManager(),
       ),
     );
-  }
-}
-
-class ImageCacheManager extends BaseCacheManager {
-  static final String _key = 'imageCache';
-
-  static ImageCacheManager _instance;
-
-  ImageCacheManager._() : super(_key);
-
-  factory ImageCacheManager() {
-    if (_instance == null) {
-      _instance = ImageCacheManager._();
-    }
-    return _instance;
-  }
-
-  @override
-  Future<String> getFilePath() async {
-    final directory = await getApplicationSupportDirectory();
-    return '${directory.path}/$_key';
   }
 }

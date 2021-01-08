@@ -14,6 +14,7 @@ import 'logic/screens/board_screen.dart';
 import 'logic/screens/explore_boards_screen.dart';
 import 'logic/screens/favorite_boards_screen.dart';
 import 'logic/screens/history_screen.dart';
+import 'logic/screens/settings_screen.dart';
 import 'logic/screens/thread_screen.dart';
 import 'provider/catalog_model.dart';
 import 'provider/favorite_boards_model.dart';
@@ -134,6 +135,20 @@ class _FChanState extends State<FChan> {
         BottomNavigationBarItem(
           label: context.fChanWords().historyTitle,
           icon: Icon(Icons.history),
+        ),
+        [
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () async => await Provider.of<HistoryModel>(context, listen: false).clearHistory(),
+          ),
+        ],
+      ),
+      NavigationPage(
+        SettingsScreen(),
+        context.fChanWords().settingsTitle,
+        BottomNavigationBarItem(
+          label: context.fChanWords().settingsTitle,
+          icon: Icon(Icons.settings),
         ),
         [],
       ),

@@ -185,6 +185,9 @@ class SQFLiteDatabase extends FChanDatabase {
       whereArgs: [thread.id],
     ).then((value) => thread);
   }
+
+  @override
+  Future<void> clearHistory() async => await _database.rawQuery('delete from $tableThread');
 }
 
 const tableBoard = 'board';

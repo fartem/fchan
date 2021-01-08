@@ -50,6 +50,8 @@ class FChanRepository {
 
   Future<Thread> removeThreadFromHistory(Thread thread) => _fChanDatabase.removeThreadFromHistory(thread);
 
+  Future<void> clearHistory() => _fChanDatabase.clearHistory();
+
   Future<EntityPortion<Thread>> catalogForBoard(Board board, EntityPage entityPage) async {
     final portion = await _chanApi.fetchCatalog(board, entityPage);
     for (var i = 0; i < portion.entities.length; i++) {

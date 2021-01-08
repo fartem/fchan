@@ -25,4 +25,6 @@ abstract class FChanDatabase {
   Future<Thread> updateThreadInHistory(Thread thread);
 
   Future<Thread> removeThreadFromHistory(Thread thread);
+
+  Future<void> clearHistory();
 }

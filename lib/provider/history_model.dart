@@ -29,4 +29,9 @@ class HistoryModel extends ChangeNotifier {
     notifyListeners();
     return thread;
   }
+
+  Future<void> clearHistory() async {
+    await _fChanRepository.clearHistory();
+    notifyListeners();
+  }
 }
