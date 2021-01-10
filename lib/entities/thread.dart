@@ -4,7 +4,6 @@ import 'web_image.dart';
 
 class Thread extends StorageEntity {
   final Board board;
-  final String threadUrl;
   final int no;
   final String sub;
   final String com;
@@ -19,7 +18,6 @@ class Thread extends StorageEntity {
 
   Thread(
     this.board,
-    this.threadUrl,
     this.no,
     this.sub,
     this.com,

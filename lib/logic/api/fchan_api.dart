@@ -77,7 +77,6 @@ class FChanApi extends ChanApi {
     final ext = json['ext'] as String;
     return Thread(
       board,
-      _cdnUri('${board.board}/thread/${json['no']}').toString(),
       json['no'],
       json['sub'],
       json['com'],
@@ -129,5 +128,13 @@ class FChanApi extends ChanApi {
           : null,
       ext,
     );
+  }
+
+  @override
+  String threadLink(Thread thread) {
+    return Uri.https(
+      'boards.4channel.org',
+      '${thread.board.board}/thread/${thread.no}',
+    ).toString();
   }
 }

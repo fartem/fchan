@@ -13,4 +13,6 @@ abstract class ChanApi {
   );
 
   Future<List<Post>> fetchPosts(Thread thread);
+
+  String threadLink(Thread thread);
 }

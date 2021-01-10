@@ -10,4 +10,6 @@ class ThreadModel extends ChangeNotifier {
   ThreadModel(this._fChanRepository);
 
   Future<List<Post>> postsForThread(Thread thread) => _fChanRepository.postsForThread(thread);
+
+  String threadLink(Thread thread) => _fChanRepository.threadLink(thread);
 }

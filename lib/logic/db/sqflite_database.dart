@@ -127,8 +127,8 @@ class SQFLiteDatabase extends FChanDatabase {
   Future<Thread> threadFromHistory(Thread thread) {
     return _database.query(
       tableThread,
-      where: '$columnThreadUrl = ?',
-      whereArgs: [thread.threadUrl],
+      where: '$columnThreadNo = ?',
+      whereArgs: [thread.no],
     ).then((rawThreadResult) async {
       if (rawThreadResult.isEmpty) {
         return null;
@@ -146,8 +146,8 @@ class SQFLiteDatabase extends FChanDatabase {
   Future<bool> threadContainsInHistory(Thread thread) {
     return _database.query(
       tableThread,
-      where: '$columnThreadUrl = ?',
-      whereArgs: [thread.threadUrl],
+      where: '$columnThreadNo = ?',
+      whereArgs: [thread.no],
     ).then((value) => value.isNotEmpty);
   }
 
@@ -200,7 +200,6 @@ const columnBoardTitle = 'title';
 const columnBoardIsFavorite = 'is_favorite';
 
 const columnThreadBoardId = 'board_id';
-const columnThreadUrl = 'thread_url';
 const columnThreadNo = 'no';
 const columnThreadSub = 'sub';
 const columnThreadCom = 'com';
@@ -229,7 +228,6 @@ String createThreadTable() {
   return 'create table $tableThread('
       '$columnId integer primary key autoincrement,'
       '$columnThreadBoardId integer,'
-      '$columnThreadUrl text,'
       '$columnThreadNo int,'
       '$columnThreadSub text,'
       '$columnThreadCom text,'
@@ -271,7 +269,6 @@ Map<String, dynamic> threadToDb(Thread thread) {
   return {
     columnId: thread.id,
     columnThreadBoardId: thread.board.id,
-    columnThreadUrl: thread.threadUrl,
     columnThreadNo: thread.no,
     columnThreadSub: thread.sub,
     columnThreadCom: thread.com,
@@ -300,7 +297,6 @@ Thread threadFromDb(Map<String, dynamic> data, Board board) {
       : null;
   return Thread(
     board,
-    data[columnThreadUrl],
     data[columnThreadNo],
     data[columnThreadSub],
     data[columnThreadCom],

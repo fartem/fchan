@@ -64,4 +64,6 @@ class FChanRepository {
   }
 
   Future<List<Post>> postsForThread(Thread thread) => _chanApi.fetchPosts(thread);
+
+  String threadLink(Thread thread) => _chanApi.threadLink(thread);
 }

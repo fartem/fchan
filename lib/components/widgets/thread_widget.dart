@@ -1,12 +1,14 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../entities/thread.dart';
 import '../../extensions/build_context_extensions.dart';
 import '../../extensions/duration_extensions.dart';
 import '../../logic/routes/fchan_route.dart';
+import '../../provider/thread_model.dart';
 import '../words/fchan_words.dart';
 import 'cached_network_image_with_loader.dart';
 import 'content_html_text_widget.dart';
@@ -31,98 +33,100 @@ class ThreadWidget extends StatelessWidget {
     return Card(
       margin: const EdgeInsets.all(4.0),
       child: InkWell(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            child: Text(
-                              _prepareThreadDateAndImageFormatInfo(_thread),
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey[700],
-                              ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Text(
+                            _prepareThreadDateAndImageFormatInfo(_thread),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
                             ),
                           ),
-                          Align(
-                            alignment: AlignmentDirectional.centerStart,
-                            child: Text(
-                              _prepareThreadRepliesAndImagesInfo(
-                                context.fChanWords(),
-                                _thread,
-                              ),
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey[700],
-                              ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Text(
+                            _prepareThreadRepliesAndImagesInfo(
+                              context.fChanWords(),
+                              _thread,
+                            ),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    PopupMenuButton<ThreadPopupMenuAction>(
-                      itemBuilder: (context) => _availableActions.map((e) {
-                        return PopupMenuItem<ThreadPopupMenuAction>(
-                          value: e,
-                          child: Text(_wordForPopupActions(e)),
-                        );
-                      }).toList(),
-                      onSelected: (threadPopupMenuAction) async {
-                        switch (threadPopupMenuAction) {
-                          case ThreadPopupMenuAction.openLink:
-                            launch(_thread.threadUrl);
-                            break;
-                          case ThreadPopupMenuAction.copyLink:
-                            await FlutterClipboard.copy(_thread.threadUrl);
-                            break;
-                          case ThreadPopupMenuAction.removeFromHistory:
-                            _deleteAction?.call();
-                            break;
-                        }
-                      },
-                      child: Icon(
-                        Icons.more_vert,
-                      ),
+                  ),
+                  PopupMenuButton<ThreadPopupMenuAction>(
+                    itemBuilder: (context) => _availableActions.map((e) {
+                      return PopupMenuItem<ThreadPopupMenuAction>(
+                        value: e,
+                        child: Text(_wordForPopupActions(e)),
+                      );
+                    }).toList(),
+                    onSelected: (threadPopupMenuAction) async {
+                      final threadModel = Provider.of<ThreadModel>(context, listen: false);
+                      switch (threadPopupMenuAction) {
+                        case ThreadPopupMenuAction.openLink:
+                          launch(threadModel.threadLink(_thread));
+                          break;
+                        case ThreadPopupMenuAction.copyLink:
+                          await FlutterClipboard.copy(threadModel.threadLink(_thread));
+                          break;
+                        case ThreadPopupMenuAction.removeFromHistory:
+                          _deleteAction?.call();
+                          break;
+                      }
+                    },
+                    child: Icon(
+                      Icons.more_vert,
                     ),
-                  ],
+                  ),
+                ],
+              ),
+              if (_thread.thumbnail != null)
+                CachedNetworkImageWithLoader(
+                  _thread.thumbnail.link,
+                  _thread.thumbnail.width.toDouble(),
+                  _thread.thumbnail.height.toDouble(),
                 ),
-                if (_thread.thumbnail != null)
-                  CachedNetworkImageWithLoader(
-                    _thread.thumbnail.link,
-                    _thread.thumbnail.width.toDouble(),
-                    _thread.thumbnail.height.toDouble(),
+              if (_thread.sub != null)
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: ContentHtmlTextWidget(
+                    _thread.sub,
+                    bodyWeight: FontWeight.bold,
                   ),
-                if (_thread.sub != null)
-                  Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: ContentHtmlTextWidget(
-                      _thread.sub,
-                      bodyWeight: FontWeight.bold,
-                    ),
+                ),
+              if (_thread.com != null)
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: ContentHtmlTextWidget(
+                    _thread.com.length > 70 ? '${_thread.com.substring(0, 70)}...' : _thread.com,
                   ),
-                if (_thread.com != null)
-                  Align(
-                    alignment: AlignmentDirectional.centerStart,
-                    child: ContentHtmlTextWidget(
-                      _thread.com,
-                    ),
-                  ),
-              ],
-            ),
+                ),
+            ],
           ),
-          onTap: () {
-            _threadClickAdditionalAction.call();
-            context.push(
-              FChanRoute.threadScreen,
-              arguments: _thread,
-            );
-          }),
+        ),
+        onTap: () {
+          _threadClickAdditionalAction.call();
+          context.push(
+            FChanRoute.threadScreen,
+            arguments: _thread,
+          );
+        },
+      ),
     );
   }
 
