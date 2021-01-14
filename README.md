@@ -60,7 +60,12 @@ Just clone or download the project from GitHub and run it from your IDE. How to 
 
 ## How to contribute
 
-Soon.
+Read [Commit Convention](https://github.com/fartem/repository-rules/blob/master/commit-convention/COMMIT_CONVENTION.md). Make sure your build is green before you contribute your pull request. Then:
+
+```shell
+$ flutter analyze
+$ flutter test test
+```
 
 ## Contributors
 
