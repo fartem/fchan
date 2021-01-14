@@ -31,7 +31,7 @@ Soon.
 
 ## Feedback
 
-If you have a feature request or an issue, you can create report on [this](https://github.com/fartem/fchan/issues) page.
+If you have a feature request or an issue, you can create report on [this page](https://github.com/fartem/fchan/issues).
 
 ## How to build app for Android
 
