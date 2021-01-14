@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:http/http.dart';
 
@@ -14,6 +15,9 @@ import 'chan_api.dart';
 
 class FChanApi extends ChanApi {
   static final _boardsCache = <String, Board>{};
+  static final _threadsCache = <String, List<Thread>>{};
+
+  static final _threadPageSize = 15;
 
   final Client _client;
 
@@ -56,18 +60,33 @@ class FChanApi extends ChanApi {
     Board board,
     EntityPage entityPage,
   ) async {
-    final uri = _cdnUri('${board.board}/${entityPage.page}.json');
-    final response = await _client.get(uri);
-    if (response.statusCode == 200) {
-      Map<String, dynamic> body = jsonDecode(response.body);
-      final parsedThreads =
-          (body['threads'] as List).map((posts) => _threadFromJson(board, posts['posts'].first)).toList();
-      return EntityPortion<Thread>(
-        parsedThreads,
-        entityPage.page == 10,
-      );
+    final threads = _threadsCache[board.board];
+    if (threads == null) {
+      final uri = _cdnUri('${board.board}/catalog.json');
+      final response = await _client.get(uri);
+      if (response.statusCode == 200) {
+        final List<dynamic> body = jsonDecode(response.body);
+        final parsedThreads = <Thread>[];
+        body.forEach((page) => page['threads'].forEach((thread) => parsedThreads.add(_threadFromJson(board, thread))));
+        _threadsCache[board.board] = parsedThreads;
+        return EntityPortion<Thread>(
+          parsedThreads.sublist(0, min(parsedThreads.length, _threadPageSize)),
+          parsedThreads.length == _threadPageSize,
+        );
+      } else {
+        throw HttpException('Cannot fetch threads from $uri');
+      }
     } else {
-      throw HttpException('Cannot fetch threads from $uri');
+      final startIndex = entityPage.page == 1 ? 0 : (entityPage.page - 1) * _threadPageSize;
+      final endIndex = startIndex + _threadPageSize;
+      final portion = threads.sublist(
+        startIndex,
+        startIndex + min(_threadPageSize, threads.length - endIndex),
+      );
+      return EntityPortion<Thread>(
+        portion,
+        portion.isEmpty,
+      );
     }
   }
 
