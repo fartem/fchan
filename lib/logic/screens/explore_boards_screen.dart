@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../components/widgets/centered_circular_progress_indicator_widget.dart';
+import '../../components/widgets/centered_text_widget.dart';
 import '../../entities/board.dart';
 import '../../extensions/build_context_extensions.dart';
 import '../../extensions/theme_extensions.dart';
-import '../../provider/boards_model.dart';
-import '../widgets/centered_circular_progress_indicator_widget.dart';
-import '../widgets/centered_text_widget.dart';
+import '../../provider/favorite_boards_model.dart';
 
 class ExploreBoardsScreen extends StatefulWidget {
   @override
@@ -23,7 +23,7 @@ class _ExploreBoardsState extends State<ExploreBoardsScreen> {
         ),
       ),
       body: FutureBuilder<List<Board>>(
-        future: context.watch<BoardsModel>().boards(),
+        future: Provider.of<FavoriteBoardsModel>(context, listen: false).allBoards(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data.isEmpty) {
@@ -54,11 +54,13 @@ class _ExploreBoardsState extends State<ExploreBoardsScreen> {
         color: board.isFavorite ? context.accentColor : Colors.grey,
       ),
       onTap: () async {
+        final favoriteBoardsModel = Provider.of<FavoriteBoardsModel>(context, listen: false);
         if (!board.isFavorite) {
-          context.read<BoardsModel>().addFavoriteBoard(board);
+          await favoriteBoardsModel.addToFavorites(board);
         } else {
-          context.read<BoardsModel>().removeFavoriteBoard(board);
+          await favoriteBoardsModel.removeFromFavorites(board);
         }
+        setState(() {});
       },
     );
   }

@@ -1,15 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 
+import '../../components/widgets/centered_circular_progress_indicator_widget.dart';
+import '../../components/widgets/centered_text_widget.dart';
+import '../../components/widgets/post_widget.dart';
 import '../../entities/post.dart';
 import '../../entities/thread.dart';
 import '../../extensions/build_context_extensions.dart';
-import '../repository/repository.dart';
-import '../widgets/centered_circular_progress_indicator_widget.dart';
-import '../widgets/centered_text_widget.dart';
-import '../widgets/post_widget.dart';
+import '../../provider/thread_model.dart';
 
 class ThreadScreen extends StatefulWidget {
   final Thread _thread;
@@ -17,18 +16,12 @@ class ThreadScreen extends StatefulWidget {
   ThreadScreen(this._thread);
 
   @override
-  State<StatefulWidget> createState() => _ThreadState(_thread);
+  State<StatefulWidget> createState() => _ThreadState();
 }
 
 class _ThreadState extends State<ThreadScreen> {
-  final FChanRepository _fChanRepository = GetIt.I.get();
-
   final ScrollController _scrollController = ScrollController();
   bool _showFab = true;
-
-  final Thread _thread;
-
-  _ThreadState(this._thread);
 
   @override
   void initState() {
@@ -48,45 +41,45 @@ class _ThreadState extends State<ThreadScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          _thread.toString(),
+    return Consumer<ThreadModel>(builder: (context, model, child) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            widget._thread.toString(),
+          ),
         ),
-      ),
-      body: FutureBuilder<List<Post>>(
-        future: _fChanRepository.postsForThread(_thread),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data.isEmpty) {
+        body: FutureBuilder<List<Post>>(
+          future: model.postsForThread(widget._thread),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data.isEmpty) {
+                return CenteredTextWidget(
+                  context.fChanWords().boardsIsEmptyMessage,
+                );
+              }
+              return ListView.builder(
+                itemBuilder: (context, index) => PostWidget(snapshot.data[index]),
+                itemCount: snapshot.data.length,
+                controller: _scrollController,
+              );
+            } else if (snapshot.hasError) {
               return CenteredTextWidget(
-                context.fChanWords().boardsIsEmptyMessage,
+                context.fChanWords().commonErrorMessage,
               );
             }
-            return ListView.builder(
-              itemBuilder: (context, index) => PostWidget(snapshot.data[index]),
-              itemCount: snapshot.data.length,
-              controller: _scrollController,
-            );
-          } else if (snapshot.hasError) {
-            return CenteredTextWidget(
-              context.fChanWords().commonErrorMessage,
-            );
-          }
-          return CenteredCircularProgressIndicatorWidget();
-        },
-      ),
-      floatingActionButton: Visibility(
-        visible: _showFab,
-        child: FloatingActionButton(
-          child: Icon(
-            Icons.refresh,
-          ),
-          onPressed: () {
-            setState(() {});
+            return CenteredCircularProgressIndicatorWidget();
           },
         ),
-      ),
-    );
+        floatingActionButton: Visibility(
+          visible: _showFab,
+          child: FloatingActionButton(
+            child: Icon(
+              Icons.refresh,
+            ),
+            onPressed: () => setState(() {}),
+          ),
+        ),
+      );
+    });
   }
 }

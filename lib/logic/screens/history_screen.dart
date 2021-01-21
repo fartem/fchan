@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
-import '../../entities/entity_page.dart';
-import '../../entities/entity_portion.dart';
+import '../../components/widgets/centered_circular_progress_indicator_widget.dart';
+import '../../components/widgets/centered_text_widget.dart';
+import '../../components/widgets/thread_widget.dart';
 import '../../entities/thread.dart';
 import '../../extensions/build_context_extensions.dart';
 import '../../provider/history_model.dart';
-import '../widgets/centered_circular_progress_indicator_widget.dart';
-import '../widgets/centered_text_widget.dart';
-import '../widgets/thread_widget.dart';
+import '../listcontroller/list_entity.dart';
+import '../listcontroller/list_portion_controller.dart';
 
 class HistoryScreen extends StatefulWidget {
   @override
@@ -17,69 +17,58 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryState extends State<HistoryScreen> {
-  int _page = 0;
-  bool _isLoading = false;
-  bool _isLastPage = false;
+  ListPortionController _listPortionController;
 
   final ScrollController _scrollController = ScrollController();
-
-  final _history = [];
 
   @override
   void initState() {
     super.initState();
-    _loadHistory();
+    _listPortionController = ListPortionController<Thread>(
+      (entityPage) => context.read<HistoryModel>().historyPage(entityPage),
+    );
+    _loadMore();
     _scrollController.addListener(() {
-      if (_scrollController.position.maxScrollExtent ==
-          _scrollController.position.pixels) {
-        _loadHistory();
+      if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
+        _loadMore();
       }
     });
+    context.read<HistoryModel>().addListener(() => _listPortionController?.refresh());
   }
 
-  void _loadHistory() async {
-    if (!_isLoading && !_isLastPage) {
-      _isLoading = true;
-      EntityPortion entityPortion = await context.read<HistoryModel>().history(
-        EntityPage.paging(_page),
-      );
-      _isLastPage = entityPortion.isLastPage;
-      _history.addAll(entityPortion.entities);
-      _isLoading = false;
-      _page++;
-      setState(() {
-
-      });
-    }
-  }
+  void _loadMore() => _listPortionController.loadMore().then((value) => setState(() {}));
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HistoryModel>(
-      builder: (context, model, child) {
-        if (_isLoading && _history.isEmpty) {
+    final items = _listPortionController.items;
+    if (_listPortionController.isLoading && items.isEmpty) {
+      return CenteredCircularProgressIndicatorWidget();
+    } else if (items.isEmpty) {
+      return CenteredTextWidget(
+        context.fChanWords().historyIsEmptyMessage,
+      );
+    }
+    return StaggeredGridView.countBuilder(
+      crossAxisCount: 4,
+      staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+      itemBuilder: (context, index) {
+        final item = items[index];
+        if (item == listLoader) {
+          // TODO: set at center
           return CenteredCircularProgressIndicatorWidget();
-        } else if (_history.isEmpty) {
-          return CenteredTextWidget(
-            context.fChanWords().historyIsEmptyMessage,
-          );
         }
-        return StaggeredGridView.countBuilder(
-          crossAxisCount: 4,
-          staggeredTileBuilder: (index) => StaggeredTile.fit(2),
-          itemBuilder: (context, index) {
-            final item = _history[index];
-            if (item is Thread) {
-              return ThreadWidget(
-                _history[index],
-                () {},
-              );
-            }
-            return CenteredCircularProgressIndicatorWidget();
+        final thread = item.item;
+        return ThreadWidget(
+          thread,
+          () {},
+          ThreadPopupMenuAction.values,
+          () async {
+            await Provider.of<HistoryModel>(context, listen: false).removeFromHistory(thread);
+            setState(() => items.remove(item));
           },
-          itemCount: _history.length,
         );
       },
+      itemCount: items.length,
     );
   }
 
@@ -88,8 +77,4 @@ class _HistoryState extends State<HistoryScreen> {
     _scrollController.dispose();
     super.dispose();
   }
-}
-
-class Loader {
-
 }

@@ -6,9 +6,13 @@ import '../../entities/thread.dart';
 
 abstract class ChanApi {
   Future<List<Board>> fetchBoards();
+
   Future<EntityPortion<Thread>> fetchCatalog(
-      Board board,
-      EntityPage entityPage,
+    Board board,
+    EntityPage entityPage,
   );
+
   Future<List<Post>> fetchPosts(Thread thread);
+
+  String threadLink(Thread thread);
 }

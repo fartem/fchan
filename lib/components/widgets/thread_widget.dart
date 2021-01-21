@@ -1,25 +1,32 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../entities/thread.dart';
 import '../../extensions/build_context_extensions.dart';
 import '../../extensions/duration_extensions.dart';
-import '../../provider/history_model.dart';
-import '../routes/fchan_route.dart';
+import '../../logic/routes/fchan_route.dart';
+import '../../provider/thread_model.dart';
 import '../words/fchan_words.dart';
 import 'cached_network_image_with_loader.dart';
 import 'content_html_text_widget.dart';
 
 class ThreadWidget extends StatelessWidget {
+  final FChanWords _fChanWords = GetIt.I.get();
+
   final Thread _thread;
   final Function _threadClickAdditionalAction;
+  final List<ThreadPopupMenuAction> _availableActions;
+  final VoidCallback _deleteAction;
 
   ThreadWidget(
-      this._thread,
-      this._threadClickAdditionalAction,
-  );
+    this._thread,
+    this._threadClickAdditionalAction,
+    this._availableActions, [
+    this._deleteAction,
+  ]);
 
   @override
   Widget build(BuildContext context) {
@@ -62,26 +69,23 @@ class ThreadWidget extends StatelessWidget {
                     ),
                   ),
                   PopupMenuButton<ThreadPopupMenuAction>(
-                    itemBuilder: (context) => ThreadPopupMenuAction.values
-                        .map((e) {
-                          return PopupMenuItem<ThreadPopupMenuAction>(
-                            value: e,
-                            child: Text(e.toString()),
-                          );
-                        })
-                        .toList(),
+                    itemBuilder: (context) => _availableActions.map((e) {
+                      return PopupMenuItem<ThreadPopupMenuAction>(
+                        value: e,
+                        child: Text(_wordForPopupActions(e)),
+                      );
+                    }).toList(),
                     onSelected: (threadPopupMenuAction) async {
+                      final threadModel = Provider.of<ThreadModel>(context, listen: false);
                       switch (threadPopupMenuAction) {
                         case ThreadPopupMenuAction.openLink:
-                          launch(_thread.threadUrl);
+                          launch(threadModel.threadLink(_thread));
                           break;
                         case ThreadPopupMenuAction.copyLink:
-                          await FlutterClipboard.copy(
-                              _thread.threadUrl
-                          );
+                          await FlutterClipboard.copy(threadModel.threadLink(_thread));
                           break;
                         case ThreadPopupMenuAction.removeFromHistory:
-                          context.read<HistoryModel>().removeFromHistory(_thread);
+                          _deleteAction?.call();
                           break;
                       }
                     },
@@ -91,11 +95,11 @@ class ThreadWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              if (_thread.thumbnailImageUrl != null)
+              if (_thread.thumbnail != null)
                 CachedNetworkImageWithLoader(
-                  _thread.thumbnailImageUrl,
-                  _thread.thumbnailImageWidth.toDouble(),
-                  _thread.thumbnailImageHeight.toDouble(),
+                  _thread.thumbnail.link,
+                  _thread.thumbnail.width.toDouble(),
+                  _thread.thumbnail.height.toDouble(),
                 ),
               if (_thread.sub != null)
                 Align(
@@ -109,7 +113,7 @@ class ThreadWidget extends StatelessWidget {
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: ContentHtmlTextWidget(
-                    _thread.com,
+                    _thread.com.length > 70 ? '${_thread.com.substring(0, 70)}...' : _thread.com,
                   ),
                 ),
             ],
@@ -121,7 +125,7 @@ class ThreadWidget extends StatelessWidget {
             FChanRoute.threadScreen,
             arguments: _thread,
           );
-        }
+        },
       ),
     );
   }
@@ -133,12 +137,25 @@ class ThreadWidget extends StatelessWidget {
   }
 
   String _prepareThreadRepliesAndImagesInfo(
-      FChanWords fChanWords,
-      Thread thread,
+    FChanWords fChanWords,
+    Thread thread,
   ) {
     final replies = '${thread.replies == 0 ? '' : '${thread.replies} ${fChanWords.repliesTitle}'}';
     final images = '${thread.images == 0 ? '' : '${thread.images} ${fChanWords.imagesTitle}'}';
     return '$replies $images'.trim();
+  }
+
+  String _wordForPopupActions(ThreadPopupMenuAction action) {
+    switch (action) {
+      case ThreadPopupMenuAction.openLink:
+        return _fChanWords.threadActionOpenLink;
+      case ThreadPopupMenuAction.copyLink:
+        return _fChanWords.threadActionCopyLink;
+      case ThreadPopupMenuAction.removeFromHistory:
+        return _fChanWords.threadActionRemoveFromHistory;
+      default:
+        return 'NO IMPL';
+    }
   }
 }
 

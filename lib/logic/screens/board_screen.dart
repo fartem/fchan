@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
+import '../../components/widgets/centered_circular_progress_indicator_widget.dart';
+import '../../components/widgets/centered_text_widget.dart';
+import '../../components/widgets/thread_widget.dart';
 import '../../entities/board.dart';
-import '../../entities/entity_page.dart';
 import '../../entities/thread.dart';
 import '../../extensions/build_context_extensions.dart';
+import '../../provider/catalog_model.dart';
 import '../../provider/history_model.dart';
-import '../repository/repository.dart';
-import '../widgets/centered_circular_progress_indicator_widget.dart';
-import '../widgets/centered_text_widget.dart';
-import '../widgets/thread_widget.dart';
+import '../listcontroller/list_entity.dart';
+import '../listcontroller/list_portion_controller.dart';
 
 class BoardScreen extends StatefulWidget {
   final Board _board;
@@ -20,31 +20,25 @@ class BoardScreen extends StatefulWidget {
   BoardScreen(this._board);
 
   @override
-  State<StatefulWidget> createState() => _BoardState(_board);
+  State<StatefulWidget> createState() => _BoardState();
 }
 
 class _BoardState extends State<BoardScreen> {
-  final FChanRepository _fChanRepository = GetIt.I.get();
+  ListPortionController _listPortionController;
 
   final ScrollController _scrollController = ScrollController();
   bool showFab = true;
 
-  final Board _board;
-  final List<Thread> _catalog = [];
-
-  int _page = 1;
-  bool _catalogIsLoading = false;
-  bool _isLastPage = false;
-
-  _BoardState(this._board);
-
   @override
   void initState() {
     super.initState();
-    _loadCatalog();
+    _listPortionController = ListPortionController<Thread>(
+      (entityPage) => context.read<CatalogModel>().catalogPage(widget._board, entityPage),
+    );
+    _loadMore();
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
-        _loadCatalog();
+        _loadMore();
       } else {
         setState(() {
           showFab = _scrollController.position.userScrollDirection != ScrollDirection.reverse;
@@ -53,38 +47,15 @@ class _BoardState extends State<BoardScreen> {
     });
   }
 
-  void _loadCatalog() async {
-    if (!_catalogIsLoading && !_isLastPage) {
-      _catalogIsLoading = true;
-      final portion = await _fChanRepository.catalogForBoard(
-        _board,
-        EntityPage.paging(_page),
-      );
-      if (_catalog.isNotEmpty && _catalog.last is Loader) {
-        _catalog.removeLast();
-      }
-      _catalogIsLoading = false;
-      _isLastPage = portion.isLastPage;
-      if (!_isLastPage) {
-        _page++;
-      }
-      _catalog.addAll(portion.entities);
-      if (!portion.isLastPage) {
-        _catalog.add(Loader());
-      }
-      setState(() {
-
-      });
-    }
-  }
+  void _loadMore() => _listPortionController.loadMore().then((value) => setState(() {}));
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          _board.toString(),
-        )
+          widget._board.toString(),
+        ),
       ),
       body: _catalogPresentation(),
       floatingActionButton: Visibility(
@@ -99,19 +70,12 @@ class _BoardState extends State<BoardScreen> {
     );
   }
 
-  void _refresh() {
-    setState(() {
-      _catalog.clear();
-      _catalogIsLoading = false;
-      _isLastPage = false;
-      _page = 1;
-      _loadCatalog();
-    });
-  }
+  void _refresh() => _listPortionController.refresh().then((value) => _loadMore());
 
   Widget _catalogPresentation() {
-    if (_catalog.isEmpty) {
-      if (_catalogIsLoading) {
+    final items = _listPortionController.items;
+    if (items.isEmpty) {
+      if (_listPortionController.isLoading) {
         return CenteredCircularProgressIndicatorWidget();
       }
       return CenteredTextWidget(
@@ -122,40 +86,23 @@ class _BoardState extends State<BoardScreen> {
       crossAxisCount: 4,
       staggeredTileBuilder: (index) => StaggeredTile.fit(2),
       itemBuilder: (context, index) {
-        final thread = _catalog[index];
-        if (thread is Loader) {
+        final item = items[index];
+        if (item == listLoader) {
           // TODO: set at center
           return CenteredCircularProgressIndicatorWidget();
         }
+        final thread = item.item;
         return ThreadWidget(
           thread,
-          () async {
-            await context.read<HistoryModel>().addToHistory(thread);
-          },
+          () async => Provider.of<HistoryModel>(context, listen: false).addToHistory(thread),
+          [
+            ThreadPopupMenuAction.openLink,
+            ThreadPopupMenuAction.copyLink,
+          ],
         );
       },
-      itemCount: _catalog.length,
+      itemCount: items.length,
       controller: _scrollController,
     );
   }
-}
-
-class Loader extends Thread {
-  Loader() : super(
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-  );
 }

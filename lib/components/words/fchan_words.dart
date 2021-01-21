@@ -2,6 +2,7 @@ abstract class FChanWords {
   String get homeTitle;
 
   String get boardsTitle;
+
   String get boardsIsEmptyMessage;
 
   String get exploreBoardsTitle;
@@ -9,16 +10,41 @@ abstract class FChanWords {
   String get catalogIsEmpty;
 
   String get historyTitle;
+
   String get historyIsEmptyMessage;
 
   String get postsInThreadIsEmptyMessage;
 
   String get repliesTitle;
+
   String get imagesTitle;
 
+  String get threadActionOpenLink;
+
+  String get threadActionCopyLink;
+
+  String get threadActionRemoveFromHistory;
+
+  String get settingsTitle;
+
+  String get settingsCategoryStorage;
+
+  String get settingsItemClearImageCache;
+
+  String get settingsCategoryInfo;
+
+  String get settingItemBugReport;
+
+  String get settingItemAuthor;
+
+  String get settingItemVersion;
+
   String get commonRefreshText;
+
   String get commonReplyText;
+
   String get commonRepliesText;
+
   String get commonErrorMessage;
 }
 
@@ -52,6 +78,36 @@ class FChanWordsImpl extends FChanWords {
 
   @override
   String get imagesTitle => 'Img';
+
+  @override
+  String get threadActionOpenLink => 'Open link';
+
+  @override
+  String get threadActionCopyLink => 'Copy link';
+
+  @override
+  String get threadActionRemoveFromHistory => 'Remove from History';
+
+  @override
+  String get settingsTitle => 'Settings';
+
+  @override
+  String get settingsCategoryStorage => 'Storage';
+
+  @override
+  String get settingsItemClearImageCache => 'Clear Image Cache';
+
+  @override
+  String get settingsCategoryInfo => 'Info';
+
+  @override
+  String get settingItemBugReport => 'Bug report';
+
+  @override
+  String get settingItemAuthor => 'Author';
+
+  @override
+  String get settingItemVersion => 'Version';
 
   @override
   String get commonRefreshText => 'Refresh';

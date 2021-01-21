@@ -34,11 +34,11 @@ class PostWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                      if (_post.imageUrl != null)
+                      if (_post.image != null)
                         Align(
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
-                            '${_post.ext} (${_post.imageWidth}x${_post.imageHeight})',
+                            '${_post.ext} (${_post.image.width}x${_post.image.height})',
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey[700],
@@ -62,13 +62,13 @@ class PostWidget extends StatelessWidget {
                   ),
                 ),
               ),
-            if (_post.thumbnailImageUrl != null)
+            if (_post.thumbnail != null)
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: CachedNetworkImageWithLoader(
-                  _post.thumbnailImageUrl,
-                  _post.thumbnailImageWidth.toDouble(),
-                  _post.thumbnailImageHeight.toDouble(),
+                  _post.thumbnail.link,
+                  _post.thumbnail.width.toDouble(),
+                  _post.thumbnail.height.toDouble(),
                 ),
               ),
             if (_post.sub != null)

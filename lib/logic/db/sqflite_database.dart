@@ -4,6 +4,7 @@ import '../../entities/board.dart';
 import '../../entities/entity_page.dart';
 import '../../entities/entity_portion.dart';
 import '../../entities/thread.dart';
+import '../../entities/web_image.dart';
 import 'fchan_database.dart';
 
 const String _sqfliteDbName = 'fchan.db';
@@ -12,77 +13,75 @@ const int _version1 = 1;
 const int _currentVersion = _version1;
 
 class SQFLiteDatabase extends FChanDatabase {
-  static final _boardsCache = <String, Board>{};
+  static final _favoriteBoardsCache = <String, Board>{};
 
-  Database _sqflite;
+  Database _database;
 
   @override
   Future<FChanDatabase> init() async {
-    _sqflite = await openDatabase(
+    _database = await openDatabase(
       _sqfliteDbName,
       version: _currentVersion,
       onCreate: (db, version) async {
-        await Future.wait([
-          db.execute(createBoardTable()),
-          db.execute(createThreadTable()),
-        ]);
-      }
+        await Future.wait(
+          [
+            db.execute(createBoardTable()),
+            db.execute(createThreadTable()),
+          ],
+        );
+      },
     );
     return this;
   }
 
   @override
-  Future<void> close() => _sqflite.close();
+  Future<void> close() => _database.close();
 
   @override
-  Future<EntityPortion<Board>> favoriteBoards(EntityPage entityPage) async {
-    if (_boardsCache.isNotEmpty) {
-      return EntityPortion(
-        _boardsCache.values.where((board) => board.isFavorite).toList(),
-        true,
-      );
+  Future<List<Board>> favoriteBoards() async {
+    if (_favoriteBoardsCache.isEmpty) {
+      await _database.query(
+        tableBoard,
+        where: '$columnBoardIsFavorite = ?',
+        whereArgs: [1],
+      ).then((rawBoards) {
+        final boards = rawBoards.map((rawBoard) => boardFromDb(rawBoard)).toList();
+        boards.forEach((board) => _favoriteBoardsCache[board.board] = board);
+      });
     }
-    return _sqflite.query(
-      tableBoard,
-      where: '$columnBoardIsFavorite = ?',
-      whereArgs: [1],
-    ).then((rawBoards) {
-      final boards = rawBoards.map((rawBoard) => boardFromDb(rawBoard)).toList();
-      boards.forEach((board) => _boardsCache[board.board] = board);
-      return EntityPortion(
-        _boardsCache.values.toList(),
-        true,
-      );
-    });
+    return _favoriteBoardsCache.values.toList();
   }
 
   @override
-  Future<Board> addToFavorites(Board board) {
+  Future<Board> addBoardToFavorites(Board board) {
     board.isFavorite = true;
     if (board.isNew()) {
-      return _sqflite.insert(
+      return _database
+          .insert(
         tableBoard,
         boardToDb(board),
-      ).then((boardId) {
+      )
+          .then((boardId) {
         board.id = boardId;
-        _boardsCache[board.board] = board;
+        _favoriteBoardsCache[board.board] = board;
         return board;
       });
     } else {
-      return _sqflite.update(
-        tableBoard,
-        boardToDb(board),
-      ).then((boardId) => board);
+      return _database
+          .update(
+            tableBoard,
+            boardToDb(board),
+          )
+          .then((boardId) => board);
     }
   }
 
   @override
-  Future<Board> removeFromFavorites(Board board) {
+  Future<Board> removeBoardFromFavorites(Board board) {
     board.isFavorite = false;
-    // TODO: update board in cache
-    return _sqflite.update(
+    _favoriteBoardsCache.remove(board.board);
+    return _database.delete(
       tableBoard,
-      boardToDb(board),
       where: '$columnId = ?',
       whereArgs: [board.id],
     ).then((boardId) {
@@ -93,21 +92,21 @@ class SQFLiteDatabase extends FChanDatabase {
 
   @override
   Future<EntityPortion<Thread>> historyThreads(EntityPage entityPage) {
-    return _sqflite.query(
+    return _database
+        .query(
       tableThread,
       orderBy: '$columnThreadLastSeenDate desc',
       limit: 15,
-      offset: entityPage.page,
-    ).then((rawThreads) async {
+      offset: entityPage.page == 1 ? 0 : entityPage.page * 15,
+    )
+        .then((rawThreads) async {
       final result = <Thread>[];
       for (var rawThread in rawThreads) {
         final boardId = rawThread[columnThreadBoardId];
-        final board = _boardsCache.isEmpty
+        final board = _favoriteBoardsCache.isEmpty
             ? await _boardById(boardId)
-            : _boardsCache.values.firstWhere((board) => board.id == boardId);
-        result.add(
-          threadFromDb(rawThread, board),
-        );
+            : _favoriteBoardsCache.values.firstWhere((board) => board.id == boardId);
+        result.add(threadFromDb(rawThread, board));
       }
       return EntityPortion(
         result,
@@ -117,7 +116,7 @@ class SQFLiteDatabase extends FChanDatabase {
   }
 
   Future<Board> _boardById(int boardId) {
-    return _sqflite.query(
+    return _database.query(
       tableBoard,
       where: '$columnId = ?',
       whereArgs: [boardId],
@@ -126,30 +125,41 @@ class SQFLiteDatabase extends FChanDatabase {
 
   @override
   Future<Thread> threadFromHistory(Thread thread) {
-    return _sqflite.query(
+    return _database.query(
       tableThread,
-      where: '$columnThreadUrl = ?',
-      whereArgs: ['\'${thread.threadUrl}\''],
+      where: '$columnThreadNo = ?',
+      whereArgs: [thread.no],
     ).then((rawThreadResult) async {
       if (rawThreadResult.isEmpty) {
         return null;
       }
       final rawThread = rawThreadResult.first;
       final boardId = rawThread[columnThreadBoardId];
-      final board = _boardsCache.isEmpty
+      final board = _favoriteBoardsCache.isEmpty
           ? await _boardById(boardId)
-          : _boardsCache.values.firstWhere((board) => board.id == boardId);
+          : _favoriteBoardsCache.values.firstWhere((board) => board.id == boardId);
       return threadFromDb(rawThread, board);
     });
   }
 
   @override
-  Future<Thread> addToHistory(Thread thread) async {
+  Future<bool> threadContainsInHistory(Thread thread) {
+    return _database.query(
+      tableThread,
+      where: '$columnThreadNo = ?',
+      whereArgs: [thread.no],
+    ).then((value) => value.isNotEmpty);
+  }
+
+  @override
+  Future<Thread> addThreadToHistory(Thread thread) async {
     if (thread.isNew()) {
-      return _sqflite.insert(
+      return _database
+          .insert(
         tableThread,
         threadToDb(thread),
-      ).then((threadId) {
+      )
+          .then((threadId) {
         thread.id = threadId;
         return thread;
       });
@@ -158,12 +168,26 @@ class SQFLiteDatabase extends FChanDatabase {
   }
 
   @override
-  Future<Thread> removeFromHistory(Thread thread) {
-    return _sqflite.delete(
+  Future<Thread> updateThreadInHistory(Thread thread) {
+    return _database.update(
       tableThread,
-      where: '${thread.id}',
+      threadToDb(thread),
+      where: '$columnId = ?',
+      whereArgs: [thread.id],
+    ).then((threadId) => thread);
+  }
+
+  @override
+  Future<Thread> removeThreadFromHistory(Thread thread) {
+    return _database.delete(
+      tableThread,
+      where: '$columnId = ?',
+      whereArgs: [thread.id],
     ).then((value) => thread);
   }
+
+  @override
+  Future<void> clearHistory() async => await _database.rawQuery('delete from $tableThread');
 }
 
 const tableBoard = 'board';
@@ -176,7 +200,6 @@ const columnBoardTitle = 'title';
 const columnBoardIsFavorite = 'is_favorite';
 
 const columnThreadBoardId = 'board_id';
-const columnThreadUrl = 'thread_url';
 const columnThreadNo = 'no';
 const columnThreadSub = 'sub';
 const columnThreadCom = 'com';
@@ -205,7 +228,6 @@ String createThreadTable() {
   return 'create table $tableThread('
       '$columnId integer primary key autoincrement,'
       '$columnThreadBoardId integer,'
-      '$columnThreadUrl text,'
       '$columnThreadNo int,'
       '$columnThreadSub text,'
       '$columnThreadCom text,'
@@ -242,45 +264,49 @@ Board boardFromDb(Map<String, dynamic> data) {
 }
 
 Map<String, dynamic> threadToDb(Thread thread) {
+  final image = thread.image;
+  final thumbnail = thread.thumbnail;
   return {
     columnId: thread.id,
     columnThreadBoardId: thread.board.id,
-    columnThreadUrl: thread.threadUrl,
     columnThreadNo: thread.no,
     columnThreadSub: thread.sub,
     columnThreadCom: thread.com,
     columnThreadTimeFromPublish: thread.timeFromPublish.inSeconds,
     columnThreadReplies: thread.replies,
     columnThreadImages: thread.images,
-    columnThreadImageUrl: thread.imageUrl,
-    columnThreadImageWidth: thread.imageWidth,
-    columnThreadImageHeight: thread.imageHeight,
-    columnThreadThumbnailImageUrl: thread.thumbnailImageUrl,
-    columnThreadThumbnailImageWidth: thread.thumbnailImageWidth,
-    columnThreadThumbnailImageHeight: thread.thumbnailImageHeight,
+    columnThreadImageUrl: image?.link,
+    columnThreadImageWidth: image?.width,
+    columnThreadImageHeight: image?.height,
+    columnThreadThumbnailImageUrl: thumbnail?.link,
+    columnThreadThumbnailImageWidth: thumbnail?.width,
+    columnThreadThumbnailImageHeight: thumbnail?.height,
     columnThreadExt: thread.ext,
     // TODO: refactor
-    columnThreadLastSeenDate: DateTime.now().toIso8601String(),
+    columnThreadLastSeenDate: thread.lastSeenDate.toIso8601String(),
   };
 }
 
 Thread threadFromDb(Map<String, dynamic> data, Board board) {
+  final image = data[columnThreadImageUrl] != null
+      ? WebImage(data[columnThreadImageUrl], data[columnThreadImageWidth], data[columnThreadImageHeight])
+      : null;
+  final thumbnail = data[columnThreadThumbnailImageUrl] != null
+      ? WebImage(data[columnThreadThumbnailImageUrl], data[columnThreadThumbnailImageWidth],
+          data[columnThreadThumbnailImageHeight])
+      : null;
   return Thread(
     board,
-    data[columnThreadUrl],
     data[columnThreadNo],
     data[columnThreadSub],
     data[columnThreadCom],
     Duration(seconds: data[columnThreadTimeFromPublish]),
     data[columnThreadReplies],
     data[columnThreadImages],
-    data[columnThreadImageUrl],
-    data[columnThreadImageWidth],
-    data[columnThreadImageHeight],
-    data[columnThreadThumbnailImageUrl],
-    data[columnThreadThumbnailImageWidth],
-    data[columnThreadThumbnailImageHeight],
+    image,
+    thumbnail,
     data[columnThreadExt],
+    DateTime.parse(data[columnThreadLastSeenDate]),
     id: data[columnId],
   );
 }

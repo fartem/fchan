@@ -1,5 +1,7 @@
 include: package:effective_dart/analysis_options.yaml
 analyzer:
+  plugins:
+    - dart_enum_to_string_check
   errors:
     lines_longer_than_80_chars: ignore
     public_member_api_docs: ignore
@@ -12,3 +14,4 @@ analyzer:
     avoid_catches_without_on_clauses: ignore
   exclude:
     - lib/**/*.g.dart
+    - test/.test_coverage.dart

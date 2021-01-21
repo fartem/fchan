@@ -5,14 +5,26 @@ import '../../entities/thread.dart';
 
 abstract class FChanDatabase {
   Future<FChanDatabase> init();
+
   Future<void> close();
 
-  Future<EntityPortion<Board>> favoriteBoards(EntityPage entityPage);
-  Future<Board> addToFavorites(Board board);
-  Future<Board> removeFromFavorites(Board board);
+  Future<List<Board>> favoriteBoards();
+
+  Future<Board> addBoardToFavorites(Board board);
+
+  Future<Board> removeBoardFromFavorites(Board board);
 
   Future<EntityPortion<Thread>> historyThreads(EntityPage entityPage);
+
   Future<Thread> threadFromHistory(Thread thread);
-  Future<Thread> addToHistory(Thread thread);
-  Future<Thread> removeFromHistory(Thread thread);
+
+  Future<bool> threadContainsInHistory(Thread thread);
+
+  Future<Thread> addThreadToHistory(Thread thread);
+
+  Future<Thread> updateThreadInHistory(Thread thread);
+
+  Future<Thread> removeThreadFromHistory(Thread thread);
+
+  Future<void> clearHistory();
 }

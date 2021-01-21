@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:http/http.dart';
 
@@ -8,11 +9,15 @@ import '../../entities/entity_page.dart';
 import '../../entities/entity_portion.dart';
 import '../../entities/post.dart';
 import '../../entities/thread.dart';
+import '../../entities/web_image.dart';
 import '../../extensions/int_extensions.dart';
 import 'chan_api.dart';
 
 class FChanApi extends ChanApi {
   static final _boardsCache = <String, Board>{};
+  static final _threadsCache = <String, List<Thread>>{};
+
+  static final _threadPageSize = 15;
 
   final Client _client;
 
@@ -23,9 +28,7 @@ class FChanApi extends ChanApi {
     final uri = _cdnUri('boards.json');
     final response = await _client.get(uri);
     if (response.statusCode == 200) {
-      return (jsonDecode(response.body)['boards'] as List)
-          .map((rawBoard) => _boardFromJson(rawBoard))
-          .toList();
+      return (jsonDecode(response.body)['boards'] as List).map((rawBoard) => _boardFromJson(rawBoard)).toList();
     } else {
       throw HttpException('Cannot fetch boards from $uri');
     }
@@ -54,22 +57,36 @@ class FChanApi extends ChanApi {
 
   @override
   Future<EntityPortion<Thread>> fetchCatalog(
-      Board board,
-      EntityPage entityPage,
+    Board board,
+    EntityPage entityPage,
   ) async {
-    final uri = _cdnUri('${board.board}/${entityPage.page}.json');
-    final response = await _client.get(uri);
-    if (response.statusCode == 200) {
-      Map<String, dynamic> body = jsonDecode(response.body);
-      final parsedThreads = (body['threads'] as List)
-          .map((posts) => _threadFromJson(board, posts['posts'].first))
-          .toList();
-      return EntityPortion<Thread>(
-        parsedThreads,
-        entityPage.page == 10,
-      );
+    final threads = _threadsCache[board.board];
+    if (threads == null) {
+      final uri = _cdnUri('${board.board}/catalog.json');
+      final response = await _client.get(uri);
+      if (response.statusCode == 200) {
+        final List<dynamic> body = jsonDecode(response.body);
+        final parsedThreads = <Thread>[];
+        body.forEach((page) => page['threads'].forEach((thread) => parsedThreads.add(_threadFromJson(board, thread))));
+        _threadsCache[board.board] = parsedThreads;
+        return EntityPortion<Thread>(
+          parsedThreads.sublist(0, min(parsedThreads.length, _threadPageSize)),
+          parsedThreads.length == _threadPageSize,
+        );
+      } else {
+        throw HttpException('Cannot fetch threads from $uri');
+      }
     } else {
-      throw HttpException('Cannot fetch threads from $uri');
+      final startIndex = entityPage.page == 1 ? 0 : (entityPage.page - 1) * _threadPageSize;
+      final endIndex = startIndex + _threadPageSize;
+      final portion = threads.sublist(
+        startIndex,
+        startIndex + min(_threadPageSize, threads.length - endIndex),
+      );
+      return EntityPortion<Thread>(
+        portion,
+        portion.isEmpty,
+      );
     }
   }
 
@@ -79,20 +96,18 @@ class FChanApi extends ChanApi {
     final ext = json['ext'] as String;
     return Thread(
       board,
-      _cdnUri('${board.board}/thread/${json['no']}').toString(),
       json['no'],
       json['sub'],
       json['com'],
       DateTime.now().difference((json['time'] as int).dateTimeFromUnixTimestamp()),
       json['replies'],
       json['images'],
-      filename != null ? _cdnImageUri('/${board.board}/$tim$ext').toString() : null,
-      json['w'],
-      json['h'],
-      filename != null ? _cdnImageUri('${board.board}/${tim}s.jpg').toString() : null,
-      json['tn_w'],
-      json['tn_h'],
+      filename != null ? WebImage(_cdnImageUri('/${board.board}/$tim$ext').toString(), json['w'], json['h']) : null,
+      filename != null
+          ? WebImage(_cdnImageUri('/${board.board}/${tim}s.jpg').toString(), json['tn_w'], json['tn_h'])
+          : null,
       ext,
+      null,
     );
   }
 
@@ -126,13 +141,19 @@ class FChanApi extends ChanApi {
       json['com'],
       json['replies'],
       DateTime.now().difference((json['time'] as int).dateTimeFromUnixTimestamp()),
-      filename != null ? _cdnImageUri('/${board.board}/$tim$ext').toString() : null,
-      json['w'],
-      json['h'],
-      filename != null ? _cdnImageUri('/${board.board}/${tim}s.jpg').toString() : null,
-      json['tn_w'],
-      json['tn_h'],
+      filename != null ? WebImage(_cdnImageUri('/${board.board}/$tim$ext').toString(), json['w'], json['h']) : null,
+      filename != null
+          ? WebImage(_cdnImageUri('/${board.board}/${tim}s.jpg').toString(), json['tn_w'], json['tn_h'])
+          : null,
       ext,
     );
+  }
+
+  @override
+  String threadLink(Thread thread) {
+    return Uri.https(
+      'boards.4channel.org',
+      '${thread.board.board}/thread/${thread.no}',
+    ).toString();
   }
 }
