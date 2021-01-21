@@ -9,9 +9,9 @@
 
 ## Project status
 
-In development. You can run the app on Android or iOS devices but current build may be slow on some screens and UI is not finally approved.
+In development. You can run the app on Android or iOS but current build may be slow on some screens and UI is not finally approved.
 
-You can track next test app version development status on [GitHub Projects](https://github.com/fartem/fchan/projects) page for this repository.
+You can track a next test app version development status on [GitHub Projects](https://github.com/fartem/fchan/projects) page for this repository.
 
 ### Features progress
 
@@ -39,7 +39,7 @@ If you have a feature request or an issue, you can create report on [this page](
 
 Just clone or download the project from GitHub and run it from your IDE. How to start with Flutter on your IDE search [here](https://flutter.dev/docs/get-started/editor).
 
-### Without any IDE
+### Without IDE
 
 You can build the app for Android from terminal on your machine without installing any IDE. Follow this steps:
 
