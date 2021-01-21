@@ -76,6 +76,50 @@ void main() {
           );
         },
       );
+      test('Check thread actions text', () {
+        expect(
+          fChanWords.threadActionOpenLink,
+          'Open link',
+        );
+        expect(
+          fChanWords.threadActionCopyLink,
+          'Copy link',
+        );
+        expect(
+          fChanWords.threadActionRemoveFromHistory,
+          'Remove from History',
+        );
+      });
+      test('Check Settings text', () {
+        expect(
+          fChanWords.settingsTitle,
+          'Settings',
+        );
+        expect(
+          fChanWords.settingsCategoryStorage,
+          'Storage',
+        );
+        expect(
+          fChanWords.settingsItemClearImageCache,
+          'Clear Image Cache',
+        );
+        expect(
+          fChanWords.settingsCategoryInfo,
+          'Info',
+        );
+        expect(
+          fChanWords.settingItemBugReport,
+          'Bug report',
+        );
+        expect(
+          fChanWords.settingItemAuthor,
+          'Author',
+        );
+        expect(
+          fChanWords.settingItemVersion,
+          'Version',
+        );
+      });
       test(
         'Check common text',
         () {

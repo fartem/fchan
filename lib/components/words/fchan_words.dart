@@ -95,7 +95,7 @@ class FChanWordsImpl extends FChanWords {
   String get settingsCategoryStorage => 'Storage';
 
   @override
-  String get settingsItemClearImageCache => 'Clean Image Cache';
+  String get settingsItemClearImageCache => 'Clear Image Cache';
 
   @override
   String get settingsCategoryInfo => 'Info';

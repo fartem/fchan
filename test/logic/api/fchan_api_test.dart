@@ -58,14 +58,14 @@ void main() {
                 'Papercraft & Origami',
                 true,
               );
-              final catalogPages =
-                  List.generate(10, (index) => File('assets_test/threads/${index + 1}.json').readAsStringSync());
+              final catalogPages = File('assets_test/catalog.json').readAsStringSync();
+              when(mockHttpClient.get(_cdnUri('/${board.board}/catalog.json')))
+                  .thenAnswer((_) async => Response(catalogPages, 200));
               for (var i = 0; i < 10; i++) {
-                when(mockHttpClient.get(_cdnUri('/${board.board}/${i + 1}.json')))
-                    .thenAnswer((_) async => Response(catalogPages[i], 200));
-              }
-              for (var i = 0; i < 10; i++) {
-                final threadPortion = await fChanApi.fetchCatalog(board, EntityPage.paging(i + 1));
+                final threadPortion = await fChanApi.fetchCatalog(
+                  board,
+                  EntityPage.paging(i),
+                );
                 expect(
                   threadPortion.entities.length,
                   15,
@@ -77,18 +77,22 @@ void main() {
             'Check threads fetching error',
             () {
               final board = Board(
-                'po',
-                'Papercraft & Origami',
+                'co',
+                'Comics & Cartoons',
                 true,
               );
-              when(mockHttpClient.get(_cdnUri('/${board.board}/1.json'))).thenAnswer((_) async => Response('', 404));
+              when(mockHttpClient.get(_cdnUri('/${board.board}/catalog.json')))
+                  .thenAnswer((_) async => Response('', 404));
               expect(
-                () async => await fChanApi.fetchCatalog(board, EntityPage.paging(1)),
+                () async => await fChanApi.fetchCatalog(
+                  board,
+                  EntityPage.paging(1),
+                ),
                 throwsA(
                   isA<HttpException>().having(
                     (error) => error.message,
                     'Error message',
-                    'Cannot fetch threads from https://a.4cdn.org/${board.board}/1.json',
+                    'Cannot fetch threads from https://a.4cdn.org/${board.board}/catalog.json',
                   ),
                 ),
               );
