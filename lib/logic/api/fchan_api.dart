@@ -14,7 +14,7 @@ import '../../extensions/int_extensions.dart';
 import 'chan_api.dart';
 
 class FChanApi extends ChanApi {
-  static final _boardsCache = <String?, Board>{};
+  static final _boardsCache = <String, Board>{};
   static final _threadsCache = <String, List<Thread>>{};
 
   static final _threadPageSize = 15;
