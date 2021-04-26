@@ -116,12 +116,12 @@ void main() {
                 570368,
                 null,
                 null,
+                Duration(milliseconds: 0),
+                0,
+                0,
                 null,
                 null,
-                null,
-                null,
-                null,
-                null,
+                '',
                 null,
               );
               when(mockHttpClient.get(_cdnUri('/${thread.board.board}/thread/${thread.no}.json')))
@@ -145,12 +145,12 @@ void main() {
                 570368,
                 null,
                 null,
+                Duration(milliseconds: 0),
+                0,
+                0,
                 null,
                 null,
-                null,
-                null,
-                null,
-                null,
+                '',
                 null,
               );
               when(mockHttpClient.get(_cdnUri('/${thread.board.board}/thread/${thread.no}.json')))
@@ -180,4 +180,6 @@ Uri _cdnUri(String path) {
   );
 }
 
-class MockHttpClient extends Mock with Client {}
+class MockHttpClient extends Mock with Client {
+
+}

@@ -5,6 +5,8 @@ import 'package:provider/provider.dart';
 
 import 'components/themes/fchan_themes.dart';
 import 'components/words/fchan_words.dart';
+import 'entities/board.dart';
+import 'entities/thread.dart';
 import 'extensions/build_context_extensions.dart';
 import 'logic/api/fchan_api.dart';
 import 'logic/db/sqflite_database.dart';
@@ -73,13 +75,13 @@ class FChanAppState extends State<FChanApp> {
             case FChanRoute.boardScreen:
               return MaterialPageRoute(
                 builder: (context) => BoardScreen(
-                  settings.arguments,
+                  settings.arguments as Board,
                 ),
               );
             case FChanRoute.threadScreen:
               return MaterialPageRoute(
                 builder: (context) => ThreadScreen(
-                  settings.arguments,
+                  settings.arguments as Thread,
                 ),
               );
             default:

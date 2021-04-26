@@ -15,7 +15,7 @@ const int _currentVersion = _version1;
 class SQFLiteDatabase extends FChanDatabase {
   static final _favoriteBoardsCache = <String, Board>{};
 
-  Database _database;
+  late Database _database;
 
   @override
   Future<FChanDatabase> init() async {
@@ -104,7 +104,7 @@ class SQFLiteDatabase extends FChanDatabase {
       for (var rawThread in rawThreads) {
         final boardId = rawThread[columnThreadBoardId];
         final board = _favoriteBoardsCache.isEmpty
-            ? await _boardById(boardId)
+            ? await _boardById(boardId as int?)
             : _favoriteBoardsCache.values.firstWhere((board) => board.id == boardId);
         result.add(threadFromDb(rawThread, board));
       }
@@ -115,7 +115,7 @@ class SQFLiteDatabase extends FChanDatabase {
     });
   }
 
-  Future<Board> _boardById(int boardId) {
+  Future<Board> _boardById(int? boardId) {
     return _database.query(
       tableBoard,
       where: '$columnId = ?',
@@ -124,7 +124,7 @@ class SQFLiteDatabase extends FChanDatabase {
   }
 
   @override
-  Future<Thread> threadFromHistory(Thread thread) {
+  Future<Thread?> threadFromHistory(Thread thread) {
     return _database.query(
       tableThread,
       where: '$columnThreadNo = ?',
@@ -136,7 +136,7 @@ class SQFLiteDatabase extends FChanDatabase {
       final rawThread = rawThreadResult.first;
       final boardId = rawThread[columnThreadBoardId];
       final board = _favoriteBoardsCache.isEmpty
-          ? await _boardById(boardId)
+          ? await _boardById(boardId as int?)
           : _favoriteBoardsCache.values.firstWhere((board) => board.id == boardId);
       return threadFromDb(rawThread, board);
     });
@@ -283,7 +283,7 @@ Map<String, dynamic> threadToDb(Thread thread) {
     columnThreadThumbnailImageHeight: thumbnail?.height,
     columnThreadExt: thread.ext,
     // TODO: refactor
-    columnThreadLastSeenDate: thread.lastSeenDate.toIso8601String(),
+    columnThreadLastSeenDate: thread.lastSeenDate?.toIso8601String() ?? DateTime.now().toIso8601String(),
   };
 }
 

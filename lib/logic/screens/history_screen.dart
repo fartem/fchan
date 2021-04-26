@@ -17,7 +17,7 @@ class HistoryScreen extends StatefulWidget {
 }
 
 class _HistoryState extends State<HistoryScreen> {
-  ListPortionController _listPortionController;
+  late ListPortionController? _listPortionController;
 
   final ScrollController _scrollController = ScrollController();
 
@@ -36,12 +36,12 @@ class _HistoryState extends State<HistoryScreen> {
     context.read<HistoryModel>().addListener(() => _listPortionController?.refresh());
   }
 
-  void _loadMore() => _listPortionController.loadMore().then((value) => setState(() {}));
+  void _loadMore() => _listPortionController!.loadMore().then((value) => setState(() {}));
 
   @override
   Widget build(BuildContext context) {
-    final items = _listPortionController.items;
-    if (_listPortionController.isLoading && items.isEmpty) {
+    final items = _listPortionController!.items;
+    if (_listPortionController!.isLoading && items.isEmpty) {
       return CenteredCircularProgressIndicatorWidget();
     } else if (items.isEmpty) {
       return CenteredTextWidget(

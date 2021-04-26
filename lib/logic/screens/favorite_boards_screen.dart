@@ -21,7 +21,7 @@ class _FavoriteBoardsState extends State<FavoriteBoardsScreen> {
         future: model.favoriteBoards(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            if (snapshot.data.isEmpty) {
+            if (snapshot.data!.isEmpty) {
               return CenteredTextWidget(
                 context.fChanWords().boardsIsEmptyMessage,
               );
@@ -29,9 +29,9 @@ class _FavoriteBoardsState extends State<FavoriteBoardsScreen> {
             return ListView.builder(
               itemBuilder: (context, index) => _boardListItem(
                 context,
-                snapshot.data[index],
+                snapshot.data![index],
               ),
-              itemCount: snapshot.data.length,
+              itemCount: snapshot.data!.length,
             );
           } else if (snapshot.hasError) {
             return CenteredTextWidget('');

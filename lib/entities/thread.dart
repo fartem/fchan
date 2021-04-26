@@ -5,16 +5,16 @@ import 'web_image.dart';
 class Thread extends StorageEntity {
   final Board board;
   final int no;
-  final String sub;
-  final String com;
+  final String? sub;
+  final String? com;
   final Duration timeFromPublish;
   final int replies;
   final int images;
-  final WebImage image;
-  final WebImage thumbnail;
-  final String ext;
+  final WebImage? image;
+  final WebImage? thumbnail;
+  final String? ext;
 
-  DateTime lastSeenDate;
+  DateTime? lastSeenDate;
 
   Thread(
     this.board,

@@ -47,7 +47,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             _settingsInfoItem(
               fChanWords.settingItemVersion,
-              snapshot.data.version,
+              snapshot.data!.version,
               Icon(Icons.info_outline),
               null,
             ),
@@ -80,7 +80,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return ListTile(
       title: Text(title),
       leading: leading,
-      onTap: onTap,
+      onTap: onTap as void Function()?,
     );
   }
 
@@ -88,13 +88,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
     String title,
     String subtitle,
     Icon leading,
-    Function onTap,
+    Function? onTap,
   ) {
     return ListTile(
       title: Text(title),
       subtitle: Text(subtitle),
       leading: leading,
-      onTap: onTap,
+      onTap: onTap as void Function()?,
     );
   }
 }

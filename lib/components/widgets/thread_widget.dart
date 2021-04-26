@@ -19,7 +19,7 @@ class ThreadWidget extends StatelessWidget {
   final Thread _thread;
   final Function _threadClickAdditionalAction;
   final List<ThreadPopupMenuAction> _availableActions;
-  final VoidCallback _deleteAction;
+  final VoidCallback? _deleteAction;
 
   ThreadWidget(
     this._thread,
@@ -97,15 +97,15 @@ class ThreadWidget extends StatelessWidget {
               ),
               if (_thread.thumbnail != null)
                 CachedNetworkImageWithLoader(
-                  _thread.thumbnail.link,
-                  _thread.thumbnail.width.toDouble(),
-                  _thread.thumbnail.height.toDouble(),
+                  _thread.thumbnail!.link,
+                  _thread.thumbnail!.width.toDouble(),
+                  _thread.thumbnail!.height.toDouble(),
                 ),
               if (_thread.sub != null)
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: ContentHtmlTextWidget(
-                    _thread.sub,
+                    _thread.sub!,
                     bodyWeight: FontWeight.bold,
                   ),
                 ),
@@ -113,7 +113,7 @@ class ThreadWidget extends StatelessWidget {
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: ContentHtmlTextWidget(
-                    _thread.com.length > 70 ? '${_thread.com.substring(0, 70)}...' : _thread.com,
+                    _thread.com!.length > 70 ? '${_thread.com!.substring(0, 70)}...' : _thread.com!,
                   ),
                 ),
             ],

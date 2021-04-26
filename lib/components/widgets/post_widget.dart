@@ -38,7 +38,7 @@ class PostWidget extends StatelessWidget {
                         Align(
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
-                            '${_post.ext} (${_post.image.width}x${_post.image.height})',
+                            '${_post.ext} (${_post.image!.width}x${_post.image!.height})',
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey[700],
@@ -66,23 +66,23 @@ class PostWidget extends StatelessWidget {
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: CachedNetworkImageWithLoader(
-                  _post.thumbnail.link,
-                  _post.thumbnail.width.toDouble(),
-                  _post.thumbnail.height.toDouble(),
+                  _post.thumbnail!.link,
+                  _post.thumbnail!.width.toDouble(),
+                  _post.thumbnail!.height.toDouble(),
                 ),
               ),
             if (_post.sub != null)
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: ContentHtmlTextWidget(
-                  _post.sub,
+                  _post.sub!,
                 ),
               ),
             if (_post.com != null)
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: ContentHtmlTextWidget(
-                  _post.com,
+                  _post.com!,
                 ),
               ),
           ],
