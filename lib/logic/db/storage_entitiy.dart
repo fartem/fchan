@@ -1,5 +1,5 @@
 abstract class StorageEntity {
-  int id;
+  int? id;
 
   StorageEntity(this.id);
 

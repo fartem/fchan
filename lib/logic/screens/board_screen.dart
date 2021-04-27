@@ -24,7 +24,7 @@ class BoardScreen extends StatefulWidget {
 }
 
 class _BoardState extends State<BoardScreen> {
-  ListPortionController _listPortionController;
+  late ListPortionController _listPortionController;
 
   final ScrollController _scrollController = ScrollController();
   bool showFab = true;

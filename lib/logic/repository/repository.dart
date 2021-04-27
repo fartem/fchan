@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart' show IterableExtension;
+
 import '../../entities/board.dart';
 import '../../entities/entity_page.dart';
 import '../../entities/entity_portion.dart';
@@ -21,9 +23,8 @@ class FChanRepository {
     final boards = await _chanApi.fetchBoards();
     final result = <Board>[];
     boards.forEach((board) {
-      final favorite = favorites.firstWhere(
+      final favorite = favorites.firstWhereOrNull(
         (favorite) => favorite == board,
-        orElse: () => null,
       );
       if (favorite != null) {
         result.add(favorite);

@@ -9,7 +9,7 @@ class Board extends StorageEntity {
     this.board,
     this.title,
     this.isFavorite, {
-    int id,
+    int? id,
   }) : super(id);
 
   @override

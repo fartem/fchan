@@ -4,7 +4,7 @@ class EntityPage {
 
   EntityPage._(
     this.entityPagePortionType, {
-    this.page,
+    this.page = 0,
   });
 
   factory EntityPage.all() {

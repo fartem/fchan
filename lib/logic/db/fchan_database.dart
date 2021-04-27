@@ -16,7 +16,7 @@ abstract class FChanDatabase {
 
   Future<EntityPortion<Thread>> historyThreads(EntityPage entityPage);
 
-  Future<Thread> threadFromHistory(Thread thread);
+  Future<Thread?> threadFromHistory(Thread thread);
 
   Future<bool> threadContainsInHistory(Thread thread);
 

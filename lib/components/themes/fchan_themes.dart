@@ -14,7 +14,7 @@ final themeDark = _themeData(
 ThemeData _themeData(
   Brightness brightness,
   Color accentColor, {
-  Color appBarColor,
+  Color? appBarColor,
 }) {
   return ThemeData(
     brightness: brightness,

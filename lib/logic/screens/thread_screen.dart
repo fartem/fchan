@@ -52,14 +52,14 @@ class _ThreadState extends State<ThreadScreen> {
           future: model.postsForThread(widget._thread),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              if (snapshot.data.isEmpty) {
+              if (snapshot.data!.isEmpty) {
                 return CenteredTextWidget(
                   context.fChanWords().boardsIsEmptyMessage,
                 );
               }
               return ListView.builder(
-                itemBuilder: (context, index) => PostWidget(snapshot.data[index]),
-                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) => PostWidget(snapshot.data![index]),
+                itemCount: snapshot.data!.length,
                 controller: _scrollController,
               );
             } else if (snapshot.hasError) {

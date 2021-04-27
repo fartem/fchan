@@ -32,7 +32,7 @@ class ContentHtmlTextWidget extends StatelessWidget {
           color: Colors.green[700],
         ),
       },
-      onLinkTap: (link) {},
+      onLinkTap: (link, _, __, ___) {},
     );
   }
 }

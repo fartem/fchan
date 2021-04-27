@@ -26,14 +26,14 @@ class _ExploreBoardsState extends State<ExploreBoardsScreen> {
         future: Provider.of<FavoriteBoardsModel>(context, listen: false).allBoards(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            if (snapshot.data.isEmpty) {
+            if (snapshot.data!.isEmpty) {
               return CenteredTextWidget(
                 context.fChanWords().boardsIsEmptyMessage,
               );
             }
             return ListView.builder(
-              itemBuilder: (context, index) => _createBoardListItem(snapshot.data[index]),
-              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) => _createBoardListItem(snapshot.data![index]),
+              itemCount: snapshot.data!.length,
             );
           } else if (snapshot.hasError) {
             return CenteredTextWidget(

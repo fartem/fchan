@@ -91,8 +91,8 @@ class FChanApi extends ChanApi {
   }
 
   Thread _threadFromJson(Board board, Map<String, dynamic> json) {
-    final filename = json['filename'] as String;
-    final tim = json['tim'] as int;
+    final filename = json['filename'] as String?;
+    final tim = json['tim'] as int?;
     final ext = json['ext'] as String;
     return Thread(
       board,
@@ -132,9 +132,9 @@ class FChanApi extends ChanApi {
   }
 
   Post _postFromJson(Board board, Map<String, dynamic> json) {
-    final filename = json['filename'] as String;
-    final tim = json['tim'] as int;
-    final ext = json['ext'] as String;
+    final filename = json['filename'] as String?;
+    final tim = json['tim'] as int?;
+    final ext = json['ext'] as String?;
     return Post(
       json['no'],
       json['sub'],
