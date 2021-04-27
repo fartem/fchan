@@ -70,3 +70,4 @@ $ flutter test test
 ## Contributors
 
 * [@fartem](https://github.com/fartem) as Artem Fomchenkov
+* [@GeorgeOblomov](https://github.com/GeorgeOblomov) as Egor Grischenkov
