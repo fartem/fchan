@@ -43,7 +43,7 @@ Just clone or download the project from GitHub and run it from your IDE. How to 
 
 You can build the app for Android from terminal on your machine without installing any IDE. Follow this steps:
 
-1. install [Flutter SDK] and dependencies for it;
+1. install [Flutter](https://flutter.dev/docs/get-started/install) and dependencies for it;
 2. in terminal change current directory (by command `cd`) to the `android` folder int the project folder and run:
 
 ```shell
