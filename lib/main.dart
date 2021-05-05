@@ -1,3 +1,4 @@
+import 'package:fchan/logic/fchanapi/impl/fchan_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
@@ -8,9 +9,8 @@ import 'components/words/fchan_words.dart';
 import 'entities/board.dart';
 import 'entities/thread.dart';
 import 'extensions/build_context_extensions.dart';
-import 'logic/api/fchan_api.dart';
-import 'logic/db/sqflite_database.dart';
-import 'logic/repository/repository.dart';
+import 'logic/db/impl/sqflite_database.dart';
+import 'logic/repository/fchan_repository.dart';
 import 'logic/routes/fchan_route.dart';
 import 'logic/screens/board_screen.dart';
 import 'logic/screens/explore_boards_screen.dart';
@@ -27,7 +27,7 @@ void main() {
   final getIt = GetIt.I;
   getIt.registerSingleton<FChanRepository>(FChanRepository(
     SQFLiteDatabase(),
-    FChanApi(Client()),
+    FChanApiImpl(Client()),
   ));
   getIt.registerSingleton<FChanWords>(FChanWordsImpl());
   runApp(FChanApp());
@@ -45,16 +45,24 @@ class FChanAppState extends State<FChanApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => FavoriteBoardsModel(fChanRepository),
+          create: (_) => FavoriteBoardsModel(
+            fChanRepository,
+          ),
         ),
         ChangeNotifierProvider(
-          create: (_) => HistoryModel(fChanRepository),
+          create: (_) => HistoryModel(
+            fChanRepository,
+          ),
         ),
         ChangeNotifierProvider(
-          create: (_) => CatalogModel(fChanRepository),
+          create: (_) => CatalogModel(
+            fChanRepository,
+          ),
         ),
         ChangeNotifierProvider(
-          create: (_) => ThreadModel(fChanRepository),
+          create: (_) => ThreadModel(
+            fChanRepository,
+          ),
         ),
       ],
       child: MaterialApp(
@@ -127,7 +135,9 @@ class _FChanState extends State<FChan> {
         [
           IconButton(
             icon: Icon(Icons.edit),
-            onPressed: () => context.push(FChanRoute.exploreBoardsScreen),
+            onPressed: () => context.push(
+              FChanRoute.exploreBoardsScreen,
+            ),
           ),
         ],
       ),

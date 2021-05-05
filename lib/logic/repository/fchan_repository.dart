@@ -1,18 +1,18 @@
 import 'package:collection/collection.dart' show IterableExtension;
+import 'package:fchan/logic/fchanapi/api/fchan_api.dart';
 
 import '../../entities/board.dart';
 import '../../entities/entity_page.dart';
 import '../../entities/entity_portion.dart';
 import '../../entities/post.dart';
 import '../../entities/thread.dart';
-import '../api/chan_api.dart';
-import '../db/fchan_database.dart';
+import '../db/api/fchan_database.dart';
 
 class FChanRepository {
   final FChanDatabase _fChanDatabase;
-  final ChanApi _chanApi;
+  final FChanApi _fChanApi;
 
-  FChanRepository(this._fChanDatabase, this._chanApi);
+  FChanRepository(this._fChanDatabase, this._fChanApi);
 
   Future<void> init() async => await _fChanDatabase.init();
 
@@ -20,7 +20,7 @@ class FChanRepository {
 
   Future<List<Board>> boards() async {
     final favorites = await favoriteBoards();
-    final boards = await _chanApi.fetchBoards();
+    final boards = await _fChanApi.fetchBoards();
     final result = <Board>[];
     boards.forEach((board) {
       final favorite = favorites.firstWhereOrNull(
@@ -54,7 +54,7 @@ class FChanRepository {
   Future<void> clearHistory() => _fChanDatabase.clearHistory();
 
   Future<EntityPortion<Thread>> catalogForBoard(Board board, EntityPage entityPage) async {
-    final portion = await _chanApi.fetchCatalog(board, entityPage);
+    final portion = await _fChanApi.fetchCatalog(board, entityPage);
     for (var i = 0; i < portion.entities.length; i++) {
       final historyThread = await _fChanDatabase.threadFromHistory(portion.entities[i]);
       if (historyThread != null) {
@@ -64,7 +64,7 @@ class FChanRepository {
     return portion;
   }
 
-  Future<List<Post>> postsForThread(Thread thread) => _chanApi.fetchPosts(thread);
+  Future<List<Post>> postsForThread(Thread thread) => _fChanApi.fetchPosts(thread);
 
-  String threadLink(Thread thread) => _chanApi.threadLink(thread);
+  String threadLink(Thread thread) => _fChanApi.threadLink(thread);
 }

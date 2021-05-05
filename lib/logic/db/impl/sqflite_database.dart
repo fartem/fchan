@@ -1,11 +1,11 @@
 import 'package:sqflite/sqflite.dart';
 
-import '../../entities/board.dart';
-import '../../entities/entity_page.dart';
-import '../../entities/entity_portion.dart';
-import '../../entities/thread.dart';
-import '../../entities/web_image.dart';
-import 'fchan_database.dart';
+import '../../../entities/board.dart';
+import '../../../entities/entity_page.dart';
+import '../../../entities/entity_portion.dart';
+import '../../../entities/thread.dart';
+import '../../../entities/web_image.dart';
+import '../api/fchan_database.dart';
 
 const String _sqfliteDbName = 'fchan.db';
 
