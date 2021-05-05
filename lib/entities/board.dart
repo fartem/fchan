@@ -1,4 +1,4 @@
-import '../logic/db/storage_entitiy.dart';
+import '../logic/db/api/storage_entitiy.dart';
 
 class Board extends StorageEntity {
   final String board;

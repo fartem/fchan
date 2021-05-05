@@ -76,13 +76,18 @@ class ThreadWidget extends StatelessWidget {
                       );
                     }).toList(),
                     onSelected: (threadPopupMenuAction) async {
-                      final threadModel = Provider.of<ThreadModel>(context, listen: false);
+                      final threadModel = Provider.of<ThreadModel>(
+                        context,
+                        listen: false,
+                      );
                       switch (threadPopupMenuAction) {
                         case ThreadPopupMenuAction.openLink:
                           launch(threadModel.threadLink(_thread));
                           break;
                         case ThreadPopupMenuAction.copyLink:
-                          await FlutterClipboard.copy(threadModel.threadLink(_thread));
+                          await FlutterClipboard.copy(
+                            threadModel.threadLink(_thread),
+                          );
                           break;
                         case ThreadPopupMenuAction.removeFromHistory:
                           _deleteAction?.call();

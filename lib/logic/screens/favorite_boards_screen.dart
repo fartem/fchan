@@ -42,7 +42,10 @@ class _FavoriteBoardsState extends State<FavoriteBoardsScreen> {
     });
   }
 
-  Widget _boardListItem(BuildContext context, Board board) {
+  Widget _boardListItem(
+    BuildContext context,
+    Board board,
+  ) {
     return ListTile(
       title: Text(board.toString()),
       onTap: () => context.push(

@@ -54,7 +54,10 @@ class _ExploreBoardsState extends State<ExploreBoardsScreen> {
         color: board.isFavorite ? context.accentColor : Colors.grey,
       ),
       onTap: () async {
-        final favoriteBoardsModel = Provider.of<FavoriteBoardsModel>(context, listen: false);
+        final favoriteBoardsModel = Provider.of<FavoriteBoardsModel>(
+          context,
+          listen: false,
+        );
         if (!board.isFavorite) {
           await favoriteBoardsModel.addToFavorites(board);
         } else {

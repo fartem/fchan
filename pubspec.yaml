@@ -1,7 +1,7 @@
 name: fchan
 description: 4chan client on Flutter.
 
-version: 0.6.0
+version: 0.6.1+1
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
@@ -35,8 +35,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-#  return it back when null safety becomes enable
-#  test_coverage: ^0.5.0
+  #  return it back when null safety becomes enable
+  #  test_coverage: ^0.5.0
 
   build_runner: ^1.10.0
 

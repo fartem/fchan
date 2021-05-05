@@ -33,7 +33,10 @@ class _BoardState extends State<BoardScreen> {
   void initState() {
     super.initState();
     _listPortionController = ListPortionController<Thread>(
-      (entityPage) => context.read<CatalogModel>().catalogPage(widget._board, entityPage),
+      (entityPage) => context.read<CatalogModel>().catalogPage(
+            widget._board,
+            entityPage,
+          ),
     );
     _loadMore();
     _scrollController.addListener(() {

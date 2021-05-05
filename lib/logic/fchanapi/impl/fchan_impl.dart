@@ -4,16 +4,16 @@ import 'dart:math';
 
 import 'package:http/http.dart';
 
-import '../../entities/board.dart';
-import '../../entities/entity_page.dart';
-import '../../entities/entity_portion.dart';
-import '../../entities/post.dart';
-import '../../entities/thread.dart';
-import '../../entities/web_image.dart';
-import '../../extensions/int_extensions.dart';
-import 'chan_api.dart';
+import '../../../entities/board.dart';
+import '../../../entities/entity_page.dart';
+import '../../../entities/entity_portion.dart';
+import '../../../entities/post.dart';
+import '../../../entities/thread.dart';
+import '../../../entities/web_image.dart';
+import '../../../extensions/int_extensions.dart';
+import '../api/fchan_api.dart';
 
-class FChanApi extends ChanApi {
+class FChanApiImpl extends FChanApi {
   static final _boardsCache = <String, Board>{};
   static final _threadsCache = <String, List<Thread>>{};
 
@@ -21,7 +21,7 @@ class FChanApi extends ChanApi {
 
   final Client _client;
 
-  FChanApi(this._client);
+  FChanApiImpl(this._client);
 
   @override
   Future<List<Board>> fetchBoards() async {
@@ -30,7 +30,9 @@ class FChanApi extends ChanApi {
     if (response.statusCode == 200) {
       return (jsonDecode(response.body)['boards'] as List).map((rawBoard) => _boardFromJson(rawBoard)).toList();
     } else {
-      throw HttpException('Cannot fetch boards from $uri');
+      throw HttpException(
+        'Cannot fetch boards from $uri',
+      );
     }
   }
 
@@ -70,18 +72,30 @@ class FChanApi extends ChanApi {
         body.forEach((page) => page['threads'].forEach((thread) => parsedThreads.add(_threadFromJson(board, thread))));
         _threadsCache[board.board] = parsedThreads;
         return EntityPortion<Thread>(
-          parsedThreads.sublist(0, min(parsedThreads.length, _threadPageSize)),
+          parsedThreads.sublist(
+            0,
+            min(
+              parsedThreads.length,
+              _threadPageSize,
+            ),
+          ),
           parsedThreads.length == _threadPageSize,
         );
       } else {
-        throw HttpException('Cannot fetch threads from $uri');
+        throw HttpException(
+          'Cannot fetch threads from $uri',
+        );
       }
     } else {
       final startIndex = entityPage.page == 1 ? 0 : (entityPage.page - 1) * _threadPageSize;
       final endIndex = startIndex + _threadPageSize;
       final portion = threads.sublist(
         startIndex,
-        startIndex + min(_threadPageSize, threads.length - endIndex),
+        startIndex +
+            min(
+              _threadPageSize,
+              threads.length - endIndex,
+            ),
       );
       return EntityPortion<Thread>(
         portion,
@@ -90,7 +104,10 @@ class FChanApi extends ChanApi {
     }
   }
 
-  Thread _threadFromJson(Board board, Map<String, dynamic> json) {
+  Thread _threadFromJson(
+    Board board,
+    Map<String, dynamic> json,
+  ) {
     final filename = json['filename'] as String?;
     final tim = json['tim'] as int?;
     final ext = json['ext'] as String;
@@ -127,11 +144,16 @@ class FChanApi extends ChanApi {
           .map((rawPost) => _postFromJson(thread.board, rawPost))
           .toList();
     } else {
-      throw HttpException('Cannot fetch posts from $uri');
+      throw HttpException(
+        'Cannot fetch posts from $uri',
+      );
     }
   }
 
-  Post _postFromJson(Board board, Map<String, dynamic> json) {
+  Post _postFromJson(
+    Board board,
+    Map<String, dynamic> json,
+  ) {
     final filename = json['filename'] as String?;
     final tim = json['tim'] as int?;
     final ext = json['ext'] as String?;

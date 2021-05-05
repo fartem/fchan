@@ -3,14 +3,14 @@ import 'dart:io';
 import 'package:fchan/entities/board.dart';
 import 'package:fchan/entities/entity_page.dart';
 import 'package:fchan/entities/thread.dart';
-import 'package:fchan/logic/api/fchan_api.dart';
+import 'package:fchan/logic/fchanapi/impl/fchan_impl.dart';
 import 'package:http/http.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 void main() {
   final mockHttpClient = MockHttpClient();
-  final fChanApi = FChanApi(mockHttpClient);
+  final fChanApi = FChanApiImpl(mockHttpClient);
   group(
     'Check FChanAPI',
     () {
@@ -180,6 +180,4 @@ Uri _cdnUri(String path) {
   );
 }
 
-class MockHttpClient extends Mock with Client {
-
-}
+class MockHttpClient extends Mock with Client {}
