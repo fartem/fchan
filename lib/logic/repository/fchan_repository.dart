@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart' show IterableExtension;
-import 'package:fchan/logic/fchanapi/api/fchan_api.dart';
 
 import '../../entities/board.dart';
 import '../../entities/entity_page.dart';
@@ -7,6 +6,7 @@ import '../../entities/entity_portion.dart';
 import '../../entities/post.dart';
 import '../../entities/thread.dart';
 import '../db/api/fchan_database.dart';
+import '../fchanapi/api/fchan_api.dart';
 
 class FChanRepository {
   final FChanDatabase _fChanDatabase;
