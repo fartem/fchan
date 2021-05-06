@@ -1,4 +1,3 @@
-import 'package:fchan/logic/fchanapi/impl/fchan_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
@@ -10,6 +9,7 @@ import 'entities/board.dart';
 import 'entities/thread.dart';
 import 'extensions/build_context_extensions.dart';
 import 'logic/db/impl/sqflite_database.dart';
+import 'logic/fchanapi/impl/fchan_impl.dart';
 import 'logic/repository/fchan_repository.dart';
 import 'logic/routes/fchan_route.dart';
 import 'logic/screens/board_screen.dart';
