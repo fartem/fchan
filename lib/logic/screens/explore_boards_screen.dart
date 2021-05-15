@@ -46,6 +46,7 @@ class _ExploreBoardsState extends State<ExploreBoardsScreen> {
     );
   }
 
+  // ignore: avoid-returning-widgets
   Widget _createBoardListItem(Board board) {
     return ListTile(
       title: Text(board.toString()),

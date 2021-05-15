@@ -65,6 +65,8 @@ Read [Commit Convention](https://github.com/fartem/repository-rules/blob/master/
 ```shell
 $ flutter pub global activate dart_enum_to_string_check
 $ flutter pub global run dart_enum_to_string_check
+$ flutter pub global activate dart_code_metrics
+$ flutter pub global run dart_code_metrics:metrics lib
 $ flutter analyze
 $ flutter test test
 ```

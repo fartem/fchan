@@ -2,6 +2,7 @@ include: package:effective_dart/analysis_options.yaml
 analyzer:
   plugins:
     - dart_enum_to_string_check
+    - dart_code_metrics
   errors:
     lines_longer_than_80_chars: ignore
     public_member_api_docs: ignore
@@ -15,3 +16,7 @@ analyzer:
   exclude:
     - lib/**/*.g.dart
     - test/.test_coverage.dart
+
+dart_code_metrics:
+  rules:
+    - avoid-returning-widgets
