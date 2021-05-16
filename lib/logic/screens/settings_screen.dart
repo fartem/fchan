@@ -57,6 +57,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  // ignore: avoid-returning-widgets
   Widget _settingsSection(String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -72,6 +73,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  // ignore: avoid-returning-widgets
   Widget _settingsClickableItem(
     String title,
     Icon leading,
@@ -84,6 +86,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  // ignore: avoid-returning-widgets
   Widget _settingsInfoItem(
     String title,
     String subtitle,

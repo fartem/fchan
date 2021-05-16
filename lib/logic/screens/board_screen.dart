@@ -75,6 +75,7 @@ class _BoardState extends State<BoardScreen> {
 
   void _refresh() => _listPortionController.refresh().then((value) => _loadMore());
 
+  // ignore: avoid-returning-widgets
   Widget _catalogPresentation() {
     final items = _listPortionController.items;
     if (items.isEmpty) {

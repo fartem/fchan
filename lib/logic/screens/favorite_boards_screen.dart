@@ -42,6 +42,7 @@ class _FavoriteBoardsState extends State<FavoriteBoardsScreen> {
     });
   }
 
+  // ignore: avoid-returning-widgets
   Widget _boardListItem(
     BuildContext context,
     Board board,
