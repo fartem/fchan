@@ -1,6 +1,6 @@
 name: fchan
 description: 4chan client on Flutter.
-version: 0.6.1+1
+version: 0.7.0+1
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
@@ -42,7 +42,7 @@ dev_dependencies:
   mockito: ^5.0.5
 
   effective_dart: ^1.3.1
-  dart_enum_to_string_check: ^0.7.2
+  dart_enum_to_string_check: 0.7.5
   dart_code_metrics: ^3.2.2
 
 flutter:
