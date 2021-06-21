@@ -1,3 +1,4 @@
+import 'package:fchan/components/words/fchan_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +42,7 @@ class _ThreadState extends State<ThreadScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final fChanWords = context.read<FChanWords>();
     return Consumer<ThreadModel>(
       builder: (context, model, child) {
         return Scaffold(
@@ -55,7 +57,7 @@ class _ThreadState extends State<ThreadScreen> {
               if (snapshot.hasData) {
                 if (snapshot.data!.isEmpty) {
                   return CenteredTextWidget(
-                    context.fChanWords().boardsIsEmptyMessage,
+                    fChanWords.boardsIsEmptyMessage,
                   );
                 }
                 return ListView.builder(
@@ -67,7 +69,7 @@ class _ThreadState extends State<ThreadScreen> {
                 );
               } else if (snapshot.hasError) {
                 return CenteredTextWidget(
-                  context.fChanWords().commonErrorMessage,
+                  fChanWords.commonErrorMessage,
                 );
               }
               return CenteredCircularProgressIndicatorWidget();

@@ -1,9 +1,10 @@
+import 'package:fchan/components/words/fchan_words.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../components/widgets/centered_circular_progress_indicator_widget.dart';
-import '../../extensions/build_context_extensions.dart';
 import '../cache/image_cache_manager.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         if (!snapshot.hasData) {
           return CenteredCircularProgressIndicatorWidget();
         }
-        final fChanWords = context.fChanWords();
+        final fChanWords = context.read<FChanWords>();
         return ListView(
           children: [
             _settingsSection(

@@ -1,6 +1,5 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -14,8 +13,6 @@ import 'cached_network_image_with_loader.dart';
 import 'content_html_text_widget.dart';
 
 class ThreadWidget extends StatelessWidget {
-  final FChanWords _fChanWords = GetIt.I.get();
-
   final Thread _thread;
   final Function _threadClickAdditionalAction;
   final List<ThreadPopupMenuAction> _availableActions;
@@ -30,6 +27,7 @@ class ThreadWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fChanWords = context.read<FChanWords>();
     return Card(
       margin: const EdgeInsets.all(4.0),
       child: InkWell(
@@ -56,7 +54,7 @@ class ThreadWidget extends StatelessWidget {
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
                             _prepareThreadRepliesAndImagesInfo(
-                              context.fChanWords(),
+                              fChanWords,
                               _thread,
                             ),
                             style: TextStyle(
@@ -69,10 +67,15 @@ class ThreadWidget extends StatelessWidget {
                     ),
                   ),
                   PopupMenuButton<ThreadPopupMenuAction>(
-                    itemBuilder: (context) => _availableActions.map((e) {
+                    itemBuilder: (context) => _availableActions.map((action) {
                       return PopupMenuItem<ThreadPopupMenuAction>(
-                        value: e,
-                        child: Text(_wordForPopupActions(e)),
+                        value: action,
+                        child: Text(
+                          _wordForPopupActions(
+                            fChanWords,
+                            action,
+                          ),
+                        ),
                       );
                     }).toList(),
                     onSelected: (threadPopupMenuAction) async {
@@ -150,14 +153,17 @@ class ThreadWidget extends StatelessWidget {
     return '$replies $images'.trim();
   }
 
-  String _wordForPopupActions(ThreadPopupMenuAction action) {
+  String _wordForPopupActions(
+    FChanWords fChanWords,
+    ThreadPopupMenuAction action,
+  ) {
     switch (action) {
       case ThreadPopupMenuAction.openLink:
-        return _fChanWords.threadActionOpenLink;
+        return fChanWords.threadActionOpenLink;
       case ThreadPopupMenuAction.copyLink:
-        return _fChanWords.threadActionCopyLink;
+        return fChanWords.threadActionCopyLink;
       case ThreadPopupMenuAction.removeFromHistory:
-        return _fChanWords.threadActionRemoveFromHistory;
+        return fChanWords.threadActionRemoveFromHistory;
       default:
         return 'NO IMPL';
     }

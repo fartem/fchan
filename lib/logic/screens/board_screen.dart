@@ -1,3 +1,4 @@
+import 'package:fchan/components/words/fchan_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -8,7 +9,6 @@ import '../../components/widgets/centered_text_widget.dart';
 import '../../components/widgets/thread_widget.dart';
 import '../../entities/board.dart';
 import '../../entities/thread.dart';
-import '../../extensions/build_context_extensions.dart';
 import '../../provider/catalog_model.dart';
 import '../../provider/history_model.dart';
 import '../listcontroller/list_entity.dart';
@@ -60,7 +60,7 @@ class _BoardState extends State<BoardScreen> {
           widget._board.toString(),
         ),
       ),
-      body: _catalogPresentation(),
+      body: _catalogPresentation(context.read<FChanWords>()),
       floatingActionButton: Visibility(
         visible: showFab,
         child: FloatingActionButton(
@@ -76,14 +76,14 @@ class _BoardState extends State<BoardScreen> {
   void _refresh() => _listPortionController.refresh().then((value) => _loadMore());
 
   // ignore: avoid-returning-widgets
-  Widget _catalogPresentation() {
+  Widget _catalogPresentation(FChanWords fChanWords) {
     final items = _listPortionController.items;
     if (items.isEmpty) {
       if (_listPortionController.isLoading) {
         return CenteredCircularProgressIndicatorWidget();
       }
       return CenteredTextWidget(
-        context.fChanWords().catalogIsEmpty,
+        fChanWords.catalogIsEmpty,
       );
     }
     return StaggeredGridView.countBuilder(

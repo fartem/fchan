@@ -1,3 +1,4 @@
+import 'package:fchan/components/words/fchan_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +7,6 @@ import '../../components/widgets/centered_circular_progress_indicator_widget.dar
 import '../../components/widgets/centered_text_widget.dart';
 import '../../components/widgets/thread_widget.dart';
 import '../../entities/thread.dart';
-import '../../extensions/build_context_extensions.dart';
 import '../../provider/history_model.dart';
 import '../listcontroller/list_entity.dart';
 import '../listcontroller/list_portion_controller.dart';
@@ -40,12 +40,13 @@ class _HistoryState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final fChanWords = context.read<FChanWords>();
     final items = _listPortionController!.items;
     if (_listPortionController!.isLoading && items.isEmpty) {
       return CenteredCircularProgressIndicatorWidget();
     } else if (items.isEmpty) {
       return CenteredTextWidget(
-        context.fChanWords().historyIsEmptyMessage,
+        fChanWords.historyIsEmptyMessage,
       );
     }
     return StaggeredGridView.countBuilder(

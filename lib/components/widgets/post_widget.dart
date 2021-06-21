@@ -1,8 +1,9 @@
+import 'package:fchan/components/words/fchan_words.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../entities/post.dart';
-import '../../extensions/build_context_extensions.dart';
 import '../../extensions/duration_extensions.dart';
 import 'cached_network_image_with_loader.dart';
 import 'content_html_text_widget.dart';
@@ -14,6 +15,7 @@ class PostWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fChanWords = context.read<FChanWords>();
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -54,7 +56,7 @@ class PostWidget extends StatelessWidget {
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: Text(
-                  '${_post.replies} ${_post.replies == 1 ? context.fChanWords().commonReplyText : context.fChanWords().commonRepliesText}',
+                  '${_post.replies} ${_post.replies == 1 ? fChanWords.commonReplyText : fChanWords.commonRepliesText}',
                   style: TextStyle(
                     decoration: TextDecoration.underline,
                     fontSize: 12,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 
@@ -24,13 +23,37 @@ import 'provider/history_model.dart';
 import 'provider/thread_model.dart';
 
 void main() {
-  final getIt = GetIt.I;
-  getIt.registerSingleton<FChanRepository>(FChanRepository(
-    SQFLiteDatabase(),
-    FChanApiImpl(Client()),
-  ));
-  getIt.registerSingleton<FChanWords>(FChanWordsImpl());
-  runApp(FChanApp());
+  runApp(
+    AppDependencies(
+      child: FChanApp(),
+    ),
+  );
+}
+
+class AppDependencies extends StatelessWidget {
+  final Widget child;
+
+  const AppDependencies({required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        Provider<FChanRepository>(
+          create: (_) => FChanRepository(
+            SQFLiteDatabase(),
+            FChanApiImpl(
+              Client(),
+            ),
+          ),
+        ),
+        Provider<FChanWords>(
+          create: (_) => FChanWordsImpl(),
+        ),
+      ],
+      child: child,
+    );
+  }
 }
 
 class FChanApp extends StatefulWidget {
@@ -41,7 +64,7 @@ class FChanApp extends StatefulWidget {
 class FChanAppState extends State<FChanApp> {
   @override
   Widget build(BuildContext context) {
-    final fChanRepository = GetIt.I.get<FChanRepository>();
+    final fChanRepository = context.read<FChanRepository>();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -107,7 +130,7 @@ class FChanAppState extends State<FChanApp> {
 
   @override
   void dispose() {
-    final fChanRepository = GetIt.I.get<FChanRepository>();
+    final fChanRepository = context.read<FChanRepository>();
     fChanRepository.dispose();
     super.dispose();
   }
@@ -124,12 +147,13 @@ class _FChanState extends State<FChan> {
   @override
   Widget build(BuildContext context) {
     // TODO: refactor this
+    final fChanWords = context.read<FChanWords>();
     final _screens = [
       NavigationPage(
         FavoriteBoardsScreen(),
-        context.fChanWords().boardsTitle,
+        fChanWords.boardsTitle,
         BottomNavigationBarItem(
-          label: context.fChanWords().homeTitle,
+          label: fChanWords.homeTitle,
           icon: Icon(Icons.home),
         ),
         [
@@ -143,9 +167,9 @@ class _FChanState extends State<FChan> {
       ),
       NavigationPage(
         HistoryScreen(),
-        context.fChanWords().historyTitle,
+        fChanWords.historyTitle,
         BottomNavigationBarItem(
-          label: context.fChanWords().historyTitle,
+          label: fChanWords.historyTitle,
           icon: Icon(Icons.history),
         ),
         [
@@ -157,9 +181,9 @@ class _FChanState extends State<FChan> {
       ),
       NavigationPage(
         SettingsScreen(),
-        context.fChanWords().settingsTitle,
+        fChanWords.settingsTitle,
         BottomNavigationBarItem(
-          label: context.fChanWords().settingsTitle,
+          label: fChanWords.settingsTitle,
           icon: Icon(Icons.settings),
         ),
         [],
@@ -194,7 +218,7 @@ class FChanInitState extends State<FChanInit> {
   @override
   void initState() {
     super.initState();
-    final fChanRepository = GetIt.I.get<FChanRepository>();
+    final fChanRepository = context.read<FChanRepository>();
     Future.microtask(() => fChanRepository.init()).then((fChanDatabase) {
       context.pushReplace(
         FChanRoute.homeScreen,

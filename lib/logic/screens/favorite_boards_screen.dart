@@ -1,3 +1,4 @@
+import 'package:fchan/components/words/fchan_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,7 @@ class FavoriteBoardsScreen extends StatefulWidget {
 class _FavoriteBoardsState extends State<FavoriteBoardsScreen> {
   @override
   Widget build(BuildContext context) {
+    final fChanWords = context.read<FChanWords>();
     return Consumer<FavoriteBoardsModel>(builder: (context, model, child) {
       return FutureBuilder<List<Board>>(
         future: model.favoriteBoards(),
@@ -23,7 +25,7 @@ class _FavoriteBoardsState extends State<FavoriteBoardsScreen> {
           if (snapshot.hasData) {
             if (snapshot.data!.isEmpty) {
               return CenteredTextWidget(
-                context.fChanWords().boardsIsEmptyMessage,
+                fChanWords.boardsIsEmptyMessage,
               );
             }
             return ListView.builder(

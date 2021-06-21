@@ -1,3 +1,4 @@
+import 'package:fchan/components/words/fchan_words.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,10 +17,11 @@ class ExploreBoardsScreen extends StatefulWidget {
 class _ExploreBoardsState extends State<ExploreBoardsScreen> {
   @override
   Widget build(BuildContext context) {
+    final fChanWords = context.read<FChanWords>();
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          context.fChanWords().exploreBoardsTitle,
+          fChanWords.exploreBoardsTitle,
         ),
       ),
       body: FutureBuilder<List<Board>>(
@@ -28,7 +30,7 @@ class _ExploreBoardsState extends State<ExploreBoardsScreen> {
           if (snapshot.hasData) {
             if (snapshot.data!.isEmpty) {
               return CenteredTextWidget(
-                context.fChanWords().boardsIsEmptyMessage,
+                fChanWords.boardsIsEmptyMessage,
               );
             }
             return ListView.builder(
@@ -37,7 +39,7 @@ class _ExploreBoardsState extends State<ExploreBoardsScreen> {
             );
           } else if (snapshot.hasError) {
             return CenteredTextWidget(
-              context.fChanWords().commonErrorMessage,
+              fChanWords.commonErrorMessage,
             );
           }
           return CenteredCircularProgressIndicatorWidget();
