@@ -1,11 +1,11 @@
 class WebImage {
-  final String link;
+  final String url;
   final int width;
   final int height;
 
-  WebImage(
-    this.link,
-    this.width,
-    this.height,
-  );
+  WebImage({
+    required this.url,
+    required this.width,
+    required this.height,
+  });
 }

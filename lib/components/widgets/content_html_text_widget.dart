@@ -3,18 +3,20 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 
 class ContentHtmlTextWidget extends StatelessWidget {
-  final String _text;
+  final String text;
   final FontWeight bodyWeight;
+  final bool wrapText;
 
-  ContentHtmlTextWidget(
-    this._text, {
+  ContentHtmlTextWidget({
+    required this.text,
     this.bodyWeight = FontWeight.normal,
+    this.wrapText = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Html(
-      data: _text,
+      data: text,
       style: {
         'a': Style(
           color: Colors.red[700],
@@ -26,13 +28,14 @@ class ContentHtmlTextWidget extends StatelessWidget {
           margin: const EdgeInsets.all(0),
           padding: const EdgeInsets.all(0),
           fontWeight: bodyWeight,
+          maxLines: wrapText ? 5 : null,
+          textOverflow: TextOverflow.ellipsis,
         ),
         'span': Style(
           // TODO: add theme
           color: Colors.green[700],
         ),
       },
-      onLinkTap: (link, _, __, ___) {},
     );
   }
 }

@@ -10,14 +10,14 @@ class Post {
   final WebImage? thumbnail;
   final String? ext;
 
-  Post(
-    this.no,
+  Post({
+    required this.no,
     this.sub,
     this.com,
     this.replies,
-    this.timeFromPublish,
+    required this.timeFromPublish,
     this.image,
     this.thumbnail,
     this.ext,
-  );
+  });
 }

@@ -16,19 +16,19 @@ class Thread extends StorageEntity {
 
   DateTime? lastSeenDate;
 
-  Thread(
-    this.board,
-    this.no,
+  Thread({
+    id,
+    required this.board,
+    required this.no,
     this.sub,
     this.com,
-    this.timeFromPublish,
-    this.replies,
-    this.images,
+    required this.timeFromPublish,
+    required this.replies,
+    required this.images,
     this.image,
     this.thumbnail,
     this.ext,
-    this.lastSeenDate, {
-    id,
+    this.lastSeenDate,
   }) : super(id);
 
   @override

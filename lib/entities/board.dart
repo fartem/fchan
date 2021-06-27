@@ -5,10 +5,10 @@ class Board extends StorageEntity {
   final String title;
   bool isFavorite;
 
-  Board(
-    this.board,
-    this.title,
-    this.isFavorite, {
+  Board({
+    required this.board,
+    required this.title,
+    required this.isFavorite,
     int? id,
   }) : super(id);
 

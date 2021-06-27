@@ -105,15 +105,15 @@ class ThreadWidget extends StatelessWidget {
               ),
               if (_thread.thumbnail != null)
                 CachedNetworkImageWithLoader(
-                  _thread.thumbnail!.link,
-                  _thread.thumbnail!.width.toDouble(),
-                  _thread.thumbnail!.height.toDouble(),
+                  url: _thread.thumbnail!.url,
+                  width: _thread.thumbnail!.width.toDouble(),
+                  height: _thread.thumbnail!.height.toDouble(),
                 ),
               if (_thread.sub != null)
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: ContentHtmlTextWidget(
-                    _thread.sub!,
+                    text: _thread.sub!,
                     bodyWeight: FontWeight.bold,
                   ),
                 ),
@@ -121,7 +121,8 @@ class ThreadWidget extends StatelessWidget {
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: ContentHtmlTextWidget(
-                    _thread.com!.length > 70 ? '${_thread.com!.substring(0, 70)}...' : _thread.com!,
+                    text: _thread.com!,
+                    wrapText: true,
                   ),
                 ),
             ],
@@ -130,7 +131,7 @@ class ThreadWidget extends StatelessWidget {
         onTap: () {
           _threadClickAdditionalAction.call();
           context.push(
-            FChanRoute.threadScreen,
+            route: FChanRoute.threadScreen,
             arguments: _thread,
           );
         },

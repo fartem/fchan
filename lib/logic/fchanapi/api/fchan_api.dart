@@ -7,10 +7,10 @@ import '../../../entities/thread.dart';
 abstract class FChanApi {
   Future<List<Board>> fetchBoards();
 
-  Future<EntityPortion<Thread>> fetchCatalog(
-    Board board,
-    EntityPage entityPage,
-  );
+  Future<EntityPortion<Thread>> fetchCatalog({
+    required Board board,
+    required EntityPage entityPage,
+  });
 
   Future<List<Post>> fetchPosts(Thread thread);
 

@@ -54,17 +54,17 @@ void main() {
             'Check threads fetching success',
             () async {
               final board = Board(
-                'po',
-                'Papercraft & Origami',
-                true,
+                board: 'po',
+                title: 'Papercraft & Origami',
+                isFavorite: true,
               );
               final catalogPages = File('assets_test/catalog.json').readAsStringSync();
               when(mockHttpClient.get(_cdnUri('/${board.board}/catalog.json')))
                   .thenAnswer((_) async => Response(catalogPages, 200));
               for (var i = 0; i < 10; i++) {
                 final threadPortion = await fChanApi.fetchCatalog(
-                  board,
-                  EntityPage.paging(i),
+                  board: board,
+                  entityPage: EntityPage.paging(i),
                 );
                 expect(
                   threadPortion.entities.length,
@@ -77,16 +77,16 @@ void main() {
             'Check threads fetching error',
             () {
               final board = Board(
-                'co',
-                'Comics & Cartoons',
-                true,
+                board: 'co',
+                title: 'Comics & Cartoons',
+                isFavorite: true,
               );
               when(mockHttpClient.get(_cdnUri('/${board.board}/catalog.json')))
                   .thenAnswer((_) async => Response('', 404));
               expect(
                 () async => await fChanApi.fetchCatalog(
-                  board,
-                  EntityPage.paging(1),
+                  board: board,
+                  entityPage: EntityPage.paging(1),
                 ),
                 throwsA(
                   isA<HttpException>().having(
@@ -108,21 +108,15 @@ void main() {
             () async {
               final postsResponse = File('assets_test/posts.json').readAsStringSync();
               final thread = Thread(
-                Board(
-                  'po',
-                  'Papercraft & Origami',
-                  true,
+                board: Board(
+                  board: 'po',
+                  title: 'Papercraft & Origami',
+                  isFavorite: true,
                 ),
-                570368,
-                null,
-                null,
-                Duration(milliseconds: 0),
-                0,
-                0,
-                null,
-                null,
-                '',
-                null,
+                no: 0,
+                timeFromPublish: Duration(seconds: 0),
+                replies: 0,
+                images: 0,
               );
               when(mockHttpClient.get(_cdnUri('/${thread.board.board}/thread/${thread.no}.json')))
                   .thenAnswer((_) async => Response(postsResponse, 200));
@@ -137,21 +131,15 @@ void main() {
             'Check posts fetching error',
             () {
               final thread = Thread(
-                Board(
-                  'po',
-                  'Papercraft & Origami',
-                  true,
+                board: Board(
+                  board: 'po',
+                  title: 'Papercraft & Origami',
+                  isFavorite: true,
                 ),
-                570368,
-                null,
-                null,
-                Duration(milliseconds: 0),
-                0,
-                0,
-                null,
-                null,
-                '',
-                null,
+                no: 0,
+                timeFromPublish: Duration(seconds: 0),
+                replies: 0,
+                images: 0,
               );
               when(mockHttpClient.get(_cdnUri('/${thread.board.board}/thread/${thread.no}.json')))
                   .thenAnswer((_) async => Response('', 404));

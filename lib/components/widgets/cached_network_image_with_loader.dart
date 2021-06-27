@@ -4,25 +4,25 @@ import 'package:flutter/material.dart';
 import '../../logic/cache/image_cache_manager.dart';
 
 class CachedNetworkImageWithLoader extends StatelessWidget {
-  final String _url;
-  final double _width;
-  final double _height;
+  final String url;
+  final double width;
+  final double height;
 
-  CachedNetworkImageWithLoader(
-    this._url,
-    this._width,
-    this._height,
-  );
+  CachedNetworkImageWithLoader({
+    required this.url,
+    required this.width,
+    required this.height,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: CachedNetworkImage(
-        imageUrl: _url,
-        width: _width,
-        height: _height,
-        progressIndicatorBuilder: (context, url, downloadProgress) {
+        imageUrl: url,
+        width: width,
+        height: height,
+        progressIndicatorBuilder: (_, __, downloadProgress) {
           return Center(
             child: CircularProgressIndicator(
               value: downloadProgress.progress,

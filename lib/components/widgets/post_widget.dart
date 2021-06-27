@@ -1,10 +1,10 @@
-import 'package:fchan/components/words/fchan_words.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../entities/post.dart';
 import '../../extensions/duration_extensions.dart';
+import '../words/fchan_words.dart';
 import 'cached_network_image_with_loader.dart';
 import 'content_html_text_widget.dart';
 
@@ -68,23 +68,23 @@ class PostWidget extends StatelessWidget {
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: CachedNetworkImageWithLoader(
-                  _post.thumbnail!.link,
-                  _post.thumbnail!.width.toDouble(),
-                  _post.thumbnail!.height.toDouble(),
+                  url: _post.thumbnail!.url,
+                  width: _post.thumbnail!.width.toDouble(),
+                  height: _post.thumbnail!.height.toDouble(),
                 ),
               ),
             if (_post.sub != null)
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: ContentHtmlTextWidget(
-                  _post.sub!,
+                  text: _post.sub!,
                 ),
               ),
             if (_post.com != null)
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: ContentHtmlTextWidget(
-                  _post.com!,
+                  text: _post.com!,
                 ),
               ),
           ],

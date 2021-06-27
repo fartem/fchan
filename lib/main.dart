@@ -160,7 +160,7 @@ class _FChanState extends State<FChan> {
           IconButton(
             icon: Icon(Icons.edit),
             onPressed: () => context.push(
-              FChanRoute.exploreBoardsScreen,
+              route: FChanRoute.exploreBoardsScreen,
             ),
           ),
         ],
@@ -221,7 +221,7 @@ class FChanInitState extends State<FChanInit> {
     final fChanRepository = context.read<FChanRepository>();
     Future.microtask(() => fChanRepository.init()).then((fChanDatabase) {
       context.pushReplace(
-        FChanRoute.homeScreen,
+        route: FChanRoute.homeScreen,
       );
     });
   }

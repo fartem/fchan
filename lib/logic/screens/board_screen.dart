@@ -1,4 +1,3 @@
-import 'package:fchan/components/words/fchan_words.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -7,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../components/widgets/centered_circular_progress_indicator_widget.dart';
 import '../../components/widgets/centered_text_widget.dart';
 import '../../components/widgets/thread_widget.dart';
+import '../../components/words/fchan_words.dart';
 import '../../entities/board.dart';
 import '../../entities/thread.dart';
 import '../../provider/catalog_model.dart';
@@ -83,7 +83,7 @@ class _BoardState extends State<BoardScreen> {
         return CenteredCircularProgressIndicatorWidget();
       }
       return CenteredTextWidget(
-        fChanWords.catalogIsEmpty,
+        text: fChanWords.catalogIsEmpty,
       );
     }
     return StaggeredGridView.countBuilder(

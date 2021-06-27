@@ -109,8 +109,8 @@ class SQFLiteDatabase extends FChanDatabase {
         result.add(threadFromDb(rawThread, board));
       }
       return EntityPortion(
-        result,
-        result.isEmpty || result.length < 15,
+        entities: result,
+        isLastPage: result.isEmpty || result.length < 15,
       );
     });
   }
@@ -256,10 +256,10 @@ Map<String, dynamic> boardToDb(Board board) {
 
 Board boardFromDb(Map<String, dynamic> data) {
   return Board(
-    data[columnBoardName],
-    data[columnBoardTitle],
-    data[columnBoardIsFavorite] == 1,
     id: data[columnId],
+    board: data[columnBoardName],
+    title: data[columnBoardTitle],
+    isFavorite: data[columnBoardIsFavorite] == 1,
   );
 }
 
@@ -275,10 +275,10 @@ Map<String, dynamic> threadToDb(Thread thread) {
     columnThreadTimeFromPublish: thread.timeFromPublish.inSeconds,
     columnThreadReplies: thread.replies,
     columnThreadImages: thread.images,
-    columnThreadImageUrl: image?.link,
+    columnThreadImageUrl: image?.url,
     columnThreadImageWidth: image?.width,
     columnThreadImageHeight: image?.height,
-    columnThreadThumbnailImageUrl: thumbnail?.link,
+    columnThreadThumbnailImageUrl: thumbnail?.url,
     columnThreadThumbnailImageWidth: thumbnail?.width,
     columnThreadThumbnailImageHeight: thumbnail?.height,
     columnThreadExt: thread.ext,
@@ -289,24 +289,35 @@ Map<String, dynamic> threadToDb(Thread thread) {
 
 Thread threadFromDb(Map<String, dynamic> data, Board board) {
   final image = data[columnThreadImageUrl] != null
-      ? WebImage(data[columnThreadImageUrl], data[columnThreadImageWidth], data[columnThreadImageHeight])
+      ? WebImage(
+          url: data[columnThreadImageUrl],
+          width: data[columnThreadImageWidth],
+          height: data[columnThreadImageHeight],
+        )
       : null;
   final thumbnail = data[columnThreadThumbnailImageUrl] != null
-      ? WebImage(data[columnThreadThumbnailImageUrl], data[columnThreadThumbnailImageWidth],
-          data[columnThreadThumbnailImageHeight])
+      ? WebImage(
+          url: data[columnThreadThumbnailImageUrl],
+          width: data[columnThreadThumbnailImageWidth],
+          height: data[columnThreadThumbnailImageHeight],
+        )
       : null;
   return Thread(
-    board,
-    data[columnThreadNo],
-    data[columnThreadSub],
-    data[columnThreadCom],
-    Duration(seconds: data[columnThreadTimeFromPublish]),
-    data[columnThreadReplies],
-    data[columnThreadImages],
-    image,
-    thumbnail,
-    data[columnThreadExt],
-    DateTime.parse(data[columnThreadLastSeenDate]),
     id: data[columnId],
+    board: board,
+    no: data[columnThreadNo],
+    sub: data[columnThreadSub],
+    com: data[columnThreadCom],
+    timeFromPublish: Duration(
+      seconds: data[columnThreadTimeFromPublish],
+    ),
+    replies: data[columnThreadReplies],
+    images: data[columnThreadImages],
+    image: image,
+    thumbnail: thumbnail,
+    ext: data[columnThreadExt],
+    lastSeenDate: DateTime.parse(
+      data[columnThreadLastSeenDate],
+    ),
   );
 }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 extension BuildContextExtensions on BuildContext {
-  void push(String route, {arguments}) {
+  void push({
+    required String route,
+    arguments,
+  }) {
     Navigator.pushNamed(
       this,
       route,
@@ -9,7 +12,7 @@ extension BuildContextExtensions on BuildContext {
     );
   }
 
-  void pushReplace(String route, {arguments}) {
+  void pushReplace({required String route, arguments}) {
     Navigator.pushReplacementNamed(
       this,
       route,

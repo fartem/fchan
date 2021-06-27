@@ -1,21 +1,21 @@
 class EntityPage {
-  final EntityPagePortionType entityPagePortionType;
+  final EntityPagePortionType portionType;
   final int page;
 
-  EntityPage._(
-    this.entityPagePortionType, {
+  EntityPage._({
+    required this.portionType,
     this.page = 0,
   });
 
   factory EntityPage.all() {
     return EntityPage._(
-      EntityPagePortionType.all,
+      portionType: EntityPagePortionType.all,
     );
   }
 
   factory EntityPage.paging(int page) {
     return EntityPage._(
-      EntityPagePortionType.paging,
+      portionType: EntityPagePortionType.paging,
       page: page,
     );
   }

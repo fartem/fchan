@@ -48,9 +48,9 @@ class FChanApiImpl extends FChanApi {
     var board = _boardsCache[boardName];
     if (board == null) {
       board = Board(
-        json['board'],
-        json['title'],
-        false,
+        board: json['board'],
+        title: json['title'],
+        isFavorite: false,
       );
       _boardsCache[boardName] = board;
     }
@@ -58,10 +58,10 @@ class FChanApiImpl extends FChanApi {
   }
 
   @override
-  Future<EntityPortion<Thread>> fetchCatalog(
-    Board board,
-    EntityPage entityPage,
-  ) async {
+  Future<EntityPortion<Thread>> fetchCatalog({
+    required Board board,
+    required EntityPage entityPage,
+  }) async {
     final threads = _threadsCache[board.board];
     if (threads == null) {
       final uri = _cdnUri('${board.board}/catalog.json');
@@ -72,14 +72,14 @@ class FChanApiImpl extends FChanApi {
         body.forEach((page) => page['threads'].forEach((thread) => parsedThreads.add(_threadFromJson(board, thread))));
         _threadsCache[board.board] = parsedThreads;
         return EntityPortion<Thread>(
-          parsedThreads.sublist(
+          entities: parsedThreads.sublist(
             0,
             min(
               parsedThreads.length,
               _threadPageSize,
             ),
           ),
-          parsedThreads.length == _threadPageSize,
+          isLastPage: parsedThreads.length == _threadPageSize,
         );
       } else {
         throw HttpException(
@@ -98,8 +98,8 @@ class FChanApiImpl extends FChanApi {
             ),
       );
       return EntityPortion<Thread>(
-        portion,
-        portion.isEmpty,
+        entities: portion,
+        isLastPage: portion.isEmpty,
       );
     }
   }
@@ -112,19 +112,29 @@ class FChanApiImpl extends FChanApi {
     final tim = json['tim'] as int?;
     final ext = json['ext'] as String;
     return Thread(
-      board,
-      json['no'],
-      json['sub'],
-      json['com'],
-      DateTime.now().difference((json['time'] as int).dateTimeFromUnixTimestamp()),
-      json['replies'],
-      json['images'],
-      filename != null ? WebImage(_cdnImageUri('/${board.board}/$tim$ext').toString(), json['w'], json['h']) : null,
-      filename != null
-          ? WebImage(_cdnImageUri('/${board.board}/${tim}s.jpg').toString(), json['tn_w'], json['tn_h'])
+      board: board,
+      no: json['no'],
+      sub: json['sub'],
+      com: json['com'],
+      timeFromPublish: DateTime.now().difference((json['time'] as int).dateTimeFromUnixTimestamp()),
+      replies: json['replies'],
+      images: json['images'],
+      image: filename != null
+          ? WebImage(
+              url: _cdnImageUri('/${board.board}/$tim$ext').toString(),
+              width: json['w'],
+              height: json['h'],
+            )
           : null,
-      ext,
-      null,
+      thumbnail: filename != null
+          ? WebImage(
+              url: _cdnImageUri('/${board.board}/${tim}s.jpg').toString(),
+              height: json['tn_w'],
+              width: json['tn_h'],
+            )
+          : null,
+      ext: ext,
+      lastSeenDate: null,
     );
   }
 
@@ -158,16 +168,26 @@ class FChanApiImpl extends FChanApi {
     final tim = json['tim'] as int?;
     final ext = json['ext'] as String?;
     return Post(
-      json['no'],
-      json['sub'],
-      json['com'],
-      json['replies'],
-      DateTime.now().difference((json['time'] as int).dateTimeFromUnixTimestamp()),
-      filename != null ? WebImage(_cdnImageUri('/${board.board}/$tim$ext').toString(), json['w'], json['h']) : null,
-      filename != null
-          ? WebImage(_cdnImageUri('/${board.board}/${tim}s.jpg').toString(), json['tn_w'], json['tn_h'])
+      no: json['no'],
+      sub: json['sub'],
+      com: json['com'],
+      replies: json['replies'],
+      timeFromPublish: DateTime.now().difference((json['time'] as int).dateTimeFromUnixTimestamp()),
+      image: filename != null
+          ? WebImage(
+              url: _cdnImageUri('/${board.board}/$tim$ext').toString(),
+              height: json['w'],
+              width: json['h'],
+            )
           : null,
-      ext,
+      thumbnail: filename != null
+          ? WebImage(
+              url: _cdnImageUri('/${board.board}/${tim}s.jpg').toString(),
+              height: json['tn_w'],
+              width: json['tn_h'],
+            )
+          : null,
+      ext: ext,
     );
   }
 
