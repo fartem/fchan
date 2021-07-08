@@ -67,6 +67,7 @@ $ flutter pub global activate dart_enum_to_string_check
 $ flutter pub global run dart_enum_to_string_check
 $ flutter pub global activate dart_code_metrics
 $ flutter pub global run dart_code_metrics:metrics lib
+$ flutter format -n -set-exit-if-changed -l 120 lib
 $ flutter analyze
 $ flutter test test
 ```

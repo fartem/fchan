@@ -1,4 +1,4 @@
-class FChanRoute {
+class FChanRoutes {
   static const initScreen = '/';
   static const homeScreen = '/home';
   static const exploreBoardsScreen = '/explore_boards_screen';

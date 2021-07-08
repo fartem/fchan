@@ -6,24 +6,24 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../entities/thread.dart';
 import '../../extensions/build_context_extensions.dart';
 import '../../extensions/duration_extensions.dart';
-import '../../logic/routes/fchan_route.dart';
+import '../../logic/routes/fchan_routes.dart';
 import '../../provider/thread_model.dart';
 import '../words/fchan_words.dart';
 import 'cached_network_image_with_loader.dart';
 import 'content_html_text_widget.dart';
 
 class ThreadWidget extends StatelessWidget {
-  final Thread _thread;
-  final Function _threadClickAdditionalAction;
-  final List<ThreadPopupMenuAction> _availableActions;
-  final VoidCallback? _deleteAction;
+  final Thread thread;
+  final Function threadClickAdditionalAction;
+  final List<ThreadPopupMenuAction> availableActions;
+  final VoidCallback? deleteAction;
 
-  ThreadWidget(
-    this._thread,
-    this._threadClickAdditionalAction,
-    this._availableActions, [
-    this._deleteAction,
-  ]);
+  ThreadWidget({
+    required this.thread,
+    required this.threadClickAdditionalAction,
+    required this.availableActions,
+    this.deleteAction,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class ThreadWidget extends StatelessWidget {
                         Align(
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
-                            _prepareThreadDateAndImageFormatInfo(_thread),
+                            _prepareThreadDateAndImageFormatInfo(thread),
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey[700],
@@ -55,7 +55,7 @@ class ThreadWidget extends StatelessWidget {
                           child: Text(
                             _prepareThreadRepliesAndImagesInfo(
                               fChanWords,
-                              _thread,
+                              thread,
                             ),
                             style: TextStyle(
                               fontSize: 12,
@@ -67,7 +67,7 @@ class ThreadWidget extends StatelessWidget {
                     ),
                   ),
                   PopupMenuButton<ThreadPopupMenuAction>(
-                    itemBuilder: (context) => _availableActions.map((action) {
+                    itemBuilder: (context) => availableActions.map((action) {
                       return PopupMenuItem<ThreadPopupMenuAction>(
                         value: action,
                         child: Text(
@@ -85,15 +85,15 @@ class ThreadWidget extends StatelessWidget {
                       );
                       switch (threadPopupMenuAction) {
                         case ThreadPopupMenuAction.openLink:
-                          launch(threadModel.threadLink(_thread));
+                          launch(threadModel.threadLink(thread));
                           break;
                         case ThreadPopupMenuAction.copyLink:
                           await FlutterClipboard.copy(
-                            threadModel.threadLink(_thread),
+                            threadModel.threadLink(thread),
                           );
                           break;
                         case ThreadPopupMenuAction.removeFromHistory:
-                          _deleteAction?.call();
+                          deleteAction?.call();
                           break;
                       }
                     },
@@ -103,25 +103,25 @@ class ThreadWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              if (_thread.thumbnail != null)
+              if (thread.thumbnail != null)
                 CachedNetworkImageWithLoader(
-                  url: _thread.thumbnail!.url,
-                  width: _thread.thumbnail!.width.toDouble(),
-                  height: _thread.thumbnail!.height.toDouble(),
+                  url: thread.thumbnail!.url,
+                  width: thread.thumbnail!.width.toDouble(),
+                  height: thread.thumbnail!.height.toDouble(),
                 ),
-              if (_thread.sub != null)
+              if (thread.sub != null)
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: ContentHtmlTextWidget(
-                    text: _thread.sub!,
+                    text: thread.sub!,
                     bodyWeight: FontWeight.bold,
                   ),
                 ),
-              if (_thread.com != null)
+              if (thread.com != null)
                 Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: ContentHtmlTextWidget(
-                    text: _thread.com!,
+                    text: thread.com!,
                     wrapText: true,
                   ),
                 ),
@@ -129,10 +129,10 @@ class ThreadWidget extends StatelessWidget {
           ),
         ),
         onTap: () {
-          _threadClickAdditionalAction.call();
+          threadClickAdditionalAction.call();
           context.push(
-            route: FChanRoute.threadScreen,
-            arguments: _thread,
+            route: FChanRoutes.threadScreen,
+            arguments: thread,
           );
         },
       ),

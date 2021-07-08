@@ -97,9 +97,10 @@ class _BoardState extends State<BoardScreen> {
         }
         final thread = item.item;
         return ThreadWidget(
-          thread,
-          () async => Provider.of<HistoryModel>(context, listen: false).addToHistory(thread),
-          [
+          thread: thread,
+          threadClickAdditionalAction: () async =>
+              Provider.of<HistoryModel>(context, listen: false).addToHistory(thread),
+          availableActions: [
             ThreadPopupMenuAction.openLink,
             ThreadPopupMenuAction.copyLink,
           ],

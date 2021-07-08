@@ -7,7 +7,7 @@ import '../../components/words/fchan_words.dart';
 import '../../entities/board.dart';
 import '../../extensions/build_context_extensions.dart';
 import '../../provider/favorite_boards_model.dart';
-import '../routes/fchan_route.dart';
+import '../routes/fchan_routes.dart';
 
 class FavoriteBoardsScreen extends StatefulWidget {
   @override
@@ -54,7 +54,7 @@ class _FavoriteBoardsState extends State<FavoriteBoardsScreen> {
     return ListTile(
       title: Text(board.toString()),
       onTap: () => context.push(
-        route: FChanRoute.boardScreen,
+        route: FChanRoutes.boardScreen,
         arguments: board,
       ),
     );

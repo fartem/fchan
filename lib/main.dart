@@ -10,7 +10,7 @@ import 'extensions/build_context_extensions.dart';
 import 'logic/db/impl/sqflite_database.dart';
 import 'logic/fchanapi/impl/fchan_impl.dart';
 import 'logic/repository/fchan_repository.dart';
-import 'logic/routes/fchan_route.dart';
+import 'logic/routes/fchan_routes.dart';
 import 'logic/screens/board_screen.dart';
 import 'logic/screens/explore_boards_screen.dart';
 import 'logic/screens/favorite_boards_screen.dart';
@@ -91,25 +91,25 @@ class FChanAppState extends State<FChanApp> {
       child: MaterialApp(
         onGenerateRoute: (settings) {
           switch (settings.name) {
-            case FChanRoute.initScreen:
+            case FChanRoutes.initScreen:
               return MaterialPageRoute(
                 builder: (context) => FChanInit(),
               );
-            case FChanRoute.homeScreen:
+            case FChanRoutes.homeScreen:
               return MaterialPageRoute(
                 builder: (context) => FChan(),
               );
-            case FChanRoute.exploreBoardsScreen:
+            case FChanRoutes.exploreBoardsScreen:
               return MaterialPageRoute(
                 builder: (context) => ExploreBoardsScreen(),
               );
-            case FChanRoute.boardScreen:
+            case FChanRoutes.boardScreen:
               return MaterialPageRoute(
                 builder: (context) => BoardScreen(
                   settings.arguments as Board,
                 ),
               );
-            case FChanRoute.threadScreen:
+            case FChanRoutes.threadScreen:
               return MaterialPageRoute(
                 builder: (context) => ThreadScreen(
                   settings.arguments as Thread,
@@ -119,7 +119,7 @@ class FChanAppState extends State<FChanApp> {
               return null;
           }
         },
-        initialRoute: FChanRoute.initScreen,
+        initialRoute: FChanRoutes.initScreen,
         title: 'FChan',
         theme: themeLight,
         darkTheme: themeDark,
@@ -160,7 +160,7 @@ class _FChanState extends State<FChan> {
           IconButton(
             icon: Icon(Icons.edit),
             onPressed: () => context.push(
-              route: FChanRoute.exploreBoardsScreen,
+              route: FChanRoutes.exploreBoardsScreen,
             ),
           ),
         ],
@@ -221,7 +221,7 @@ class FChanInitState extends State<FChanInit> {
     final fChanRepository = context.read<FChanRepository>();
     Future.microtask(() => fChanRepository.init()).then((fChanDatabase) {
       context.pushReplace(
-        route: FChanRoute.homeScreen,
+        route: FChanRoutes.homeScreen,
       );
     });
   }

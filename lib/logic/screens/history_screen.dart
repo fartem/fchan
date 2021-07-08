@@ -60,10 +60,10 @@ class _HistoryState extends State<HistoryScreen> {
         }
         final thread = item.item;
         return ThreadWidget(
-          thread,
-          () {},
-          ThreadPopupMenuAction.values,
-          () async {
+          thread: thread,
+          threadClickAdditionalAction: () {},
+          availableActions: ThreadPopupMenuAction.values,
+          deleteAction: () async {
             await Provider.of<HistoryModel>(context, listen: false).removeFromHistory(thread);
             setState(() => items.remove(item));
           },
