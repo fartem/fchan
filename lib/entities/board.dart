@@ -1,14 +1,26 @@
-import '../logic/db/api/storage_entitiy.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+import '../logic/db/api/storage_entitiy.dart';
+import 'parsers.dart';
+
+part 'board.g.dart';
+
+@JsonSerializable()
 class Board extends StorageEntity {
   final String board;
   final String title;
-  bool isFavorite;
+
+  @JsonKey(
+    name: 'is_favorite',
+    fromJson: parseBoolFromInt,
+    toJson: parseBoolToInt,
+  )
+  bool? isFavorite;
 
   Board({
     required this.board,
     required this.title,
-    required this.isFavorite,
+    this.isFavorite = false,
     int? id,
   }) : super(id);
 
@@ -22,4 +34,8 @@ class Board extends StorageEntity {
 
   @override
   String toString() => '/$board/ - $title';
+
+  factory Board.fromJson(Map<String, dynamic> json) => _$BoardFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BoardToJson(this);
 }

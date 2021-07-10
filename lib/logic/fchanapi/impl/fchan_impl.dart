@@ -1,16 +1,13 @@
-import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:http/http.dart';
+import 'package:dio/dio.dart';
 
 import '../../../entities/board.dart';
 import '../../../entities/entity_page.dart';
 import '../../../entities/entity_portion.dart';
 import '../../../entities/post.dart';
 import '../../../entities/thread.dart';
-import '../../../entities/web_image.dart';
-import '../../../extensions/int_extensions.dart';
 import '../api/fchan_api.dart';
 
 class FChanApiImpl extends FChanApi {
@@ -19,42 +16,36 @@ class FChanApiImpl extends FChanApi {
 
   static final _threadPageSize = 15;
 
-  final Client _client;
+  final String baseUrl;
+  final String imageBaseUrl;
+  late Dio dio;
 
-  FChanApiImpl(this._client);
+  FChanApiImpl({
+    required this.dio,
+    required this.baseUrl,
+    required this.imageBaseUrl,
+  });
+
+  @override
+  String baseUrlImage() => imageBaseUrl;
 
   @override
   Future<List<Board>> fetchBoards() async {
-    final uri = _cdnUri('boards.json');
-    final response = await _client.get(uri);
-    if (response.statusCode == 200) {
-      return (jsonDecode(response.body)['boards'] as List).map((rawBoard) => _boardFromJson(rawBoard)).toList();
-    } else {
-      throw HttpException(
-        'Cannot fetch boards from $uri',
-      );
+    if (_boardsCache.isEmpty) {
+      final url = '$baseUrl/boards.json';
+      final response = await dio.get<Map<String, dynamic>>(url);
+      if (response.statusCode == HttpStatus.ok) {
+        final boards = response.data!['boards'].map((rawBoard) => Board.fromJson(rawBoard)).toList();
+        for (final board in boards) {
+          _boardsCache[board.board] = board;
+        }
+      } else {
+        throw HttpException(
+          'Cannot fetch boards from $url',
+        );
+      }
     }
-  }
-
-  Uri _cdnUri(String path) {
-    return Uri.https(
-      'a.4cdn.org',
-      path,
-    );
-  }
-
-  Board _boardFromJson(Map<String, dynamic> json) {
-    final boardName = json['board'];
-    var board = _boardsCache[boardName];
-    if (board == null) {
-      board = Board(
-        board: json['board'],
-        title: json['title'],
-        isFavorite: false,
-      );
-      _boardsCache[boardName] = board;
-    }
-    return board;
+    return _boardsCache.values.toList();
   }
 
   @override
@@ -64,12 +55,12 @@ class FChanApiImpl extends FChanApi {
   }) async {
     final threads = _threadsCache[board.board];
     if (threads == null) {
-      final uri = _cdnUri('${board.board}/catalog.json');
-      final response = await _client.get(uri);
-      if (response.statusCode == 200) {
-        final List<dynamic> body = jsonDecode(response.body);
+      final uri = '$baseUrl/${board.board}/catalog.json';
+      final response = await dio.get<List<dynamic>>(uri);
+      if (response.statusCode == HttpStatus.ok) {
         final parsedThreads = <Thread>[];
-        body.forEach((page) => page['threads'].forEach((thread) => parsedThreads.add(_threadFromJson(board, thread))));
+        response.data!
+            .forEach((page) => page['threads'].forEach((thread) => parsedThreads.add(Thread.fromJson(board, thread))));
         _threadsCache[board.board] = parsedThreads;
         return EntityPortion<Thread>(
           entities: parsedThreads.sublist(
@@ -104,91 +95,17 @@ class FChanApiImpl extends FChanApi {
     }
   }
 
-  Thread _threadFromJson(
-    Board board,
-    Map<String, dynamic> json,
-  ) {
-    final filename = json['filename'] as String?;
-    final tim = json['tim'] as int?;
-    final ext = json['ext'] as String;
-    return Thread(
-      board: board,
-      no: json['no'],
-      sub: json['sub'],
-      com: json['com'],
-      timeFromPublish: DateTime.now().difference((json['time'] as int).dateTimeFromUnixTimestamp()),
-      replies: json['replies'],
-      images: json['images'],
-      image: filename != null
-          ? WebImage(
-              url: _cdnImageUri('/${board.board}/$tim$ext').toString(),
-              width: json['w'],
-              height: json['h'],
-            )
-          : null,
-      thumbnail: filename != null
-          ? WebImage(
-              url: _cdnImageUri('/${board.board}/${tim}s.jpg').toString(),
-              height: json['tn_w'],
-              width: json['tn_h'],
-            )
-          : null,
-      ext: ext,
-      lastSeenDate: null,
-    );
-  }
-
-  Uri _cdnImageUri(String path) {
-    return Uri.https(
-      'i.4cdn.org',
-      path,
-    );
-  }
-
   @override
   Future<List<Post>> fetchPosts(Thread thread) async {
-    final uri = _cdnUri('/${thread.board.board}/thread/${thread.no}.json');
-    final response = await _client.get(uri);
-    if (response.statusCode == 200) {
-      return (jsonDecode(response.body)['posts'] as List)
-          .map((rawPost) => _postFromJson(thread.board, rawPost))
-          .toList();
+    final uri = '$baseUrl/${thread.board.board}/thread/${thread.no}.json';
+    final response = await dio.get<Map<String, dynamic>>(uri);
+    if (response.statusCode == HttpStatus.ok) {
+      return (response.data!['posts'] as List).map((rawPost) => Post.fromJson(rawPost)..board = thread.board).toList();
     } else {
       throw HttpException(
         'Cannot fetch posts from $uri',
       );
     }
-  }
-
-  Post _postFromJson(
-    Board board,
-    Map<String, dynamic> json,
-  ) {
-    final filename = json['filename'] as String?;
-    final tim = json['tim'] as int?;
-    final ext = json['ext'] as String?;
-    return Post(
-      no: json['no'],
-      sub: json['sub'],
-      com: json['com'],
-      replies: json['replies'],
-      timeFromPublish: DateTime.now().difference((json['time'] as int).dateTimeFromUnixTimestamp()),
-      image: filename != null
-          ? WebImage(
-              url: _cdnImageUri('/${board.board}/$tim$ext').toString(),
-              height: json['w'],
-              width: json['h'],
-            )
-          : null,
-      thumbnail: filename != null
-          ? WebImage(
-              url: _cdnImageUri('/${board.board}/${tim}s.jpg').toString(),
-              height: json['tn_w'],
-              width: json['tn_h'],
-            )
-          : null,
-      ext: ext,
-    );
   }
 
   @override

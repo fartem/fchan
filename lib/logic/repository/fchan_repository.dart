@@ -12,7 +12,12 @@ class FChanRepository {
   final FChanDatabase _fChanDatabase;
   final FChanApi _fChanApi;
 
-  FChanRepository(this._fChanDatabase, this._fChanApi);
+  FChanRepository(
+    this._fChanDatabase,
+    this._fChanApi,
+  );
+
+  String baseUrlImage() => _fChanApi.baseUrlImage();
 
   Future<void> init() async => await _fChanDatabase.init();
 

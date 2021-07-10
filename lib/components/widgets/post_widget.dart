@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../entities/post.dart';
 import '../../extensions/duration_extensions.dart';
+import '../../logic/repository/fchan_repository.dart';
 import '../words/fchan_words.dart';
 import 'cached_network_image_with_loader.dart';
 import 'content_html_text_widget.dart';
@@ -16,6 +17,7 @@ class PostWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fChanWords = context.read<FChanWords>();
+    final repository = context.read<FChanRepository>();
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -29,18 +31,18 @@ class PostWidget extends StatelessWidget {
                       Align(
                         alignment: AlignmentDirectional.centerStart,
                         child: Text(
-                          '${_post.no} (${_post.timeFromPublish.formatToTime()})',
+                          '${_post.no} (${_post.time.formatToTime()})',
                           style: TextStyle(
                             fontSize: 12,
                             color: Colors.grey[700],
                           ),
                         ),
                       ),
-                      if (_post.image != null)
+                      if (_post.hasImage())
                         Align(
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
-                            '${_post.ext} (${_post.image!.width}x${_post.image!.height})',
+                            '${_post.ext} (${_post.imageWidth!}x${_post.imageHeight!})',
                             style: TextStyle(
                               fontSize: 12,
                               color: Colors.grey[700],
@@ -64,13 +66,13 @@ class PostWidget extends StatelessWidget {
                   ),
                 ),
               ),
-            if (_post.thumbnail != null)
+            if (_post.hasImage())
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: CachedNetworkImageWithLoader(
-                  url: _post.thumbnail!.url,
-                  width: _post.thumbnail!.width.toDouble(),
-                  height: _post.thumbnail!.height.toDouble(),
+                  url: _post.thumbnailUrl(repository.baseUrlImage())!,
+                  width: _post.thumbnailWidth!.toDouble(),
+                  height: _post.thumbnailHeight!.toDouble(),
                 ),
               ),
             if (_post.sub != null)

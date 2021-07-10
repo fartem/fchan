@@ -1,5 +1,6 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
 import 'components/themes/fchan_themes.dart';
@@ -22,7 +23,8 @@ import 'provider/favorite_boards_model.dart';
 import 'provider/history_model.dart';
 import 'provider/thread_model.dart';
 
-void main() {
+void main() async {
+  await dotenv.load();
   runApp(
     AppDependencies(
       child: FChanApp(),
@@ -43,7 +45,13 @@ class AppDependencies extends StatelessWidget {
           create: (_) => FChanRepository(
             SQFLiteDatabase(),
             FChanApiImpl(
-              Client(),
+              dio: Dio(
+                BaseOptions(
+                  baseUrl: dotenv.env['API_URL']!,
+                ),
+              ),
+              baseUrl: dotenv.env['API_URL']!,
+              imageBaseUrl: dotenv.env['API_URL_IMAGES']!,
             ),
           ),
         ),

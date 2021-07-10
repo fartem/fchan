@@ -52,15 +52,15 @@ class _ExploreBoardsState extends State<ExploreBoardsScreen> {
     return ListTile(
       title: Text(board.toString()),
       trailing: Icon(
-        board.isFavorite ? Icons.star : Icons.star_border,
-        color: board.isFavorite ? context.accentColor : Colors.grey,
+        (board.isFavorite ?? false) ? Icons.star : Icons.star_border,
+        color: (board.isFavorite ?? false) ? context.accentColor : Colors.grey,
       ),
       onTap: () async {
         final favoriteBoardsModel = Provider.of<FavoriteBoardsModel>(
           context,
           listen: false,
         );
-        if (!board.isFavorite) {
+        if (!(board.isFavorite ?? false)) {
           await favoriteBoardsModel.addToFavorites(board);
         } else {
           await favoriteBoardsModel.removeFromFavorites(board);

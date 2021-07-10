@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../entities/thread.dart';
 import '../../extensions/build_context_extensions.dart';
 import '../../extensions/duration_extensions.dart';
+import '../../logic/repository/fchan_repository.dart';
 import '../../logic/routes/fchan_routes.dart';
 import '../../provider/thread_model.dart';
 import '../words/fchan_words.dart';
@@ -28,6 +29,7 @@ class ThreadWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fChanWords = context.read<FChanWords>();
+    final repository = context.read<FChanRepository>();
     return Card(
       margin: const EdgeInsets.all(4.0),
       child: InkWell(
@@ -103,11 +105,11 @@ class ThreadWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              if (thread.thumbnail != null)
+              if (thread.hasImage())
                 CachedNetworkImageWithLoader(
-                  url: thread.thumbnail!.url,
-                  width: thread.thumbnail!.width.toDouble(),
-                  height: thread.thumbnail!.height.toDouble(),
+                  url: thread.thumbnailUrl(repository.baseUrlImage())!,
+                  width: thread.thumbnailWidth!.toDouble(),
+                  height: thread.thumbnailHeight!.toDouble(),
                 ),
               if (thread.sub != null)
                 Align(
@@ -140,7 +142,7 @@ class ThreadWidget extends StatelessWidget {
   }
 
   String _prepareThreadDateAndImageFormatInfo(Thread thread) {
-    final dateAtStart = thread.timeFromPublish.formatToTime();
+    final dateAtStart = thread.time.formatToTime();
     final imageFormat = thread.ext;
     return '$dateAtStart ${imageFormat == null ? '' : imageFormat}';
   }
