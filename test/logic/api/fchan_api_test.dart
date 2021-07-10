@@ -5,7 +5,7 @@ import 'package:fchan/entities/entity_page.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/logic/fchanapi/impl/fchan_impl.dart';
 import 'package:http/http.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -21,7 +21,8 @@ void main() {
             'Check boards fetching success',
             () async {
               final boardsResponse = File('assets_test/boards.json').readAsStringSync();
-              when(mockHttpClient.get(_cdnUri('/boards.json'))).thenAnswer((_) async => Response(boardsResponse, 200));
+              when(() => mockHttpClient.get(_cdnUri('/boards.json')))
+                  .thenAnswer((_) async => Response(boardsResponse, 200));
               final boards = await fChanApi.fetchBoards();
               expect(
                 boards.length,
@@ -32,7 +33,7 @@ void main() {
           test(
             'Check boards fetching error',
             () {
-              when(mockHttpClient.get(_cdnUri('/boards.json'))).thenAnswer((_) async => Response('', 404));
+              when(() => mockHttpClient.get(_cdnUri('/boards.json'))).thenAnswer((_) async => Response('', 404));
               expect(
                 () async => await fChanApi.fetchBoards(),
                 throwsA(
@@ -59,7 +60,7 @@ void main() {
                 isFavorite: true,
               );
               final catalogPages = File('assets_test/catalog.json').readAsStringSync();
-              when(mockHttpClient.get(_cdnUri('/${board.board}/catalog.json')))
+              when(() => mockHttpClient.get(_cdnUri('/${board.board}/catalog.json')))
                   .thenAnswer((_) async => Response(catalogPages, 200));
               for (var i = 0; i < 10; i++) {
                 final threadPortion = await fChanApi.fetchCatalog(
@@ -81,7 +82,7 @@ void main() {
                 title: 'Comics & Cartoons',
                 isFavorite: true,
               );
-              when(mockHttpClient.get(_cdnUri('/${board.board}/catalog.json')))
+              when(() => mockHttpClient.get(_cdnUri('/${board.board}/catalog.json')))
                   .thenAnswer((_) async => Response('', 404));
               expect(
                 () async => await fChanApi.fetchCatalog(
@@ -118,7 +119,7 @@ void main() {
                 replies: 0,
                 images: 0,
               );
-              when(mockHttpClient.get(_cdnUri('/${thread.board.board}/thread/${thread.no}.json')))
+              when(() => mockHttpClient.get(_cdnUri('/${thread.board.board}/thread/${thread.no}.json')))
                   .thenAnswer((_) async => Response(postsResponse, 200));
               final posts = await fChanApi.fetchPosts(thread);
               expect(
@@ -141,7 +142,7 @@ void main() {
                 replies: 0,
                 images: 0,
               );
-              when(mockHttpClient.get(_cdnUri('/${thread.board.board}/thread/${thread.no}.json')))
+              when(() => mockHttpClient.get(_cdnUri('/${thread.board.board}/thread/${thread.no}.json')))
                   .thenAnswer((_) async => Response('', 404));
               expect(
                 () async => await fChanApi.fetchPosts(thread),
