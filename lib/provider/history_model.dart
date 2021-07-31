@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../data/repositories/data_repository.dart';
 import '../entities/entity_page.dart';
 import '../entities/entity_portion.dart';
 import '../entities/thread.dart';
-import '../logic/repository/fchan_repository.dart';
 
 class HistoryModel extends ChangeNotifier {
-  final FChanRepository _fChanRepository;
+  final DataRepository _fChanRepository;
 
   HistoryModel(this._fChanRepository);
 

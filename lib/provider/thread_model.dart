@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../data/repositories/data_repository.dart';
 import '../entities/post.dart';
 import '../entities/thread.dart';
-import '../logic/repository/fchan_repository.dart';
 
 class ThreadModel extends ChangeNotifier {
-  final FChanRepository _fChanRepository;
+  final DataRepository _fChanRepository;
 
   ThreadModel(this._fChanRepository);
 

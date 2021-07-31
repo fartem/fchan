@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../data/repositories/data_repository.dart';
 import '../../entities/post.dart';
 import '../../extensions/duration_extensions.dart';
-import '../../logic/repository/fchan_repository.dart';
 import '../words/fchan_words.dart';
 import 'cached_network_image_with_loader.dart';
 import 'content_html_text_widget.dart';
@@ -17,7 +17,7 @@ class PostWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fChanWords = context.read<FChanWords>();
-    final repository = context.read<FChanRepository>();
+    final repository = context.read<DataRepository>();
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),

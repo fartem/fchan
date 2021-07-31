@@ -1,10 +1,10 @@
 import 'package:sqflite/sqflite.dart';
 
-import '../../../entities/board.dart';
-import '../../../entities/entity_page.dart';
-import '../../../entities/entity_portion.dart';
-import '../../../entities/thread.dart';
-import '../api/fchan_database.dart';
+import '../../../../entities/board.dart';
+import '../../../../entities/entity_page.dart';
+import '../../../../entities/entity_portion.dart';
+import '../../../../entities/thread.dart';
+import '../api/local_data_provider.dart';
 
 const String _dbName = 'fchan.db';
 
@@ -12,13 +12,13 @@ const int _version1 = 1;
 
 const int _currentVersion = _version1;
 
-class SQFLiteDatabase extends FChanDatabase {
+class LocalDataProviderImpl extends LocalDataProvider {
   static final _favoriteBoardsCache = <String, Board>{};
 
   late Database _database;
 
   @override
-  Future<FChanDatabase> init() async {
+  Future<LocalDataProvider> init() async {
     _database = await openDatabase(
       _dbName,
       version: _currentVersion,

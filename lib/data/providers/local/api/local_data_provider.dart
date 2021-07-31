@@ -1,10 +1,10 @@
-import '../../../entities/board.dart';
-import '../../../entities/entity_page.dart';
-import '../../../entities/entity_portion.dart';
-import '../../../entities/thread.dart';
+import '../../../../entities/board.dart';
+import '../../../../entities/entity_page.dart';
+import '../../../../entities/entity_portion.dart';
+import '../../../../entities/thread.dart';
 
-abstract class FChanDatabase {
-  Future<FChanDatabase> init();
+abstract class LocalDataProvider {
+  Future<LocalDataProvider> init();
 
   Future<void> close();
 

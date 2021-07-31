@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../data/repositories/data_repository.dart';
 import '../entities/board.dart';
-import '../logic/repository/fchan_repository.dart';
 
 class FavoriteBoardsModel extends ChangeNotifier {
-  final FChanRepository _fChanRepository;
+  final DataRepository _fChanRepository;
 
   FavoriteBoardsModel(this._fChanRepository);
 

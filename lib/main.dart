@@ -1,20 +1,21 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
+import 'bloc/board/board_page.dart';
+import 'bloc/explore_boards/explore_boards_page.dart';
+import 'bloc/favorites/favorites_page.dart';
 import 'components/themes/fchan_themes.dart';
 import 'components/words/fchan_words.dart';
+import 'data/providers/local/impl/local_data_provider_impl.dart';
+import 'data/providers/remote/impl/remote_data_provider_impl.dart';
+import 'data/repositories/data_repository.dart';
 import 'entities/board.dart';
 import 'entities/thread.dart';
 import 'extensions/build_context_extensions.dart';
-import 'logic/db/impl/sqflite_database.dart';
-import 'logic/fchanapi/impl/fchan_impl.dart';
-import 'logic/repository/fchan_repository.dart';
 import 'logic/routes/fchan_routes.dart';
-import 'logic/screens/board_screen.dart';
-import 'logic/screens/explore_boards_screen.dart';
-import 'logic/screens/favorite_boards_screen.dart';
 import 'logic/screens/history_screen.dart';
 import 'logic/screens/settings_screen.dart';
 import 'logic/screens/thread_screen.dart';
@@ -41,25 +42,29 @@ class AppDependencies extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<FChanRepository>(
-          create: (_) => FChanRepository(
-            SQFLiteDatabase(),
-            FChanApiImpl(
-              dio: Dio(
-                BaseOptions(
-                  baseUrl: dotenv.env['API_URL']!,
-                ),
-              ),
-              baseUrl: dotenv.env['API_URL']!,
-              imageBaseUrl: dotenv.env['API_URL_IMAGES']!,
-            ),
-          ),
-        ),
         Provider<FChanWords>(
           create: (_) => FChanWordsImpl(),
         ),
       ],
-      child: child,
+      child: MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider<DataRepository>(
+            create: (context) => DataRepository(
+              localDataProvider: LocalDataProviderImpl(),
+              remoteDataProvider: RemoteDataProviderImpl(
+                dio: Dio(
+                  BaseOptions(
+                    baseUrl: dotenv.env['API_URL']!,
+                  ),
+                ),
+                baseUrl: dotenv.env['API_URL']!,
+                imageBaseUrl: dotenv.env['API_URL_IMAGES']!,
+              ),
+            ),
+          ),
+        ],
+        child: child,
+      ),
     );
   }
 }
@@ -72,7 +77,7 @@ class FChanApp extends StatefulWidget {
 class FChanAppState extends State<FChanApp> {
   @override
   Widget build(BuildContext context) {
-    final fChanRepository = context.read<FChanRepository>();
+    final fChanRepository = context.read<DataRepository>();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -109,12 +114,12 @@ class FChanAppState extends State<FChanApp> {
               );
             case FChanRoutes.exploreBoardsScreen:
               return MaterialPageRoute(
-                builder: (context) => ExploreBoardsScreen(),
+                builder: (context) => ExploreBoardsPage(),
               );
             case FChanRoutes.boardScreen:
               return MaterialPageRoute(
-                builder: (context) => BoardScreen(
-                  settings.arguments as Board,
+                builder: (context) => BoardPage(
+                  board: settings.arguments as Board,
                 ),
               );
             case FChanRoutes.threadScreen:
@@ -138,7 +143,7 @@ class FChanAppState extends State<FChanApp> {
 
   @override
   void dispose() {
-    final fChanRepository = context.read<FChanRepository>();
+    final fChanRepository = context.read<DataRepository>();
     fChanRepository.dispose();
     super.dispose();
   }
@@ -158,7 +163,7 @@ class _FChanState extends State<FChan> {
     final fChanWords = context.read<FChanWords>();
     final _screens = [
       NavigationPage(
-        FavoriteBoardsScreen(),
+        FavoritesPage(),
         fChanWords.boardsTitle,
         BottomNavigationBarItem(
           label: fChanWords.homeTitle,
@@ -226,7 +231,7 @@ class FChanInitState extends State<FChanInit> {
   @override
   void initState() {
     super.initState();
-    final fChanRepository = context.read<FChanRepository>();
+    final fChanRepository = context.read<DataRepository>();
     Future.microtask(() => fChanRepository.init()).then((fChanDatabase) {
       context.pushReplace(
         route: FChanRoutes.homeScreen,
@@ -243,7 +248,7 @@ class FChanInitState extends State<FChanInit> {
 }
 
 class NavigationPage {
-  final StatefulWidget screen;
+  final Widget screen;
   final String title;
   final BottomNavigationBarItem bottomNavigationBarItem;
   final List<IconButton> actions;

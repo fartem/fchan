@@ -2,15 +2,15 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:dio/dio.dart';
+import '../../../../entities/board.dart';
+import '../../../../entities/entity_page.dart';
+import '../../../../entities/entity_portion.dart';
+import '../../../../entities/post.dart';
+import '../../../../entities/thread.dart';
 
-import '../../../entities/board.dart';
-import '../../../entities/entity_page.dart';
-import '../../../entities/entity_portion.dart';
-import '../../../entities/post.dart';
-import '../../../entities/thread.dart';
-import '../api/fchan_api.dart';
+import '../api/remote_data_provider.dart';
 
-class FChanApiImpl extends FChanApi {
+class RemoteDataProviderImpl extends RemoteDataProvider {
   static final _boardsCache = <String, Board>{};
   static final _threadsCache = <String, List<Thread>>{};
 
@@ -20,7 +20,7 @@ class FChanApiImpl extends FChanApi {
   final String imageBaseUrl;
   late Dio dio;
 
-  FChanApiImpl({
+  RemoteDataProviderImpl({
     required this.dio,
     required this.baseUrl,
     required this.imageBaseUrl,

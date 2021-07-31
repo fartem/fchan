@@ -1,10 +1,10 @@
-import '../../../entities/board.dart';
-import '../../../entities/entity_page.dart';
-import '../../../entities/entity_portion.dart';
-import '../../../entities/post.dart';
-import '../../../entities/thread.dart';
+import '../../../../entities/board.dart';
+import '../../../../entities/entity_page.dart';
+import '../../../../entities/entity_portion.dart';
+import '../../../../entities/post.dart';
+import '../../../../entities/thread.dart';
 
-abstract class FChanApi {
+abstract class RemoteDataProvider {
   String baseUrlImage();
 
   Future<List<Board>> fetchBoards();

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../data/repositories/data_repository.dart';
 import '../../entities/thread.dart';
 import '../../extensions/build_context_extensions.dart';
 import '../../extensions/duration_extensions.dart';
-import '../../logic/repository/fchan_repository.dart';
 import '../../logic/routes/fchan_routes.dart';
 import '../../provider/thread_model.dart';
 import '../words/fchan_words.dart';
@@ -29,7 +29,7 @@ class ThreadWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fChanWords = context.read<FChanWords>();
-    final repository = context.read<FChanRepository>();
+    final repository = context.read<DataRepository>();
     return Card(
       margin: const EdgeInsets.all(4.0),
       child: InkWell(

@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../logic/db/api/storage_entitiy.dart';
+import '../data/providers/local/api/storage_entitiy.dart';
 import 'parsers.dart';
 
 part 'board.g.dart';
