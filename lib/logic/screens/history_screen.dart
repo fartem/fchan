@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
-import '../../components/widgets/centered_circular_progress_indicator_widget.dart';
+import '../../components/widgets/centered_circular_progress_indicator.dart';
 import '../../components/widgets/centered_text_widget.dart';
 import '../../components/widgets/thread_widget.dart';
 import '../../components/words/fchan_words.dart';
@@ -43,7 +43,7 @@ class _HistoryState extends State<HistoryScreen> {
     final fChanWords = context.read<FChanWords>();
     final items = _listPortionController!.items;
     if (_listPortionController!.isLoading && items.isEmpty) {
-      return CenteredCircularProgressIndicatorWidget();
+      return CenteredCircularProgressIndicator();
     } else if (items.isEmpty) {
       return CenteredTextWidget(
         text: fChanWords.historyIsEmptyMessage,
@@ -56,7 +56,7 @@ class _HistoryState extends State<HistoryScreen> {
         final item = items[index];
         if (item == listLoader) {
           // TODO: set at center
-          return CenteredCircularProgressIndicatorWidget();
+          return CenteredCircularProgressIndicator();
         }
         final thread = item.item;
         return ThreadWidget(
@@ -64,7 +64,10 @@ class _HistoryState extends State<HistoryScreen> {
           threadClickAdditionalAction: () {},
           availableActions: ThreadPopupMenuAction.values,
           deleteAction: () async {
-            await Provider.of<HistoryModel>(context, listen: false).removeFromHistory(thread);
+            await Provider.of<HistoryModel>(
+              context,
+              listen: false,
+            ).removeFromHistory(thread);
             setState(() => items.remove(item));
           },
         );

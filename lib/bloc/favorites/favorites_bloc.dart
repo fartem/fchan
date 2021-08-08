@@ -7,6 +7,7 @@ import '../../data/repositories/data_repository.dart';
 import '../../entities/board.dart';
 
 part 'favorites_event.dart';
+
 part 'favorites_state.dart';
 
 class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {

@@ -15,6 +15,4 @@ abstract class RemoteDataProvider {
   });
 
   Future<List<Post>> fetchPosts(Thread thread);
-
-  String threadLink(Thread thread);
 }

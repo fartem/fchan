@@ -10,6 +10,7 @@ import '../../logic/listcontroller/list_entity.dart';
 import '../../logic/listcontroller/list_portion_controller.dart';
 
 part 'board_event.dart';
+
 part 'board_state.dart';
 
 class BoardBloc extends Bloc<BoardEvent, BoardState> {

@@ -42,19 +42,19 @@ class DataRepository {
 
   Future<List<Board>> favoriteBoards() => localDataProvider.favoriteBoards();
 
-  Future<Board> addBoardToFavorites(Board board) => localDataProvider.addBoardToFavorites(board);
+  Future<void> addBoardToFavorites(Board board) => localDataProvider.addBoardToFavorites(board);
 
-  Future<Board> removeBoardFromFavorites(Board board) => localDataProvider.removeBoardFromFavorites(board);
+  Future<void> removeBoardFromFavorites(Board board) => localDataProvider.removeBoardFromFavorites(board);
 
   Future<EntityPortion<Thread>> history(EntityPage entityPage) => localDataProvider.historyThreads(entityPage);
 
   Future<bool> threadContainsInHistory(Thread thread) => localDataProvider.threadContainsInHistory(thread);
 
-  Future<Thread> addThreadToHistory(Thread thread) => localDataProvider.addThreadToHistory(thread);
+  Future<void> addThreadToHistory(Thread thread) => localDataProvider.addThreadToHistory(thread);
 
-  Future<Thread> updateThreadInHistory(Thread thread) => localDataProvider.updateThreadInHistory(thread);
+  Future<void> updateThreadInHistory(Thread thread) => localDataProvider.updateThreadInHistory(thread);
 
-  Future<Thread> removeThreadFromHistory(Thread thread) => localDataProvider.removeThreadFromHistory(thread);
+  Future<void> removeThreadFromHistory(Thread thread) => localDataProvider.removeThreadFromHistory(thread);
 
   Future<void> clearHistory() => localDataProvider.clearHistory();
 
@@ -76,6 +76,4 @@ class DataRepository {
   }
 
   Future<List<Post>> postsForThread(Thread thread) => remoteDataProvider.fetchPosts(thread);
-
-  String threadLink(Thread thread) => remoteDataProvider.threadLink(thread);
 }

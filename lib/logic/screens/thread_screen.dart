@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
-import '../../components/widgets/centered_circular_progress_indicator_widget.dart';
+import '../../components/widgets/centered_circular_progress_indicator.dart';
 import '../../components/widgets/centered_text_widget.dart';
 import '../../components/widgets/post_widget.dart';
 import '../../components/words/fchan_words.dart';
@@ -61,7 +61,7 @@ class _ThreadState extends State<ThreadScreen> {
                 }
                 return ListView.builder(
                   itemBuilder: (context, index) => PostWidget(
-                    snapshot.data![index],
+                    post: snapshot.data![index],
                   ),
                   itemCount: snapshot.data!.length,
                   controller: _scrollController,
@@ -71,7 +71,7 @@ class _ThreadState extends State<ThreadScreen> {
                   text: fChanWords.commonErrorMessage,
                 );
               }
-              return CenteredCircularProgressIndicatorWidget();
+              return CenteredCircularProgressIndicator();
             },
           ),
           floatingActionButton: Visibility(

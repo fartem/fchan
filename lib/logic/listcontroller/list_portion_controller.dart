@@ -16,7 +16,9 @@ class ListPortionController<T> {
   Future<void> loadMore() async {
     if (!isLoading && !isLastPage) {
       isLoading = true;
-      EntityPortion<T> portion = await _portionProvider.call(EntityPage.paging(_page));
+      EntityPortion<T> portion = await _portionProvider.call(
+        EntityPage.paging(_page),
+      );
       if (items.isNotEmpty && items.last == listLoader) {
         items.removeLast();
       }

@@ -1,7 +1,7 @@
 class FChanRoutes {
-  static const initScreen = '/';
-  static const homeScreen = '/home';
-  static const exploreBoardsScreen = '/explore_boards_screen';
-  static const boardScreen = '/board_screen';
-  static const threadScreen = '/thread_screen';
+  static const routeInit = '/';
+  static const routeHome = '/home';
+  static const routeExploreBoards = '/explore_boards_screen';
+  static const routeBoard = '/board_screen';
+  static const routeThread = '/thread_screen';
 }

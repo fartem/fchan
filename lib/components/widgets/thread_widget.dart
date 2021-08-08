@@ -87,12 +87,10 @@ class ThreadWidget extends StatelessWidget {
                       );
                       switch (threadPopupMenuAction) {
                         case ThreadPopupMenuAction.openLink:
-                          launch(threadModel.threadLink(thread));
+                          launch(thread.link);
                           break;
                         case ThreadPopupMenuAction.copyLink:
-                          await FlutterClipboard.copy(
-                            threadModel.threadLink(thread),
-                          );
+                          await FlutterClipboard.copy(thread.link);
                           break;
                         case ThreadPopupMenuAction.removeFromHistory:
                           deleteAction?.call();
@@ -133,7 +131,7 @@ class ThreadWidget extends StatelessWidget {
         onTap: () {
           threadClickAdditionalAction.call();
           context.push(
-            route: FChanRoutes.threadScreen,
+            route: FChanRoutes.routeThread,
             arguments: thread,
           );
         },

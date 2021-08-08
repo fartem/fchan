@@ -3,7 +3,7 @@ import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../components/widgets/centered_circular_progress_indicator_widget.dart';
+import '../../components/widgets/centered_circular_progress_indicator.dart';
 import '../../components/words/fchan_words.dart';
 import '../cache/image_cache_manager.dart';
 
@@ -19,7 +19,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       future: PackageInfo.fromPlatform(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return CenteredCircularProgressIndicatorWidget();
+          return CenteredCircularProgressIndicator();
         }
         final fChanWords = context.read<FChanWords>();
         return ListView(

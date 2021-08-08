@@ -52,7 +52,7 @@ class LocalDataProviderImpl extends LocalDataProvider {
   }
 
   @override
-  Future<Board> addBoardToFavorites(Board board) async {
+  Future<void> addBoardToFavorites(Board board) async {
     board.isFavorite = true;
     if (board.isNew()) {
       final boardId = await _database.insert(
@@ -61,18 +61,16 @@ class LocalDataProviderImpl extends LocalDataProvider {
       );
       board.id = boardId;
       _favoriteBoardsCache[board.board] = board;
-      return board;
     } else {
       await _database.update(
         tableBoard,
         board.toJson(),
       );
-      return board;
     }
   }
 
   @override
-  Future<Board> removeBoardFromFavorites(Board board) async {
+  Future<void> removeBoardFromFavorites(Board board) async {
     board.isFavorite = false;
     _favoriteBoardsCache.remove(board.board);
     await _database.delete(
@@ -81,7 +79,6 @@ class LocalDataProviderImpl extends LocalDataProvider {
       whereArgs: [board.id],
     );
     board.id = null;
-    return board;
   }
 
   @override
@@ -144,41 +141,35 @@ class LocalDataProviderImpl extends LocalDataProvider {
   }
 
   @override
-  Future<Thread> addThreadToHistory(Thread thread) async {
+  Future<void> addThreadToHistory(Thread thread) async {
     if (thread.isNew()) {
       final threadId = await _database.insert(
         tableThread,
         thread.toJson(),
       );
       thread.id = threadId;
-      return thread;
     }
-    return thread;
   }
 
   @override
-  Future<Thread> updateThreadInHistory(Thread thread) async {
-    await _database.update(
-      tableThread,
-      thread.toJson(),
-      where: '$columnId = ?',
-      whereArgs: [thread.id],
-    );
-    return thread;
-  }
+  Future<void> updateThreadInHistory(Thread thread) async => await _database.update(
+        tableThread,
+        thread.toJson(),
+        where: '$columnId = ?',
+        whereArgs: [thread.id],
+      );
 
   @override
-  Future<Thread> removeThreadFromHistory(Thread thread) async {
-    await _database.delete(
-      tableThread,
-      where: '$columnId = ?',
-      whereArgs: [thread.id],
-    );
-    return thread;
-  }
+  Future<void> removeThreadFromHistory(Thread thread) async => await _database.delete(
+        tableThread,
+        where: '$columnId = ?',
+        whereArgs: [thread.id],
+      );
 
   @override
-  Future<void> clearHistory() async => await _database.rawQuery('delete from $tableThread');
+  Future<void> clearHistory() async => await _database.rawQuery(
+        'delete from $tableThread',
+      );
 }
 
 const tableBoard = 'board';

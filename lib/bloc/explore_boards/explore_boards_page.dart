@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../components/widgets/centered_circular_progress_indicator_widget.dart';
+import '../../components/widgets/centered_circular_progress_indicator.dart';
 import '../../components/words/fchan_words.dart';
 import '../../data/repositories/data_repository.dart';
 import '../../entities/board.dart';
@@ -33,7 +33,7 @@ class ExploreBoardsPage extends StatelessWidget {
                 itemCount: state.boards.length,
               );
             } else {
-              return CenteredCircularProgressIndicatorWidget();
+              return CenteredCircularProgressIndicator();
             }
           },
         ),

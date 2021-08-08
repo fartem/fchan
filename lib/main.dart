@@ -104,25 +104,25 @@ class FChanAppState extends State<FChanApp> {
       child: MaterialApp(
         onGenerateRoute: (settings) {
           switch (settings.name) {
-            case FChanRoutes.initScreen:
+            case FChanRoutes.routeInit:
               return MaterialPageRoute(
                 builder: (context) => FChanInit(),
               );
-            case FChanRoutes.homeScreen:
+            case FChanRoutes.routeHome:
               return MaterialPageRoute(
                 builder: (context) => FChan(),
               );
-            case FChanRoutes.exploreBoardsScreen:
+            case FChanRoutes.routeExploreBoards:
               return MaterialPageRoute(
                 builder: (context) => ExploreBoardsPage(),
               );
-            case FChanRoutes.boardScreen:
+            case FChanRoutes.routeBoard:
               return MaterialPageRoute(
                 builder: (context) => BoardPage(
                   board: settings.arguments as Board,
                 ),
               );
-            case FChanRoutes.threadScreen:
+            case FChanRoutes.routeThread:
               return MaterialPageRoute(
                 builder: (context) => ThreadScreen(
                   settings.arguments as Thread,
@@ -132,7 +132,7 @@ class FChanAppState extends State<FChanApp> {
               return null;
           }
         },
-        initialRoute: FChanRoutes.initScreen,
+        initialRoute: FChanRoutes.routeInit,
         title: 'FChan',
         theme: themeLight,
         darkTheme: themeDark,
@@ -173,7 +173,7 @@ class _FChanState extends State<FChan> {
           IconButton(
             icon: Icon(Icons.edit),
             onPressed: () => context.push(
-              route: FChanRoutes.exploreBoardsScreen,
+              route: FChanRoutes.routeExploreBoards,
             ),
           ),
         ],
@@ -234,7 +234,7 @@ class FChanInitState extends State<FChanInit> {
     final fChanRepository = context.read<DataRepository>();
     Future.microtask(() => fChanRepository.init()).then((fChanDatabase) {
       context.pushReplace(
-        route: FChanRoutes.homeScreen,
+        route: FChanRoutes.routeHome,
       );
     });
   }

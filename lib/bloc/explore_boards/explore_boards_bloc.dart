@@ -7,6 +7,7 @@ import '../../data/repositories/data_repository.dart';
 import '../../entities/board.dart';
 
 part 'explore_boards_event.dart';
+
 part 'explore_boards_state.dart';
 
 class ExploreBoardsBloc extends Bloc<ExploreBoardsEvent, ExploreBoardsState> {

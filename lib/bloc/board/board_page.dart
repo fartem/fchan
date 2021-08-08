@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../../components/widgets/centered_circular_progress_indicator_widget.dart';
+import '../../components/widgets/centered_circular_progress_indicator.dart';
 import '../../components/widgets/thread_widget.dart';
 import '../../data/repositories/data_repository.dart';
 import '../../entities/board.dart';
@@ -80,7 +80,7 @@ class _BoardPageState extends State<BoardPage> {
                   final item = state.threads[index];
                   if (item == listLoader) {
                     // TODO: set at center
-                    return CenteredCircularProgressIndicatorWidget();
+                    return CenteredCircularProgressIndicator();
                   }
                   final thread = item.item;
                   return ThreadWidget(
@@ -96,7 +96,7 @@ class _BoardPageState extends State<BoardPage> {
                 controller: _scrollController,
               );
             }
-            return CenteredCircularProgressIndicatorWidget();
+            return CenteredCircularProgressIndicator();
           },
         ),
       ),

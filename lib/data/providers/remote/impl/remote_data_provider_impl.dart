@@ -2,12 +2,12 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:dio/dio.dart';
+
 import '../../../../entities/board.dart';
 import '../../../../entities/entity_page.dart';
 import '../../../../entities/entity_portion.dart';
 import '../../../../entities/post.dart';
 import '../../../../entities/thread.dart';
-
 import '../api/remote_data_provider.dart';
 
 class RemoteDataProviderImpl extends RemoteDataProvider {
@@ -59,8 +59,15 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
       final response = await dio.get<List<dynamic>>(uri);
       if (response.statusCode == HttpStatus.ok) {
         final parsedThreads = <Thread>[];
-        response.data!
-            .forEach((page) => page['threads'].forEach((thread) => parsedThreads.add(Thread.fromJson(board, thread))));
+        response.data!.forEach(
+          (page) => page['threads'].forEach(
+            (json) {
+              final thread = Thread.fromJson(board, json);
+              thread..link = _threadLink(thread);
+              parsedThreads.add(thread);
+            },
+          ),
+        );
         _threadsCache[board.board] = parsedThreads;
         return EntityPortion<Thread>(
           entities: parsedThreads.sublist(
@@ -95,6 +102,13 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
     }
   }
 
+  String _threadLink(Thread thread) {
+    return Uri.https(
+      'boards.4channel.org',
+      '${thread.board.board}/thread/${thread.no}',
+    ).toString();
+  }
+
   @override
   Future<List<Post>> fetchPosts(Thread thread) async {
     final uri = '$baseUrl/${thread.board.board}/thread/${thread.no}.json';
@@ -106,13 +120,5 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
         'Cannot fetch posts from $uri',
       );
     }
-  }
-
-  @override
-  String threadLink(Thread thread) {
-    return Uri.https(
-      'boards.4channel.org',
-      '${thread.board.board}/thread/${thread.no}',
-    ).toString();
   }
 }

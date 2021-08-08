@@ -41,6 +41,8 @@ class Thread extends StorageEntity {
   @JsonKey(name: 'last_seen_date')
   DateTime? lastSeenDate;
 
+  late String link;
+
   Thread({
     id,
     required this.no,

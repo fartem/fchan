@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../components/widgets/centered_circular_progress_indicator_widget.dart';
+import '../../components/widgets/centered_circular_progress_indicator.dart';
 import '../../data/repositories/data_repository.dart';
 import '../../entities/board.dart';
 import '../../logic/routes/fchan_routes.dart';
@@ -17,7 +17,7 @@ class FavoritesPage extends StatelessWidget {
       ),
       builder: (context, state) {
         if (state is FavoritesInitial) {
-          return CenteredCircularProgressIndicatorWidget();
+          return CenteredCircularProgressIndicator();
         } else if (state is FavoritesLoadSuccess) {
           return ListView.builder(
             itemBuilder: (context, index) => _boardListItem(
@@ -27,7 +27,7 @@ class FavoritesPage extends StatelessWidget {
             itemCount: state.favorites.length,
           );
         } else {
-          return CenteredCircularProgressIndicatorWidget();
+          return CenteredCircularProgressIndicator();
         }
       },
     );
@@ -41,7 +41,7 @@ class FavoritesPage extends StatelessWidget {
     return ListTile(
       title: Text(board.toString()),
       onTap: () => Navigator.of(context).pushNamed(
-        FChanRoutes.boardScreen,
+        FChanRoutes.routeBoard,
         arguments: board,
       ),
     );

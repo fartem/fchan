@@ -10,9 +10,9 @@ abstract class LocalDataProvider {
 
   Future<List<Board>> favoriteBoards();
 
-  Future<Board> addBoardToFavorites(Board board);
+  Future<void> addBoardToFavorites(Board board);
 
-  Future<Board> removeBoardFromFavorites(Board board);
+  Future<void> removeBoardFromFavorites(Board board);
 
   Future<EntityPortion<Thread>> historyThreads(EntityPage entityPage);
 
@@ -20,11 +20,11 @@ abstract class LocalDataProvider {
 
   Future<bool> threadContainsInHistory(Thread thread);
 
-  Future<Thread> addThreadToHistory(Thread thread);
+  Future<void> addThreadToHistory(Thread thread);
 
-  Future<Thread> updateThreadInHistory(Thread thread);
+  Future<void> updateThreadInHistory(Thread thread);
 
-  Future<Thread> removeThreadFromHistory(Thread thread);
+  Future<void> removeThreadFromHistory(Thread thread);
 
   Future<void> clearHistory();
 }
