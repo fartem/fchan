@@ -30,7 +30,7 @@ class CachedNetworkImageWithLoader extends StatelessWidget {
           );
         },
         // TODO: add error widget as parameter or create default widget for this
-        errorWidget: (context, url, error) => Container(),
+        errorWidget: (_, __, ___) => Container(),
         cacheManager: ImageCacheManager(),
       ),
     );

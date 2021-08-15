@@ -7,12 +7,12 @@ import '../../entities/post.dart';
 import '../../extensions/duration_extensions.dart';
 import '../words/fchan_words.dart';
 import 'cached_network_image_with_loader.dart';
-import 'content_html_text_widget.dart';
+import 'content_html_text.dart';
 
-class PostWidget extends StatelessWidget {
+class PostCard extends StatelessWidget {
   final Post post;
 
-  PostWidget({required this.post});
+  PostCard({required this.post});
 
   @override
   Widget build(BuildContext context) {
@@ -78,14 +78,14 @@ class PostWidget extends StatelessWidget {
             if (post.sub != null)
               Align(
                 alignment: AlignmentDirectional.centerStart,
-                child: ContentHtmlTextWidget(
+                child: ContentHtmlText(
                   text: post.sub!,
                 ),
               ),
             if (post.com != null)
               Align(
                 alignment: AlignmentDirectional.centerStart,
-                child: ContentHtmlTextWidget(
+                child: ContentHtmlText(
                   text: post.com!,
                 ),
               ),

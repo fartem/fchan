@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 
-class CenteredTextWidget extends StatelessWidget {
+class CenteredText extends StatelessWidget {
   final String text;
 
-  CenteredTextWidget({required this.text});
+  CenteredText({required this.text});
 
   @override
   Widget build(BuildContext context) {

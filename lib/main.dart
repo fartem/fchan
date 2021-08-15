@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'bloc/board/board_page.dart';
 import 'bloc/explore_boards/explore_boards_page.dart';
 import 'bloc/favorites/favorites_page.dart';
+import 'bloc/thread/thread_page.dart';
 import 'components/themes/fchan_themes.dart';
 import 'components/words/fchan_words.dart';
 import 'data/providers/local/impl/local_data_provider_impl.dart';
@@ -18,11 +19,7 @@ import 'extensions/build_context_extensions.dart';
 import 'logic/routes/fchan_routes.dart';
 import 'logic/screens/history_screen.dart';
 import 'logic/screens/settings_screen.dart';
-import 'logic/screens/thread_screen.dart';
-import 'provider/catalog_model.dart';
-import 'provider/favorite_boards_model.dart';
 import 'provider/history_model.dart';
-import 'provider/thread_model.dart';
 
 void main() async {
   await dotenv.load();
@@ -81,22 +78,7 @@ class FChanAppState extends State<FChanApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => FavoriteBoardsModel(
-            fChanRepository,
-          ),
-        ),
-        ChangeNotifierProvider(
           create: (_) => HistoryModel(
-            fChanRepository,
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => CatalogModel(
-            fChanRepository,
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => ThreadModel(
             fChanRepository,
           ),
         ),
@@ -124,8 +106,8 @@ class FChanAppState extends State<FChanApp> {
               );
             case FChanRoutes.routeThread:
               return MaterialPageRoute(
-                builder: (context) => ThreadScreen(
-                  settings.arguments as Thread,
+                builder: (context) => ThreadPage(
+                  thread: settings.arguments as Thread,
                 ),
               );
             default:

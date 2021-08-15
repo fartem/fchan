@@ -3,8 +3,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/widgets/centered_circular_progress_indicator.dart';
-import '../../components/widgets/centered_text_widget.dart';
-import '../../components/widgets/thread_widget.dart';
+import '../../components/widgets/centered_text.dart';
+import '../../components/widgets/thread_card.dart';
 import '../../components/words/fchan_words.dart';
 import '../../entities/thread.dart';
 import '../../provider/history_model.dart';
@@ -45,7 +45,7 @@ class _HistoryState extends State<HistoryScreen> {
     if (_listPortionController!.isLoading && items.isEmpty) {
       return CenteredCircularProgressIndicator();
     } else if (items.isEmpty) {
-      return CenteredTextWidget(
+      return CenteredText(
         text: fChanWords.historyIsEmptyMessage,
       );
     }
@@ -59,9 +59,9 @@ class _HistoryState extends State<HistoryScreen> {
           return CenteredCircularProgressIndicator();
         }
         final thread = item.item;
-        return ThreadWidget(
+        return ThreadCard(
           thread: thread,
-          threadClickAdditionalAction: () {},
+          additionalAction: () {},
           availableActions: ThreadPopupMenuAction.values,
           deleteAction: () async {
             await Provider.of<HistoryModel>(

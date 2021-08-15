@@ -12,6 +12,9 @@ class DataRepository {
   final LocalDataProvider localDataProvider;
   final RemoteDataProvider remoteDataProvider;
 
+  final _boardsSessionCache = <Board>[];
+  final _favoritesBoardsCache = <int, Board>{};
+
   DataRepository({
     required this.localDataProvider,
     required this.remoteDataProvider,
@@ -24,27 +27,42 @@ class DataRepository {
   Future<void> dispose() async => await localDataProvider.close();
 
   Future<List<Board>> boards() async {
-    final favorites = await favoriteBoards();
-    final boards = await remoteDataProvider.fetchBoards();
-    final result = <Board>[];
-    boards.forEach((board) {
-      final favorite = favorites.firstWhereOrNull(
-        (favorite) => favorite == board,
-      );
-      if (favorite != null) {
-        result.add(favorite);
-      } else {
-        result.add(board);
-      }
-    });
-    return result;
+    if (_boardsSessionCache.isEmpty) {
+      final favorites = await favoriteBoards();
+      final result = <Board>[];
+      final boards = await remoteDataProvider.fetchBoards();
+      boards.forEach((board) {
+        final favorite = favorites.firstWhereOrNull(
+          (favorite) => favorite == board,
+        );
+        if (favorite != null) {
+          result.add(favorite);
+        } else {
+          result.add(board);
+        }
+      });
+      _boardsSessionCache.addAll(result);
+    }
+    return _boardsSessionCache;
   }
 
-  Future<List<Board>> favoriteBoards() => localDataProvider.favoriteBoards();
+  Future<List<Board>> favoriteBoards() async {
+    if (_favoritesBoardsCache.isEmpty) {
+      final favoritesBoards = await localDataProvider.favoriteBoards();
+      favoritesBoards.forEach((board) => _favoritesBoardsCache[board.id!] = board);
+    }
+    return _favoritesBoardsCache.values.sorted((a, b) => a.board.compareTo(b.board));
+  }
 
-  Future<void> addBoardToFavorites(Board board) => localDataProvider.addBoardToFavorites(board);
+  Future<void> addBoardToFavorites(Board board) async {
+    _favoritesBoardsCache[board.id!] = board;
+    localDataProvider.addBoardToFavorites(board);
+  }
 
-  Future<void> removeBoardFromFavorites(Board board) => localDataProvider.removeBoardFromFavorites(board);
+  Future<void> removeBoardFromFavorites(Board board) async {
+    _favoritesBoardsCache.remove(board.id);
+    localDataProvider.removeBoardFromFavorites(board);
+  }
 
   Future<EntityPortion<Thread>> history(EntityPage entityPage) => localDataProvider.historyThreads(entityPage);
 

@@ -13,8 +13,6 @@ const int _version1 = 1;
 const int _currentVersion = _version1;
 
 class LocalDataProviderImpl extends LocalDataProvider {
-  static final _favoriteBoardsCache = <String, Board>{};
-
   late Database _database;
 
   @override
@@ -39,16 +37,12 @@ class LocalDataProviderImpl extends LocalDataProvider {
 
   @override
   Future<List<Board>> favoriteBoards() async {
-    if (_favoriteBoardsCache.isEmpty) {
-      final rawBoards = await _database.query(
-        tableBoard,
-        where: '$columnBoardIsFavorite = ?',
-        whereArgs: [1],
-      );
-      final boards = rawBoards.map((rawBoard) => Board.fromJson(rawBoard)).toList();
-      boards.forEach((board) => _favoriteBoardsCache[board.board] = board);
-    }
-    return _favoriteBoardsCache.values.toList();
+    final rawBoards = await _database.query(
+      tableBoard,
+      where: '$columnBoardIsFavorite = ?',
+      whereArgs: [1],
+    );
+    return rawBoards.map((rawBoard) => Board.fromJson(rawBoard)).toList();
   }
 
   @override
@@ -60,7 +54,6 @@ class LocalDataProviderImpl extends LocalDataProvider {
         board.toJson(),
       );
       board.id = boardId;
-      _favoriteBoardsCache[board.board] = board;
     } else {
       await _database.update(
         tableBoard,
@@ -72,7 +65,6 @@ class LocalDataProviderImpl extends LocalDataProvider {
   @override
   Future<void> removeBoardFromFavorites(Board board) async {
     board.isFavorite = false;
-    _favoriteBoardsCache.remove(board.board);
     await _database.delete(
       tableBoard,
       where: '$columnId = ?',
@@ -92,9 +84,7 @@ class LocalDataProviderImpl extends LocalDataProvider {
     final result = <Thread>[];
     for (var rawThread in rawThreads) {
       final boardId = rawThread[columnThreadBoardId];
-      final board = _favoriteBoardsCache.isEmpty
-          ? await _boardById(boardId as int?)
-          : _favoriteBoardsCache.values.firstWhere((board) => board.id == boardId);
+      final board = await _boardById(boardId as int?);
       result.add(Thread.fromJson(board, rawThread));
     }
     return EntityPortion(
@@ -124,9 +114,7 @@ class LocalDataProviderImpl extends LocalDataProvider {
     }
     final rawThread = rawThreadResult.first;
     final boardId = rawThread[columnThreadBoardId];
-    final board = _favoriteBoardsCache.isEmpty
-        ? await _boardById(boardId as int?)
-        : _favoriteBoardsCache.values.firstWhere((board) => board.id == boardId);
+    final board = await _boardById(boardId as int?);
     return Thread.fromJson(board, rawThread);
   }
 

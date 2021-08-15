@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../components/widgets/centered_circular_progress_indicator.dart';
-import '../../components/widgets/thread_widget.dart';
+import '../../components/widgets/thread_card.dart';
 import '../../data/repositories/data_repository.dart';
 import '../../entities/board.dart';
 import '../../logic/listcontroller/list_entity.dart';
@@ -63,9 +63,7 @@ class _BoardPageState extends State<BoardPage> {
         floatingActionButton: Visibility(
           visible: showFab,
           child: FloatingActionButton(
-            child: Icon(
-              Icons.refresh,
-            ),
+            child: Icon(Icons.refresh),
             onPressed: () => _boardBloc.add(BoardEventBoardRefreshed()),
           ),
         ),
@@ -83,9 +81,9 @@ class _BoardPageState extends State<BoardPage> {
                     return CenteredCircularProgressIndicator();
                   }
                   final thread = item.item;
-                  return ThreadWidget(
+                  return ThreadCard(
                     thread: thread,
-                    threadClickAdditionalAction: () {},
+                    additionalAction: () {},
                     availableActions: [
                       ThreadPopupMenuAction.openLink,
                       ThreadPopupMenuAction.copyLink,

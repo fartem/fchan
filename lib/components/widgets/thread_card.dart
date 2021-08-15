@@ -8,20 +8,19 @@ import '../../entities/thread.dart';
 import '../../extensions/build_context_extensions.dart';
 import '../../extensions/duration_extensions.dart';
 import '../../logic/routes/fchan_routes.dart';
-import '../../provider/thread_model.dart';
 import '../words/fchan_words.dart';
 import 'cached_network_image_with_loader.dart';
-import 'content_html_text_widget.dart';
+import 'content_html_text.dart';
 
-class ThreadWidget extends StatelessWidget {
+class ThreadCard extends StatelessWidget {
   final Thread thread;
-  final Function threadClickAdditionalAction;
+  final Function additionalAction;
   final List<ThreadPopupMenuAction> availableActions;
   final VoidCallback? deleteAction;
 
-  ThreadWidget({
+  ThreadCard({
     required this.thread,
-    required this.threadClickAdditionalAction,
+    required this.additionalAction,
     required this.availableActions,
     this.deleteAction,
   });
@@ -81,10 +80,6 @@ class ThreadWidget extends StatelessWidget {
                       );
                     }).toList(),
                     onSelected: (threadPopupMenuAction) async {
-                      final threadModel = Provider.of<ThreadModel>(
-                        context,
-                        listen: false,
-                      );
                       switch (threadPopupMenuAction) {
                         case ThreadPopupMenuAction.openLink:
                           launch(thread.link);
@@ -112,7 +107,7 @@ class ThreadWidget extends StatelessWidget {
               if (thread.sub != null)
                 Align(
                   alignment: AlignmentDirectional.centerStart,
-                  child: ContentHtmlTextWidget(
+                  child: ContentHtmlText(
                     text: thread.sub!,
                     bodyWeight: FontWeight.bold,
                   ),
@@ -120,7 +115,7 @@ class ThreadWidget extends StatelessWidget {
               if (thread.com != null)
                 Align(
                   alignment: AlignmentDirectional.centerStart,
-                  child: ContentHtmlTextWidget(
+                  child: ContentHtmlText(
                     text: thread.com!,
                     wrapText: true,
                   ),
@@ -129,7 +124,7 @@ class ThreadWidget extends StatelessWidget {
           ),
         ),
         onTap: () {
-          threadClickAdditionalAction.call();
+          additionalAction.call();
           context.push(
             route: FChanRoutes.routeThread,
             arguments: thread,
