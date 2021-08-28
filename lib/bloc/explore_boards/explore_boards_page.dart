@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../components/widgets/centered_circular_progress_indicator.dart';
-import '../../components/words/fchan_words.dart';
 import '../../data/repositories/data_repository.dart';
 import '../../entities/board.dart';
+import '../../extensions/build_context_extensions.dart';
 import 'explore_boards_bloc.dart';
 
 class ExploreBoardsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final fChanWords = context.read<FChanWords>();
     return BlocProvider<ExploreBoardsBloc>(
       create: (context) => ExploreBoardsBloc(
         dataRepository: RepositoryProvider.of<DataRepository>(context),
@@ -19,7 +18,7 @@ class ExploreBoardsPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            fChanWords.exploreBoardsTitle,
+            context.localizations().titleExploreBoards,
           ),
         ),
         body: BlocBuilder<ExploreBoardsBloc, ExploreBoardsState>(

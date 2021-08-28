@@ -2,13 +2,13 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../data/repositories/data_repository.dart';
 import '../../entities/thread.dart';
 import '../../extensions/build_context_extensions.dart';
 import '../../extensions/duration_extensions.dart';
 import '../../logic/routes/fchan_routes.dart';
-import '../words/fchan_words.dart';
 import 'cached_network_image_with_loader.dart';
 import 'content_html_text.dart';
 
@@ -27,8 +27,7 @@ class ThreadCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fChanWords = context.read<FChanWords>();
-    final repository = context.read<DataRepository>();
+    final dataRepository = context.read<DataRepository>();
     return Card(
       margin: const EdgeInsets.all(4.0),
       child: InkWell(
@@ -55,7 +54,7 @@ class ThreadCard extends StatelessWidget {
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
                             _prepareThreadRepliesAndImagesInfo(
-                              fChanWords,
+                              context.localizations(),
                               thread,
                             ),
                             style: TextStyle(
@@ -73,7 +72,7 @@ class ThreadCard extends StatelessWidget {
                         value: action,
                         child: Text(
                           _wordForPopupActions(
-                            fChanWords,
+                            context.localizations(),
                             action,
                           ),
                         ),
@@ -100,7 +99,7 @@ class ThreadCard extends StatelessWidget {
               ),
               if (thread.hasImage())
                 CachedNetworkImageWithLoader(
-                  url: thread.thumbnailUrl(repository.baseUrlImage())!,
+                  url: thread.thumbnailUrl(dataRepository.baseUrlImage())!,
                   width: thread.thumbnailWidth!.toDouble(),
                   height: thread.thumbnailHeight!.toDouble(),
                 ),
@@ -141,25 +140,25 @@ class ThreadCard extends StatelessWidget {
   }
 
   String _prepareThreadRepliesAndImagesInfo(
-    FChanWords fChanWords,
+    AppLocalizations localizations,
     Thread thread,
   ) {
-    final replies = '${thread.replies == 0 ? '' : '${thread.replies} ${fChanWords.repliesTitle}'}';
-    final images = '${thread.images == 0 ? '' : '${thread.images} ${fChanWords.imagesTitle}'}';
+    final replies = '${thread.replies == 0 ? '' : '${thread.replies} ${localizations.titleReplies}'}';
+    final images = '${thread.images == 0 ? '' : '${thread.images} ${localizations.titleImages}'}';
     return '$replies $images'.trim();
   }
 
   String _wordForPopupActions(
-    FChanWords fChanWords,
+    AppLocalizations localizations,
     ThreadPopupMenuAction action,
   ) {
     switch (action) {
       case ThreadPopupMenuAction.openLink:
-        return fChanWords.threadActionOpenLink;
+        return localizations.actionOpenLink;
       case ThreadPopupMenuAction.copyLink:
-        return fChanWords.threadActionCopyLink;
+        return localizations.actionCopyLink;
       case ThreadPopupMenuAction.removeFromHistory:
-        return fChanWords.threadActionRemoveFromHistory;
+        return localizations.actionRemoveFromHistory;
       default:
         return 'NO IMPL';
     }

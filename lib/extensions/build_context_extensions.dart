@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-extension BuildContextExtensions on BuildContext {
+extension BuildContextNavigationExtensions on BuildContext {
   void push({
     required String route,
     arguments,
@@ -19,4 +20,8 @@ extension BuildContextExtensions on BuildContext {
       arguments: arguments,
     );
   }
+}
+
+extension BuildContextLocalizationExtensions on BuildContext {
+  AppLocalizations localizations() => AppLocalizations.of(this)!;
 }

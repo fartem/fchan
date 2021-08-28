@@ -48,6 +48,7 @@ You can build the app for Android from terminal on your machine without installi
 2. in terminal change current directory (by command `cd`) to the `android` folder int the project folder and run:
 
 ```shell
+flutter pub run build_runner build
 flutter build apk --profile --split-per-abi
 ```
 

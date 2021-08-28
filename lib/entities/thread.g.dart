@@ -21,8 +21,12 @@ Thread _$ThreadFromJson(Map<String, dynamic> json) {
     time: parseTimeFromInt(json['time'] as int),
     replies: json['replies'] as int,
     images: json['images'] as int,
-    lastSeenDate: json['last_seen_date'] == null ? null : DateTime.parse(json['last_seen_date'] as String),
-  )..boardId = json['board_id'] as int?;
+    lastSeenDate: json['last_seen_date'] == null
+        ? null
+        : DateTime.parse(json['last_seen_date'] as String),
+  )
+    ..boardId = json['board_id'] as int?
+    ..link = json['link'] as String;
 }
 
 Map<String, dynamic> _$ThreadToJson(Thread instance) => <String, dynamic>{
@@ -41,4 +45,5 @@ Map<String, dynamic> _$ThreadToJson(Thread instance) => <String, dynamic>{
       'replies': instance.replies,
       'images': instance.images,
       'last_seen_date': instance.lastSeenDate?.toIso8601String(),
+      'link': instance.link,
     };

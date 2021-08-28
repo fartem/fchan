@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'bloc/board/board_page.dart';
 import 'bloc/explore_boards/explore_boards_page.dart';
@@ -10,7 +11,6 @@ import 'bloc/favorites/favorites_page.dart';
 import 'bloc/history/history_page.dart';
 import 'bloc/thread/thread_page.dart';
 import 'components/themes/fchan_themes.dart';
-import 'components/words/fchan_words.dart';
 import 'data/providers/local/impl/local_data_provider_impl.dart';
 import 'data/providers/remote/impl/remote_data_provider_impl.dart';
 import 'data/repositories/data_repository.dart';
@@ -35,31 +35,24 @@ class AppDependencies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
+    return MultiRepositoryProvider(
       providers: [
-        Provider<FChanWords>(
-          create: (_) => FChanWordsImpl(),
-        ),
-      ],
-      child: MultiRepositoryProvider(
-        providers: [
-          RepositoryProvider<DataRepository>(
-            create: (context) => DataRepository(
-              localDataProvider: LocalDataProviderImpl(),
-              remoteDataProvider: RemoteDataProviderImpl(
-                dio: Dio(
-                  BaseOptions(
-                    baseUrl: dotenv.env['API_URL']!,
-                  ),
+        RepositoryProvider<DataRepository>(
+          create: (context) => DataRepository(
+            localDataProvider: LocalDataProviderImpl(),
+            remoteDataProvider: RemoteDataProviderImpl(
+              dio: Dio(
+                BaseOptions(
+                  baseUrl: dotenv.env['API_URL']!,
                 ),
-                baseUrl: dotenv.env['API_URL']!,
-                imageBaseUrl: dotenv.env['API_URL_IMAGES']!,
               ),
+              baseUrl: dotenv.env['API_URL']!,
+              imageBaseUrl: dotenv.env['API_URL_IMAGES']!,
             ),
           ),
-        ],
-        child: child,
-      ),
+        ),
+      ],
+      child: child,
     );
   }
 }
@@ -108,6 +101,8 @@ class FChanAppState extends State<FChanApp> {
       theme: themeLight,
       darkTheme: themeDark,
       themeMode: ThemeMode.system,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 
@@ -130,16 +125,15 @@ class _FChanState extends State<FChan> {
   @override
   Widget build(BuildContext context) {
     // TODO: refactor this
-    final fChanWords = context.read<FChanWords>();
     final _screens = [
       NavigationPage(
-        FavoritesPage(),
-        fChanWords.boardsTitle,
-        BottomNavigationBarItem(
-          label: fChanWords.homeTitle,
+        screen: FavoritesPage(),
+        title: context.localizations().titleFavoriteBoards,
+        bottomNavigationBarItem: BottomNavigationBarItem(
+          label: context.localizations().titleHome,
           icon: Icon(Icons.home),
         ),
-        [
+        actions: [
           IconButton(
             icon: Icon(Icons.edit),
             onPressed: () => context.push(
@@ -149,19 +143,18 @@ class _FChanState extends State<FChan> {
         ],
       ),
       NavigationPage(
-        HistoryPage(),
-        fChanWords.historyTitle,
-        BottomNavigationBarItem(
-          label: fChanWords.historyTitle,
+        screen: HistoryPage(),
+        title: context.localizations().titleHistory,
+        bottomNavigationBarItem: BottomNavigationBarItem(
+          label: context.localizations().titleHistory,
           icon: Icon(Icons.history),
         ),
-        [
+        actions: [
           IconButton(
-            icon: Icon(Icons.delete),
-            onPressed: () {
-              // TODO: implement
-            }
-          ),
+              icon: Icon(Icons.delete),
+              onPressed: () {
+                // TODO: implement
+              }),
         ],
       ),
     ];
@@ -216,10 +209,10 @@ class NavigationPage {
   final BottomNavigationBarItem bottomNavigationBarItem;
   final List<IconButton> actions;
 
-  NavigationPage(
-    this.screen,
-    this.title,
-    this.bottomNavigationBarItem,
-    this.actions,
-  );
+  NavigationPage({
+    required this.screen,
+    required this.title,
+    required this.bottomNavigationBarItem,
+    required this.actions,
+  });
 }
