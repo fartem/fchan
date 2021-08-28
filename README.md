@@ -20,6 +20,7 @@ You can track a next test app version development status on [GitHub Projects](ht
 * [x] History
 * [ ] Bookmarks
 * [ ] Gallery
+* [ ] Settings
 
 ## Screenshots
 

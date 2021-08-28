@@ -55,8 +55,8 @@ class DataRepository {
   }
 
   Future<void> addBoardToFavorites(Board board) async {
+    await localDataProvider.addBoardToFavorites(board);
     _favoritesBoardsCache[board.id!] = board;
-    localDataProvider.addBoardToFavorites(board);
   }
 
   Future<void> removeBoardFromFavorites(Board board) async {

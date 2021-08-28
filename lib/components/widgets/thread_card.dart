@@ -14,13 +14,13 @@ import 'content_html_text.dart';
 
 class ThreadCard extends StatelessWidget {
   final Thread thread;
-  final Function additionalAction;
+  final Function tapAction;
   final List<ThreadPopupMenuAction> availableActions;
   final VoidCallback? deleteAction;
 
   ThreadCard({
     required this.thread,
-    required this.additionalAction,
+    required this.tapAction,
     required this.availableActions,
     this.deleteAction,
   });
@@ -124,7 +124,7 @@ class ThreadCard extends StatelessWidget {
           ),
         ),
         onTap: () {
-          additionalAction.call();
+          tapAction.call();
           context.push(
             route: FChanRoutes.routeThread,
             arguments: thread,

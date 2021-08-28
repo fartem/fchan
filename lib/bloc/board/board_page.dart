@@ -83,7 +83,7 @@ class _BoardPageState extends State<BoardPage> {
                   final thread = item.item;
                   return ThreadCard(
                     thread: thread,
-                    additionalAction: () {},
+                    tapAction: () => _boardBloc.addToHistory(thread),
                     availableActions: [
                       ThreadPopupMenuAction.openLink,
                       ThreadPopupMenuAction.copyLink,

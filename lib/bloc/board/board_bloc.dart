@@ -55,4 +55,12 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
       yield BoardInitial();
     }
   }
+
+  Future<void> addToHistory(Thread thread) async {
+    if (!(await dataRepository.threadContainsInHistory(thread))) {
+      dataRepository.addThreadToHistory(thread);
+    } else {
+      dataRepository.updateThreadInHistory(thread);
+    }
+  }
 }

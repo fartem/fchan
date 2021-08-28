@@ -4,3 +4,11 @@ part of 'history_bloc.dart';
 abstract class HistoryState {}
 
 class HistoryInitial extends HistoryState {}
+
+class HistoryThreadsLoadSuccess extends HistoryState {
+  final List<ListEntity> threads;
+
+  HistoryThreadsLoadSuccess({required this.threads});
+}
+
+class HistoryThreadsLoadError extends HistoryState {}

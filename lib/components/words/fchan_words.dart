@@ -25,20 +25,6 @@ abstract class FChanWords {
 
   String get threadActionRemoveFromHistory;
 
-  String get settingsTitle;
-
-  String get settingsCategoryStorage;
-
-  String get settingsItemClearImageCache;
-
-  String get settingsCategoryInfo;
-
-  String get settingItemBugReport;
-
-  String get settingItemAuthor;
-
-  String get settingItemVersion;
-
   String get commonRefreshText;
 
   String get commonReplyText;
@@ -87,27 +73,6 @@ class FChanWordsImpl extends FChanWords {
 
   @override
   String get threadActionRemoveFromHistory => 'Remove from History';
-
-  @override
-  String get settingsTitle => 'Settings';
-
-  @override
-  String get settingsCategoryStorage => 'Storage';
-
-  @override
-  String get settingsItemClearImageCache => 'Clear Image Cache';
-
-  @override
-  String get settingsCategoryInfo => 'Info';
-
-  @override
-  String get settingItemBugReport => 'Bug report';
-
-  @override
-  String get settingItemAuthor => 'Author';
-
-  @override
-  String get settingItemVersion => 'Version';
 
   @override
   String get commonRefreshText => 'Refresh';

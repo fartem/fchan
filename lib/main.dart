@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'bloc/board/board_page.dart';
 import 'bloc/explore_boards/explore_boards_page.dart';
 import 'bloc/favorites/favorites_page.dart';
+import 'bloc/history/history_page.dart';
 import 'bloc/thread/thread_page.dart';
 import 'components/themes/fchan_themes.dart';
 import 'components/words/fchan_words.dart';
@@ -17,9 +18,6 @@ import 'entities/board.dart';
 import 'entities/thread.dart';
 import 'extensions/build_context_extensions.dart';
 import 'logic/routes/fchan_routes.dart';
-import 'logic/screens/history_screen.dart';
-import 'logic/screens/settings_screen.dart';
-import 'provider/history_model.dart';
 
 void main() async {
   await dotenv.load();
@@ -74,52 +72,42 @@ class FChanApp extends StatefulWidget {
 class FChanAppState extends State<FChanApp> {
   @override
   Widget build(BuildContext context) {
-    final fChanRepository = context.read<DataRepository>();
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => HistoryModel(
-            fChanRepository,
-          ),
-        ),
-      ],
-      child: MaterialApp(
-        onGenerateRoute: (settings) {
-          switch (settings.name) {
-            case FChanRoutes.routeInit:
-              return MaterialPageRoute(
-                builder: (context) => FChanInit(),
-              );
-            case FChanRoutes.routeHome:
-              return MaterialPageRoute(
-                builder: (context) => FChan(),
-              );
-            case FChanRoutes.routeExploreBoards:
-              return MaterialPageRoute(
-                builder: (context) => ExploreBoardsPage(),
-              );
-            case FChanRoutes.routeBoard:
-              return MaterialPageRoute(
-                builder: (context) => BoardPage(
-                  board: settings.arguments as Board,
-                ),
-              );
-            case FChanRoutes.routeThread:
-              return MaterialPageRoute(
-                builder: (context) => ThreadPage(
-                  thread: settings.arguments as Thread,
-                ),
-              );
-            default:
-              return null;
-          }
-        },
-        initialRoute: FChanRoutes.routeInit,
-        title: 'FChan',
-        theme: themeLight,
-        darkTheme: themeDark,
-        themeMode: ThemeMode.system,
-      ),
+    return MaterialApp(
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case FChanRoutes.routeInit:
+            return MaterialPageRoute(
+              builder: (context) => FChanInit(),
+            );
+          case FChanRoutes.routeHome:
+            return MaterialPageRoute(
+              builder: (context) => FChan(),
+            );
+          case FChanRoutes.routeExploreBoards:
+            return MaterialPageRoute(
+              builder: (context) => ExploreBoardsPage(),
+            );
+          case FChanRoutes.routeBoard:
+            return MaterialPageRoute(
+              builder: (context) => BoardPage(
+                board: settings.arguments as Board,
+              ),
+            );
+          case FChanRoutes.routeThread:
+            return MaterialPageRoute(
+              builder: (context) => ThreadPage(
+                thread: settings.arguments as Thread,
+              ),
+            );
+          default:
+            return null;
+        }
+      },
+      initialRoute: FChanRoutes.routeInit,
+      title: 'FChan',
+      theme: themeLight,
+      darkTheme: themeDark,
+      themeMode: ThemeMode.system,
     );
   }
 
@@ -161,7 +149,7 @@ class _FChanState extends State<FChan> {
         ],
       ),
       NavigationPage(
-        HistoryScreen(),
+        HistoryPage(),
         fChanWords.historyTitle,
         BottomNavigationBarItem(
           label: fChanWords.historyTitle,
@@ -170,18 +158,11 @@ class _FChanState extends State<FChan> {
         [
           IconButton(
             icon: Icon(Icons.delete),
-            onPressed: () async => await Provider.of<HistoryModel>(context, listen: false).clearHistory(),
+            onPressed: () {
+              // TODO: implement
+            }
           ),
         ],
-      ),
-      NavigationPage(
-        SettingsScreen(),
-        fChanWords.settingsTitle,
-        BottomNavigationBarItem(
-          label: fChanWords.settingsTitle,
-          icon: Icon(Icons.settings),
-        ),
-        [],
       ),
     ];
     final currentPage = _screens[_currentIndex];
