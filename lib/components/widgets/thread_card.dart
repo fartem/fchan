@@ -1,8 +1,6 @@
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 import '../../data/repositories/data_repository.dart';
 import '../../entities/thread.dart';
@@ -79,17 +77,17 @@ class ThreadCard extends StatelessWidget {
                       );
                     }).toList(),
                     onSelected: (threadPopupMenuAction) async {
-                      switch (threadPopupMenuAction) {
-                        case ThreadPopupMenuAction.openLink:
-                          launch(thread.link);
-                          break;
-                        case ThreadPopupMenuAction.copyLink:
-                          await FlutterClipboard.copy(thread.link);
-                          break;
-                        case ThreadPopupMenuAction.removeFromHistory:
-                          deleteAction?.call();
-                          break;
-                      }
+                      // switch (threadPopupMenuAction) {
+                      //   case ThreadPopupMenuAction.openLink:
+                      //     launch(thread.link!);
+                      //     break;
+                      //   case ThreadPopupMenuAction.copyLink:
+                      //     await FlutterClipboard.copy(thread.link!);
+                      //     break;
+                      //   case ThreadPopupMenuAction.removeFromHistory:
+                      //     deleteAction?.call();
+                      //     break;
+                      // }
                     },
                     child: Icon(
                       Icons.more_vert,
@@ -123,7 +121,7 @@ class ThreadCard extends StatelessWidget {
           ),
         ),
         onTap: () {
-          tapAction.call();
+          tapAction();
           context.push(
             route: FChanRoutes.routeThread,
             arguments: thread,

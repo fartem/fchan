@@ -1,47 +1,66 @@
+import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../data/providers/local/api/storage_entitiy.dart';
 import 'board.dart';
 import 'parsers.dart';
 
 part 'thread.g.dart';
 
 @JsonSerializable()
-class Thread extends StorageEntity {
+@HiveType(typeId: 1)
+class Thread {
   @JsonKey(ignore: true)
-  late Board board;
+  @HiveField(0)
+  late String board;
 
   @JsonKey(name: 'board_id')
+  @HiveField(1)
   int? boardId;
 
+  @HiveField(2)
   final int no;
+
+  @HiveField(3)
   final String? sub;
+
+  @HiveField(4)
   final String? com;
+
+  @HiveField(5)
   final int? tim;
+
+  @HiveField(6)
   final String? ext;
 
   @JsonKey(fromJson: parseTimeFromInt)
+  @HiveField(7)
   final Duration time;
 
   @JsonKey(name: 'w')
+  @HiveField(8)
   final int? imageWidth;
 
   @JsonKey(name: 'h')
+  @HiveField(9)
   final int? imageHeight;
 
   @JsonKey(name: 'tn_w')
+  @HiveField(10)
   final int? thumbnailWidth;
 
   @JsonKey(name: 'tn_h')
+  @HiveField(11)
   final int? thumbnailHeight;
 
+  @HiveField(12)
   final int replies;
+
+  @HiveField(13)
   final int images;
 
   @JsonKey(name: 'last_seen_date')
+  @HiveField(14)
   DateTime? lastSeenDate;
-
-  late String link;
 
   Thread({
     id,
@@ -58,13 +77,13 @@ class Thread extends StorageEntity {
     required this.replies,
     required this.images,
     this.lastSeenDate,
-  }) : super(id);
+  });
 
   bool hasImage() => ext != null;
 
-  String? imageUrl(String base) => '$base/${board.board}/$tim$ext';
+  String? imageUrl(String base) => '$base/$board/$tim$ext';
 
-  String? thumbnailUrl(String base) => '$base/${board.board}/${tim}s.jpg';
+  String? thumbnailUrl(String base) => '$base/$board/${tim}s.jpg';
 
   @override
   bool operator ==(Object other) =>
@@ -75,13 +94,9 @@ class Thread extends StorageEntity {
   int get hashCode => board.hashCode ^ no.hashCode;
 
   @override
-  String toString() => '/${board.board}/$no';
+  String toString() => '/$board/$no';
 
-  factory Thread.fromJson(Board board, Map<String, dynamic> json) => _$ThreadFromJson(json)..board = board;
+  factory Thread.fromJson(Board board, Map<String, dynamic> json) => _$ThreadFromJson(json)..board = board.board;
 
-  Map<String, dynamic> toJson() {
-    final json = _$ThreadToJson(this);
-    json['board_id'] = board.id;
-    return json;
-  }
+  Map<String, dynamic> toJson() => _$ThreadToJson(this);
 }

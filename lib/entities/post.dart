@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'board.dart';
 import 'parsers.dart';
 
 part 'post.g.dart';
@@ -8,7 +7,7 @@ part 'post.g.dart';
 @JsonSerializable()
 class Post {
   @JsonKey(ignore: true)
-  Board? board;
+  String? board;
 
   final int no;
   final String? sub;
@@ -49,9 +48,9 @@ class Post {
 
   bool hasImage() => ext != null;
 
-  String? imageUrl(String base) => '$base/${board!.board}/$tim$ext';
+  String? imageUrl(String base) => '$base/$board/$tim$ext';
 
-  String? thumbnailUrl(String base) => '$base/${board!.board}/${tim}s.jpg';
+  String? thumbnailUrl(String base) => '$base/$board/${tim}s.jpg';
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
 

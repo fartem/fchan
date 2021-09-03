@@ -1,20 +1,18 @@
+import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import '../data/providers/local/api/storage_entitiy.dart';
-import 'parsers.dart';
 
 part 'board.g.dart';
 
 @JsonSerializable()
-class Board extends StorageEntity {
+@HiveType(typeId: 0)
+class Board {
+  @HiveField(0)
   final String board;
+
+  @HiveField(1)
   final String title;
 
-  @JsonKey(
-    name: 'is_favorite',
-    fromJson: parseBoolFromInt,
-    toJson: parseBoolToInt,
-  )
+  @HiveField(2)
   bool? isFavorite;
 
   Board({
@@ -22,7 +20,7 @@ class Board extends StorageEntity {
     required this.title,
     this.isFavorite = false,
     int? id,
-  }) : super(id);
+  });
 
   @override
   bool operator ==(Object other) =>

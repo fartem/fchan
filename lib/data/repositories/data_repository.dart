@@ -13,7 +13,6 @@ class DataRepository {
   final RemoteDataProvider remoteDataProvider;
 
   final _boardsSessionCache = <Board>[];
-  final _favoritesBoardsCache = <int, Board>{};
 
   DataRepository({
     required this.localDataProvider,
@@ -46,23 +45,11 @@ class DataRepository {
     return _boardsSessionCache;
   }
 
-  Future<List<Board>> favoriteBoards() async {
-    if (_favoritesBoardsCache.isEmpty) {
-      final favoritesBoards = await localDataProvider.favoriteBoards();
-      favoritesBoards.forEach((board) => _favoritesBoardsCache[board.id!] = board);
-    }
-    return _favoritesBoardsCache.values.sorted((a, b) => a.board.compareTo(b.board));
-  }
+  Future<List<Board>> favoriteBoards() => localDataProvider.favoriteBoards();
 
-  Future<void> addBoardToFavorites(Board board) async {
-    await localDataProvider.addBoardToFavorites(board);
-    _favoritesBoardsCache[board.id!] = board;
-  }
+  Future<void> addBoardToFavorites(Board board) => localDataProvider.addBoardToFavorites(board);
 
-  Future<void> removeBoardFromFavorites(Board board) async {
-    _favoritesBoardsCache.remove(board.id);
-    localDataProvider.removeBoardFromFavorites(board);
-  }
+  Future<void> removeBoardFromFavorites(Board board) => localDataProvider.removeBoardFromFavorites(board);
 
   Future<EntityPortion<Thread>> history(EntityPage entityPage) => localDataProvider.historyThreads(entityPage);
 

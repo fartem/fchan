@@ -9,6 +9,7 @@ import '../../logic/listcontroller/list_entity.dart';
 import '../../logic/listcontroller/list_portion_controller.dart';
 
 part 'history_event.dart';
+
 part 'history_state.dart';
 
 class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {

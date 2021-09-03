@@ -53,7 +53,6 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
         (page) => page['threads'].forEach(
           (json) {
             final thread = Thread.fromJson(board, json);
-            thread..link = _threadLink(thread);
             parsedThreads.add(thread);
           },
         ),
@@ -75,16 +74,17 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
     }
   }
 
-  String _threadLink(Thread thread) {
-    return Uri.https(
-      'boards.4channel.org',
-      '${thread.board.board}/thread/${thread.no}',
-    ).toString();
-  }
+  // TODO: link creation for thread here
+  // String _threadLink(Thread thread) {
+  //   return Uri.https(
+  //     'boards.4channel.org',
+  //     '${thread.board.board}/thread/${thread.no}',
+  //   ).toString();
+  // }
 
   @override
   Future<List<Post>> fetchPosts(Thread thread) async {
-    final uri = '$baseUrl/${thread.board.board}/thread/${thread.no}.json';
+    final uri = '$baseUrl/${thread.board}/thread/${thread.no}.json';
     final response = await dio.get<Map<String, dynamic>>(uri);
     if (response.statusCode == HttpStatus.ok) {
       return (response.data!['posts'] as List).map((rawPost) => Post.fromJson(rawPost)..board = thread.board).toList();
