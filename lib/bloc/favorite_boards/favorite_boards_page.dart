@@ -2,23 +2,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../components/widgets/centered_circular_progress_indicator.dart';
+import '../../components/widgets/app_centered_circular_progress_indicator.dart';
 import '../../data/repositories/data_repository.dart';
 import '../../entities/board.dart';
 import '../../logic/routes/fchan_routes.dart';
-import 'favorites_bloc.dart';
+import 'favorite_boards_bloc.dart';
 
-class FavoritesPage extends StatelessWidget {
+class FavoriteBoardsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FavoritesBloc, FavoritesState>(
-      bloc: FavoritesBloc(
+    return BlocBuilder<FavoriteBoardsBloc, FavoriteBoardsState>(
+      bloc: FavoriteBoardsBloc(
         dataRepository: RepositoryProvider.of<DataRepository>(context),
       ),
       builder: (context, state) {
-        if (state is FavoritesInitial) {
-          return CenteredCircularProgressIndicator();
-        } else if (state is FavoritesLoadSuccess) {
+        if (state is FavoriteBoardsInitial) {
+          return AppCenteredCircularProgressIndicator();
+        } else if (state is FavoriteBoardsLoadSuccess) {
           return ListView.builder(
             itemBuilder: (context, index) => _boardListItem(
               context,
@@ -27,7 +27,7 @@ class FavoritesPage extends StatelessWidget {
             itemCount: state.favorites.length,
           );
         } else {
-          return CenteredCircularProgressIndicator();
+          return AppCenteredCircularProgressIndicator();
         }
       },
     );

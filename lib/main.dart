@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 import 'bloc/board/board_page.dart';
 import 'bloc/explore_boards/explore_boards_page.dart';
-import 'bloc/favorites/favorites_page.dart';
+import 'bloc/favorite_boards/favorite_boards_page.dart';
 import 'bloc/history/history_page.dart';
 import 'bloc/thread/thread_page.dart';
 import 'components/themes/fchan_themes.dart';
@@ -127,10 +127,10 @@ class _FChanState extends State<FChan> {
     // TODO: refactor this
     final _screens = [
       NavigationPage(
-        screen: FavoritesPage(),
-        title: context.localizations().titleFavoriteBoards,
+        screen: FavoriteBoardsPage(),
+        title: context.localizations.titleFavoriteBoards,
         bottomNavigationBarItem: BottomNavigationBarItem(
-          label: context.localizations().titleHome,
+          label: context.localizations.titleHome,
           icon: Icon(Icons.home),
         ),
         actions: [
@@ -144,9 +144,9 @@ class _FChanState extends State<FChan> {
       ),
       NavigationPage(
         screen: HistoryPage(),
-        title: context.localizations().titleHistory,
+        title: context.localizations.titleHistory,
         bottomNavigationBarItem: BottomNavigationBarItem(
-          label: context.localizations().titleHistory,
+          label: context.localizations.titleHistory,
           icon: Icon(Icons.history),
         ),
         actions: [

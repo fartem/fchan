@@ -14,14 +14,15 @@ part 'history_state.dart';
 
 class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   final DataRepository dataRepository;
-  final threads = <Thread>[];
 
   late ListPortionController _listPortionController;
+
+  List<ListEntity> get threads => _listPortionController.items;
 
   HistoryBloc({required this.dataRepository}) : super(HistoryInitial()) {
     add(HistoryEventInitialized());
     _listPortionController = ListPortionController<Thread>(
-      (entityPage) => dataRepository.history(entityPage),
+      portionProvider: (entityPage) => dataRepository.history(entityPage),
     );
   }
 

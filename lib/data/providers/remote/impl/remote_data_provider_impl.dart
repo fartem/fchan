@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:dio/dio.dart';
 
@@ -11,8 +10,6 @@ import '../../../../entities/thread.dart';
 import '../api/remote_data_provider.dart';
 
 class RemoteDataProviderImpl extends RemoteDataProvider {
-  static final _threadPageSize = 15;
-
   final String baseUrl;
   final String imageBaseUrl;
   late Dio dio;
@@ -45,27 +42,16 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
     required Board board,
     required EntityPage entityPage,
   }) async {
-    final uri = '$baseUrl/${board.board}/catalog.json';
-    final response = await dio.get<List<dynamic>>(uri);
+    final uri = '$baseUrl/${board.board}/${entityPage.page}.json';
+    final response = await dio.get<Map<String, dynamic>>(uri);
     if (response.statusCode == HttpStatus.ok) {
-      final parsedThreads = <Thread>[];
-      response.data!.forEach(
-        (page) => page['threads'].forEach(
-          (json) {
-            final thread = Thread.fromJson(board, json);
-            parsedThreads.add(thread);
-          },
-        ),
-      );
+      final rawThreads = response.data!['threads']!;
+      final threads = <Thread>[
+        ...rawThreads.map((rawThread) => Thread.fromJson(board, rawThread['posts'].first)).toList(),
+      ];
       return EntityPortion<Thread>(
-        entities: parsedThreads.sublist(
-          0,
-          min(
-            parsedThreads.length,
-            _threadPageSize,
-          ),
-        ),
-        isLastPage: parsedThreads.length == _threadPageSize,
+        entities: threads,
+        isLastPage: threads.isEmpty,
       );
     } else {
       throw HttpException(

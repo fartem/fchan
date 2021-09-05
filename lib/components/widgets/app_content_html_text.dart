@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/style.dart';
 
-class ContentHtmlText extends StatelessWidget {
+class AppContentHtmlText extends StatelessWidget {
   final String text;
   final FontWeight bodyWeight;
   final bool wrapText;
 
-  ContentHtmlText({
+  AppContentHtmlText({
     required this.text,
     this.bodyWeight = FontWeight.normal,
     this.wrapText = false,

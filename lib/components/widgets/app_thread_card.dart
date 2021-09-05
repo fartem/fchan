@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../../data/repositories/data_repository.dart';
@@ -7,21 +6,22 @@ import '../../entities/thread.dart';
 import '../../extensions/build_context_extensions.dart';
 import '../../extensions/duration_extensions.dart';
 import '../../logic/routes/fchan_routes.dart';
-import 'cached_network_image_with_loader.dart';
-import 'content_html_text.dart';
+import 'app_cached_network_image_with_loader.dart';
+import 'app_content_html_text.dart';
 
-class ThreadCard extends StatelessWidget {
+class AppThreadCard extends StatelessWidget {
   final Thread thread;
   final Function tapAction;
   final List<ThreadPopupMenuAction> availableActions;
   final VoidCallback? deleteAction;
 
-  ThreadCard({
+  AppThreadCard({
+    Key? key,
     required this.thread,
     required this.tapAction,
     required this.availableActions,
     this.deleteAction,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class ThreadCard extends StatelessWidget {
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
                             _prepareThreadRepliesAndImagesInfo(
-                              context.localizations(),
+                              context,
                               thread,
                             ),
                             style: TextStyle(
@@ -70,7 +70,7 @@ class ThreadCard extends StatelessWidget {
                         value: action,
                         child: Text(
                           _wordForPopupActions(
-                            context.localizations(),
+                            context,
                             action,
                           ),
                         ),
@@ -96,7 +96,7 @@ class ThreadCard extends StatelessWidget {
                 ],
               ),
               if (thread.hasImage())
-                CachedNetworkImageWithLoader(
+                AppCachedNetworkImageWithLoader(
                   url: thread.thumbnailUrl(dataRepository.baseUrlImage())!,
                   width: thread.thumbnailWidth!.toDouble(),
                   height: thread.thumbnailHeight!.toDouble(),
@@ -104,7 +104,7 @@ class ThreadCard extends StatelessWidget {
               if (thread.sub != null)
                 Align(
                   alignment: AlignmentDirectional.centerStart,
-                  child: ContentHtmlText(
+                  child: AppContentHtmlText(
                     text: thread.sub!,
                     bodyWeight: FontWeight.bold,
                   ),
@@ -112,7 +112,7 @@ class ThreadCard extends StatelessWidget {
               if (thread.com != null)
                 Align(
                   alignment: AlignmentDirectional.centerStart,
-                  child: ContentHtmlText(
+                  child: AppContentHtmlText(
                     text: thread.com!,
                     wrapText: true,
                   ),
@@ -138,25 +138,26 @@ class ThreadCard extends StatelessWidget {
   }
 
   String _prepareThreadRepliesAndImagesInfo(
-    AppLocalizations localizations,
+    BuildContext context,
     Thread thread,
   ) {
+    final localizations = context.localizations;
     final replies = '${thread.replies == 0 ? '' : '${thread.replies} ${localizations.titleReplies}'}';
     final images = '${thread.images == 0 ? '' : '${thread.images} ${localizations.titleImages}'}';
     return '$replies $images'.trim();
   }
 
   String _wordForPopupActions(
-    AppLocalizations localizations,
+    BuildContext context,
     ThreadPopupMenuAction action,
   ) {
     switch (action) {
       case ThreadPopupMenuAction.openLink:
-        return localizations.actionOpenLink;
+        return context.localizations.actionOpenLink;
       case ThreadPopupMenuAction.copyLink:
-        return localizations.actionCopyLink;
+        return context.localizations.actionCopyLink;
       case ThreadPopupMenuAction.removeFromHistory:
-        return localizations.actionRemoveFromHistory;
+        return context.localizations.actionRemoveFromHistory;
       default:
         return 'NO IMPL';
     }

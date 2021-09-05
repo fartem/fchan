@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 import '../../logic/cache/image_cache_manager.dart';
 
-class CachedNetworkImageWithLoader extends StatelessWidget {
+class AppCachedNetworkImageWithLoader extends StatelessWidget {
   final String url;
   final double width;
   final double height;
 
-  CachedNetworkImageWithLoader({
+  AppCachedNetworkImageWithLoader({
     required this.url,
     required this.width,
     required this.height,

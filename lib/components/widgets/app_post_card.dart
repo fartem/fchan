@@ -6,13 +6,16 @@ import '../../data/repositories/data_repository.dart';
 import '../../entities/post.dart';
 import '../../extensions/build_context_extensions.dart';
 import '../../extensions/duration_extensions.dart';
-import 'cached_network_image_with_loader.dart';
-import 'content_html_text.dart';
+import 'app_cached_network_image_with_loader.dart';
+import 'app_content_html_text.dart';
 
-class PostCard extends StatelessWidget {
+class AppPostCard extends StatelessWidget {
   final Post post;
 
-  PostCard({required this.post});
+  AppPostCard({
+    Key? key,
+    required this.post,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +60,7 @@ class PostCard extends StatelessWidget {
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: Text(
-                  '${post.replies} ${post.replies == 1 ? context.localizations().commonReply : context.localizations().commonReplies}',
+                  '${post.replies} ${post.replies == 1 ? context.localizations.commonReply : context.localizations.commonReplies}',
                   style: TextStyle(
                     decoration: TextDecoration.underline,
                     fontSize: 12,
@@ -68,7 +71,7 @@ class PostCard extends StatelessWidget {
             if (post.hasImage())
               Align(
                 alignment: AlignmentDirectional.centerStart,
-                child: CachedNetworkImageWithLoader(
+                child: AppCachedNetworkImageWithLoader(
                   url: post.thumbnailUrl(dataRepository.baseUrlImage())!,
                   width: post.thumbnailWidth!.toDouble(),
                   height: post.thumbnailHeight!.toDouble(),
@@ -77,14 +80,14 @@ class PostCard extends StatelessWidget {
             if (post.sub != null)
               Align(
                 alignment: AlignmentDirectional.centerStart,
-                child: ContentHtmlText(
+                child: AppContentHtmlText(
                   text: post.sub!,
                 ),
               ),
             if (post.com != null)
               Align(
                 alignment: AlignmentDirectional.centerStart,
-                child: ContentHtmlText(
+                child: AppContentHtmlText(
                   text: post.com!,
                 ),
               ),

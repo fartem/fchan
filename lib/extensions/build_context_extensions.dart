@@ -23,5 +23,5 @@ extension BuildContextNavigationExtensions on BuildContext {
 }
 
 extension BuildContextLocalizationExtensions on BuildContext {
-  AppLocalizations localizations() => AppLocalizations.of(this)!;
+  AppLocalizations get localizations => AppLocalizations.of(this)!;
 }

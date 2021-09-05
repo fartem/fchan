@@ -18,13 +18,15 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
 
   late ListPortionController _listPortionController;
 
+  List<ListEntity> get threads => _listPortionController.items;
+
   BoardBloc({
     required this.dataRepository,
     required Board board,
   }) : super(BoardInitial()) {
     add(BoardEventInitialized());
     _listPortionController = ListPortionController<Thread>(
-      (entityPage) => dataRepository.catalogForBoard(
+      portionProvider: (entityPage) => dataRepository.catalogForBoard(
         board,
         entityPage,
       ),
