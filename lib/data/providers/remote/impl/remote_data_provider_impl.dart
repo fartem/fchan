@@ -8,6 +8,7 @@ import '../../../../entities/entity_portion.dart';
 import '../../../../entities/post.dart';
 import '../../../../entities/thread.dart';
 import '../api/remote_data_provider.dart';
+import 'interceptors/logger_interceptor.dart';
 
 class RemoteDataProviderImpl extends RemoteDataProvider {
   final String baseUrl;
@@ -15,10 +16,15 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
   late Dio dio;
 
   RemoteDataProviderImpl({
-    required this.dio,
     required this.baseUrl,
     required this.imageBaseUrl,
-  });
+  }) {
+    dio = Dio(
+      BaseOptions(
+        baseUrl: baseUrl,
+      ),
+    )..interceptors.add(LoggerInterceptor());
+  }
 
   @override
   String baseUrlImage() => imageBaseUrl;
@@ -92,5 +98,4 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
 
   @override
   String urlForPostsImageThumbnail(Post post) => '$imageBaseUrl/${post.board}/${post.tim}s.jpg';
-
 }
