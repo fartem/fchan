@@ -72,7 +72,7 @@ class AppPostCard extends StatelessWidget {
               Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: AppCachedNetworkImageWithLoader(
-                  url: post.thumbnailUrl(dataRepository.baseUrlImage())!,
+                  url: dataRepository.urlForPostsImageThumbnail(post),
                   width: post.thumbnailWidth!.toDouble(),
                   height: post.thumbnailHeight!.toDouble(),
                 ),

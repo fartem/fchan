@@ -97,7 +97,7 @@ class AppThreadCard extends StatelessWidget {
               ),
               if (thread.hasImage())
                 AppCachedNetworkImageWithLoader(
-                  url: thread.thumbnailUrl(dataRepository.baseUrlImage())!,
+                  url: dataRepository.urlForThreadsImageThumbnail(thread),
                   width: thread.thumbnailWidth!.toDouble(),
                   height: thread.thumbnailHeight!.toDouble(),
                 ),

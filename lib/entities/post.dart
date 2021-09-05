@@ -48,10 +48,6 @@ class Post {
 
   bool hasImage() => ext != null;
 
-  String? imageUrl(String base) => '$base/$board/$tim$ext';
-
-  String? thumbnailUrl(String base) => '$base/$board/${tim}s.jpg';
-
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
 
   Map<String, dynamic> toJson() => _$PostToJson(this);

@@ -81,10 +81,6 @@ class Thread {
 
   bool hasImage() => ext != null;
 
-  String? imageUrl(String base) => '$base/$board/$tim$ext';
-
-  String? thumbnailUrl(String base) => '$base/$board/${tim}s.jpg';
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||

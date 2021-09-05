@@ -19,8 +19,6 @@ class DataRepository {
     required this.remoteDataProvider,
   });
 
-  String baseUrlImage() => remoteDataProvider.baseUrlImage();
-
   Future<void> init() async => await localDataProvider.init();
 
   Future<void> dispose() async => await localDataProvider.close();
@@ -81,4 +79,14 @@ class DataRepository {
   }
 
   Future<List<Post>> postsForThread(Thread thread) => remoteDataProvider.fetchPosts(thread);
+
+  String urlForThread(Thread thread) => remoteDataProvider.urlForThread(thread);
+
+  String urlForThreadsImage(Thread thread) => remoteDataProvider.urlForThreadsImage(thread);
+
+  String urlForThreadsImageThumbnail(Thread thread) => remoteDataProvider.urlForThreadsImageThumbnail(thread);
+
+  String urlForPostsImage(Post post) => remoteDataProvider.urlForPostsImage(post);
+
+  String urlForPostsImageThumbnail(Post post) => remoteDataProvider.urlForPostsImageThumbnail(post);
 }

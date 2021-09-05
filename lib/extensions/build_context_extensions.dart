@@ -13,7 +13,10 @@ extension BuildContextNavigationExtensions on BuildContext {
     );
   }
 
-  void pushReplace({required String route, arguments}) {
+  void pushReplace({
+    required String route,
+    arguments,
+  }) {
     Navigator.pushReplacementNamed(
       this,
       route,

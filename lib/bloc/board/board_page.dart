@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -29,8 +28,6 @@ class _BoardPageState extends State<BoardPage> {
   final ScrollController _scrollController = ScrollController();
   late BoardBloc _boardBloc;
 
-  bool showFab = true;
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BoardBloc>(
@@ -42,12 +39,9 @@ class _BoardPageState extends State<BoardPage> {
         appBar: AppBar(
           title: Text(widget.board.toString()),
         ),
-        floatingActionButton: Visibility(
-          visible: showFab,
-          child: FloatingActionButton(
-            child: Icon(Icons.refresh),
-            onPressed: () => _boardBloc.add(BoardEventBoardRefreshed()),
-          ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.refresh),
+          onPressed: () => _boardBloc.add(BoardEventBoardRefreshed()),
         ),
         body: BlocBuilder<BoardBloc, BoardState>(
           builder: (context, state) {
@@ -65,7 +59,10 @@ class _BoardPageState extends State<BoardPage> {
                   final item = _boardBloc.threads[index];
                   if (item == listLoader) {
                     // TODO: set size
-                    return AppCenteredCircularProgressIndicator();
+                    return SizedBox(
+                      height: 172,
+                      child: AppCenteredCircularProgressIndicator(),
+                    );
                   }
                   final thread = item.item as Thread;
                   return AppThreadCard(
@@ -95,10 +92,6 @@ class _BoardPageState extends State<BoardPage> {
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
         _boardBloc.add(BoardEventThreadPortionRequested());
-      } else {
-        setState(() {
-          showFab = _scrollController.position.userScrollDirection != ScrollDirection.reverse;
-        });
       }
     });
   }

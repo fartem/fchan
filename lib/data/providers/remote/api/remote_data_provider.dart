@@ -15,4 +15,14 @@ abstract class RemoteDataProvider {
   });
 
   Future<List<Post>> fetchPosts(Thread thread);
+
+  String urlForThread(Thread thread);
+
+  String urlForThreadsImage(Thread thread);
+
+  String urlForThreadsImageThumbnail(Thread thread);
+
+  String urlForPostsImage(Post post);
+
+  String urlForPostsImageThumbnail(Post post);
 }

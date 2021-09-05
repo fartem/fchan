@@ -5,6 +5,7 @@ import '../../../../entities/entity_page.dart';
 import '../../../../entities/entity_portion.dart';
 import '../../../../entities/thread.dart';
 import '../api/local_data_provider.dart';
+import 'adapters/duration_adapter.dart';
 
 class LocalDataProviderImpl extends LocalDataProvider {
   late Box<Board> _favoriteBoards;
@@ -15,6 +16,7 @@ class LocalDataProviderImpl extends LocalDataProvider {
     await Hive.initFlutter();
     Hive.registerAdapter(BoardAdapter());
     Hive.registerAdapter(ThreadAdapter());
+    Hive.registerAdapter(DurationAdapter());
     _favoriteBoards = await Hive.openBox('favoriteBoards');
     _history = await Hive.openBox('history');
     return this;

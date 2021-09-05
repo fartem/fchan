@@ -60,14 +60,6 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
     }
   }
 
-  // TODO: link creation for thread here
-  // String _threadLink(Thread thread) {
-  //   return Uri.https(
-  //     'boards.4channel.org',
-  //     '${thread.board.board}/thread/${thread.no}',
-  //   ).toString();
-  // }
-
   @override
   Future<List<Post>> fetchPosts(Thread thread) async {
     final uri = '$baseUrl/${thread.board}/thread/${thread.no}.json';
@@ -80,4 +72,25 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
       );
     }
   }
+
+  @override
+  String urlForThread(Thread thread) {
+    return Uri.https(
+      'boards.4channel.org',
+      '${thread.board}/thread/${thread.no}',
+    ).toString();
+  }
+
+  @override
+  String urlForThreadsImage(Thread thread) => '$imageBaseUrl/${thread.board}/${thread.tim}${thread.ext}';
+
+  @override
+  String urlForThreadsImageThumbnail(Thread thread) => '$imageBaseUrl/${thread.board}/${thread.tim}s.jpg';
+
+  @override
+  String urlForPostsImage(Post post) => '$imageBaseUrl/${post.board}/${post.tim}${post.ext}';
+
+  @override
+  String urlForPostsImageThumbnail(Post post) => '$imageBaseUrl/${post.board}/${post.tim}s.jpg';
+
 }
