@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../components/widgets/app_centered_circular_progress_indicator.dart';
-import '../../components/widgets/app_centered_text.dart';
-import '../../data/repositories/data_repository.dart';
-import '../../entities/board.dart';
-import '../../extensions/build_context_extensions.dart';
-import 'explore_boards_bloc.dart';
+import '../bloc/explore_boards/explore_boards_bloc.dart';
+import '../components/widgets/app_centered_circular_progress_indicator.dart';
+import '../components/widgets/app_centered_text.dart';
+import '../data/repositories/data_repository.dart';
+import '../entities/board.dart';
+import '../extensions/build_context_extensions.dart';
 
-class ExploreBoardsPage extends StatelessWidget {
+class ExploreBoardsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ExploreBoardsBloc>(

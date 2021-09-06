@@ -4,11 +4,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-import 'bloc/board/board_page.dart';
-import 'bloc/explore_boards/explore_boards_page.dart';
-import 'bloc/favorite_boards/favorite_boards_page.dart';
-import 'bloc/history/history_page.dart';
-import 'bloc/thread/thread_page.dart';
 import 'components/themes/fchan_themes.dart';
 import 'data/providers/local/impl/local_data_provider_impl.dart';
 import 'data/providers/remote/impl/remote_data_provider_impl.dart';
@@ -17,6 +12,11 @@ import 'entities/board.dart';
 import 'entities/thread.dart';
 import 'extensions/build_context_extensions.dart';
 import 'logic/routes/fchan_routes.dart';
+import 'screens/board_screen.dart';
+import 'screens/explore_boards_screen.dart';
+import 'screens/favorite_boards_screen.dart';
+import 'screens/history_screen.dart';
+import 'screens/thread_screen.dart';
 
 void main() async {
   await dotenv.load();
@@ -72,17 +72,17 @@ class FChanAppState extends State<FChanApp> {
             );
           case FChanRoutes.routeExploreBoards:
             return MaterialPageRoute(
-              builder: (context) => ExploreBoardsPage(),
+              builder: (context) => ExploreBoardsScreen(),
             );
           case FChanRoutes.routeBoard:
             return MaterialPageRoute(
-              builder: (context) => BoardPage(
+              builder: (context) => BoardScreen(
                 board: settings.arguments as Board,
               ),
             );
           case FChanRoutes.routeThread:
             return MaterialPageRoute(
-              builder: (context) => ThreadPage(
+              builder: (context) => ThreadScreen(
                 thread: settings.arguments as Thread,
               ),
             );
@@ -121,7 +121,7 @@ class _FChanState extends State<FChan> {
     // TODO: refactor this
     final _screens = [
       NavigationPage(
-        screen: FavoriteBoardsPage(),
+        screen: FavoriteBoardsScreen(),
         title: context.localizations.titleFavoriteBoards,
         bottomNavigationBarItem: BottomNavigationBarItem(
           label: context.localizations.titleHome,
@@ -137,7 +137,7 @@ class _FChanState extends State<FChan> {
         ],
       ),
       NavigationPage(
-        screen: HistoryPage(),
+        screen: HistoryScreen(),
         title: context.localizations.titleHistory,
         bottomNavigationBarItem: BottomNavigationBarItem(
           label: context.localizations.titleHistory,

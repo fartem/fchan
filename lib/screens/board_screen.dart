@@ -3,29 +3,29 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../../components/widgets/app_centered_circular_progress_indicator.dart';
-import '../../components/widgets/app_centered_text.dart';
-import '../../components/widgets/app_thread_card.dart';
-import '../../data/repositories/data_repository.dart';
-import '../../entities/board.dart';
-import '../../entities/thread.dart';
-import '../../extensions/build_context_extensions.dart';
-import '../../logic/listcontroller/list_entity.dart';
-import 'board_bloc.dart';
+import '../bloc/board/board_bloc.dart';
+import '../components/widgets/app_centered_circular_progress_indicator.dart';
+import '../components/widgets/app_centered_text.dart';
+import '../components/widgets/app_thread_card.dart';
+import '../data/repositories/data_repository.dart';
+import '../entities/board.dart';
+import '../entities/thread.dart';
+import '../extensions/build_context_extensions.dart';
+import '../logic/listcontroller/list_entity.dart';
 
-class BoardPage extends StatefulWidget {
+class BoardScreen extends StatefulWidget {
   final Board board;
 
-  const BoardPage({
+  const BoardScreen({
     Key? key,
     required this.board,
   }) : super(key: key);
 
   @override
-  _BoardPageState createState() => _BoardPageState();
+  _BoardScreenState createState() => _BoardScreenState();
 }
 
-class _BoardPageState extends State<BoardPage> {
+class _BoardScreenState extends State<BoardScreen> {
   final ScrollController _scrollController = ScrollController();
   late BoardBloc _boardBloc;
 

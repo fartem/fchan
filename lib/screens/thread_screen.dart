@@ -3,27 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../components/widgets/app_centered_circular_progress_indicator.dart';
-import '../../components/widgets/app_centered_text.dart';
-import '../../components/widgets/app_post_card.dart';
-import '../../data/repositories/data_repository.dart';
-import '../../entities/thread.dart';
-import '../../extensions/build_context_extensions.dart';
-import 'thread_bloc.dart';
+import '../bloc/thread/thread_bloc.dart';
+import '../components/widgets/app_centered_circular_progress_indicator.dart';
+import '../components/widgets/app_centered_text.dart';
+import '../components/widgets/app_post_card.dart';
+import '../data/repositories/data_repository.dart';
+import '../entities/thread.dart';
+import '../extensions/build_context_extensions.dart';
 
-class ThreadPage extends StatefulWidget {
+class ThreadScreen extends StatefulWidget {
   final Thread thread;
 
-  const ThreadPage({
+  const ThreadScreen({
     Key? key,
     required this.thread,
   }) : super(key: key);
 
   @override
-  _ThreadPageState createState() => _ThreadPageState();
+  _ThreadScreenState createState() => _ThreadScreenState();
 }
 
-class _ThreadPageState extends State<ThreadPage> {
+class _ThreadScreenState extends State<ThreadScreen> {
   final ScrollController _scrollController = ScrollController();
   late ThreadBloc _threadBloc;
   bool _showFab = true;
