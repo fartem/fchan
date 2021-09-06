@@ -5,4 +5,4 @@ abstract class ThreadEvent {}
 
 class ThreadEventInitialized extends ThreadEvent {}
 
-class ThreadEventThreadRefreshRequest extends ThreadEvent {}
+class ThreadEventThreadRefreshRequested extends ThreadEvent {}

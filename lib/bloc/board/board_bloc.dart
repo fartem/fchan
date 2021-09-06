@@ -3,14 +3,13 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../components/listcontroller/list_entity.dart';
+import '../../components/listcontroller/list_portion_controller.dart';
 import '../../data/repositories/data_repository.dart';
 import '../../entities/board.dart';
 import '../../entities/thread.dart';
-import '../../logic/listcontroller/list_entity.dart';
-import '../../logic/listcontroller/list_portion_controller.dart';
 
 part 'board_event.dart';
-
 part 'board_state.dart';
 
 class BoardBloc extends Bloc<BoardEvent, BoardState> {
@@ -38,24 +37,36 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
     BoardEvent event,
   ) async* {
     if (event is BoardEventInitialized) {
-      try {
-        await _listPortionController.loadMore();
-        yield BoardThreadsLoadSuccess(
-          threads: _listPortionController.items,
-        );
-      } on Exception {
-        yield BoardThreadsLoadError();
-      }
+      yield* _mapBoardEventInitializedToState();
     } else if (event is BoardEventThreadPortionRequested) {
+      yield* _mapBoardEventThreadPortionRequestToState();
+    } else if (event is BoardEventBoardRefreshed) {
+      yield* _mapBoardEventBoardRefreshedToState();
+    }
+  }
+
+  Stream<BoardState> _mapBoardEventInitializedToState() async* {
+    try {
       await _listPortionController.loadMore();
       yield BoardThreadsLoadSuccess(
         threads: _listPortionController.items,
       );
-    } else if (event is BoardEventBoardRefreshed) {
-      await _listPortionController.refresh();
-      add(BoardEventInitialized());
-      yield BoardInitial();
+    } on Exception {
+      yield BoardThreadsLoadError();
     }
+  }
+
+  Stream<BoardState> _mapBoardEventThreadPortionRequestToState() async* {
+    await _listPortionController.loadMore();
+    yield BoardThreadsLoadSuccess(
+      threads: _listPortionController.items,
+    );
+  }
+
+  Stream<BoardState> _mapBoardEventBoardRefreshedToState() async* {
+    await _listPortionController.refresh();
+    add(BoardEventInitialized());
+    yield BoardInitial();
   }
 
   Future<void> addToHistory(Thread thread) async {

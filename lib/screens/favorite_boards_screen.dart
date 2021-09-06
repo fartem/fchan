@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/favorite_boards/favorite_boards_bloc.dart';
+import '../components/routes/fchan_routes.dart';
 import '../components/widgets/app_centered_circular_progress_indicator.dart';
 import '../components/widgets/app_centered_text.dart';
 import '../data/repositories/data_repository.dart';
 import '../entities/board.dart';
 import '../extensions/build_context_extensions.dart';
-import '../logic/routes/fchan_routes.dart';
 
 class FavoriteBoardsScreen extends StatelessWidget {
   @override

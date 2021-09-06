@@ -26,13 +26,28 @@ class ThreadBloc extends Bloc<ThreadEvent, ThreadState> {
   Stream<ThreadState> mapEventToState(
     ThreadEvent event,
   ) async* {
-    if (event is ThreadEventInitialized || event is ThreadEventThreadRefreshRequest) {
-      try {
-        final posts = await dataRepository.remoteDataProvider.fetchPosts(thread);
-        yield ThreadPostsLoadSuccess(posts: posts);
-      } on Exception {
-        yield ThreadPostsLoadError();
-      }
+    if (event is ThreadEventInitialized) {
+      yield* _mapThreadEventInitializedToState();
+    } else if (event is ThreadEventThreadRefreshRequested) {
+      yield* _mapThreadEventThreadRefreshRequested();
+    }
+  }
+
+  Stream<ThreadState> _mapThreadEventInitializedToState() async* {
+    try {
+      final posts = await dataRepository.remoteDataProvider.fetchPosts(thread);
+      yield ThreadPostsLoadSuccess(posts: posts);
+    } on Exception {
+      yield ThreadPostsLoadError();
+    }
+  }
+
+  Stream<ThreadState> _mapThreadEventThreadRefreshRequested() async* {
+    try {
+      final posts = await dataRepository.remoteDataProvider.fetchPosts(thread);
+      yield ThreadPostsLoadSuccess(posts: posts);
+    } on Exception {
+      yield ThreadPostsLoadError();
     }
   }
 }

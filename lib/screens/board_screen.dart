@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../bloc/board/board_bloc.dart';
+import '../components/listcontroller/list_entity.dart';
 import '../components/widgets/app_centered_circular_progress_indicator.dart';
 import '../components/widgets/app_centered_text.dart';
 import '../components/widgets/app_thread_card.dart';
@@ -11,7 +12,6 @@ import '../data/repositories/data_repository.dart';
 import '../entities/board.dart';
 import '../entities/thread.dart';
 import '../extensions/build_context_extensions.dart';
-import '../logic/listcontroller/list_entity.dart';
 
 class BoardScreen extends StatefulWidget {
   final Board board;

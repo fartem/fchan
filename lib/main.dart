@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
+import 'components/routes/fchan_routes.dart';
 import 'components/themes/fchan_themes.dart';
 import 'data/providers/local/impl/local_data_provider_impl.dart';
 import 'data/providers/remote/impl/remote_data_provider_impl.dart';
@@ -11,7 +12,6 @@ import 'data/repositories/data_repository.dart';
 import 'entities/board.dart';
 import 'entities/thread.dart';
 import 'extensions/build_context_extensions.dart';
-import 'logic/routes/fchan_routes.dart';
 import 'screens/board_screen.dart';
 import 'screens/explore_boards_screen.dart';
 import 'screens/favorite_boards_screen.dart';

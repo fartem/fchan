@@ -3,13 +3,12 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../components/listcontroller/list_entity.dart';
+import '../../components/listcontroller/list_portion_controller.dart';
 import '../../data/repositories/data_repository.dart';
 import '../../entities/thread.dart';
-import '../../logic/listcontroller/list_entity.dart';
-import '../../logic/listcontroller/list_portion_controller.dart';
 
 part 'history_event.dart';
-
 part 'history_state.dart';
 
 class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
@@ -31,20 +30,28 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     HistoryEvent event,
   ) async* {
     if (event is HistoryEventInitialized) {
-      try {
-        await _listPortionController.loadMore();
-        yield HistoryThreadsLoadSuccess(
-          threads: _listPortionController.items,
-        );
-      } on Exception {
-        yield HistoryThreadsLoadError();
-      }
+      yield* _mapHistoryEventInitialized();
     } else if (event is HistoryEventThreadPortionRequested) {
+      yield* _mapHistoryEventThreadPortionRequested();
+    }
+  }
+
+  Stream<HistoryState> _mapHistoryEventInitialized() async* {
+    try {
       await _listPortionController.loadMore();
       yield HistoryThreadsLoadSuccess(
         threads: _listPortionController.items,
       );
+    } on Exception {
+      yield HistoryThreadsLoadError();
     }
+  }
+
+  Stream<HistoryState> _mapHistoryEventThreadPortionRequested() async* {
+    await _listPortionController.loadMore();
+    yield HistoryThreadsLoadSuccess(
+      threads: _listPortionController.items,
+    );
   }
 
   Future<void> deleteFromHistory(Thread thread) async {

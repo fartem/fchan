@@ -69,7 +69,7 @@ class _ThreadScreenState extends State<ThreadScreen> {
               Icons.refresh,
             ),
             onPressed: () => _threadBloc.add(
-              ThreadEventThreadRefreshRequest(),
+              ThreadEventThreadRefreshRequested(),
             ),
           ),
         ),

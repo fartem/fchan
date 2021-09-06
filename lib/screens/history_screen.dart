@@ -4,13 +4,13 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 
 import '../bloc/history/history_bloc.dart';
+import '../components/listcontroller/list_entity.dart';
 import '../components/widgets/app_centered_circular_progress_indicator.dart';
 import '../components/widgets/app_centered_text.dart';
 import '../components/widgets/app_thread_card.dart';
 import '../data/repositories/data_repository.dart';
 import '../entities/thread.dart';
 import '../extensions/build_context_extensions.dart';
-import '../logic/listcontroller/list_entity.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({Key? key}) : super(key: key);

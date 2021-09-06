@@ -3,16 +3,16 @@ part of 'explore_boards_bloc.dart';
 @immutable
 abstract class ExploreBoardsEvent {}
 
-class ExploreBoardsInitialized extends ExploreBoardsEvent {}
+class ExploreBoardsEventInitialized extends ExploreBoardsEvent {}
 
-class ExploreBoardsBoardAddedToFavorites extends ExploreBoardsEvent {
+class ExploreBoardsEventBoardAddedToFavorites extends ExploreBoardsEvent {
   final Board board;
 
-  ExploreBoardsBoardAddedToFavorites({required this.board});
+  ExploreBoardsEventBoardAddedToFavorites({required this.board});
 }
 
-class ExploreBoardsBoardRemovesFromFavorites extends ExploreBoardsEvent {
+class ExploreBoardsEventBoardRemovesFromFavorites extends ExploreBoardsEvent {
   final Board board;
 
-  ExploreBoardsBoardRemovesFromFavorites({required this.board});
+  ExploreBoardsEventBoardRemovesFromFavorites({required this.board});
 }

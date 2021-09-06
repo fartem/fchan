@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../logic/cache/image_cache_manager.dart';
+import '../cache/image_cache_manager.dart';
 
 class AppCachedNetworkImageWithLoader extends StatelessWidget {
   final String url;
