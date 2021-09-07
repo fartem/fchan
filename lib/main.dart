@@ -145,10 +145,11 @@ class _FChanState extends State<FChan> {
         ),
         actions: [
           IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () {
-                // TODO: implement
-              }),
+            icon: Icon(Icons.delete),
+            onPressed: () {
+              // TODO: implement
+            },
+          ),
         ],
       ),
     ];
