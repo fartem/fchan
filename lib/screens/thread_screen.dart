@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/thread/thread_bloc.dart';
@@ -25,8 +24,6 @@ class ThreadScreen extends StatefulWidget {
 
 class _ThreadScreenState extends State<ThreadScreen> {
   final ScrollController _scrollController = ScrollController();
-  late ThreadBloc _threadBloc;
-  bool _showFab = true;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +40,6 @@ class _ThreadScreenState extends State<ThreadScreen> {
         ),
         body: BlocBuilder<ThreadBloc, ThreadState>(
           builder: (context, state) {
-            _threadBloc = context.read<ThreadBloc>();
             if (state is ThreadPostsLoadSuccess) {
               if (state.posts.isEmpty) {
                 return AppCenteredText(
@@ -52,7 +48,6 @@ class _ThreadScreenState extends State<ThreadScreen> {
               }
               return ListView.builder(
                 itemBuilder: (context, index) => AppPostCard(
-                  key: ValueKey(state.posts[index].tim),
                   post: state.posts[index],
                 ),
                 itemCount: state.posts.length,
@@ -62,32 +57,15 @@ class _ThreadScreenState extends State<ThreadScreen> {
             return AppCenteredCircularProgressIndicator();
           },
         ),
-        floatingActionButton: Visibility(
-          visible: _showFab,
-          child: FloatingActionButton(
-            child: Icon(
-              Icons.refresh,
-            ),
-            onPressed: () => _threadBloc.add(
-              ThreadEventThreadRefreshRequested(),
-            ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(
+            Icons.refresh,
           ),
+          onPressed: () => context.read<ThreadBloc>().add(
+                ThreadEventThreadRefreshRequested(),
+              ),
         ),
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(() {
-      setState(() => _showFab = _scrollController.position.userScrollDirection != ScrollDirection.reverse);
-    });
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
   }
 }

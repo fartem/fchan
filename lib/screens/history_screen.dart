@@ -47,7 +47,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   // TODO: set at center
                   return AppCenteredCircularProgressIndicator();
                 }
-                final thread = item as Thread;
+                final thread = item.item as Thread;
                 return AppThreadCard(
                   key: ValueKey(thread.tim),
                   thread: thread,
