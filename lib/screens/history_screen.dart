@@ -7,6 +7,7 @@ import '../bloc/history/history_bloc.dart';
 import '../components/listcontroller/list_entity.dart';
 import '../components/widgets/app_centered_circular_progress_indicator.dart';
 import '../components/widgets/app_centered_text.dart';
+import '../components/widgets/app_screen_frame.dart';
 import '../components/widgets/app_thread_card.dart';
 import '../data/repositories/data_repository.dart';
 import '../entities/thread.dart';
@@ -25,42 +26,53 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HistoryBloc(
-        dataRepository: context.read<DataRepository>(),
-      ),
-      child: BlocBuilder<HistoryBloc, HistoryState>(
-        builder: (context, state) {
-          _historyBloc = context.read<HistoryBloc>();
-          if (state is HistoryThreadsLoadSuccess) {
-            if (_historyBloc.threads.isEmpty) {
-              return AppCenteredText(
-                text: context.localizations.messageHistoryIsEmpty,
+    return AppScreenFrame(
+      title: context.localizations.titleHistory,
+      actions: [
+        IconButton(
+          icon: Icon(Icons.delete),
+          onPressed: () {
+            // TODO: implement
+          },
+        ),
+      ],
+      body: BlocProvider(
+        create: (context) => HistoryBloc(
+          dataRepository: context.read<DataRepository>(),
+        ),
+        child: BlocBuilder<HistoryBloc, HistoryState>(
+          builder: (context, state) {
+            _historyBloc = context.read<HistoryBloc>();
+            if (state is HistoryThreadsLoadSuccess) {
+              if (_historyBloc.threads.isEmpty) {
+                return AppCenteredText(
+                  text: context.localizations.messageHistoryIsEmpty,
+                );
+              }
+              return StaggeredGridView.countBuilder(
+                crossAxisCount: 4,
+                staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+                itemBuilder: (context, index) {
+                  final item = _historyBloc.threads[index];
+                  if (item == listLoader) {
+                    // TODO: set at center
+                    return AppCenteredCircularProgressIndicator();
+                  }
+                  final thread = item.item as Thread;
+                  return AppThreadCard(
+                    key: ValueKey(thread.tim),
+                    thread: thread,
+                    tapAction: () {},
+                    availableActions: ThreadPopupMenuAction.values,
+                    deleteAction: () => _historyBloc.deleteFromHistory(thread),
+                  );
+                },
+                itemCount: _historyBloc.threads.length,
               );
             }
-            return StaggeredGridView.countBuilder(
-              crossAxisCount: 4,
-              staggeredTileBuilder: (index) => StaggeredTile.fit(2),
-              itemBuilder: (context, index) {
-                final item = _historyBloc.threads[index];
-                if (item == listLoader) {
-                  // TODO: set at center
-                  return AppCenteredCircularProgressIndicator();
-                }
-                final thread = item.item as Thread;
-                return AppThreadCard(
-                  key: ValueKey(thread.tim),
-                  thread: thread,
-                  tapAction: () {},
-                  availableActions: ThreadPopupMenuAction.values,
-                  deleteAction: () => _historyBloc.deleteFromHistory(thread),
-                );
-              },
-              itemCount: _historyBloc.threads.length,
-            );
-          }
-          return AppCenteredCircularProgressIndicator();
-        },
+            return AppCenteredCircularProgressIndicator();
+          },
+        ),
       ),
     );
   }
