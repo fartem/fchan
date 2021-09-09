@@ -20,6 +20,7 @@ You can track a next test app version development status on [GitHub Projects](ht
 * [x] History
 * [ ] Bookmarks
 * [ ] Gallery
+* [ ] Settings
 
 ## Screenshots
 
@@ -47,6 +48,7 @@ You can build the app for Android from terminal on your machine without installi
 2. in terminal change current directory (by command `cd`) to the `android` folder int the project folder and run:
 
 ```shell
+flutter pub run build_runner build
 flutter build apk --profile --split-per-abi
 ```
 
@@ -67,6 +69,7 @@ $ flutter pub global activate dart_enum_to_string_check
 $ flutter pub global run dart_enum_to_string_check
 $ flutter pub global activate dart_code_metrics
 $ flutter pub global run dart_code_metrics:metrics lib
+$ flutter format -n -set-exit-if-changed -l 120 lib
 $ flutter analyze
 $ flutter test test
 ```

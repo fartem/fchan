@@ -9,30 +9,21 @@ void main() {
         'Check formatToTime',
         () {
           expect(
-            Duration(
-              seconds: 1,
-            ).formatToTime(),
+            Duration(seconds: 1).formatToTime(),
             '1 s',
           );
           expect(
-            Duration(
-              minutes: 1,
-            ).formatToTime(),
+            Duration(minutes: 1).formatToTime(),
             '1 m',
           );
           expect(
-            Duration(
-              hours: 1,
-            ).formatToTime(),
+            Duration(hours: 1).formatToTime(),
             '1 h',
           );
           expect(
-            Duration(
-              days: 1,
-            ).formatToTime(),
+            Duration(days: 1).formatToTime(),
             '1 d',
           );
-
           expect(
             Duration(
               seconds: 1,

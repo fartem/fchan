@@ -1,35 +1,85 @@
-import '../logic/db/api/storage_entitiy.dart';
-import 'board.dart';
-import 'web_image.dart';
+import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class Thread extends StorageEntity {
-  final Board board;
+import 'board.dart';
+import 'parsers.dart';
+
+part 'thread.g.dart';
+
+@JsonSerializable()
+@HiveType(typeId: 1)
+class Thread {
+  @JsonKey(ignore: true)
+  @HiveField(0)
+  late String board;
+
+  @JsonKey(name: 'board_id')
+  @HiveField(1)
+  int? boardId;
+
+  @HiveField(2)
   final int no;
+
+  @HiveField(3)
   final String? sub;
+
+  @HiveField(4)
   final String? com;
-  final Duration timeFromPublish;
-  final int replies;
-  final int images;
-  final WebImage? image;
-  final WebImage? thumbnail;
+
+  @HiveField(5)
+  final int? tim;
+
+  @HiveField(6)
   final String? ext;
 
+  @JsonKey(fromJson: parseTimeFromInt)
+  @HiveField(7)
+  final Duration time;
+
+  @JsonKey(name: 'w')
+  @HiveField(8)
+  final int? imageWidth;
+
+  @JsonKey(name: 'h')
+  @HiveField(9)
+  final int? imageHeight;
+
+  @JsonKey(name: 'tn_w')
+  @HiveField(10)
+  final int? thumbnailWidth;
+
+  @JsonKey(name: 'tn_h')
+  @HiveField(11)
+  final int? thumbnailHeight;
+
+  @HiveField(12)
+  final int replies;
+
+  @HiveField(13)
+  final int images;
+
+  @JsonKey(name: 'last_seen_date')
+  @HiveField(14)
   DateTime? lastSeenDate;
 
-  Thread(
-    this.board,
-    this.no,
+  Thread({
+    id,
+    required this.no,
     this.sub,
     this.com,
-    this.timeFromPublish,
-    this.replies,
-    this.images,
-    this.image,
-    this.thumbnail,
+    this.tim,
     this.ext,
-    this.lastSeenDate, {
-    id,
-  }) : super(id);
+    this.imageWidth,
+    this.imageHeight,
+    this.thumbnailWidth,
+    this.thumbnailHeight,
+    required this.time,
+    required this.replies,
+    required this.images,
+    this.lastSeenDate,
+  });
+
+  bool hasImage() => ext != null;
 
   @override
   bool operator ==(Object other) =>
@@ -40,5 +90,9 @@ class Thread extends StorageEntity {
   int get hashCode => board.hashCode ^ no.hashCode;
 
   @override
-  String toString() => '/${board.board}/$no';
+  String toString() => '/$board/$no';
+
+  factory Thread.fromJson(Board board, Map<String, dynamic> json) => _$ThreadFromJson(json)..board = board.board;
+
+  Map<String, dynamic> toJson() => _$ThreadToJson(this);
 }

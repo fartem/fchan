@@ -1,23 +1,54 @@
-import 'web_image.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+import 'parsers.dart';
+
+part 'post.g.dart';
+
+@JsonSerializable()
 class Post {
+  @JsonKey(ignore: true)
+  String? board;
+
   final int no;
   final String? sub;
   final String? com;
   final int? replies;
-  final Duration timeFromPublish;
-  final WebImage? image;
-  final WebImage? thumbnail;
+  final int? tim;
   final String? ext;
 
-  Post(
-    this.no,
+  @JsonKey(fromJson: parseTimeFromInt)
+  final Duration time;
+
+  @JsonKey(name: 'w')
+  final int? imageWidth;
+
+  @JsonKey(name: 'h')
+  final int? imageHeight;
+
+  @JsonKey(name: 'tn_w')
+  final int? thumbnailWidth;
+
+  @JsonKey(name: 'tn_h')
+  final int? thumbnailHeight;
+
+  Post({
+    this.board,
+    required this.no,
     this.sub,
     this.com,
     this.replies,
-    this.timeFromPublish,
-    this.image,
-    this.thumbnail,
+    this.tim,
     this.ext,
-  );
+    required this.time,
+    this.imageWidth,
+    this.imageHeight,
+    this.thumbnailWidth,
+    this.thumbnailHeight,
+  });
+
+  bool hasImage() => ext != null;
+
+  factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PostToJson(this);
 }

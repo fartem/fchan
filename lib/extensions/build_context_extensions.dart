@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../components/words/fchan_words.dart';
-
-extension BuildContextExtensions on BuildContext {
-  FChanWords fChanWords() => GetIt.I.get();
-
-  void push(String route, {arguments}) {
+extension BuildContextNavigationExtensions on BuildContext {
+  void push({
+    required String route,
+    arguments,
+  }) {
     Navigator.pushNamed(
       this,
       route,
@@ -14,11 +13,18 @@ extension BuildContextExtensions on BuildContext {
     );
   }
 
-  void pushReplace(String route, {arguments}) {
+  void pushReplace({
+    required String route,
+    arguments,
+  }) {
     Navigator.pushReplacementNamed(
       this,
       route,
       arguments: arguments,
     );
   }
+}
+
+extension BuildContextLocalizationExtensions on BuildContext {
+  AppLocalizations get localizations => AppLocalizations.of(this)!;
 }

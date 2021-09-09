@@ -1,0 +1,21 @@
+{
+  "titleHome": "Home",
+  "titleFavoriteBoards": "Favorite boards",
+  "titleExploreBoards": "Explore boards",
+  "titleHistory": "History",
+  "titleReplies": "Re",
+  "titleImages": "Img",
+  "messageBoardIsEmpty": "No threads",
+  "messageBoardsIsEmpty": "No boards",
+  "messageFavoriteBoardsIsEmpty": "No favorite boards",
+  "messageThreadIsEmpty": "No posts",
+  "messageHistoryIsEmpty": "History is empty",
+  "messageNoPosts": "No posts",
+  "actionOpenLink": "Open link",
+  "actionCopyLink": "Copy link",
+  "actionRemoveFromHistory": "Remove from History",
+  "commonRefresh": "Refresh",
+  "commonReply": "Reply",
+  "commonReplies": "Replies",
+  "errorDataLoad": "Data load error"
+}

@@ -1,16 +1,26 @@
-import '../logic/db/api/storage_entitiy.dart';
+import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-class Board extends StorageEntity {
+part 'board.g.dart';
+
+@JsonSerializable()
+@HiveType(typeId: 0)
+class Board {
+  @HiveField(0)
   final String board;
-  final String title;
-  bool isFavorite;
 
-  Board(
-    this.board,
-    this.title,
-    this.isFavorite, {
+  @HiveField(1)
+  final String title;
+
+  @HiveField(2)
+  bool? isFavorite;
+
+  Board({
+    required this.board,
+    required this.title,
+    this.isFavorite = false,
     int? id,
-  }) : super(id);
+  });
 
   @override
   bool operator ==(Object other) =>
@@ -22,4 +32,8 @@ class Board extends StorageEntity {
 
   @override
   String toString() => '/$board/ - $title';
+
+  factory Board.fromJson(Map<String, dynamic> json) => _$BoardFromJson(json);
+
+  Map<String, dynamic> toJson() => _$BoardToJson(this);
 }
