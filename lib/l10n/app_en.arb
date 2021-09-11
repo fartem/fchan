@@ -11,11 +11,14 @@
   "messageThreadIsEmpty": "No posts",
   "messageHistoryIsEmpty": "History is empty",
   "messageNoPosts": "No posts",
+  "messageHistoryClear": "Clear History?",
   "actionOpenLink": "Open link",
   "actionCopyLink": "Copy link",
   "actionRemoveFromHistory": "Remove from History",
   "commonRefresh": "Refresh",
   "commonReply": "Reply",
   "commonReplies": "Replies",
+  "commonOk": "OK",
+  "commonCancel": "Cancel",
   "errorDataLoad": "Data load error"
 }

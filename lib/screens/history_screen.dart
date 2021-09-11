@@ -31,9 +31,31 @@ class _HistoryScreenState extends State<HistoryScreen> {
       actions: [
         IconButton(
           icon: Icon(Icons.delete),
-          onPressed: () {
-            // TODO: implement
-          },
+          onPressed: () async => await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              content: Text(
+                context.localizations.messageHistoryClear,
+              ),
+              actions: [
+                TextButton(
+                  child: Text(
+                    context.localizations.commonOk,
+                  ),
+                  onPressed: () {
+                    _historyBloc.add(HistoryEventClearRequested());
+                    Navigator.pop(context);
+                  },
+                ),
+                TextButton(
+                  child: Text(
+                    context.localizations.commonCancel,
+                  ),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ],
+            ),
+          ),
         ),
       ],
       body: BlocProvider(

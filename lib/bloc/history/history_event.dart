@@ -6,3 +6,5 @@ abstract class HistoryEvent {}
 class HistoryEventInitialized extends HistoryEvent {}
 
 class HistoryEventThreadPortionRequested extends HistoryEvent {}
+
+class HistoryEventClearRequested extends HistoryEvent {}

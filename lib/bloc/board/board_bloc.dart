@@ -64,7 +64,7 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
   }
 
   Stream<BoardState> _mapBoardEventBoardRefreshedToState() async* {
-    await _listPortionController.refresh();
+    await _listPortionController.reset();
     add(BoardEventInitialized());
     yield BoardInitial();
   }

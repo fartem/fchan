@@ -12,3 +12,5 @@ class HistoryThreadsLoadSuccess extends HistoryState {
 }
 
 class HistoryThreadsLoadError extends HistoryState {}
+
+class HistoryClearInProgress extends HistoryState {}

@@ -37,7 +37,7 @@ class ListPortionController<T> {
     }
   }
 
-  Future<void> refresh() async {
+  Future<void> reset() async {
     items.clear();
     isLoading = false;
     isLastPage = false;

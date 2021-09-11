@@ -33,6 +33,8 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
       yield* _mapHistoryEventInitialized();
     } else if (event is HistoryEventThreadPortionRequested) {
       yield* _mapHistoryEventThreadPortionRequested();
+    } else if (event is HistoryEventClearRequested) {
+      yield* _mapHistoryEventClearRequested();
     }
   }
 
@@ -52,6 +54,13 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     yield HistoryThreadsLoadSuccess(
       threads: _listPortionController.items,
     );
+  }
+
+  Stream<HistoryState> _mapHistoryEventClearRequested() async* {
+    yield HistoryClearInProgress();
+    _listPortionController.reset();
+    await dataRepository.localDataProvider.clearHistory();
+    add(HistoryEventInitialized());
   }
 
   Future<void> deleteFromHistory(Thread thread) async {
