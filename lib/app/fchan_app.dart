@@ -10,6 +10,7 @@ import '../entities/board.dart';
 import '../entities/thread.dart';
 import '../extensions/build_context_extensions.dart';
 import '../screens/board_screen.dart';
+import '../screens/bookmarks_screen.dart';
 import '../screens/explore_boards_screen.dart';
 import '../screens/favorite_boards_screen.dart';
 import '../screens/history_screen.dart';
@@ -81,7 +82,8 @@ class FChan extends StatefulWidget {
 class _FChanState extends State<FChan> {
   final _currentScreen = ValueNotifier<int>(0);
   final screens = [
-    FavoriteBoardsScreen(),
+    FavoritesScreen(),
+    BookmarksScreen(),
     HistoryScreen(),
   ];
 
@@ -100,6 +102,10 @@ class _FChanState extends State<FChan> {
               BottomNavigationBarItem(
                 label: context.localizations.titleHome,
                 icon: Icon(Icons.home),
+              ),
+              BottomNavigationBarItem(
+                label: context.localizations.titleBookmarks,
+                icon: Icon(Icons.bookmarks),
               ),
               BottomNavigationBarItem(
                 label: context.localizations.titleHistory,

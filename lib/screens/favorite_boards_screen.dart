@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/favorite_boards/favorite_boards_bloc.dart';
+import '../bloc/favorite_boards/favorites_bloc.dart';
 import '../components/routes/fchan_routes.dart';
 import '../components/widgets/app_centered_circular_progress_indicator.dart';
 import '../components/widgets/app_centered_text.dart';
@@ -11,7 +11,7 @@ import '../data/repositories/data_repository.dart';
 import '../entities/board.dart';
 import '../extensions/build_context_extensions.dart';
 
-class FavoriteBoardsScreen extends StatelessWidget {
+class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppScreenFrame(
@@ -24,17 +24,17 @@ class FavoriteBoardsScreen extends StatelessWidget {
           ),
         ),
       ],
-      body: BlocBuilder<FavoriteBoardsBloc, FavoriteBoardsState>(
-        bloc: FavoriteBoardsBloc(
+      body: BlocBuilder<FavoritesBloc, FavoritesState>(
+        bloc: FavoritesBloc(
           dataRepository: RepositoryProvider.of<DataRepository>(context),
         ),
         builder: (context, state) {
-          if (state is FavoriteBoardsInitial) {
+          if (state is FavoritesInitial) {
             return AppCenteredCircularProgressIndicator();
-          } else if (state is FavoriteBoardsLoadSuccess) {
+          } else if (state is FavoritesLoadSuccess) {
             if (state.favorites.isEmpty) {
               return AppCenteredText(
-                text: context.localizations.messageFavoriteBoardsIsEmpty,
+                text: context.localizations.messageFavoritesIsEmpty,
               );
             }
             return ListView.builder(

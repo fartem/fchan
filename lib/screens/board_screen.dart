@@ -72,6 +72,7 @@ class _BoardScreenState extends State<BoardScreen> {
                     availableActions: [
                       ThreadPopupMenuAction.openLink,
                       ThreadPopupMenuAction.copyLink,
+                      ThreadPopupMenuAction.addToBookmarks,
                     ],
                   );
                 },

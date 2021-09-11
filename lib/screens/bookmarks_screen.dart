@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:provider/provider.dart';
 
-import '../bloc/history/history_bloc.dart';
+import '../bloc/bookmarks/bookmarks_bloc.dart';
 import '../components/listcontroller/list_entity.dart';
 import '../components/widgets/app_centered_circular_progress_indicator.dart';
 import '../components/widgets/app_centered_text.dart';
@@ -13,21 +12,21 @@ import '../data/repositories/data_repository.dart';
 import '../entities/thread.dart';
 import '../extensions/build_context_extensions.dart';
 
-class HistoryScreen extends StatefulWidget {
-  const HistoryScreen({Key? key}) : super(key: key);
+class BookmarksScreen extends StatefulWidget {
+  const BookmarksScreen({Key? key}) : super(key: key);
 
   @override
-  _HistoryScreenState createState() => _HistoryScreenState();
+  _BookmarksScreenState createState() => _BookmarksScreenState();
 }
 
-class _HistoryScreenState extends State<HistoryScreen> {
+class _BookmarksScreenState extends State<BookmarksScreen> {
   final ScrollController _scrollController = ScrollController();
-  late HistoryBloc _historyBloc;
+  late BookmarksBloc _bookmarksBloc;
 
   @override
   Widget build(BuildContext context) {
     return AppScreenFrame(
-      title: context.localizations.titleHistory,
+      title: context.localizations.titleBookmarks,
       actions: [
         IconButton(
           icon: Icon(Icons.delete),
@@ -43,7 +42,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     context.localizations.commonOk,
                   ),
                   onPressed: () {
-                    _historyBloc.add(HistoryEventClearRequested());
+                    _bookmarksBloc.add(BookmarksEventClearRequested());
                     Navigator.pop(context);
                   },
                 ),
@@ -59,23 +58,23 @@ class _HistoryScreenState extends State<HistoryScreen> {
         ),
       ],
       body: BlocProvider(
-        create: (context) => HistoryBloc(
+        create: (context) => BookmarksBloc(
           dataRepository: context.read<DataRepository>(),
         ),
-        child: BlocBuilder<HistoryBloc, HistoryState>(
+        child: BlocBuilder<BookmarksBloc, BookmarksState>(
           builder: (context, state) {
-            _historyBloc = context.read<HistoryBloc>();
-            if (state is HistoryThreadsLoadSuccess) {
-              if (_historyBloc.threads.isEmpty) {
+            _bookmarksBloc = context.read<BookmarksBloc>();
+            if (state is BookmarksLoadSuccess) {
+              if (_bookmarksBloc.threads.isEmpty) {
                 return AppCenteredText(
-                  text: context.localizations.messageHistoryIsEmpty,
+                  text: context.localizations.messageBookmarksIsEmpty,
                 );
               }
               return StaggeredGridView.countBuilder(
                 crossAxisCount: 4,
                 staggeredTileBuilder: (index) => StaggeredTile.fit(2),
                 itemBuilder: (context, index) {
-                  final item = _historyBloc.threads[index];
+                  final item = _bookmarksBloc.threads[index];
                   if (item == listLoader) {
                     // TODO: set at center
                     return AppCenteredCircularProgressIndicator();
@@ -85,11 +84,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     key: ValueKey(thread.tim),
                     thread: thread,
                     tapAction: () {},
-                    availableActions: [],
-                    deleteAction: () => _historyBloc.deleteFromHistory(thread),
+                    availableActions: ThreadPopupMenuAction.values,
+                    deleteAction: () {},
                   );
                 },
-                itemCount: _historyBloc.threads.length,
+                itemCount: _bookmarksBloc.threads.length,
               );
             }
             return AppCenteredCircularProgressIndicator();
@@ -104,7 +103,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
-        _historyBloc.add(HistoryEventThreadPortionRequested());
+        _bookmarksBloc.add(BookmarksEventPortionRequested());
       }
     });
   }

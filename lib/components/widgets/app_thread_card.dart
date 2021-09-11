@@ -91,6 +91,12 @@ class AppThreadCard extends StatelessWidget {
                         case ThreadPopupMenuAction.removeFromHistory:
                           deleteAction?.call();
                           break;
+                        case ThreadPopupMenuAction.addToBookmarks:
+                          dataRepository.addThreadToBookmarks(thread);
+                          break;
+                        case ThreadPopupMenuAction.removeFromBookmarks:
+                          dataRepository.removeThreadFromBookmarks(thread);
+                          break;
                       }
                     },
                     child: Icon(
@@ -172,4 +178,6 @@ enum ThreadPopupMenuAction {
   openLink,
   copyLink,
   removeFromHistory,
+  addToBookmarks,
+  removeFromBookmarks,
 }
