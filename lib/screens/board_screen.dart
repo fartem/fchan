@@ -58,10 +58,9 @@ class _BoardScreenState extends State<BoardScreen> {
                 itemBuilder: (context, index) {
                   final item = _boardBloc.threads[index];
                   if (item == listLoader) {
-                    // TODO: set size
                     return SizedBox(
                       height: 172,
-                      child: AppCenteredCircularProgressIndicator(),
+                      child: const AppCenteredCircularProgressIndicator(),
                     );
                   }
                   final thread = item.item as Thread;
@@ -80,7 +79,7 @@ class _BoardScreenState extends State<BoardScreen> {
                 controller: _scrollController,
               );
             }
-            return AppCenteredCircularProgressIndicator();
+            return const AppCenteredCircularProgressIndicator();
           },
         ),
       ),

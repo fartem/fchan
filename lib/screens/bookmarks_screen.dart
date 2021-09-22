@@ -76,8 +76,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                 itemBuilder: (context, index) {
                   final item = _bookmarksBloc.threads[index];
                   if (item == listLoader) {
-                    // TODO: set at center
-                    return AppCenteredCircularProgressIndicator();
+                    return const AppCenteredCircularProgressIndicator();
                   }
                   final thread = item.item as Thread;
                   return AppThreadCard(
@@ -91,7 +90,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                 itemCount: _bookmarksBloc.threads.length,
               );
             }
-            return AppCenteredCircularProgressIndicator();
+            return const AppCenteredCircularProgressIndicator();
           },
         ),
       ),

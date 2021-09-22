@@ -7,7 +7,8 @@ class AppContentHtmlText extends StatelessWidget {
   final FontWeight bodyWeight;
   final bool wrapText;
 
-  AppContentHtmlText({
+  const AppContentHtmlText({
+    Key? key,
     required this.text,
     this.bodyWeight = FontWeight.normal,
     this.wrapText = false,
@@ -32,7 +33,6 @@ class AppContentHtmlText extends StatelessWidget {
           textOverflow: TextOverflow.ellipsis,
         ),
         'span': Style(
-          // TODO: add theme
           color: Colors.green[700],
         ),
       },

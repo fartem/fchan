@@ -1,6 +1,6 @@
 name: fchan
 description: 4chan client on Flutter.
-version: 0.7.0+1
+version: 0.8.0+1
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
@@ -39,8 +39,6 @@ dependencies:
 
   package_info: ^2.0.0
 
-  flutter_dotenv: ^5.0.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -63,5 +61,3 @@ dev_dependencies:
 flutter:
   generate: true
   uses-material-design: true
-  assets:
-    - .env

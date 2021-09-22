@@ -12,7 +12,7 @@ import 'app_content_html_text.dart';
 class AppPostCard extends StatelessWidget {
   final Post post;
 
-  AppPostCard({
+  const AppPostCard({
     Key? key,
     required this.post,
   }) : super(key: key);

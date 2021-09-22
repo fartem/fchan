@@ -38,7 +38,7 @@ class ExploreBoardsScreen extends StatelessWidget {
                 itemCount: state.boards.length,
               );
             } else {
-              return AppCenteredCircularProgressIndicator();
+              return const AppCenteredCircularProgressIndicator();
             }
           },
         ),

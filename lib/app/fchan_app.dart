@@ -28,25 +28,25 @@ class FChanAppState extends State<FChanApp> {
     return MaterialApp(
       onGenerateRoute: (settings) {
         switch (settings.name) {
-          case FChanRoutes.routeInit:
+          case routeInit:
             return MaterialPageRoute(
               builder: (context) => SplashScreen(),
             );
-          case FChanRoutes.routeHome:
+          case routeHome:
             return MaterialPageRoute(
               builder: (context) => FChan(),
             );
-          case FChanRoutes.routeExploreBoards:
+          case routeExploreBoards:
             return MaterialPageRoute(
               builder: (context) => ExploreBoardsScreen(),
             );
-          case FChanRoutes.routeBoard:
+          case routeBoard:
             return MaterialPageRoute(
               builder: (context) => BoardScreen(
                 board: settings.arguments as Board,
               ),
             );
-          case FChanRoutes.routeThread:
+          case routeThread:
             return MaterialPageRoute(
               builder: (context) => ThreadScreen(
                 thread: settings.arguments as Thread,
@@ -56,7 +56,7 @@ class FChanAppState extends State<FChanApp> {
             return null;
         }
       },
-      initialRoute: FChanRoutes.routeInit,
+      initialRoute: routeInit,
       title: 'FChan',
       theme: themeLight,
       darkTheme: themeDark,
@@ -97,7 +97,6 @@ class _FChanState extends State<FChan> {
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             currentIndex: _currentScreen.value,
-            // TODO: performance?
             items: [
               BottomNavigationBarItem(
                 label: context.localizations.titleHome,

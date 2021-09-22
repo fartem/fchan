@@ -77,8 +77,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 itemBuilder: (context, index) {
                   final item = _historyBloc.threads[index];
                   if (item == listLoader) {
-                    // TODO: set at center
-                    return AppCenteredCircularProgressIndicator();
+                    return const AppCenteredCircularProgressIndicator();
                   }
                   final thread = item.item as Thread;
                   return AppThreadCard(
@@ -92,7 +91,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 itemCount: _historyBloc.threads.length,
               );
             }
-            return AppCenteredCircularProgressIndicator();
+            return const AppCenteredCircularProgressIndicator();
           },
         ),
       ),

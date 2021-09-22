@@ -20,7 +20,7 @@ class FavoritesScreen extends StatelessWidget {
         IconButton(
           icon: Icon(Icons.edit),
           onPressed: () => context.push(
-            route: FChanRoutes.routeExploreBoards,
+            route: routeExploreBoards,
           ),
         ),
       ],
@@ -30,7 +30,7 @@ class FavoritesScreen extends StatelessWidget {
         ),
         builder: (context, state) {
           if (state is FavoritesInitial) {
-            return AppCenteredCircularProgressIndicator();
+            return const AppCenteredCircularProgressIndicator();
           } else if (state is FavoritesLoadSuccess) {
             if (state.favorites.isEmpty) {
               return AppCenteredText(
@@ -45,7 +45,7 @@ class FavoritesScreen extends StatelessWidget {
               itemCount: state.favorites.length,
             );
           } else {
-            return AppCenteredCircularProgressIndicator();
+            return const AppCenteredCircularProgressIndicator();
           }
         },
       ),
@@ -60,7 +60,7 @@ class FavoritesScreen extends StatelessWidget {
     return ListTile(
       title: Text(board.toString()),
       onTap: () => Navigator.of(context).pushNamed(
-        FChanRoutes.routeBoard,
+        routeBoard,
         arguments: board,
       ),
     );

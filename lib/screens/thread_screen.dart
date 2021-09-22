@@ -54,7 +54,7 @@ class _ThreadScreenState extends State<ThreadScreen> {
                 controller: _scrollController,
               );
             }
-            return AppCenteredCircularProgressIndicator();
+            return const AppCenteredCircularProgressIndicator();
           },
         ),
         floatingActionButton: FloatingActionButton(

@@ -17,7 +17,7 @@ class AppThreadCard extends StatelessWidget {
   final List<ThreadPopupMenuAction> availableActions;
   final VoidCallback? deleteAction;
 
-  AppThreadCard({
+  const AppThreadCard({
     Key? key,
     required this.thread,
     required this.tapAction,
@@ -133,7 +133,7 @@ class AppThreadCard extends StatelessWidget {
         onTap: () {
           tapAction();
           context.push(
-            route: FChanRoutes.routeThread,
+            route: routeThread,
             arguments: thread,
           );
         },

@@ -2,6 +2,8 @@ import '../../entities/entity_page.dart';
 import '../../entities/entity_portion.dart';
 import 'list_entity.dart';
 
+const _pageSize = 10;
+
 class ListPortionController<T> {
   final List<ListEntity> items = [];
 
@@ -19,7 +21,7 @@ class ListPortionController<T> {
       EntityPortion<T> portion = await portionProvider(
         EntityPage.paging(
           page: _page,
-          pageSize: 10,
+          pageSize: _pageSize,
         ),
       );
       if (items.isNotEmpty && items.last == listLoader) {
