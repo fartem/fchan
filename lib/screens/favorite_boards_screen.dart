@@ -11,7 +11,14 @@ import '../data/repositories/data_repository.dart';
 import '../entities/board.dart';
 import '../extensions/build_context_extensions.dart';
 
-class FavoritesScreen extends StatelessWidget {
+class FavoritesScreen extends StatefulWidget {
+  @override
+  State<FavoritesScreen> createState() => _FavoritesScreenState();
+}
+
+class _FavoritesScreenState extends State<FavoritesScreen> {
+  FavoritesBloc? _bloc;
+
   @override
   Widget build(BuildContext context) {
     return AppScreenFrame(
@@ -19,50 +26,56 @@ class FavoritesScreen extends StatelessWidget {
       actions: [
         IconButton(
           icon: Icon(Icons.edit),
-          onPressed: () => context.push(
-            route: routeExploreBoards,
-          ),
+          onPressed: () async {
+            await context.push(
+              route: routeExploreBoards,
+            );
+            _bloc?.add(FavoritesEventBoardsUpdated());
+          },
         ),
       ],
-      body: BlocBuilder<FavoritesBloc, FavoritesState>(
-        bloc: FavoritesBloc(
+      body: BlocProvider<FavoritesBloc>(
+        create: (context) => FavoritesBloc(
           dataRepository: RepositoryProvider.of<DataRepository>(context),
         ),
-        builder: (context, state) {
-          if (state is FavoritesInitial) {
-            return const AppCenteredCircularProgressIndicator();
-          } else if (state is FavoritesLoadSuccess) {
-            if (state.favorites.isEmpty) {
-              return AppCenteredText(
-                text: context.localizations.messageFavoritesIsEmpty,
+        child: BlocBuilder<FavoritesBloc, FavoritesState>(
+          builder: (context, state) {
+            _bloc = context.read<FavoritesBloc>();
+            if (state is FavoritesInitial) {
+              return const AppCenteredCircularProgressIndicator();
+            } else if (state is FavoritesLoadSuccess) {
+              if (state.favorites.isEmpty) {
+                return AppCenteredText(
+                  text: context.localizations.messageFavoritesIsEmpty,
+                );
+              }
+              return ListView.builder(
+                itemBuilder: (context, index) =>
+                    _boardListItem(
+                      context,
+                      state.favorites[index],
+                    ),
+                itemCount: state.favorites.length,
               );
+            } else {
+              return const AppCenteredCircularProgressIndicator();
             }
-            return ListView.builder(
-              itemBuilder: (context, index) => _boardListItem(
-                context,
-                state.favorites[index],
-              ),
-              itemCount: state.favorites.length,
-            );
-          } else {
-            return const AppCenteredCircularProgressIndicator();
-          }
-        },
+          },
+        ),
       ),
     );
   }
 
   // ignore: avoid-returning-widgets
-  Widget _boardListItem(
-    BuildContext context,
-    Board board,
-  ) {
+  Widget _boardListItem(BuildContext context,
+      Board board,) {
     return ListTile(
       title: Text(board.toString()),
-      onTap: () => Navigator.of(context).pushNamed(
-        routeBoard,
-        arguments: board,
-      ),
+      onTap: () =>
+          Navigator.of(context).pushNamed(
+            routeBoard,
+            arguments: board,
+          ),
     );
   }
 }
