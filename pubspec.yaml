@@ -11,51 +11,117 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  # A predictable state management library that helps implement
+  # the BLoC (Business Logic Component) design pattern.
+  # See the following page: https://pub.dev/packages/bloc
   bloc: ^7.0.0
+
+  # Flutter Widgets that make it easy to implement
+  # the BLoC (Business Logic Component) design pattern.
+  # Built to be used with the bloc state management package.
+  # See the following page: https://pub.dev/packages/flutter_bloc
   flutter_bloc: ^7.0.0
+
+  # A wrapper around InheritedWidget to make them easier to use and more reusable.
+  # See the following page: https://pub.dev/packages/provider
   provider: ^5.0.0
 
+  # Contains code to deal with internationalized/localized messages,
+  # date and number formatting and parsing, bi-directional text,
+  # and other internationalization issues.
+  # See the following page: https://pub.dev/packages/intl
   intl: ^0.17.0
 
+  # Lightweight and blazing fast key-value database written in pure Dart.
+  # Strongly encrypted using AES-256.
+  # See the following page: https://pub.dev/packages/hive
   hive: ^2.0.4
+
+  # Extension for Hive. Makes it easier to use Hive in Flutter apps.
+  # See the following page: https://pub.dev/packages/hive_flutter
   hive_flutter: ^1.1.0
 
+  # Classes and helper functions that support JSON code generation
+  # via the `json_serializable` package.
+  # See the following page: https://pub.dev/packages/json_annotation
   json_annotation: ^4.0.0
 
+  # Small, easy to use and extensible logger which prints beautiful logs.
+  # See the following page: https://pub.dev/packages/logger
   logger: ^1.0.0
 
+  # A powerful Http client for Dart, which supports Interceptors,
+  # FormData, Request Cancellation, File Downloading, Timeout etc.
+  # See the following page: https://pub.dev/packages/dio
   dio: ^4.0.0
+
+  # A Flutter widget rendering static HTML and CSS as Flutter widgets.
+  # See the following page: https://pub.dev/packages/flutter_html
   flutter_html: ^2.0.0-nullsafety.0
+
+  # Flutter plugin for launching a URL. Supports web, phone, SMS, and email schemes.
+  # See the following page: https://pub.dev/packages/url_launcher
   url_launcher: ^6.0.3
 
+  # Flutter plugin for getting commonly used locations on host platform file systems,
+  # such as the temp and app data directories.
+  # See the following page: https://pub.dev/packages/path_provider
   path_provider: ^2.0.1
 
+  # Generic cache manager for flutter. Saves web files on the storages
+  # of the device and saves the cache info using sqflite.
+  # See the following page: https://pub.dev/packages/flutter_cache_manager
   flutter_cache_manager: ^3.0.1
+
+  # Flutter library to load and cache network images.
+  # Can also be used with placeholder and error widgets.
+  # See the following page: https://pub.dev/packages/cached_network_image
   cached_network_image: ^3.0.0
 
+  # A Flutter staggered grid view (masonry tiles) which supports
+  # multiple columns with rows of varying sizes.
+  # See the following page: https://pub.dev/packages/flutter_straggered_grid_view
   flutter_staggered_grid_view: ^0.4.0
 
+  # A flutter package that helps copy text to clipboard and paste from clipboard.
+  # See the following page: https://pub.dev/packages/clipboard
   clipboard: ^0.1.3
 
+  # Flutter plugin for querying information about the application package,
+  # such as CFBundleVersion on iOS or versionCode on Android.
+  # See the following page: https://pub.dev/packages/package_info
   package_info: ^2.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  # A build system for Dart code generation and modular compilation.
+  # See the following page: https://pub.dev/packages/build_runner
   build_runner: ^1.10.0
 
+  # Extension for Hive. Automatically generates TypeAdapters to store any class.
+  # See the following page: https://pub.dev/packages/hive_generator
   hive_generator: ^1.1.0
 
+  # Automatically generate code for converting to and from JSON by annotating Dart classes.
+  # See the following page: https://pub.dev/packages/json_serializable
   json_serializable: ^4.1.3
 
+  # A full featured library for writing and running Dart tests across platforms.
+  # See the following page: https://pub.dev/packages/test
   test: ^1.16.5
-  mocktail: ^0.1.4
 
+  # Linter rules corresponding to the guidelines in Effective Dart.
+  # See the following page: https://pub.dev/packages/effective_dart
   effective_dart: ^1.3.1
 
+  # A plugin for Dart Analyzer to check enum.toString() using.
+  # See the following page: https://pub.dev/packages/dart_enum_to_string_check
   dart_enum_to_string_check: 0.8.0
 
+  # Software analytics tool that helps developers analyse and improve software quality.
+  # See the following page: https://pub.dev/packages/dart_code_metrics
   dart_code_metrics: ^3.2.2
 
 flutter:
