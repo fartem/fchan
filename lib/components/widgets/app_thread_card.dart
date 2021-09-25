@@ -1,5 +1,6 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,16 +14,16 @@ import 'app_content_html_text.dart';
 
 class AppThreadCard extends StatelessWidget {
   final Thread thread;
-  final Function tapAction;
+  final Function? tapNotifier;
   final List<ThreadPopupMenuAction> availableActions;
-  final VoidCallback? deleteAction;
+  final Function(ThreadPopupMenuAction)? actionNotifier;
 
   const AppThreadCard({
     Key? key,
     required this.thread,
-    required this.tapAction,
+    this.tapNotifier,
     required this.availableActions,
-    this.deleteAction,
+    this.actionNotifier,
   }) : super(key: key);
 
   @override
@@ -54,8 +55,8 @@ class AppThreadCard extends StatelessWidget {
                           alignment: AlignmentDirectional.centerStart,
                           child: Text(
                             _prepareThreadRepliesAndImagesInfo(
-                              context,
-                              thread,
+                              localizations: context.localizations,
+                              thread: thread,
                             ),
                             style: TextStyle(
                               fontSize: 12,
@@ -72,14 +73,14 @@ class AppThreadCard extends StatelessWidget {
                         value: action,
                         child: Text(
                           _wordForPopupActions(
-                            context,
-                            action,
+                            localizations: context.localizations,
+                            action: action,
                           ),
                         ),
                       );
                     }).toList(),
-                    onSelected: (threadPopupMenuAction) async {
-                      switch (threadPopupMenuAction) {
+                    onSelected: (action) async {
+                      switch (action) {
                         case ThreadPopupMenuAction.openLink:
                           launch(dataRepository.urlForThread(thread));
                           break;
@@ -89,7 +90,7 @@ class AppThreadCard extends StatelessWidget {
                           );
                           break;
                         case ThreadPopupMenuAction.removeFromHistory:
-                          deleteAction?.call();
+                          dataRepository.removeThreadFromHistory(thread);
                           break;
                         case ThreadPopupMenuAction.addToBookmarks:
                           dataRepository.addThreadToBookmarks(thread);
@@ -98,6 +99,7 @@ class AppThreadCard extends StatelessWidget {
                           dataRepository.removeThreadFromBookmarks(thread);
                           break;
                       }
+                      actionNotifier?.call(action);
                     },
                     child: Icon(
                       Icons.more_vert,
@@ -131,7 +133,7 @@ class AppThreadCard extends StatelessWidget {
           ),
         ),
         onTap: () {
-          tapAction();
+          tapNotifier?.call();
           context.push(
             route: routeThread,
             arguments: thread,
@@ -147,29 +149,30 @@ class AppThreadCard extends StatelessWidget {
     return '$dateAtStart ${imageFormat == null ? '' : imageFormat}';
   }
 
-  String _prepareThreadRepliesAndImagesInfo(
-    BuildContext context,
-    Thread thread,
-  ) {
-    final localizations = context.localizations;
+  String _prepareThreadRepliesAndImagesInfo({
+    required AppLocalizations localizations,
+    required Thread thread,
+  }) {
     final replies = '${thread.replies == 0 ? '' : '${thread.replies} ${localizations.titleReplies}'}';
     final images = '${thread.images == 0 ? '' : '${thread.images} ${localizations.titleImages}'}';
     return '$replies $images'.trim();
   }
 
-  String _wordForPopupActions(
-    BuildContext context,
-    ThreadPopupMenuAction action,
-  ) {
+  String _wordForPopupActions({
+    required AppLocalizations localizations,
+    required ThreadPopupMenuAction action,
+  }) {
     switch (action) {
       case ThreadPopupMenuAction.openLink:
-        return context.localizations.actionOpenLink;
+        return localizations.actionOpenLink;
       case ThreadPopupMenuAction.copyLink:
-        return context.localizations.actionCopyLink;
+        return localizations.actionCopyLink;
       case ThreadPopupMenuAction.removeFromHistory:
-        return context.localizations.actionRemoveFromHistory;
-      default:
-        return 'NO IMPL';
+        return localizations.actionRemoveFromHistory;
+      case ThreadPopupMenuAction.addToBookmarks:
+        return localizations.actionAddToBookmarks;
+      case ThreadPopupMenuAction.removeFromBookmarks:
+        return localizations.actionRemoveFromBookmarks;
     }
   }
 }

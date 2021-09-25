@@ -67,7 +67,7 @@ class _BoardScreenState extends State<BoardScreen> {
                   return AppThreadCard(
                     key: ValueKey(thread.tim),
                     thread: thread,
-                    tapAction: () => _boardBloc.addToHistory(thread),
+                    tapNotifier: () => _boardBloc.addToHistory(thread),
                     availableActions: [
                       ThreadPopupMenuAction.openLink,
                       ThreadPopupMenuAction.copyLink,

@@ -83,9 +83,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   return AppThreadCard(
                     key: ValueKey(thread.tim),
                     thread: thread,
-                    tapAction: () {},
-                    availableActions: [],
-                    deleteAction: () => _historyBloc.deleteFromHistory(thread),
+                    availableActions: [
+                      ThreadPopupMenuAction.removeFromHistory,
+                    ],
+                    // TODO: change event to `Update` or similar
+                    actionNotifier: (action) => _historyBloc.add(HistoryEventInitialized()),
                   );
                 },
                 itemCount: _historyBloc.threads.length,

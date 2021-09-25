@@ -82,9 +82,17 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                   return AppThreadCard(
                     key: ValueKey(thread.tim),
                     thread: thread,
-                    tapAction: () {},
-                    availableActions: ThreadPopupMenuAction.values,
-                    deleteAction: () {},
+                    availableActions: [
+                      ThreadPopupMenuAction.openLink,
+                      ThreadPopupMenuAction.copyLink,
+                      ThreadPopupMenuAction.removeFromBookmarks,
+                    ],
+                    // TODO: change event to `Update` or similar action
+                    actionNotifier: (action) {
+                      if (action == ThreadPopupMenuAction.removeFromBookmarks) {
+                        _bookmarksBloc.add(BookmarksEventInitialized());
+                      }
+                    },
                   );
                 },
                 itemCount: _bookmarksBloc.threads.length,
