@@ -90,7 +90,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                     // TODO: change event to `Update` or similar action
                     actionNotifier: (action) {
                       if (action == ThreadPopupMenuAction.removeFromBookmarks) {
-                        _bookmarksBloc.add(BookmarksEventInitialized());
+                        _bookmarksBloc.add(BookmarksEventBookmarkRemoved(thread: thread));
                       }
                     },
                   );

@@ -9,6 +9,7 @@ import '../../data/repositories/data_repository.dart';
 import '../../entities/thread.dart';
 
 part 'bookmarks_event.dart';
+
 part 'bookmarks_state.dart';
 
 class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
@@ -33,8 +34,12 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
       yield* _mapBookmarksEventInitialized();
     } else if (event is BookmarksEventPortionRequested) {
       yield* _mapBookmarksEventThreadPortionRequested();
+    } else if (event is BookmarksEventUpdateRequested) {
+      yield* _mapBookmarksEventUpdateRequested();
     } else if (event is BookmarksEventClearRequested) {
       yield* _mapBookmarksEventClearRequested();
+    } else if (event is BookmarksEventBookmarkRemoved) {
+      yield* _mapBookmarksEventBookmarkRemoved(event: event);
     }
   }
 
@@ -56,10 +61,24 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
     );
   }
 
+  Stream<BookmarksState> _mapBookmarksEventUpdateRequested() async* {
+    yield BookmarksLoadSuccess(
+      bookmarks: _listPortionController.items,
+    );
+  }
+
   Stream<BookmarksState> _mapBookmarksEventClearRequested() async* {
     yield BookmarksClearInProgress();
     _listPortionController.reset();
     await dataRepository.localDataProvider.clearHistory();
     add(BookmarksEventInitialized());
+  }
+
+  Stream<BookmarksState> _mapBookmarksEventBookmarkRemoved({
+    required BookmarksEventBookmarkRemoved event,
+  }) async* {
+    _listPortionController.items.remove(event.thread);
+    dataRepository.removeThreadFromBookmarks(event.thread);
+    add(BookmarksEventUpdateRequested());
   }
 }

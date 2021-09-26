@@ -5,7 +5,7 @@ import 'list_entity.dart';
 const _pageSize = 10;
 
 class ListPortionController<T> {
-  final List<ListEntity> items = [];
+  final items = <ListEntity>[];
 
   final Function(EntityPage entityPage) portionProvider;
 
@@ -18,7 +18,7 @@ class ListPortionController<T> {
   Future<void> loadMore() async {
     if (!isLoading && !isLastPage) {
       isLoading = true;
-      EntityPortion<T> portion = await portionProvider(
+      final EntityPortion<T> portion = await portionProvider(
         EntityPage.paging(
           page: _page,
           pageSize: _pageSize,
