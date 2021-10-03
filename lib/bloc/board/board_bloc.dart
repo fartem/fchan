@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 
 import '../../components/listcontroller/list_entity.dart';
 import '../../components/listcontroller/list_portion_controller.dart';
@@ -9,8 +8,8 @@ import '../../data/repositories/data_repository.dart';
 import '../../entities/board.dart';
 import '../../entities/thread.dart';
 
-part 'board_event.dart';
-part 'board_state.dart';
+import 'board_event.dart';
+import 'board_state.dart';
 
 class BoardBloc extends Bloc<BoardEvent, BoardState> {
   final DataRepository dataRepository;
@@ -22,8 +21,7 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
   BoardBloc({
     required this.dataRepository,
     required Board board,
-  }) : super(BoardInitial()) {
-    add(BoardEventInitialized());
+  }) : super(Initial()) {
     _listPortionController = ListPortionController<Thread>(
       portionProvider: (entityPage) => dataRepository.catalogForBoard(
         board,
@@ -36,11 +34,11 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
   Stream<BoardState> mapEventToState(
     BoardEvent event,
   ) async* {
-    if (event is BoardEventInitialized) {
+    if (event is Initialized) {
       yield* _mapBoardEventInitializedToState();
-    } else if (event is BoardEventThreadPortionRequested) {
+    } else if (event is ThreadPortionRequested) {
       yield* _mapBoardEventThreadPortionRequestToState();
-    } else if (event is BoardEventBoardRefreshed) {
+    } else if (event is BoardRefreshed) {
       yield* _mapBoardEventBoardRefreshedToState();
     }
   }
@@ -48,25 +46,25 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
   Stream<BoardState> _mapBoardEventInitializedToState() async* {
     try {
       await _listPortionController.loadMore();
-      yield BoardThreadsLoadSuccess(
+      yield ThreadsLoadSuccess(
         threads: _listPortionController.items,
       );
     } on Exception {
-      yield BoardThreadsLoadError();
+      yield ThreadsLoadError();
     }
   }
 
   Stream<BoardState> _mapBoardEventThreadPortionRequestToState() async* {
     await _listPortionController.loadMore();
-    yield BoardThreadsLoadSuccess(
+    yield ThreadsLoadSuccess(
       threads: _listPortionController.items,
     );
   }
 
   Stream<BoardState> _mapBoardEventBoardRefreshedToState() async* {
     await _listPortionController.reset();
-    add(BoardEventInitialized());
-    yield BoardInitial();
+    add(Initialized());
+    yield Initial();
   }
 
   Future<void> addToHistory(Thread thread) async {

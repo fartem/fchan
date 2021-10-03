@@ -22,6 +22,11 @@ dependencies:
   # See the following page: https://pub.dev/packages/flutter_bloc
   flutter_bloc: ^7.0.0
 
+  # Annotations for the freezed code-generator.
+  # This package does nothing without freezed too.
+  # See the following page: https://pub.dev/packages/freezed_annotation
+  freezed_annotation:
+
   # A wrapper around InheritedWidget to make them easier to use and more reusable.
   # See the following page: https://pub.dev/packages/provider
   provider: ^5.0.0
@@ -99,6 +104,11 @@ dev_dependencies:
   # A build system for Dart code generation and modular compilation.
   # See the following page: https://pub.dev/packages/build_runner
   build_runner: ^1.10.0
+
+  # Code generation for immutable classes that has
+  # a simple syntax/API without compromising on the features.
+  # See the following page: https://pub.dev/packages/freezed
+  freezed:
 
   # Extension for Hive. Automatically generates TypeAdapters to store any class.
   # See the following page: https://pub.dev/packages/hive_generator

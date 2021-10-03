@@ -1,14 +1,16 @@
-part of 'board_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class BoardState {}
+import '../../components/listcontroller/list_entity.dart';
 
-class BoardInitial extends BoardState {}
+part 'board_state.freezed.dart';
 
-class BoardThreadsLoadSuccess extends BoardState {
-  final List<ListEntity> threads;
+@freezed
+abstract class BoardState with _$BoardState {
+  const factory BoardState.initial() = Initial;
 
-  BoardThreadsLoadSuccess({required this.threads});
+  const factory BoardState.threadsLoadSuccess({
+    required List<ListEntity> threads,
+  }) = ThreadsLoadSuccess;
+
+  const factory BoardState.threadsLoadError() = ThreadsLoadError;
 }
-
-class BoardThreadsLoadError extends BoardState {}

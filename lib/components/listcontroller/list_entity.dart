@@ -1,7 +1,7 @@
 class ListEntity {
   final item;
 
-  ListEntity(this.item);
+  const ListEntity(this.item);
 
   @override
   bool operator ==(Object other) => item == other;
@@ -10,8 +10,8 @@ class ListEntity {
   int get hashCode => item.hashCode;
 }
 
-final listLoader = _ListLoader();
+const listLoader = ListLoader();
 
-class _ListLoader extends ListEntity {
-  _ListLoader() : super(Object());
+class ListLoader extends ListEntity {
+  const ListLoader() : super(0);
 }

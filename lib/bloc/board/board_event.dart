@@ -1,10 +1,12 @@
-part of 'board_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class BoardEvent {}
+part 'board_event.freezed.dart';
 
-class BoardEventInitialized extends BoardEvent {}
+@freezed
+abstract class BoardEvent with _$BoardEvent {
+  const BoardEvent._();
 
-class BoardEventThreadPortionRequested extends BoardEvent {}
-
-class BoardEventBoardRefreshed extends BoardEvent {}
+  const factory BoardEvent.initialized() = Initialized;
+  const factory BoardEvent.threadsPortionRequested() = ThreadPortionRequested;
+  const factory BoardEvent.boardRefreshed() = BoardRefreshed;
+}
