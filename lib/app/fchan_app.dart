@@ -25,45 +25,47 @@ class FChanApp extends StatefulWidget {
 
 class FChanAppState extends State<FChanApp> {
   @override
-  Widget build(BuildContext context) => MaterialApp(
-        onGenerateRoute: (settings) {
-          switch (settings.name) {
-            case routeInit:
-              return MaterialPageRoute(
-                builder: (context) => SplashScreen(),
-              );
-            case routeHome:
-              return MaterialPageRoute(
-                builder: (context) => const FChan(),
-              );
-            case routeExploreBoards:
-              return MaterialPageRoute(
-                builder: (context) => ExploreBoardsScreen(),
-              );
-            case routeBoard:
-              return MaterialPageRoute(
-                builder: (context) => BoardScreen(
-                  board: settings.arguments as Board,
-                ),
-              );
-            case routeThread:
-              return MaterialPageRoute(
-                builder: (context) => ThreadScreen(
-                  thread: settings.arguments as Thread,
-                ),
-              );
-            default:
-              return null;
-          }
-        },
-        initialRoute: routeInit,
-        title: 'FChan',
-        theme: themeLight,
-        darkTheme: themeDark,
-        themeMode: ThemeMode.system,
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
-      );
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case routeInit:
+            return MaterialPageRoute(
+              builder: (context) => SplashScreen(),
+            );
+          case routeHome:
+            return MaterialPageRoute(
+              builder: (context) => const FChan(),
+            );
+          case routeExploreBoards:
+            return MaterialPageRoute(
+              builder: (context) => ExploreBoardsScreen(),
+            );
+          case routeBoard:
+            return MaterialPageRoute(
+              builder: (context) => BoardScreen(
+                board: settings.arguments as Board,
+              ),
+            );
+          case routeThread:
+            return MaterialPageRoute(
+              builder: (context) => ThreadScreen(
+                thread: settings.arguments as Thread,
+              ),
+            );
+          default:
+            return null;
+        }
+      },
+      initialRoute: routeInit,
+      title: 'FChan',
+      theme: themeLight,
+      darkTheme: themeDark,
+      themeMode: ThemeMode.system,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+    );
+  }
 
   @override
   void dispose() {
@@ -88,31 +90,33 @@ class _FChanState extends State<FChan> {
   ];
 
   @override
-  Widget build(BuildContext context) => ValueListenableBuilder<int>(
-        valueListenable: _currentScreen,
-        builder: (context, currentScreen, child) => Scaffold(
-          body: screens[currentScreen],
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            currentIndex: _currentScreen.value,
-            items: [
-              BottomNavigationBarItem(
-                label: context.localizations.titleHome,
-                icon: const Icon(Icons.home),
-              ),
-              BottomNavigationBarItem(
-                label: context.localizations.titleBookmarks,
-                icon: const Icon(Icons.bookmarks),
-              ),
-              BottomNavigationBarItem(
-                label: context.localizations.titleHistory,
-                icon: const Icon(Icons.history),
-              ),
-            ],
-            onTap: (page) => _currentScreen.value = page,
-          ),
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<int>(
+      valueListenable: _currentScreen,
+      builder: (context, currentScreen, child) => Scaffold(
+        body: screens[currentScreen],
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _currentScreen.value,
+          items: [
+            BottomNavigationBarItem(
+              label: context.localizations.titleHome,
+              icon: const Icon(Icons.home),
+            ),
+            BottomNavigationBarItem(
+              label: context.localizations.titleBookmarks,
+              icon: const Icon(Icons.bookmarks),
+            ),
+            BottomNavigationBarItem(
+              label: context.localizations.titleHistory,
+              icon: const Icon(Icons.history),
+            ),
+          ],
+          onTap: (page) => _currentScreen.value = page,
         ),
-      );
+      ),
+    );
+  }
 }
 
 class NavigationPage {

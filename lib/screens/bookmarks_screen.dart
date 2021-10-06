@@ -29,7 +29,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
       title: context.localizations.titleBookmarks,
       actions: [
         IconButton(
-          icon: Icon(Icons.delete),
+          icon: const Icon(Icons.delete),
           onPressed: () async => await showDialog(
             context: context,
             builder: (context) => AlertDialog(

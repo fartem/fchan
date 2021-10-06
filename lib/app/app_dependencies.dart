@@ -13,15 +13,17 @@ class AppDependencies extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => MultiRepositoryProvider(
-        providers: [
-          RepositoryProvider<DataRepository>(
-            create: (context) => DataRepository(
-              localDataProvider: LocalDataProviderImpl(),
-              remoteDataProvider: RemoteDataProviderImpl(),
-            ),
+  Widget build(BuildContext context) {
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<DataRepository>(
+          create: (context) => DataRepository(
+            localDataProvider: LocalDataProviderImpl(),
+            remoteDataProvider: RemoteDataProviderImpl(),
           ),
-        ],
-        child: child,
-      );
+        ),
+      ],
+      child: child,
+    );
+  }
 }
