@@ -1,80 +1,80 @@
+import 'package:fchan/components/routes/fchan_routes.dart';
+import 'package:fchan/components/themes/fchan_themes.dart';
+import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/entities/board.dart';
+import 'package:fchan/entities/thread.dart';
+import 'package:fchan/extensions/build_context_extensions.dart';
+import 'package:fchan/screens/board_screen.dart';
+import 'package:fchan/screens/bookmarks_screen.dart';
+import 'package:fchan/screens/explore_boards_screen.dart';
+import 'package:fchan/screens/favorite_boards_screen.dart';
+import 'package:fchan/screens/history_screen.dart';
+import 'package:fchan/screens/splash_screen.dart';
+import 'package:fchan/screens/thread_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-import '../components/routes/fchan_routes.dart';
-import '../components/themes/fchan_themes.dart';
-import '../data/repositories/data_repository.dart';
-import '../entities/board.dart';
-import '../entities/thread.dart';
-import '../extensions/build_context_extensions.dart';
-import '../screens/board_screen.dart';
-import '../screens/bookmarks_screen.dart';
-import '../screens/explore_boards_screen.dart';
-import '../screens/favorite_boards_screen.dart';
-import '../screens/history_screen.dart';
-import '../screens/splash_screen.dart';
-import '../screens/thread_screen.dart';
-
 class FChanApp extends StatefulWidget {
+  const FChanApp({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => FChanAppState();
 }
 
 class FChanAppState extends State<FChanApp> {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      onGenerateRoute: (settings) {
-        switch (settings.name) {
-          case routeInit:
-            return MaterialPageRoute(
-              builder: (context) => SplashScreen(),
-            );
-          case routeHome:
-            return MaterialPageRoute(
-              builder: (context) => FChan(),
-            );
-          case routeExploreBoards:
-            return MaterialPageRoute(
-              builder: (context) => ExploreBoardsScreen(),
-            );
-          case routeBoard:
-            return MaterialPageRoute(
-              builder: (context) => BoardScreen(
-                board: settings.arguments as Board,
-              ),
-            );
-          case routeThread:
-            return MaterialPageRoute(
-              builder: (context) => ThreadScreen(
-                thread: settings.arguments as Thread,
-              ),
-            );
-          default:
-            return null;
-        }
-      },
-      initialRoute: routeInit,
-      title: 'FChan',
-      theme: themeLight,
-      darkTheme: themeDark,
-      themeMode: ThemeMode.system,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case routeInit:
+              return MaterialPageRoute(
+                builder: (context) => SplashScreen(),
+              );
+            case routeHome:
+              return MaterialPageRoute(
+                builder: (context) => const FChan(),
+              );
+            case routeExploreBoards:
+              return MaterialPageRoute(
+                builder: (context) => ExploreBoardsScreen(),
+              );
+            case routeBoard:
+              return MaterialPageRoute(
+                builder: (context) => BoardScreen(
+                  board: settings.arguments as Board,
+                ),
+              );
+            case routeThread:
+              return MaterialPageRoute(
+                builder: (context) => ThreadScreen(
+                  thread: settings.arguments as Thread,
+                ),
+              );
+            default:
+              return null;
+          }
+        },
+        initialRoute: routeInit,
+        title: 'FChan',
+        theme: themeLight,
+        darkTheme: themeDark,
+        themeMode: ThemeMode.system,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+      );
 
   @override
   void dispose() {
-    final fChanRepository = context.read<DataRepository>();
-    fChanRepository.dispose();
+    context.read<DataRepository>().dispose();
     super.dispose();
   }
 }
 
 class FChan extends StatefulWidget {
+  const FChan({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _FChanState();
 }
@@ -82,17 +82,15 @@ class FChan extends StatefulWidget {
 class _FChanState extends State<FChan> {
   final _currentScreen = ValueNotifier<int>(0);
   final screens = [
-    FavoritesScreen(),
-    BookmarksScreen(),
-    HistoryScreen(),
+    const FavoritesScreen(),
+    const BookmarksScreen(),
+    const HistoryScreen(),
   ];
 
   @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder<int>(
-      valueListenable: _currentScreen,
-      builder: (context, currentScreen, child) {
-        return Scaffold(
+  Widget build(BuildContext context) => ValueListenableBuilder<int>(
+        valueListenable: _currentScreen,
+        builder: (context, currentScreen, child) => Scaffold(
           body: screens[currentScreen],
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
@@ -100,23 +98,21 @@ class _FChanState extends State<FChan> {
             items: [
               BottomNavigationBarItem(
                 label: context.localizations.titleHome,
-                icon: Icon(Icons.home),
+                icon: const Icon(Icons.home),
               ),
               BottomNavigationBarItem(
                 label: context.localizations.titleBookmarks,
-                icon: Icon(Icons.bookmarks),
+                icon: const Icon(Icons.bookmarks),
               ),
               BottomNavigationBarItem(
                 label: context.localizations.titleHistory,
-                icon: Icon(Icons.history),
+                icon: const Icon(Icons.history),
               ),
             ],
             onTap: (page) => _currentScreen.value = page,
           ),
-        );
-      },
-    );
-  }
+        ),
+      );
 }
 
 class NavigationPage {

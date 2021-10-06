@@ -12,6 +12,8 @@ import '../entities/board.dart';
 import '../extensions/build_context_extensions.dart';
 
 class FavoritesScreen extends StatefulWidget {
+  const FavoritesScreen({Key? key}) : super(key: key);
+
   @override
   State<FavoritesScreen> createState() => _FavoritesScreenState();
 }
@@ -50,11 +52,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 );
               }
               return ListView.builder(
-                itemBuilder: (context, index) =>
-                    _boardListItem(
-                      context,
-                      state.favorites[index],
-                    ),
+                itemBuilder: (context, index) => _boardListItem(
+                  context,
+                  state.favorites[index],
+                ),
                 itemCount: state.favorites.length,
               );
             } else {
@@ -67,15 +68,16 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   }
 
   // ignore: avoid-returning-widgets
-  Widget _boardListItem(BuildContext context,
-      Board board,) {
+  Widget _boardListItem(
+    BuildContext context,
+    Board board,
+  ) {
     return ListTile(
       title: Text(board.toString()),
-      onTap: () =>
-          Navigator.of(context).pushNamed(
-            routeBoard,
-            arguments: board,
-          ),
+      onTap: () => Navigator.of(context).pushNamed(
+        routeBoard,
+        arguments: board,
+      ),
     );
   }
 }

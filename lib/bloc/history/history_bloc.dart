@@ -9,6 +9,7 @@ import '../../data/repositories/data_repository.dart';
 import '../../entities/thread.dart';
 
 part 'history_event.dart';
+
 part 'history_state.dart';
 
 class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {

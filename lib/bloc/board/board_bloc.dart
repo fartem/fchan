@@ -1,15 +1,13 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-
-import '../../components/listcontroller/list_entity.dart';
-import '../../components/listcontroller/list_portion_controller.dart';
-import '../../data/repositories/data_repository.dart';
-import '../../entities/board.dart';
-import '../../entities/thread.dart';
-
-import 'board_event.dart';
-import 'board_state.dart';
+import 'package:fchan/bloc/board/board_event.dart';
+import 'package:fchan/bloc/board/board_state.dart';
+import 'package:fchan/components/listcontroller/list_entity.dart';
+import 'package:fchan/components/listcontroller/list_portion_controller.dart';
+import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/entities/board.dart';
+import 'package:fchan/entities/thread.dart';
 
 class BoardBloc extends Bloc<BoardEvent, BoardState> {
   final DataRepository dataRepository;
@@ -21,7 +19,7 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
   BoardBloc({
     required this.dataRepository,
     required Board board,
-  }) : super(Initial()) {
+  }) : super(const Initial()) {
     _listPortionController = ListPortionController<Thread>(
       portionProvider: (entityPage) => dataRepository.catalogForBoard(
         board,
@@ -50,11 +48,12 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
         threads: _listPortionController.items,
       );
     } on Exception {
-      yield ThreadsLoadError();
+      yield const ThreadsLoadError();
     }
   }
 
   Stream<BoardState> _mapBoardEventThreadPortionRequestToState() async* {
+    yield const NewPortionLoading();
     await _listPortionController.loadMore();
     yield ThreadsLoadSuccess(
       threads: _listPortionController.items,
@@ -63,15 +62,15 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
 
   Stream<BoardState> _mapBoardEventBoardRefreshedToState() async* {
     await _listPortionController.reset();
-    add(Initialized());
-    yield Initial();
+    add(const Initialized());
+    yield const Initial();
   }
 
   Future<void> addToHistory(Thread thread) async {
     if (!(await dataRepository.threadContainsInHistory(thread))) {
-      dataRepository.addThreadToHistory(thread);
+      await dataRepository.addThreadToHistory(thread);
     } else {
-      dataRepository.updateThreadInHistory(thread);
+      await dataRepository.updateThreadInHistory(thread);
     }
   }
 }

@@ -83,6 +83,34 @@ class _BoardScreenState extends State<BoardScreen> {
                   controller: _scrollController,
                 );
               },
+              newPortionLoading: () {
+                return StaggeredGridView.countBuilder(
+                  crossAxisCount: 4,
+                  staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+                  itemBuilder: (context, index) {
+                    final item = _boardBloc.threads[index];
+                    if (item is ListLoader) {
+                      return SizedBox(
+                        height: 172,
+                        child: const AppCenteredCircularProgressIndicator(),
+                      );
+                    }
+                    final thread = item.item as Thread;
+                    return AppThreadCard(
+                      key: ValueKey(thread.tim),
+                      thread: thread,
+                      tapNotifier: () => _boardBloc.addToHistory(thread),
+                      availableActions: [
+                        ThreadPopupMenuAction.openLink,
+                        ThreadPopupMenuAction.copyLink,
+                        ThreadPopupMenuAction.addToBookmarks,
+                      ],
+                    );
+                  },
+                  itemCount: _boardBloc.threads.length,
+                  controller: _scrollController,
+                );
+              },
               threadsLoadError: () => const AppCenteredCircularProgressIndicator(),
             );
           },

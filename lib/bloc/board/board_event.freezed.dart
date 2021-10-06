@@ -41,6 +41,7 @@ mixin _$BoardEvent {
     required TResult Function() boardRefreshed,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialized,
@@ -49,14 +50,15 @@ mixin _$BoardEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initialized value) initialized,
-    required TResult Function(ThreadPortionRequested value)
-        threadsPortionRequested,
+    required TResult Function(ThreadPortionRequested value) threadsPortionRequested,
     required TResult Function(BoardRefreshed value) boardRefreshed,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initialized value)? initialized,
@@ -69,9 +71,7 @@ mixin _$BoardEvent {
 
 /// @nodoc
 abstract class $BoardEventCopyWith<$Res> {
-  factory $BoardEventCopyWith(
-          BoardEvent value, $Res Function(BoardEvent) then) =
-      _$BoardEventCopyWithImpl<$Res>;
+  factory $BoardEventCopyWith(BoardEvent value, $Res Function(BoardEvent) then) = _$BoardEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
@@ -79,22 +79,19 @@ class _$BoardEventCopyWithImpl<$Res> implements $BoardEventCopyWith<$Res> {
   _$BoardEventCopyWithImpl(this._value, this._then);
 
   final BoardEvent _value;
+
   // ignore: unused_field
   final $Res Function(BoardEvent) _then;
 }
 
 /// @nodoc
 abstract class $InitializedCopyWith<$Res> {
-  factory $InitializedCopyWith(
-          Initialized value, $Res Function(Initialized) then) =
-      _$InitializedCopyWithImpl<$Res>;
+  factory $InitializedCopyWith(Initialized value, $Res Function(Initialized) then) = _$InitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$InitializedCopyWithImpl<$Res> extends _$BoardEventCopyWithImpl<$Res>
-    implements $InitializedCopyWith<$Res> {
-  _$InitializedCopyWithImpl(
-      Initialized _value, $Res Function(Initialized) _then)
+class _$InitializedCopyWithImpl<$Res> extends _$BoardEventCopyWithImpl<$Res> implements $InitializedCopyWith<$Res> {
+  _$InitializedCopyWithImpl(Initialized _value, $Res Function(Initialized) _then)
       : super(_value, (v) => _then(v as Initialized));
 
   @override
@@ -146,8 +143,7 @@ class _$Initialized extends Initialized {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initialized value) initialized,
-    required TResult Function(ThreadPortionRequested value)
-        threadsPortionRequested,
+    required TResult Function(ThreadPortionRequested value) threadsPortionRequested,
     required TResult Function(BoardRefreshed value) boardRefreshed,
   }) {
     return initialized(this);
@@ -170,22 +166,20 @@ class _$Initialized extends Initialized {
 
 abstract class Initialized extends BoardEvent {
   const factory Initialized() = _$Initialized;
+
   const Initialized._() : super._();
 }
 
 /// @nodoc
 abstract class $ThreadPortionRequestedCopyWith<$Res> {
-  factory $ThreadPortionRequestedCopyWith(ThreadPortionRequested value,
-          $Res Function(ThreadPortionRequested) then) =
+  factory $ThreadPortionRequestedCopyWith(ThreadPortionRequested value, $Res Function(ThreadPortionRequested) then) =
       _$ThreadPortionRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ThreadPortionRequestedCopyWithImpl<$Res>
-    extends _$BoardEventCopyWithImpl<$Res>
+class _$ThreadPortionRequestedCopyWithImpl<$Res> extends _$BoardEventCopyWithImpl<$Res>
     implements $ThreadPortionRequestedCopyWith<$Res> {
-  _$ThreadPortionRequestedCopyWithImpl(ThreadPortionRequested _value,
-      $Res Function(ThreadPortionRequested) _then)
+  _$ThreadPortionRequestedCopyWithImpl(ThreadPortionRequested _value, $Res Function(ThreadPortionRequested) _then)
       : super(_value, (v) => _then(v as ThreadPortionRequested));
 
   @override
@@ -237,8 +231,7 @@ class _$ThreadPortionRequested extends ThreadPortionRequested {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initialized value) initialized,
-    required TResult Function(ThreadPortionRequested value)
-        threadsPortionRequested,
+    required TResult Function(ThreadPortionRequested value) threadsPortionRequested,
     required TResult Function(BoardRefreshed value) boardRefreshed,
   }) {
     return threadsPortionRequested(this);
@@ -261,21 +254,20 @@ class _$ThreadPortionRequested extends ThreadPortionRequested {
 
 abstract class ThreadPortionRequested extends BoardEvent {
   const factory ThreadPortionRequested() = _$ThreadPortionRequested;
+
   const ThreadPortionRequested._() : super._();
 }
 
 /// @nodoc
 abstract class $BoardRefreshedCopyWith<$Res> {
-  factory $BoardRefreshedCopyWith(
-          BoardRefreshed value, $Res Function(BoardRefreshed) then) =
+  factory $BoardRefreshedCopyWith(BoardRefreshed value, $Res Function(BoardRefreshed) then) =
       _$BoardRefreshedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
 class _$BoardRefreshedCopyWithImpl<$Res> extends _$BoardEventCopyWithImpl<$Res>
     implements $BoardRefreshedCopyWith<$Res> {
-  _$BoardRefreshedCopyWithImpl(
-      BoardRefreshed _value, $Res Function(BoardRefreshed) _then)
+  _$BoardRefreshedCopyWithImpl(BoardRefreshed _value, $Res Function(BoardRefreshed) _then)
       : super(_value, (v) => _then(v as BoardRefreshed));
 
   @override
@@ -327,8 +319,7 @@ class _$BoardRefreshed extends BoardRefreshed {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initialized value) initialized,
-    required TResult Function(ThreadPortionRequested value)
-        threadsPortionRequested,
+    required TResult Function(ThreadPortionRequested value) threadsPortionRequested,
     required TResult Function(BoardRefreshed value) boardRefreshed,
   }) {
     return boardRefreshed(this);
@@ -351,5 +342,6 @@ class _$BoardRefreshed extends BoardRefreshed {
 
 abstract class BoardRefreshed extends BoardEvent {
   const factory BoardRefreshed() = _$BoardRefreshed;
+
   const BoardRefreshed._() : super._();
 }

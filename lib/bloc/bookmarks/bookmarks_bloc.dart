@@ -1,12 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:fchan/components/listcontroller/list_entity.dart';
+import 'package:fchan/components/listcontroller/list_portion_controller.dart';
+import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/entities/thread.dart';
 import 'package:meta/meta.dart';
-
-import '../../components/listcontroller/list_entity.dart';
-import '../../components/listcontroller/list_portion_controller.dart';
-import '../../data/repositories/data_repository.dart';
-import '../../entities/thread.dart';
 
 part 'bookmarks_event.dart';
 
@@ -69,7 +68,7 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
 
   Stream<BookmarksState> _mapBookmarksEventClearRequested() async* {
     yield BookmarksClearInProgress();
-    _listPortionController.reset();
+    await _listPortionController.reset();
     await dataRepository.localDataProvider.clearHistory();
     add(BookmarksEventInitialized());
   }
@@ -78,7 +77,7 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
     required BookmarksEventBookmarkRemoved event,
   }) async* {
     _listPortionController.items.remove(event.thread);
-    dataRepository.removeThreadFromBookmarks(event.thread);
+    await dataRepository.removeThreadFromBookmarks(event.thread);
     add(BookmarksEventUpdateRequested());
   }
 }

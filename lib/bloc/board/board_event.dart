@@ -7,6 +7,8 @@ abstract class BoardEvent with _$BoardEvent {
   const BoardEvent._();
 
   const factory BoardEvent.initialized() = Initialized;
+
   const factory BoardEvent.threadsPortionRequested() = ThreadPortionRequested;
+
   const factory BoardEvent.boardRefreshed() = BoardRefreshed;
 }

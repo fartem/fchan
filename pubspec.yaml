@@ -122,9 +122,10 @@ dev_dependencies:
   # See the following page: https://pub.dev/packages/test
   test: ^1.16.5
 
-  # Linter rules corresponding to the guidelines in Effective Dart.
-  # See the following page: https://pub.dev/packages/effective_dart
-  effective_dart: ^1.3.1
+  # Recommended lints for Flutter apps, packages,
+  # and plugins to encourage good coding practices.
+  # See the following page: https://pub.dev/packages/flutter_lints
+  flutter_lints: ^1.0.4
 
   # A plugin for Dart Analyzer to check enum.toString() using.
   # See the following page: https://pub.dev/packages/dart_enum_to_string_check
