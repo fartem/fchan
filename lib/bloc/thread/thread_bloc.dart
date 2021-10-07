@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/entities/post.dart';
+import 'package:fchan/entities/thread.dart';
 import 'package:meta/meta.dart';
-
-import '../../data/repositories/data_repository.dart';
-import '../../entities/post.dart';
-import '../../entities/thread.dart';
 
 part 'thread_event.dart';
 

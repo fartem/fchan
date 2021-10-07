@@ -31,7 +31,7 @@ class FChanAppState extends State<FChanApp> {
         switch (settings.name) {
           case routeInit:
             return MaterialPageRoute(
-              builder: (context) => SplashScreen(),
+              builder: (context) => const SplashScreen(),
             );
           case routeHome:
             return MaterialPageRoute(
@@ -39,7 +39,7 @@ class FChanAppState extends State<FChanApp> {
             );
           case routeExploreBoards:
             return MaterialPageRoute(
-              builder: (context) => ExploreBoardsScreen(),
+              builder: (context) => const ExploreBoardsScreen(),
             );
           case routeBoard:
             return MaterialPageRoute(

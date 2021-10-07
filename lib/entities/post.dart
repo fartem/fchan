@@ -1,6 +1,5 @@
+import 'package:fchan/entities/parsers.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'parsers.dart';
 
 part 'post.g.dart';
 
@@ -32,14 +31,14 @@ class Post {
   final int? thumbnailHeight;
 
   Post({
-    this.board,
     required this.no,
+    required this.time,
+    this.board,
     this.sub,
     this.com,
     this.replies,
     this.tim,
     this.ext,
-    required this.time,
     this.imageWidth,
     this.imageHeight,
     this.thumbnailWidth,

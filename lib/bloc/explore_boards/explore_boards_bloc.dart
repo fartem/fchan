@@ -1,10 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/entities/board.dart';
 import 'package:meta/meta.dart';
-
-import '../../data/repositories/data_repository.dart';
-import '../../entities/board.dart';
 
 part 'explore_boards_event.dart';
 

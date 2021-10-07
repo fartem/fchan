@@ -1,20 +1,19 @@
+import 'package:fchan/components/widgets/app_cached_network_image_with_loader.dart';
+import 'package:fchan/components/widgets/app_content_html_text.dart';
+import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/entities/post.dart';
+import 'package:fchan/extensions/build_context_extensions.dart';
+import 'package:fchan/extensions/duration_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../data/repositories/data_repository.dart';
-import '../../entities/post.dart';
-import '../../extensions/build_context_extensions.dart';
-import '../../extensions/duration_extensions.dart';
-import 'app_cached_network_image_with_loader.dart';
-import 'app_content_html_text.dart';
 
 class AppPostCard extends StatelessWidget {
   final Post post;
 
   const AppPostCard({
-    Key? key,
     required this.post,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -22,7 +21,7 @@ class AppPostCard extends StatelessWidget {
     final dataRepository = context.read<DataRepository>();
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: Column(
           children: [
             Row(

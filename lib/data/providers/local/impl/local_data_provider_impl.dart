@@ -1,11 +1,10 @@
+import 'package:fchan/data/providers/local/api/local_data_provider.dart';
+import 'package:fchan/data/providers/local/impl/adapters/duration_adapter.dart';
+import 'package:fchan/entities/board.dart';
+import 'package:fchan/entities/entity_page.dart';
+import 'package:fchan/entities/entity_portion.dart';
+import 'package:fchan/entities/thread.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
-import '../../../../entities/board.dart';
-import '../../../../entities/entity_page.dart';
-import '../../../../entities/entity_portion.dart';
-import '../../../../entities/thread.dart';
-import '../api/local_data_provider.dart';
-import 'adapters/duration_adapter.dart';
 
 class LocalDataProviderImpl extends LocalDataProvider {
   late Box<Board> _favorites;
@@ -15,9 +14,10 @@ class LocalDataProviderImpl extends LocalDataProvider {
   @override
   Future<LocalDataProvider> init() async {
     await Hive.initFlutter();
-    Hive.registerAdapter(BoardAdapter());
-    Hive.registerAdapter(ThreadAdapter());
-    Hive.registerAdapter(DurationAdapter());
+    Hive
+      ..registerAdapter(BoardAdapter())
+      ..registerAdapter(ThreadAdapter())
+      ..registerAdapter(DurationAdapter());
     _favorites = await Hive.openBox('favorites');
     _history = await Hive.openBox('history');
     _bookmarks = await Hive.openBox('bookmarks');
@@ -37,13 +37,13 @@ class LocalDataProviderImpl extends LocalDataProvider {
   @override
   Future<void> addBoardToFavorites(Board board) async {
     board.isFavorite = true;
-    _favorites.put(board.board, board);
+    await _favorites.put(board.board, board);
   }
 
   @override
   Future<void> removeBoardFromFavorites(Board board) async {
     board.isFavorite = false;
-    _favorites.delete(board.board);
+    await _favorites.delete(board.board);
   }
 
   @override
@@ -72,7 +72,7 @@ class LocalDataProviderImpl extends LocalDataProvider {
 
   @override
   Future<void> addThreadToHistory(Thread thread) async {
-    _history.put(
+    await _history.put(
       '${thread.board}/${thread.tim}',
       thread,
     );
@@ -81,8 +81,8 @@ class LocalDataProviderImpl extends LocalDataProvider {
   @override
   Future<void> updateThreadInHistory(Thread thread) async {
     final key = '${thread.board}/${thread.tim}';
-    _history.delete(key);
-    _history.put(key, thread);
+    await _history.delete(key);
+    await _history.put(key, thread);
   }
 
   @override

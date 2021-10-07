@@ -1,8 +1,8 @@
-import '../../../../entities/board.dart';
-import '../../../../entities/entity_page.dart';
-import '../../../../entities/entity_portion.dart';
-import '../../../../entities/post.dart';
-import '../../../../entities/thread.dart';
+import 'package:fchan/entities/board.dart';
+import 'package:fchan/entities/entity_page.dart';
+import 'package:fchan/entities/entity_portion.dart';
+import 'package:fchan/entities/post.dart';
+import 'package:fchan/entities/thread.dart';
 
 abstract class RemoteDataProvider {
   String baseUrlImage();

@@ -1,12 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:fchan/components/listcontroller/list_entity.dart';
+import 'package:fchan/components/listcontroller/list_portion_controller.dart';
+import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/entities/thread.dart';
 import 'package:meta/meta.dart';
-
-import '../../components/listcontroller/list_entity.dart';
-import '../../components/listcontroller/list_portion_controller.dart';
-import '../../data/repositories/data_repository.dart';
-import '../../entities/thread.dart';
 
 part 'history_event.dart';
 
@@ -59,13 +58,13 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
 
   Stream<HistoryState> _mapHistoryEventClearRequested() async* {
     yield HistoryClearInProgress();
-    _listPortionController.reset();
+    await _listPortionController.reset();
     await dataRepository.localDataProvider.clearHistory();
     add(HistoryEventInitialized());
   }
 
   Future<void> deleteFromHistory(Thread thread) async {
-    dataRepository.removeThreadFromHistory(thread);
+    await dataRepository.removeThreadFromHistory(thread);
     threads.remove(thread);
   }
 }

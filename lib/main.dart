@@ -1,10 +1,9 @@
+import 'package:fchan/app/app_dependencies.dart';
+import 'package:fchan/app/fchan_app.dart';
 import 'package:flutter/material.dart';
 
-import 'app/app_dependencies.dart';
-import 'app/fchan_app.dart';
-
 void main() => runApp(
-      AppDependencies(
+      const AppDependencies(
         child: FChanApp(),
       ),
     );

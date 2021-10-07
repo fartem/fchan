@@ -1,8 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fchan/components/cache/image_cache_manager.dart';
+import 'package:fchan/components/widgets/app_centered_circular_progress_indicator.dart';
 import 'package:flutter/material.dart';
-
-import '../cache/image_cache_manager.dart';
-import 'app_centered_circular_progress_indicator.dart';
 
 class AppCachedNetworkImageWithLoader extends StatelessWidget {
   final String url;
@@ -10,16 +9,16 @@ class AppCachedNetworkImageWithLoader extends StatelessWidget {
   final double height;
 
   const AppCachedNetworkImageWithLoader({
-    Key? key,
     required this.url,
     required this.width,
     required this.height,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(2.0),
+      padding: const EdgeInsets.all(2),
       child: CachedNetworkImage(
         imageUrl: url,
         width: width,
@@ -31,7 +30,7 @@ class AppCachedNetworkImageWithLoader extends StatelessWidget {
             ),
           );
         },
-        errorWidget: (_, __, ___) => Container(
+        errorWidget: (_, __, ___) => SizedBox(
           width: width,
           height: height,
           child: const AppCenteredCircularProgressIndicator(),

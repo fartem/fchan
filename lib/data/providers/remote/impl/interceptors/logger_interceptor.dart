@@ -19,9 +19,10 @@ class LoggerInterceptor implements Interceptor {
   ) {
     try {
       final headers = options.headers.entries.map((e) => '${e.key}: ${e.value}').join('\n');
-      logger.i('REQUEST -> ${options.method} ${options.uri}\n$headers');
-      logger.i(options.data ?? '');
-      logger.i('REQUEST END');
+      logger
+        ..i('REQUEST -> ${options.method} ${options.uri}\n$headers')
+        ..i(options.data ?? '')
+        ..i('REQUEST END');
     } catch (e) {
       logger.e(e);
     }
@@ -36,9 +37,10 @@ class LoggerInterceptor implements Interceptor {
     final base = response.requestOptions;
     final headers = base.headers.entries.map((e) => '${e.key}: ${e.value}').join('\n');
     final level = (response.statusCode ?? 0) >= 400 ? Level.error : Level.info;
-    logger.log(level, 'RESPONSE <- ${response.statusCode} ${base.method} ${base.uri}\n$headers');
-    logger.log(level, response.data ?? '');
-    logger.log(level, 'RESPONSE END');
+    logger
+      ..log(level, 'RESPONSE <- ${response.statusCode} ${base.method} ${base.uri}\n$headers')
+      ..log(level, response.data ?? '')
+      ..log(level, 'RESPONSE END');
     handler.next(response);
   }
 }
@@ -128,7 +130,7 @@ class _SimpleLogPrinter extends LogPrinter {
         if (match.group(2)!.startsWith('package:logger')) {
           continue;
         }
-        final newLine = ("${match.group(1)}");
+        final newLine = '${match.group(1)}';
         formatted.add(newLine.replaceAll('<anonymous closure>', '()'));
         if (++count == methodCount) {
           break;

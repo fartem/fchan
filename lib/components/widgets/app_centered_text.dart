@@ -4,9 +4,9 @@ class AppCenteredText extends StatelessWidget {
   final String text;
 
   const AppCenteredText({
-    Key? key,
     required this.text,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
-import '../../entities/entity_page.dart';
-import '../../entities/entity_portion.dart';
-import 'list_entity.dart';
+import 'package:fchan/components/listcontroller/list_entity.dart';
+import 'package:fchan/entities/entity_page.dart';
+import 'package:fchan/entities/entity_portion.dart';
 
 const _pageSize = 10;
 

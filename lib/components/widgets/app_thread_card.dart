@@ -19,8 +19,8 @@ class AppThreadCard extends StatelessWidget {
 
   const AppThreadCard({
     required this.thread,
-    this.tapNotifier,
     required this.availableActions,
+    this.tapNotifier,
     this.actionNotifier,
     Key? key,
   }) : super(key: key);

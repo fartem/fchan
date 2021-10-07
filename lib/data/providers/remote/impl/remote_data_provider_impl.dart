@@ -1,14 +1,13 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-
-import '../../../../entities/board.dart';
-import '../../../../entities/entity_page.dart';
-import '../../../../entities/entity_portion.dart';
-import '../../../../entities/post.dart';
-import '../../../../entities/thread.dart';
-import '../api/remote_data_provider.dart';
-import 'interceptors/logger_interceptor.dart';
+import 'package:fchan/data/providers/remote/api/remote_data_provider.dart';
+import 'package:fchan/data/providers/remote/impl/interceptors/logger_interceptor.dart';
+import 'package:fchan/entities/board.dart';
+import 'package:fchan/entities/entity_page.dart';
+import 'package:fchan/entities/entity_portion.dart';
+import 'package:fchan/entities/post.dart';
+import 'package:fchan/entities/thread.dart';
 
 const _baseUrl = 'https://a.4cdn.org';
 const _imageBaseUrl = 'https://i.4cdn.org';
@@ -29,13 +28,13 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
 
   @override
   Future<List<Board>> fetchBoards() async {
-    final url = '$_baseUrl/boards.json';
+    const url = '$_baseUrl/boards.json';
     final response = await _dio.get<Map<String, dynamic>>(url);
     if (response.statusCode == HttpStatus.ok) {
       final boards = response.data!['boards'].map((rawBoard) => Board.fromJson(rawBoard)).toList();
       return List<Board>.from(boards);
     } else {
-      throw HttpException(
+      throw const HttpException(
         'Cannot fetch boards from $url',
       );
     }

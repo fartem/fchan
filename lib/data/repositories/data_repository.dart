@@ -1,12 +1,11 @@
 import 'package:collection/collection.dart' show IterableExtension;
-
-import '../../entities/board.dart';
-import '../../entities/entity_page.dart';
-import '../../entities/entity_portion.dart';
-import '../../entities/post.dart';
-import '../../entities/thread.dart';
-import '../providers/local/api/local_data_provider.dart';
-import '../providers/remote/api/remote_data_provider.dart';
+import 'package:fchan/data/providers/local/api/local_data_provider.dart';
+import 'package:fchan/data/providers/remote/api/remote_data_provider.dart';
+import 'package:fchan/entities/board.dart';
+import 'package:fchan/entities/entity_page.dart';
+import 'package:fchan/entities/entity_portion.dart';
+import 'package:fchan/entities/post.dart';
+import 'package:fchan/entities/thread.dart';
 
 class DataRepository {
   final LocalDataProvider localDataProvider;
@@ -19,9 +18,9 @@ class DataRepository {
     required this.remoteDataProvider,
   });
 
-  Future<void> init() async => await localDataProvider.init();
+  Future<void> init() => localDataProvider.init();
 
-  Future<void> dispose() async => await localDataProvider.close();
+  Future<void> dispose() => localDataProvider.close();
 
   Future<List<Board>> boards() async {
     if (_boardsSessionCache.isEmpty) {

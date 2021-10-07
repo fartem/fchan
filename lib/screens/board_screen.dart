@@ -1,25 +1,24 @@
+import 'package:fchan/bloc/board/board_bloc.dart';
+import 'package:fchan/bloc/board/board_event.dart';
+import 'package:fchan/bloc/board/board_state.dart';
+import 'package:fchan/components/listcontroller/list_entity.dart';
+import 'package:fchan/components/widgets/app_centered_circular_progress_indicator.dart';
+import 'package:fchan/components/widgets/app_centered_text.dart';
+import 'package:fchan/components/widgets/app_thread_card.dart';
+import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/entities/board.dart';
+import 'package:fchan/entities/thread.dart';
+import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-
-import '../bloc/board/board_bloc.dart';
-import '../bloc/board/board_event.dart';
-import '../bloc/board/board_state.dart';
-import '../components/listcontroller/list_entity.dart';
-import '../components/widgets/app_centered_circular_progress_indicator.dart';
-import '../components/widgets/app_centered_text.dart';
-import '../components/widgets/app_thread_card.dart';
-import '../data/repositories/data_repository.dart';
-import '../entities/board.dart';
-import '../entities/thread.dart';
-import '../extensions/build_context_extensions.dart';
 
 class BoardScreen extends StatefulWidget {
   final Board board;
 
   const BoardScreen({
-    Key? key,
     required this.board,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -36,14 +35,14 @@ class _BoardScreenState extends State<BoardScreen> {
       create: (context) => BoardBloc(
         dataRepository: context.read<DataRepository>(),
         board: widget.board,
-      )..add(Initialized()),
+      )..add(const Initialized()),
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.board.toString()),
         ),
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.refresh),
-          onPressed: () => _boardBloc.add(BoardRefreshed()),
+          child: const Icon(Icons.refresh),
+          onPressed: () => _boardBloc.add(const BoardRefreshed()),
         ),
         body: BlocBuilder<BoardBloc, BoardState>(
           builder: (context, state) {
@@ -58,13 +57,13 @@ class _BoardScreenState extends State<BoardScreen> {
                 }
                 return StaggeredGridView.countBuilder(
                   crossAxisCount: 4,
-                  staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+                  staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
                   itemBuilder: (context, index) {
                     final item = _boardBloc.threads[index];
                     if (item is ListLoader) {
-                      return SizedBox(
+                      return const SizedBox(
                         height: 172,
-                        child: const AppCenteredCircularProgressIndicator(),
+                        child: AppCenteredCircularProgressIndicator(),
                       );
                     }
                     final thread = item.item as Thread;
@@ -72,7 +71,7 @@ class _BoardScreenState extends State<BoardScreen> {
                       key: ValueKey(thread.tim),
                       thread: thread,
                       tapNotifier: () => _boardBloc.addToHistory(thread),
-                      availableActions: [
+                      availableActions: const [
                         ThreadPopupMenuAction.openLink,
                         ThreadPopupMenuAction.copyLink,
                         ThreadPopupMenuAction.addToBookmarks,
@@ -86,13 +85,13 @@ class _BoardScreenState extends State<BoardScreen> {
               newPortionLoading: () {
                 return StaggeredGridView.countBuilder(
                   crossAxisCount: 4,
-                  staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+                  staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
                   itemBuilder: (context, index) {
                     final item = _boardBloc.threads[index];
                     if (item is ListLoader) {
-                      return SizedBox(
+                      return const SizedBox(
                         height: 172,
-                        child: const AppCenteredCircularProgressIndicator(),
+                        child: AppCenteredCircularProgressIndicator(),
                       );
                     }
                     final thread = item.item as Thread;
@@ -100,7 +99,7 @@ class _BoardScreenState extends State<BoardScreen> {
                       key: ValueKey(thread.tim),
                       thread: thread,
                       tapNotifier: () => _boardBloc.addToHistory(thread),
-                      availableActions: [
+                      availableActions: const [
                         ThreadPopupMenuAction.openLink,
                         ThreadPopupMenuAction.copyLink,
                         ThreadPopupMenuAction.addToBookmarks,
@@ -124,7 +123,7 @@ class _BoardScreenState extends State<BoardScreen> {
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
-        _boardBloc.add(ThreadPortionRequested());
+        _boardBloc.add(const ThreadPortionRequested());
       }
     });
   }

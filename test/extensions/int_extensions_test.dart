@@ -8,7 +8,7 @@ void main() {
       test(
         'Check dateTimeFromUnixTimestamp()',
         () {
-          // TODO: fix test on CI
+          // TODO(fartem): fix test on CI
           // DateTime result = DateTime.parse('2019-01-01T01:05:48.000');
           // DateTime dateTime = 1546293948.dateTimeFromUnixTimestamp();
           // expect(

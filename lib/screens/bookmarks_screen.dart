@@ -1,16 +1,15 @@
+import 'package:fchan/bloc/bookmarks/bookmarks_bloc.dart';
+import 'package:fchan/components/listcontroller/list_entity.dart';
+import 'package:fchan/components/widgets/app_centered_circular_progress_indicator.dart';
+import 'package:fchan/components/widgets/app_centered_text.dart';
+import 'package:fchan/components/widgets/app_screen_frame.dart';
+import 'package:fchan/components/widgets/app_thread_card.dart';
+import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/entities/thread.dart';
+import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-
-import '../bloc/bookmarks/bookmarks_bloc.dart';
-import '../components/listcontroller/list_entity.dart';
-import '../components/widgets/app_centered_circular_progress_indicator.dart';
-import '../components/widgets/app_centered_text.dart';
-import '../components/widgets/app_screen_frame.dart';
-import '../components/widgets/app_thread_card.dart';
-import '../data/repositories/data_repository.dart';
-import '../entities/thread.dart';
-import '../extensions/build_context_extensions.dart';
 
 class BookmarksScreen extends StatefulWidget {
   const BookmarksScreen({Key? key}) : super(key: key);
@@ -30,7 +29,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
       actions: [
         IconButton(
           icon: const Icon(Icons.delete),
-          onPressed: () async => await showDialog(
+          onPressed: () => showDialog(
             context: context,
             builder: (context) => AlertDialog(
               content: Text(
@@ -72,7 +71,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
               }
               return StaggeredGridView.countBuilder(
                 crossAxisCount: 4,
-                staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+                staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
                 itemBuilder: (context, index) {
                   final item = _bookmarksBloc.threads[index];
                   if (item == listLoader) {
@@ -82,7 +81,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                   return AppThreadCard(
                     key: ValueKey(thread.tim),
                     thread: thread,
-                    availableActions: [
+                    availableActions: const [
                       ThreadPopupMenuAction.openLink,
                       ThreadPopupMenuAction.copyLink,
                       ThreadPopupMenuAction.removeFromBookmarks,

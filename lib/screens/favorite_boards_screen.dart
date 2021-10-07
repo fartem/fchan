@@ -1,15 +1,13 @@
+import 'package:fchan/bloc/favorite_boards/favorites_bloc.dart';
+import 'package:fchan/components/routes/fchan_routes.dart';
+import 'package:fchan/components/widgets/app_centered_circular_progress_indicator.dart';
+import 'package:fchan/components/widgets/app_centered_text.dart';
+import 'package:fchan/components/widgets/app_screen_frame.dart';
+import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../bloc/favorite_boards/favorites_bloc.dart';
-import '../components/routes/fchan_routes.dart';
-import '../components/widgets/app_centered_circular_progress_indicator.dart';
-import '../components/widgets/app_centered_text.dart';
-import '../components/widgets/app_screen_frame.dart';
-import '../data/repositories/data_repository.dart';
-import '../entities/board.dart';
-import '../extensions/build_context_extensions.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({Key? key}) : super(key: key);
@@ -27,7 +25,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       title: context.localizations.titleHome,
       actions: [
         IconButton(
-          icon: Icon(Icons.edit),
+          icon: const Icon(Icons.edit),
           onPressed: () async {
             await context.push(
               route: routeExploreBoards,
@@ -52,10 +50,16 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 );
               }
               return ListView.builder(
-                itemBuilder: (context, index) => _boardListItem(
-                  context,
-                  state.favorites[index],
-                ),
+                itemBuilder: (context, index) {
+                  final board = state.favorites[index];
+                  return ListTile(
+                    title: Text(board.toString()),
+                    onTap: () => Navigator.of(context).pushNamed(
+                      routeBoard,
+                      arguments: board,
+                    ),
+                  );
+                },
                 itemCount: state.favorites.length,
               );
             } else {
@@ -63,20 +67,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             }
           },
         ),
-      ),
-    );
-  }
-
-  // ignore: avoid-returning-widgets
-  Widget _boardListItem(
-    BuildContext context,
-    Board board,
-  ) {
-    return ListTile(
-      title: Text(board.toString()),
-      onTap: () => Navigator.of(context).pushNamed(
-        routeBoard,
-        arguments: board,
       ),
     );
   }
