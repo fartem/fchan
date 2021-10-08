@@ -1,5 +1,5 @@
-class ListEntity {
-  final item;
+class ListEntity<T> {
+  final T item;
 
   const ListEntity(this.item);
 
