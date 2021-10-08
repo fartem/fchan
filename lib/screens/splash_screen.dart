@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     final fChanRepository = context.read<DataRepository>();
-    Future.microtask(() => fChanRepository.init()).then((fChanDatabase) {
+    Future.microtask(fChanRepository.init).then((fChanDatabase) {
       context.pushReplace(
         route: routeHome,
       );

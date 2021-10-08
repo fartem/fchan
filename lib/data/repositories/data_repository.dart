@@ -27,7 +27,7 @@ class DataRepository {
       final favoriteBoards = await favorites();
       final result = <Board>[];
       final boards = await remoteDataProvider.fetchBoards();
-      boards.forEach((board) {
+      for (final board in boards) {
         final favorite = favoriteBoards.firstWhereOrNull(
           (favorite) => favorite == board,
         );
@@ -36,7 +36,7 @@ class DataRepository {
         } else {
           result.add(board);
         }
-      });
+      }
       _boardsSessionCache.addAll(result);
     }
     return _boardsSessionCache;

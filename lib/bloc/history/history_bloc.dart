@@ -21,7 +21,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   HistoryBloc({required this.dataRepository}) : super(HistoryInitial()) {
     add(HistoryEventInitialized());
     _listPortionController = ListPortionController<Thread>(
-      portionProvider: (entityPage) => dataRepository.history(entityPage),
+      portionProvider: dataRepository.history,
     );
   }
 

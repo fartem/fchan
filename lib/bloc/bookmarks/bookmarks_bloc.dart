@@ -21,7 +21,7 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
   BookmarksBloc({required this.dataRepository}) : super(BookmarksInitial()) {
     add(BookmarksEventInitialized());
     _listPortionController = ListPortionController<Thread>(
-      portionProvider: (entityPage) => dataRepository.bookmarks(entityPage),
+      portionProvider: dataRepository.bookmarks,
     );
   }
 
