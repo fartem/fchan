@@ -16,7 +16,7 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
   BoardBloc({
     required this.dataRepository,
     required Board board,
-  }) : super(const Initial()) {
+  }) : super(const BoardInitial()) {
     _listPortionController = ListPortionController<Thread>(
       portionProvider: (entityPage) => dataRepository.catalogForBoard(
         board,
@@ -30,8 +30,8 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
     BoardEvent event,
   ) async* {
     yield* event.when(
-      initialized: _mapBoardEventInitializedToState,
-      threadsPortionRequested: _mapBoardEventThreadPortionRequestToState,
+      boardInitialized: _mapBoardEventInitializedToState,
+      boardPortionRequested: _mapBoardEventThreadPortionRequestToState,
       boardRefreshed: _mapBoardEventBoardRefreshedToState,
     );
   }
@@ -39,18 +39,22 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
   Stream<BoardState> _mapBoardEventInitializedToState() async* {
     try {
       await _listPortionController.loadMore();
-      yield ThreadsLoadSuccess(
-        threads: List.unmodifiable(_listPortionController.items),
-        isLastPage: _listPortionController.isLastPage,
-      );
+      if (_listPortionController.items.isNotEmpty) {
+        yield BoardLoadSuccess(
+          threads: List.unmodifiable(_listPortionController.items),
+          isLastPage: _listPortionController.isLastPage,
+        );
+      } else {
+        yield const BoardIsEmpty();
+      }
     } on Exception {
-      yield const ThreadsLoadError();
+      yield const BoardLoadError();
     }
   }
 
   Stream<BoardState> _mapBoardEventThreadPortionRequestToState() async* {
     await _listPortionController.loadMore();
-    yield ThreadsLoadSuccess(
+    yield BoardLoadSuccess(
       threads: List.unmodifiable(_listPortionController.items),
       isLastPage: _listPortionController.isLastPage,
     );
@@ -58,8 +62,8 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
 
   Stream<BoardState> _mapBoardEventBoardRefreshedToState() async* {
     await _listPortionController.reset();
-    add(const Initialized());
-    yield const Initial();
+    add(const BoardInitialized());
+    yield const BoardInitial();
   }
 
   Future<void> addToHistory(Thread thread) async {

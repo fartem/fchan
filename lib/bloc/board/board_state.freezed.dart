@@ -16,20 +16,24 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$BoardStateTearOff {
   const _$BoardStateTearOff();
 
-  Initial initial() {
-    return const Initial();
+  BoardInitial boardInitial() {
+    return const BoardInitial();
   }
 
-  ThreadsLoadSuccess threadsLoadSuccess(
+  BoardLoadSuccess boardLoadSuccess(
       {required List<Thread> threads, required bool isLastPage}) {
-    return ThreadsLoadSuccess(
+    return BoardLoadSuccess(
       threads: threads,
       isLastPage: isLastPage,
     );
   }
 
-  ThreadsLoadError threadsLoadError() {
-    return const ThreadsLoadError();
+  BoardLoadError boardLoadError() {
+    return const BoardLoadError();
+  }
+
+  BoardIsEmpty boardIsEmpty() {
+    return const BoardIsEmpty();
   }
 }
 
@@ -40,32 +44,36 @@ const $BoardState = _$BoardStateTearOff();
 mixin _$BoardState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
+    required TResult Function() boardInitial,
     required TResult Function(List<Thread> threads, bool isLastPage)
-        threadsLoadSuccess,
-    required TResult Function() threadsLoadError,
+        boardLoadSuccess,
+    required TResult Function() boardLoadError,
+    required TResult Function() boardIsEmpty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(List<Thread> threads, bool isLastPage)? threadsLoadSuccess,
-    TResult Function()? threadsLoadError,
+    TResult Function()? boardInitial,
+    TResult Function(List<Thread> threads, bool isLastPage)? boardLoadSuccess,
+    TResult Function()? boardLoadError,
+    TResult Function()? boardIsEmpty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(ThreadsLoadSuccess value) threadsLoadSuccess,
-    required TResult Function(ThreadsLoadError value) threadsLoadError,
+    required TResult Function(BoardInitial value) boardInitial,
+    required TResult Function(BoardLoadSuccess value) boardLoadSuccess,
+    required TResult Function(BoardLoadError value) boardLoadError,
+    required TResult Function(BoardIsEmpty value) boardIsEmpty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(ThreadsLoadSuccess value)? threadsLoadSuccess,
-    TResult Function(ThreadsLoadError value)? threadsLoadError,
+    TResult Function(BoardInitial value)? boardInitial,
+    TResult Function(BoardLoadSuccess value)? boardLoadSuccess,
+    TResult Function(BoardLoadError value)? boardLoadError,
+    TResult Function(BoardIsEmpty value)? boardIsEmpty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -88,33 +96,35 @@ class _$BoardStateCopyWithImpl<$Res> implements $BoardStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $InitialCopyWith<$Res> {
-  factory $InitialCopyWith(Initial value, $Res Function(Initial) then) =
-      _$InitialCopyWithImpl<$Res>;
+abstract class $BoardInitialCopyWith<$Res> {
+  factory $BoardInitialCopyWith(
+          BoardInitial value, $Res Function(BoardInitial) then) =
+      _$BoardInitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$InitialCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
-    implements $InitialCopyWith<$Res> {
-  _$InitialCopyWithImpl(Initial _value, $Res Function(Initial) _then)
-      : super(_value, (v) => _then(v as Initial));
+class _$BoardInitialCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
+    implements $BoardInitialCopyWith<$Res> {
+  _$BoardInitialCopyWithImpl(
+      BoardInitial _value, $Res Function(BoardInitial) _then)
+      : super(_value, (v) => _then(v as BoardInitial));
 
   @override
-  Initial get _value => super._value as Initial;
+  BoardInitial get _value => super._value as BoardInitial;
 }
 
 /// @nodoc
-class _$Initial implements Initial {
-  const _$Initial();
+class _$BoardInitial implements BoardInitial {
+  const _$BoardInitial();
 
   @override
   String toString() {
-    return 'BoardState.initial()';
+    return 'BoardState.boardInitial()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Initial);
+    return identical(this, other) || (other is BoardInitial);
   }
 
   @override
@@ -123,24 +133,26 @@ class _$Initial implements Initial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
+    required TResult Function() boardInitial,
     required TResult Function(List<Thread> threads, bool isLastPage)
-        threadsLoadSuccess,
-    required TResult Function() threadsLoadError,
+        boardLoadSuccess,
+    required TResult Function() boardLoadError,
+    required TResult Function() boardIsEmpty,
   }) {
-    return initial();
+    return boardInitial();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(List<Thread> threads, bool isLastPage)? threadsLoadSuccess,
-    TResult Function()? threadsLoadError,
+    TResult Function()? boardInitial,
+    TResult Function(List<Thread> threads, bool isLastPage)? boardLoadSuccess,
+    TResult Function()? boardLoadError,
+    TResult Function()? boardIsEmpty,
     required TResult orElse(),
   }) {
-    if (initial != null) {
-      return initial();
+    if (boardInitial != null) {
+      return boardInitial();
     }
     return orElse();
   }
@@ -148,57 +160,59 @@ class _$Initial implements Initial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(ThreadsLoadSuccess value) threadsLoadSuccess,
-    required TResult Function(ThreadsLoadError value) threadsLoadError,
+    required TResult Function(BoardInitial value) boardInitial,
+    required TResult Function(BoardLoadSuccess value) boardLoadSuccess,
+    required TResult Function(BoardLoadError value) boardLoadError,
+    required TResult Function(BoardIsEmpty value) boardIsEmpty,
   }) {
-    return initial(this);
+    return boardInitial(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(ThreadsLoadSuccess value)? threadsLoadSuccess,
-    TResult Function(ThreadsLoadError value)? threadsLoadError,
+    TResult Function(BoardInitial value)? boardInitial,
+    TResult Function(BoardLoadSuccess value)? boardLoadSuccess,
+    TResult Function(BoardLoadError value)? boardLoadError,
+    TResult Function(BoardIsEmpty value)? boardIsEmpty,
     required TResult orElse(),
   }) {
-    if (initial != null) {
-      return initial(this);
+    if (boardInitial != null) {
+      return boardInitial(this);
     }
     return orElse();
   }
 }
 
-abstract class Initial implements BoardState {
-  const factory Initial() = _$Initial;
+abstract class BoardInitial implements BoardState {
+  const factory BoardInitial() = _$BoardInitial;
 }
 
 /// @nodoc
-abstract class $ThreadsLoadSuccessCopyWith<$Res> {
-  factory $ThreadsLoadSuccessCopyWith(
-          ThreadsLoadSuccess value, $Res Function(ThreadsLoadSuccess) then) =
-      _$ThreadsLoadSuccessCopyWithImpl<$Res>;
+abstract class $BoardLoadSuccessCopyWith<$Res> {
+  factory $BoardLoadSuccessCopyWith(
+          BoardLoadSuccess value, $Res Function(BoardLoadSuccess) then) =
+      _$BoardLoadSuccessCopyWithImpl<$Res>;
   $Res call({List<Thread> threads, bool isLastPage});
 }
 
 /// @nodoc
-class _$ThreadsLoadSuccessCopyWithImpl<$Res>
+class _$BoardLoadSuccessCopyWithImpl<$Res>
     extends _$BoardStateCopyWithImpl<$Res>
-    implements $ThreadsLoadSuccessCopyWith<$Res> {
-  _$ThreadsLoadSuccessCopyWithImpl(
-      ThreadsLoadSuccess _value, $Res Function(ThreadsLoadSuccess) _then)
-      : super(_value, (v) => _then(v as ThreadsLoadSuccess));
+    implements $BoardLoadSuccessCopyWith<$Res> {
+  _$BoardLoadSuccessCopyWithImpl(
+      BoardLoadSuccess _value, $Res Function(BoardLoadSuccess) _then)
+      : super(_value, (v) => _then(v as BoardLoadSuccess));
 
   @override
-  ThreadsLoadSuccess get _value => super._value as ThreadsLoadSuccess;
+  BoardLoadSuccess get _value => super._value as BoardLoadSuccess;
 
   @override
   $Res call({
     Object? threads = freezed,
     Object? isLastPage = freezed,
   }) {
-    return _then(ThreadsLoadSuccess(
+    return _then(BoardLoadSuccess(
       threads: threads == freezed
           ? _value.threads
           : threads // ignore: cast_nullable_to_non_nullable
@@ -212,8 +226,8 @@ class _$ThreadsLoadSuccessCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$ThreadsLoadSuccess implements ThreadsLoadSuccess {
-  const _$ThreadsLoadSuccess({required this.threads, required this.isLastPage});
+class _$BoardLoadSuccess implements BoardLoadSuccess {
+  const _$BoardLoadSuccess({required this.threads, required this.isLastPage});
 
   @override
   final List<Thread> threads;
@@ -222,13 +236,13 @@ class _$ThreadsLoadSuccess implements ThreadsLoadSuccess {
 
   @override
   String toString() {
-    return 'BoardState.threadsLoadSuccess(threads: $threads, isLastPage: $isLastPage)';
+    return 'BoardState.boardLoadSuccess(threads: $threads, isLastPage: $isLastPage)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is ThreadsLoadSuccess &&
+        (other is BoardLoadSuccess &&
             (identical(other.threads, threads) ||
                 const DeepCollectionEquality()
                     .equals(other.threads, threads)) &&
@@ -245,30 +259,32 @@ class _$ThreadsLoadSuccess implements ThreadsLoadSuccess {
 
   @JsonKey(ignore: true)
   @override
-  $ThreadsLoadSuccessCopyWith<ThreadsLoadSuccess> get copyWith =>
-      _$ThreadsLoadSuccessCopyWithImpl<ThreadsLoadSuccess>(this, _$identity);
+  $BoardLoadSuccessCopyWith<BoardLoadSuccess> get copyWith =>
+      _$BoardLoadSuccessCopyWithImpl<BoardLoadSuccess>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
+    required TResult Function() boardInitial,
     required TResult Function(List<Thread> threads, bool isLastPage)
-        threadsLoadSuccess,
-    required TResult Function() threadsLoadError,
+        boardLoadSuccess,
+    required TResult Function() boardLoadError,
+    required TResult Function() boardIsEmpty,
   }) {
-    return threadsLoadSuccess(threads, isLastPage);
+    return boardLoadSuccess(threads, isLastPage);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(List<Thread> threads, bool isLastPage)? threadsLoadSuccess,
-    TResult Function()? threadsLoadError,
+    TResult Function()? boardInitial,
+    TResult Function(List<Thread> threads, bool isLastPage)? boardLoadSuccess,
+    TResult Function()? boardLoadError,
+    TResult Function()? boardIsEmpty,
     required TResult orElse(),
   }) {
-    if (threadsLoadSuccess != null) {
-      return threadsLoadSuccess(threads, isLastPage);
+    if (boardLoadSuccess != null) {
+      return boardLoadSuccess(threads, isLastPage);
     }
     return orElse();
   }
@@ -276,71 +292,72 @@ class _$ThreadsLoadSuccess implements ThreadsLoadSuccess {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(ThreadsLoadSuccess value) threadsLoadSuccess,
-    required TResult Function(ThreadsLoadError value) threadsLoadError,
+    required TResult Function(BoardInitial value) boardInitial,
+    required TResult Function(BoardLoadSuccess value) boardLoadSuccess,
+    required TResult Function(BoardLoadError value) boardLoadError,
+    required TResult Function(BoardIsEmpty value) boardIsEmpty,
   }) {
-    return threadsLoadSuccess(this);
+    return boardLoadSuccess(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(ThreadsLoadSuccess value)? threadsLoadSuccess,
-    TResult Function(ThreadsLoadError value)? threadsLoadError,
+    TResult Function(BoardInitial value)? boardInitial,
+    TResult Function(BoardLoadSuccess value)? boardLoadSuccess,
+    TResult Function(BoardLoadError value)? boardLoadError,
+    TResult Function(BoardIsEmpty value)? boardIsEmpty,
     required TResult orElse(),
   }) {
-    if (threadsLoadSuccess != null) {
-      return threadsLoadSuccess(this);
+    if (boardLoadSuccess != null) {
+      return boardLoadSuccess(this);
     }
     return orElse();
   }
 }
 
-abstract class ThreadsLoadSuccess implements BoardState {
-  const factory ThreadsLoadSuccess(
+abstract class BoardLoadSuccess implements BoardState {
+  const factory BoardLoadSuccess(
       {required List<Thread> threads,
-      required bool isLastPage}) = _$ThreadsLoadSuccess;
+      required bool isLastPage}) = _$BoardLoadSuccess;
 
   List<Thread> get threads => throw _privateConstructorUsedError;
   bool get isLastPage => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ThreadsLoadSuccessCopyWith<ThreadsLoadSuccess> get copyWith =>
+  $BoardLoadSuccessCopyWith<BoardLoadSuccess> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ThreadsLoadErrorCopyWith<$Res> {
-  factory $ThreadsLoadErrorCopyWith(
-          ThreadsLoadError value, $Res Function(ThreadsLoadError) then) =
-      _$ThreadsLoadErrorCopyWithImpl<$Res>;
+abstract class $BoardLoadErrorCopyWith<$Res> {
+  factory $BoardLoadErrorCopyWith(
+          BoardLoadError value, $Res Function(BoardLoadError) then) =
+      _$BoardLoadErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ThreadsLoadErrorCopyWithImpl<$Res>
-    extends _$BoardStateCopyWithImpl<$Res>
-    implements $ThreadsLoadErrorCopyWith<$Res> {
-  _$ThreadsLoadErrorCopyWithImpl(
-      ThreadsLoadError _value, $Res Function(ThreadsLoadError) _then)
-      : super(_value, (v) => _then(v as ThreadsLoadError));
+class _$BoardLoadErrorCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
+    implements $BoardLoadErrorCopyWith<$Res> {
+  _$BoardLoadErrorCopyWithImpl(
+      BoardLoadError _value, $Res Function(BoardLoadError) _then)
+      : super(_value, (v) => _then(v as BoardLoadError));
 
   @override
-  ThreadsLoadError get _value => super._value as ThreadsLoadError;
+  BoardLoadError get _value => super._value as BoardLoadError;
 }
 
 /// @nodoc
-class _$ThreadsLoadError implements ThreadsLoadError {
-  const _$ThreadsLoadError();
+class _$BoardLoadError implements BoardLoadError {
+  const _$BoardLoadError();
 
   @override
   String toString() {
-    return 'BoardState.threadsLoadError()';
+    return 'BoardState.boardLoadError()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is ThreadsLoadError);
+    return identical(this, other) || (other is BoardLoadError);
   }
 
   @override
@@ -349,24 +366,26 @@ class _$ThreadsLoadError implements ThreadsLoadError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
+    required TResult Function() boardInitial,
     required TResult Function(List<Thread> threads, bool isLastPage)
-        threadsLoadSuccess,
-    required TResult Function() threadsLoadError,
+        boardLoadSuccess,
+    required TResult Function() boardLoadError,
+    required TResult Function() boardIsEmpty,
   }) {
-    return threadsLoadError();
+    return boardLoadError();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(List<Thread> threads, bool isLastPage)? threadsLoadSuccess,
-    TResult Function()? threadsLoadError,
+    TResult Function()? boardInitial,
+    TResult Function(List<Thread> threads, bool isLastPage)? boardLoadSuccess,
+    TResult Function()? boardLoadError,
+    TResult Function()? boardIsEmpty,
     required TResult orElse(),
   }) {
-    if (threadsLoadError != null) {
-      return threadsLoadError();
+    if (boardLoadError != null) {
+      return boardLoadError();
     }
     return orElse();
   }
@@ -374,28 +393,123 @@ class _$ThreadsLoadError implements ThreadsLoadError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(ThreadsLoadSuccess value) threadsLoadSuccess,
-    required TResult Function(ThreadsLoadError value) threadsLoadError,
+    required TResult Function(BoardInitial value) boardInitial,
+    required TResult Function(BoardLoadSuccess value) boardLoadSuccess,
+    required TResult Function(BoardLoadError value) boardLoadError,
+    required TResult Function(BoardIsEmpty value) boardIsEmpty,
   }) {
-    return threadsLoadError(this);
+    return boardLoadError(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(ThreadsLoadSuccess value)? threadsLoadSuccess,
-    TResult Function(ThreadsLoadError value)? threadsLoadError,
+    TResult Function(BoardInitial value)? boardInitial,
+    TResult Function(BoardLoadSuccess value)? boardLoadSuccess,
+    TResult Function(BoardLoadError value)? boardLoadError,
+    TResult Function(BoardIsEmpty value)? boardIsEmpty,
     required TResult orElse(),
   }) {
-    if (threadsLoadError != null) {
-      return threadsLoadError(this);
+    if (boardLoadError != null) {
+      return boardLoadError(this);
     }
     return orElse();
   }
 }
 
-abstract class ThreadsLoadError implements BoardState {
-  const factory ThreadsLoadError() = _$ThreadsLoadError;
+abstract class BoardLoadError implements BoardState {
+  const factory BoardLoadError() = _$BoardLoadError;
+}
+
+/// @nodoc
+abstract class $BoardIsEmptyCopyWith<$Res> {
+  factory $BoardIsEmptyCopyWith(
+          BoardIsEmpty value, $Res Function(BoardIsEmpty) then) =
+      _$BoardIsEmptyCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$BoardIsEmptyCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
+    implements $BoardIsEmptyCopyWith<$Res> {
+  _$BoardIsEmptyCopyWithImpl(
+      BoardIsEmpty _value, $Res Function(BoardIsEmpty) _then)
+      : super(_value, (v) => _then(v as BoardIsEmpty));
+
+  @override
+  BoardIsEmpty get _value => super._value as BoardIsEmpty;
+}
+
+/// @nodoc
+class _$BoardIsEmpty implements BoardIsEmpty {
+  const _$BoardIsEmpty();
+
+  @override
+  String toString() {
+    return 'BoardState.boardIsEmpty()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is BoardIsEmpty);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() boardInitial,
+    required TResult Function(List<Thread> threads, bool isLastPage)
+        boardLoadSuccess,
+    required TResult Function() boardLoadError,
+    required TResult Function() boardIsEmpty,
+  }) {
+    return boardIsEmpty();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? boardInitial,
+    TResult Function(List<Thread> threads, bool isLastPage)? boardLoadSuccess,
+    TResult Function()? boardLoadError,
+    TResult Function()? boardIsEmpty,
+    required TResult orElse(),
+  }) {
+    if (boardIsEmpty != null) {
+      return boardIsEmpty();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(BoardInitial value) boardInitial,
+    required TResult Function(BoardLoadSuccess value) boardLoadSuccess,
+    required TResult Function(BoardLoadError value) boardLoadError,
+    required TResult Function(BoardIsEmpty value) boardIsEmpty,
+  }) {
+    return boardIsEmpty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(BoardInitial value)? boardInitial,
+    TResult Function(BoardLoadSuccess value)? boardLoadSuccess,
+    TResult Function(BoardLoadError value)? boardLoadError,
+    TResult Function(BoardIsEmpty value)? boardIsEmpty,
+    required TResult orElse(),
+  }) {
+    if (boardIsEmpty != null) {
+      return boardIsEmpty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class BoardIsEmpty implements BoardState {
+  const factory BoardIsEmpty() = _$BoardIsEmpty;
 }

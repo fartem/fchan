@@ -34,7 +34,7 @@ class _BoardScreenState extends State<BoardScreen> {
       create: (context) => BoardBloc(
         dataRepository: context.read<DataRepository>(),
         board: widget.board,
-      )..add(const Initialized()),
+      )..add(const BoardInitialized()),
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.board.toString()),
@@ -47,8 +47,8 @@ class _BoardScreenState extends State<BoardScreen> {
           builder: (context, state) {
             _boardBloc = context.read<BoardBloc>();
             return state.when(
-              initial: () => const AppCenteredCircularProgressIndicator(),
-              threadsLoadSuccess: (threads, isLastPage) {
+              boardInitial: () => const AppCenteredCircularProgressIndicator(),
+              boardLoadSuccess: (threads, isLastPage) {
                 if (threads.isEmpty) {
                   return AppCenteredText(
                     text: context.localizations.messageBoardIsEmpty,
@@ -77,7 +77,10 @@ class _BoardScreenState extends State<BoardScreen> {
                   controller: _scrollController,
                 );
               },
-              threadsLoadError: () => const AppCenteredCircularProgressIndicator(),
+              boardLoadError: () => const AppCenteredCircularProgressIndicator(),
+              boardIsEmpty: () => AppCenteredText(
+                text: context.localizations.messageBoardIsEmpty,
+              ),
             );
           },
         ),
@@ -90,7 +93,7 @@ class _BoardScreenState extends State<BoardScreen> {
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
-        _boardBloc.add(const ThreadPortionRequested());
+        _boardBloc.add(const BoardPortionRequested());
       }
     });
   }

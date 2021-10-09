@@ -6,9 +6,9 @@ part 'board_event.freezed.dart';
 abstract class BoardEvent with _$BoardEvent {
   const BoardEvent._();
 
-  const factory BoardEvent.initialized() = Initialized;
+  const factory BoardEvent.boardInitialized() = BoardInitialized;
 
-  const factory BoardEvent.threadsPortionRequested() = ThreadPortionRequested;
+  const factory BoardEvent.boardPortionRequested() = BoardPortionRequested;
 
   const factory BoardEvent.boardRefreshed() = BoardRefreshed;
 }

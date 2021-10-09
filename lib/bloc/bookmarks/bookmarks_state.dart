@@ -1,16 +1,20 @@
-part of 'bookmarks_bloc.dart';
+import 'package:fchan/entities/thread.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class BookmarksState {}
+part 'bookmarks_state.freezed.dart';
 
-class BookmarksInitial extends BookmarksState {}
+@freezed
+abstract class BookmarksState with _$BookmarksState {
+  const factory BookmarksState.bookmarksInitial() = BookmarksInitial;
 
-class BookmarksLoadSuccess extends BookmarksState {
-  final List<Thread> bookmarks;
+  const factory BookmarksState.bookmarksLoadSuccess({
+    required List<Thread> threads,
+    required bool isLastPage,
+}) = BookmarksLoadSuccess;
 
-  BookmarksLoadSuccess({required this.bookmarks});
+  const factory BookmarksState.bookmarksLoadError() = BookmarksLoadError;
+
+  const factory BookmarksState.bookmarksClearInProgress() = BookmarksClearInProgress;
+
+  const factory BookmarksState.bookmarksIsEmpty() = BookmarksIsEmpty;
 }
-
-class BookmarksLoadError extends BookmarksState {}
-
-class BookmarksClearInProgress extends BookmarksState {}

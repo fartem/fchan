@@ -16,12 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$BoardEventTearOff {
   const _$BoardEventTearOff();
 
-  Initialized initialized() {
-    return const Initialized();
+  BoardInitialized boardInitialized() {
+    return const BoardInitialized();
   }
 
-  ThreadPortionRequested threadsPortionRequested() {
-    return const ThreadPortionRequested();
+  BoardPortionRequested boardPortionRequested() {
+    return const BoardPortionRequested();
   }
 
   BoardRefreshed boardRefreshed() {
@@ -36,31 +36,31 @@ const $BoardEvent = _$BoardEventTearOff();
 mixin _$BoardEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initialized,
-    required TResult Function() threadsPortionRequested,
+    required TResult Function() boardInitialized,
+    required TResult Function() boardPortionRequested,
     required TResult Function() boardRefreshed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initialized,
-    TResult Function()? threadsPortionRequested,
+    TResult Function()? boardInitialized,
+    TResult Function()? boardPortionRequested,
     TResult Function()? boardRefreshed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initialized value) initialized,
-    required TResult Function(ThreadPortionRequested value)
-        threadsPortionRequested,
+    required TResult Function(BoardInitialized value) boardInitialized,
+    required TResult Function(BoardPortionRequested value)
+        boardPortionRequested,
     required TResult Function(BoardRefreshed value) boardRefreshed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initialized value)? initialized,
-    TResult Function(ThreadPortionRequested value)? threadsPortionRequested,
+    TResult Function(BoardInitialized value)? boardInitialized,
+    TResult Function(BoardPortionRequested value)? boardPortionRequested,
     TResult Function(BoardRefreshed value)? boardRefreshed,
     required TResult orElse(),
   }) =>
@@ -84,126 +84,36 @@ class _$BoardEventCopyWithImpl<$Res> implements $BoardEventCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $InitializedCopyWith<$Res> {
-  factory $InitializedCopyWith(
-          Initialized value, $Res Function(Initialized) then) =
-      _$InitializedCopyWithImpl<$Res>;
+abstract class $BoardInitializedCopyWith<$Res> {
+  factory $BoardInitializedCopyWith(
+          BoardInitialized value, $Res Function(BoardInitialized) then) =
+      _$BoardInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$InitializedCopyWithImpl<$Res> extends _$BoardEventCopyWithImpl<$Res>
-    implements $InitializedCopyWith<$Res> {
-  _$InitializedCopyWithImpl(
-      Initialized _value, $Res Function(Initialized) _then)
-      : super(_value, (v) => _then(v as Initialized));
-
-  @override
-  Initialized get _value => super._value as Initialized;
-}
-
-/// @nodoc
-class _$Initialized extends Initialized {
-  const _$Initialized() : super._();
-
-  @override
-  String toString() {
-    return 'BoardEvent.initialized()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Initialized);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initialized,
-    required TResult Function() threadsPortionRequested,
-    required TResult Function() boardRefreshed,
-  }) {
-    return initialized();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initialized,
-    TResult Function()? threadsPortionRequested,
-    TResult Function()? boardRefreshed,
-    required TResult orElse(),
-  }) {
-    if (initialized != null) {
-      return initialized();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Initialized value) initialized,
-    required TResult Function(ThreadPortionRequested value)
-        threadsPortionRequested,
-    required TResult Function(BoardRefreshed value) boardRefreshed,
-  }) {
-    return initialized(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initialized value)? initialized,
-    TResult Function(ThreadPortionRequested value)? threadsPortionRequested,
-    TResult Function(BoardRefreshed value)? boardRefreshed,
-    required TResult orElse(),
-  }) {
-    if (initialized != null) {
-      return initialized(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class Initialized extends BoardEvent {
-  const factory Initialized() = _$Initialized;
-  const Initialized._() : super._();
-}
-
-/// @nodoc
-abstract class $ThreadPortionRequestedCopyWith<$Res> {
-  factory $ThreadPortionRequestedCopyWith(ThreadPortionRequested value,
-          $Res Function(ThreadPortionRequested) then) =
-      _$ThreadPortionRequestedCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class _$ThreadPortionRequestedCopyWithImpl<$Res>
+class _$BoardInitializedCopyWithImpl<$Res>
     extends _$BoardEventCopyWithImpl<$Res>
-    implements $ThreadPortionRequestedCopyWith<$Res> {
-  _$ThreadPortionRequestedCopyWithImpl(ThreadPortionRequested _value,
-      $Res Function(ThreadPortionRequested) _then)
-      : super(_value, (v) => _then(v as ThreadPortionRequested));
+    implements $BoardInitializedCopyWith<$Res> {
+  _$BoardInitializedCopyWithImpl(
+      BoardInitialized _value, $Res Function(BoardInitialized) _then)
+      : super(_value, (v) => _then(v as BoardInitialized));
 
   @override
-  ThreadPortionRequested get _value => super._value as ThreadPortionRequested;
+  BoardInitialized get _value => super._value as BoardInitialized;
 }
 
 /// @nodoc
-class _$ThreadPortionRequested extends ThreadPortionRequested {
-  const _$ThreadPortionRequested() : super._();
+class _$BoardInitialized extends BoardInitialized {
+  const _$BoardInitialized() : super._();
 
   @override
   String toString() {
-    return 'BoardEvent.threadsPortionRequested()';
+    return 'BoardEvent.boardInitialized()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is ThreadPortionRequested);
+    return identical(this, other) || (other is BoardInitialized);
   }
 
   @override
@@ -212,23 +122,23 @@ class _$ThreadPortionRequested extends ThreadPortionRequested {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initialized,
-    required TResult Function() threadsPortionRequested,
+    required TResult Function() boardInitialized,
+    required TResult Function() boardPortionRequested,
     required TResult Function() boardRefreshed,
   }) {
-    return threadsPortionRequested();
+    return boardInitialized();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initialized,
-    TResult Function()? threadsPortionRequested,
+    TResult Function()? boardInitialized,
+    TResult Function()? boardPortionRequested,
     TResult Function()? boardRefreshed,
     required TResult orElse(),
   }) {
-    if (threadsPortionRequested != null) {
-      return threadsPortionRequested();
+    if (boardInitialized != null) {
+      return boardInitialized();
     }
     return orElse();
   }
@@ -236,32 +146,123 @@ class _$ThreadPortionRequested extends ThreadPortionRequested {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initialized value) initialized,
-    required TResult Function(ThreadPortionRequested value)
-        threadsPortionRequested,
+    required TResult Function(BoardInitialized value) boardInitialized,
+    required TResult Function(BoardPortionRequested value)
+        boardPortionRequested,
     required TResult Function(BoardRefreshed value) boardRefreshed,
   }) {
-    return threadsPortionRequested(this);
+    return boardInitialized(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initialized value)? initialized,
-    TResult Function(ThreadPortionRequested value)? threadsPortionRequested,
+    TResult Function(BoardInitialized value)? boardInitialized,
+    TResult Function(BoardPortionRequested value)? boardPortionRequested,
     TResult Function(BoardRefreshed value)? boardRefreshed,
     required TResult orElse(),
   }) {
-    if (threadsPortionRequested != null) {
-      return threadsPortionRequested(this);
+    if (boardInitialized != null) {
+      return boardInitialized(this);
     }
     return orElse();
   }
 }
 
-abstract class ThreadPortionRequested extends BoardEvent {
-  const factory ThreadPortionRequested() = _$ThreadPortionRequested;
-  const ThreadPortionRequested._() : super._();
+abstract class BoardInitialized extends BoardEvent {
+  const factory BoardInitialized() = _$BoardInitialized;
+  const BoardInitialized._() : super._();
+}
+
+/// @nodoc
+abstract class $BoardPortionRequestedCopyWith<$Res> {
+  factory $BoardPortionRequestedCopyWith(BoardPortionRequested value,
+          $Res Function(BoardPortionRequested) then) =
+      _$BoardPortionRequestedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$BoardPortionRequestedCopyWithImpl<$Res>
+    extends _$BoardEventCopyWithImpl<$Res>
+    implements $BoardPortionRequestedCopyWith<$Res> {
+  _$BoardPortionRequestedCopyWithImpl(
+      BoardPortionRequested _value, $Res Function(BoardPortionRequested) _then)
+      : super(_value, (v) => _then(v as BoardPortionRequested));
+
+  @override
+  BoardPortionRequested get _value => super._value as BoardPortionRequested;
+}
+
+/// @nodoc
+class _$BoardPortionRequested extends BoardPortionRequested {
+  const _$BoardPortionRequested() : super._();
+
+  @override
+  String toString() {
+    return 'BoardEvent.boardPortionRequested()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is BoardPortionRequested);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() boardInitialized,
+    required TResult Function() boardPortionRequested,
+    required TResult Function() boardRefreshed,
+  }) {
+    return boardPortionRequested();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? boardInitialized,
+    TResult Function()? boardPortionRequested,
+    TResult Function()? boardRefreshed,
+    required TResult orElse(),
+  }) {
+    if (boardPortionRequested != null) {
+      return boardPortionRequested();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(BoardInitialized value) boardInitialized,
+    required TResult Function(BoardPortionRequested value)
+        boardPortionRequested,
+    required TResult Function(BoardRefreshed value) boardRefreshed,
+  }) {
+    return boardPortionRequested(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(BoardInitialized value)? boardInitialized,
+    TResult Function(BoardPortionRequested value)? boardPortionRequested,
+    TResult Function(BoardRefreshed value)? boardRefreshed,
+    required TResult orElse(),
+  }) {
+    if (boardPortionRequested != null) {
+      return boardPortionRequested(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class BoardPortionRequested extends BoardEvent {
+  const factory BoardPortionRequested() = _$BoardPortionRequested;
+  const BoardPortionRequested._() : super._();
 }
 
 /// @nodoc
@@ -302,8 +303,8 @@ class _$BoardRefreshed extends BoardRefreshed {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initialized,
-    required TResult Function() threadsPortionRequested,
+    required TResult Function() boardInitialized,
+    required TResult Function() boardPortionRequested,
     required TResult Function() boardRefreshed,
   }) {
     return boardRefreshed();
@@ -312,8 +313,8 @@ class _$BoardRefreshed extends BoardRefreshed {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initialized,
-    TResult Function()? threadsPortionRequested,
+    TResult Function()? boardInitialized,
+    TResult Function()? boardPortionRequested,
     TResult Function()? boardRefreshed,
     required TResult orElse(),
   }) {
@@ -326,9 +327,9 @@ class _$BoardRefreshed extends BoardRefreshed {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(Initialized value) initialized,
-    required TResult Function(ThreadPortionRequested value)
-        threadsPortionRequested,
+    required TResult Function(BoardInitialized value) boardInitialized,
+    required TResult Function(BoardPortionRequested value)
+        boardPortionRequested,
     required TResult Function(BoardRefreshed value) boardRefreshed,
   }) {
     return boardRefreshed(this);
@@ -337,8 +338,8 @@ class _$BoardRefreshed extends BoardRefreshed {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initialized value)? initialized,
-    TResult Function(ThreadPortionRequested value)? threadsPortionRequested,
+    TResult Function(BoardInitialized value)? boardInitialized,
+    TResult Function(BoardPortionRequested value)? boardPortionRequested,
     TResult Function(BoardRefreshed value)? boardRefreshed,
     required TResult orElse(),
   }) {

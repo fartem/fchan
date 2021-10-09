@@ -1,6 +1,9 @@
 import 'package:fchan/bloc/bookmarks/bookmarks_bloc.dart';
+import 'package:fchan/bloc/bookmarks/bookmarks_event.dart';
+import 'package:fchan/bloc/bookmarks/bookmarks_state.dart';
 import 'package:fchan/components/widgets/app_centered_circular_progress_indicator.dart';
 import 'package:fchan/components/widgets/app_centered_text.dart';
+import 'package:fchan/components/widgets/app_list_loader.dart';
 import 'package:fchan/components/widgets/app_screen_frame.dart';
 import 'package:fchan/components/widgets/app_thread_card.dart';
 import 'package:fchan/data/repositories/data_repository.dart';
@@ -39,7 +42,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                     context.localizations.commonOk,
                   ),
                   onPressed: () {
-                    _bookmarksBloc.add(BookmarksEventClearRequested());
+                    _bookmarksBloc.add(const BookmarksClearRequested());
                     Navigator.pop(context);
                   },
                 ),
@@ -61,38 +64,43 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
         child: BlocBuilder<BookmarksBloc, BookmarksState>(
           builder: (context, state) {
             _bookmarksBloc = context.read<BookmarksBloc>();
-            if (state is BookmarksLoadSuccess) {
-              if (_bookmarksBloc.threads.isEmpty) {
-                return AppCenteredText(
-                  text: context.localizations.messageBookmarksIsEmpty,
+            return state.when(
+              bookmarksInitial: () => const AppCenteredCircularProgressIndicator(),
+              bookmarksLoadSuccess: (threads, isLastPage) {
+                return StaggeredGridView.countBuilder(
+                  crossAxisCount: 4,
+                  staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
+                  itemBuilder: (context, index) {
+                    if (!isLastPage && index == threads.length) {
+                      return const AppListLoader();
+                    }
+                    final thread = threads[index];
+                    return AppThreadCard(
+                      key: ValueKey(thread.tim),
+                      thread: thread,
+                      availableActions: const [
+                        ThreadPopupMenuAction.openLink,
+                        ThreadPopupMenuAction.copyLink,
+                        ThreadPopupMenuAction.removeFromBookmarks,
+                      ],
+                      actionNotifier: (action) {
+                        if (action == ThreadPopupMenuAction.removeFromBookmarks) {
+                          _bookmarksBloc.add(BookmarkRemoved(bookmark: thread));
+                        }
+                      },
+                    );
+                  },
+                  itemCount: threads.length + (isLastPage ? 0 : 1),
                 );
-              }
-              return StaggeredGridView.countBuilder(
-                crossAxisCount: 4,
-                staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
-                itemBuilder: (context, index) {
-                  final item = _bookmarksBloc.threads[index];
-                  // TODO(fartem): add Loader
-                  final thread = item;
-                  return AppThreadCard(
-                    key: ValueKey(thread.tim),
-                    thread: thread,
-                    availableActions: const [
-                      ThreadPopupMenuAction.openLink,
-                      ThreadPopupMenuAction.copyLink,
-                      ThreadPopupMenuAction.removeFromBookmarks,
-                    ],
-                    actionNotifier: (action) {
-                      if (action == ThreadPopupMenuAction.removeFromBookmarks) {
-                        _bookmarksBloc.add(BookmarksEventBookmarkRemoved(thread: thread));
-                      }
-                    },
-                  );
-                },
-                itemCount: _bookmarksBloc.threads.length,
-              );
-            }
-            return const AppCenteredCircularProgressIndicator();
+              },
+              bookmarksLoadError: () => AppCenteredText(
+                text: context.localizations.messageBookmarksIsEmpty,
+              ),
+              bookmarksClearInProgress: () => const AppCenteredCircularProgressIndicator(),
+              bookmarksIsEmpty: () => AppCenteredText(
+                text: context.localizations.messageBookmarksIsEmpty,
+              ),
+            );
           },
         ),
       ),
@@ -104,7 +112,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
-        _bookmarksBloc.add(BookmarksEventPortionRequested());
+        _bookmarksBloc.add(const BookmarksPortionRequested());
       }
     });
   }

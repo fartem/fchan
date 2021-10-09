@@ -1,18 +1,21 @@
-part of 'bookmarks_bloc.dart';
+import 'package:fchan/entities/thread.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class BookmarksEvent {}
+part 'bookmarks_event.freezed.dart';
 
-class BookmarksEventInitialized extends BookmarksEvent {}
+@freezed
+abstract class BookmarksEvent with _$BookmarksEvent {
+  const BookmarksEvent._();
 
-class BookmarksEventPortionRequested extends BookmarksEvent {}
+  const factory BookmarksEvent.bookmarksInitialized() = BookmarksInitialized;
 
-class BookmarksEventUpdateRequested extends BookmarksEvent {}
+  const factory BookmarksEvent.bookmarksPortionRequested() = BookmarksPortionRequested;
 
-class BookmarksEventClearRequested extends BookmarksEvent {}
+  const factory BookmarksEvent.bookmarksUpdateRequested() = BookmarksUpdateRequested;
 
-class BookmarksEventBookmarkRemoved extends BookmarksEvent {
-  final Thread thread;
+  const factory BookmarksEvent.bookmarksClearRequested() = BookmarksClearRequested;
 
-  BookmarksEventBookmarkRemoved({required this.thread});
+  const factory BookmarksEvent.bookmarkRemoved({
+    required Thread bookmark,
+  }) = BookmarkRemoved;
 }
