@@ -40,7 +40,10 @@ class BoardAdapter extends TypeAdapter<Board> {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) || other is BoardAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
+      identical(this, other) ||
+      other is BoardAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }
 
 // **************************************************************************

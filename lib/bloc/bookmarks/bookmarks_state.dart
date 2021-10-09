@@ -6,7 +6,7 @@ abstract class BookmarksState {}
 class BookmarksInitial extends BookmarksState {}
 
 class BookmarksLoadSuccess extends BookmarksState {
-  final List<ListEntity> bookmarks;
+  final List<Thread> bookmarks;
 
   BookmarksLoadSuccess({required this.bookmarks});
 }

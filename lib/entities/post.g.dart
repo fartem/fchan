@@ -9,12 +9,12 @@ part of 'post.dart';
 Post _$PostFromJson(Map<String, dynamic> json) {
   return Post(
     no: json['no'] as int,
+    time: parseTimeFromInt(json['time'] as int),
     sub: json['sub'] as String?,
     com: json['com'] as String?,
     replies: json['replies'] as int?,
     tim: json['tim'] as int?,
     ext: json['ext'] as String?,
-    time: parseTimeFromInt(json['time'] as int),
     imageWidth: json['w'] as int?,
     imageHeight: json['h'] as int?,
     thumbnailWidth: json['tn_w'] as int?,

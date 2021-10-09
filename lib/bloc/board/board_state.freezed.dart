@@ -20,14 +20,12 @@ class _$BoardStateTearOff {
     return const Initial();
   }
 
-  ThreadsLoadSuccess threadsLoadSuccess({required List<ListEntity> threads}) {
+  ThreadsLoadSuccess threadsLoadSuccess(
+      {required List<Thread> threads, required bool isLastPage}) {
     return ThreadsLoadSuccess(
       threads: threads,
+      isLastPage: isLastPage,
     );
-  }
-
-  NewPortionLoading newPortionLoading() {
-    return const NewPortionLoading();
   }
 
   ThreadsLoadError threadsLoadError() {
@@ -43,36 +41,30 @@ mixin _$BoardState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<ListEntity> threads) threadsLoadSuccess,
-    required TResult Function() newPortionLoading,
+    required TResult Function(List<Thread> threads, bool isLastPage)
+        threadsLoadSuccess,
     required TResult Function() threadsLoadError,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<ListEntity> threads)? threadsLoadSuccess,
-    TResult Function()? newPortionLoading,
+    TResult Function(List<Thread> threads, bool isLastPage)? threadsLoadSuccess,
     TResult Function()? threadsLoadError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(ThreadsLoadSuccess value) threadsLoadSuccess,
-    required TResult Function(NewPortionLoading value) newPortionLoading,
     required TResult Function(ThreadsLoadError value) threadsLoadError,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(ThreadsLoadSuccess value)? threadsLoadSuccess,
-    TResult Function(NewPortionLoading value)? newPortionLoading,
     TResult Function(ThreadsLoadError value)? threadsLoadError,
     required TResult orElse(),
   }) =>
@@ -81,7 +73,9 @@ mixin _$BoardState {
 
 /// @nodoc
 abstract class $BoardStateCopyWith<$Res> {
-  factory $BoardStateCopyWith(BoardState value, $Res Function(BoardState) then) = _$BoardStateCopyWithImpl<$Res>;
+  factory $BoardStateCopyWith(
+          BoardState value, $Res Function(BoardState) then) =
+      _$BoardStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
@@ -89,19 +83,21 @@ class _$BoardStateCopyWithImpl<$Res> implements $BoardStateCopyWith<$Res> {
   _$BoardStateCopyWithImpl(this._value, this._then);
 
   final BoardState _value;
-
   // ignore: unused_field
   final $Res Function(BoardState) _then;
 }
 
 /// @nodoc
 abstract class $InitialCopyWith<$Res> {
-  factory $InitialCopyWith(Initial value, $Res Function(Initial) then) = _$InitialCopyWithImpl<$Res>;
+  factory $InitialCopyWith(Initial value, $Res Function(Initial) then) =
+      _$InitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$InitialCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res> implements $InitialCopyWith<$Res> {
-  _$InitialCopyWithImpl(Initial _value, $Res Function(Initial) _then) : super(_value, (v) => _then(v as Initial));
+class _$InitialCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
+    implements $InitialCopyWith<$Res> {
+  _$InitialCopyWithImpl(Initial _value, $Res Function(Initial) _then)
+      : super(_value, (v) => _then(v as Initial));
 
   @override
   Initial get _value => super._value as Initial;
@@ -128,8 +124,8 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<ListEntity> threads) threadsLoadSuccess,
-    required TResult Function() newPortionLoading,
+    required TResult Function(List<Thread> threads, bool isLastPage)
+        threadsLoadSuccess,
     required TResult Function() threadsLoadError,
   }) {
     return initial();
@@ -139,8 +135,7 @@ class _$Initial implements Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<ListEntity> threads)? threadsLoadSuccess,
-    TResult Function()? newPortionLoading,
+    TResult Function(List<Thread> threads, bool isLastPage)? threadsLoadSuccess,
     TResult Function()? threadsLoadError,
     required TResult orElse(),
   }) {
@@ -155,7 +150,6 @@ class _$Initial implements Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(ThreadsLoadSuccess value) threadsLoadSuccess,
-    required TResult Function(NewPortionLoading value) newPortionLoading,
     required TResult Function(ThreadsLoadError value) threadsLoadError,
   }) {
     return initial(this);
@@ -166,7 +160,6 @@ class _$Initial implements Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(ThreadsLoadSuccess value)? threadsLoadSuccess,
-    TResult Function(NewPortionLoading value)? newPortionLoading,
     TResult Function(ThreadsLoadError value)? threadsLoadError,
     required TResult orElse(),
   }) {
@@ -183,16 +176,18 @@ abstract class Initial implements BoardState {
 
 /// @nodoc
 abstract class $ThreadsLoadSuccessCopyWith<$Res> {
-  factory $ThreadsLoadSuccessCopyWith(ThreadsLoadSuccess value, $Res Function(ThreadsLoadSuccess) then) =
+  factory $ThreadsLoadSuccessCopyWith(
+          ThreadsLoadSuccess value, $Res Function(ThreadsLoadSuccess) then) =
       _$ThreadsLoadSuccessCopyWithImpl<$Res>;
-
-  $Res call({List<ListEntity> threads});
+  $Res call({List<Thread> threads, bool isLastPage});
 }
 
 /// @nodoc
-class _$ThreadsLoadSuccessCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
+class _$ThreadsLoadSuccessCopyWithImpl<$Res>
+    extends _$BoardStateCopyWithImpl<$Res>
     implements $ThreadsLoadSuccessCopyWith<$Res> {
-  _$ThreadsLoadSuccessCopyWithImpl(ThreadsLoadSuccess _value, $Res Function(ThreadsLoadSuccess) _then)
+  _$ThreadsLoadSuccessCopyWithImpl(
+      ThreadsLoadSuccess _value, $Res Function(ThreadsLoadSuccess) _then)
       : super(_value, (v) => _then(v as ThreadsLoadSuccess));
 
   @override
@@ -201,37 +196,52 @@ class _$ThreadsLoadSuccessCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$R
   @override
   $Res call({
     Object? threads = freezed,
+    Object? isLastPage = freezed,
   }) {
     return _then(ThreadsLoadSuccess(
       threads: threads == freezed
           ? _value.threads
           : threads // ignore: cast_nullable_to_non_nullable
-              as List<ListEntity>,
+              as List<Thread>,
+      isLastPage: isLastPage == freezed
+          ? _value.isLastPage
+          : isLastPage // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
 
 /// @nodoc
 class _$ThreadsLoadSuccess implements ThreadsLoadSuccess {
-  const _$ThreadsLoadSuccess({required this.threads});
+  const _$ThreadsLoadSuccess({required this.threads, required this.isLastPage});
 
   @override
-  final List<ListEntity> threads;
+  final List<Thread> threads;
+  @override
+  final bool isLastPage;
 
   @override
   String toString() {
-    return 'BoardState.threadsLoadSuccess(threads: $threads)';
+    return 'BoardState.threadsLoadSuccess(threads: $threads, isLastPage: $isLastPage)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is ThreadsLoadSuccess &&
-            (identical(other.threads, threads) || const DeepCollectionEquality().equals(other.threads, threads)));
+            (identical(other.threads, threads) ||
+                const DeepCollectionEquality()
+                    .equals(other.threads, threads)) &&
+            (identical(other.isLastPage, isLastPage) ||
+                const DeepCollectionEquality()
+                    .equals(other.isLastPage, isLastPage)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ const DeepCollectionEquality().hash(threads);
+  int get hashCode =>
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(threads) ^
+      const DeepCollectionEquality().hash(isLastPage);
 
   @JsonKey(ignore: true)
   @override
@@ -242,24 +252,23 @@ class _$ThreadsLoadSuccess implements ThreadsLoadSuccess {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<ListEntity> threads) threadsLoadSuccess,
-    required TResult Function() newPortionLoading,
+    required TResult Function(List<Thread> threads, bool isLastPage)
+        threadsLoadSuccess,
     required TResult Function() threadsLoadError,
   }) {
-    return threadsLoadSuccess(threads);
+    return threadsLoadSuccess(threads, isLastPage);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<ListEntity> threads)? threadsLoadSuccess,
-    TResult Function()? newPortionLoading,
+    TResult Function(List<Thread> threads, bool isLastPage)? threadsLoadSuccess,
     TResult Function()? threadsLoadError,
     required TResult orElse(),
   }) {
     if (threadsLoadSuccess != null) {
-      return threadsLoadSuccess(threads);
+      return threadsLoadSuccess(threads, isLastPage);
     }
     return orElse();
   }
@@ -269,7 +278,6 @@ class _$ThreadsLoadSuccess implements ThreadsLoadSuccess {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(ThreadsLoadSuccess value) threadsLoadSuccess,
-    required TResult Function(NewPortionLoading value) newPortionLoading,
     required TResult Function(ThreadsLoadError value) threadsLoadError,
   }) {
     return threadsLoadSuccess(this);
@@ -280,7 +288,6 @@ class _$ThreadsLoadSuccess implements ThreadsLoadSuccess {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(ThreadsLoadSuccess value)? threadsLoadSuccess,
-    TResult Function(NewPortionLoading value)? newPortionLoading,
     TResult Function(ThreadsLoadError value)? threadsLoadError,
     required TResult orElse(),
   }) {
@@ -292,114 +299,30 @@ class _$ThreadsLoadSuccess implements ThreadsLoadSuccess {
 }
 
 abstract class ThreadsLoadSuccess implements BoardState {
-  const factory ThreadsLoadSuccess({required List<ListEntity> threads}) = _$ThreadsLoadSuccess;
+  const factory ThreadsLoadSuccess(
+      {required List<Thread> threads,
+      required bool isLastPage}) = _$ThreadsLoadSuccess;
 
-  List<ListEntity> get threads => throw _privateConstructorUsedError;
-
+  List<Thread> get threads => throw _privateConstructorUsedError;
+  bool get isLastPage => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ThreadsLoadSuccessCopyWith<ThreadsLoadSuccess> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $NewPortionLoadingCopyWith<$Res> {
-  factory $NewPortionLoadingCopyWith(NewPortionLoading value, $Res Function(NewPortionLoading) then) =
-      _$NewPortionLoadingCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class _$NewPortionLoadingCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
-    implements $NewPortionLoadingCopyWith<$Res> {
-  _$NewPortionLoadingCopyWithImpl(NewPortionLoading _value, $Res Function(NewPortionLoading) _then)
-      : super(_value, (v) => _then(v as NewPortionLoading));
-
-  @override
-  NewPortionLoading get _value => super._value as NewPortionLoading;
-}
-
-/// @nodoc
-class _$NewPortionLoading implements NewPortionLoading {
-  const _$NewPortionLoading();
-
-  @override
-  String toString() {
-    return 'BoardState.newPortionLoading()';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) || (other is NewPortionLoading);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function(List<ListEntity> threads) threadsLoadSuccess,
-    required TResult Function() newPortionLoading,
-    required TResult Function() threadsLoadError,
-  }) {
-    return newPortionLoading();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function(List<ListEntity> threads)? threadsLoadSuccess,
-    TResult Function()? newPortionLoading,
-    TResult Function()? threadsLoadError,
-    required TResult orElse(),
-  }) {
-    if (newPortionLoading != null) {
-      return newPortionLoading();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(Initial value) initial,
-    required TResult Function(ThreadsLoadSuccess value) threadsLoadSuccess,
-    required TResult Function(NewPortionLoading value) newPortionLoading,
-    required TResult Function(ThreadsLoadError value) threadsLoadError,
-  }) {
-    return newPortionLoading(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(Initial value)? initial,
-    TResult Function(ThreadsLoadSuccess value)? threadsLoadSuccess,
-    TResult Function(NewPortionLoading value)? newPortionLoading,
-    TResult Function(ThreadsLoadError value)? threadsLoadError,
-    required TResult orElse(),
-  }) {
-    if (newPortionLoading != null) {
-      return newPortionLoading(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class NewPortionLoading implements BoardState {
-  const factory NewPortionLoading() = _$NewPortionLoading;
+  $ThreadsLoadSuccessCopyWith<ThreadsLoadSuccess> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ThreadsLoadErrorCopyWith<$Res> {
-  factory $ThreadsLoadErrorCopyWith(ThreadsLoadError value, $Res Function(ThreadsLoadError) then) =
+  factory $ThreadsLoadErrorCopyWith(
+          ThreadsLoadError value, $Res Function(ThreadsLoadError) then) =
       _$ThreadsLoadErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ThreadsLoadErrorCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
+class _$ThreadsLoadErrorCopyWithImpl<$Res>
+    extends _$BoardStateCopyWithImpl<$Res>
     implements $ThreadsLoadErrorCopyWith<$Res> {
-  _$ThreadsLoadErrorCopyWithImpl(ThreadsLoadError _value, $Res Function(ThreadsLoadError) _then)
+  _$ThreadsLoadErrorCopyWithImpl(
+      ThreadsLoadError _value, $Res Function(ThreadsLoadError) _then)
       : super(_value, (v) => _then(v as ThreadsLoadError));
 
   @override
@@ -427,8 +350,8 @@ class _$ThreadsLoadError implements ThreadsLoadError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<ListEntity> threads) threadsLoadSuccess,
-    required TResult Function() newPortionLoading,
+    required TResult Function(List<Thread> threads, bool isLastPage)
+        threadsLoadSuccess,
     required TResult Function() threadsLoadError,
   }) {
     return threadsLoadError();
@@ -438,8 +361,7 @@ class _$ThreadsLoadError implements ThreadsLoadError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<ListEntity> threads)? threadsLoadSuccess,
-    TResult Function()? newPortionLoading,
+    TResult Function(List<Thread> threads, bool isLastPage)? threadsLoadSuccess,
     TResult Function()? threadsLoadError,
     required TResult orElse(),
   }) {
@@ -454,7 +376,6 @@ class _$ThreadsLoadError implements ThreadsLoadError {
   TResult map<TResult extends Object?>({
     required TResult Function(Initial value) initial,
     required TResult Function(ThreadsLoadSuccess value) threadsLoadSuccess,
-    required TResult Function(NewPortionLoading value) newPortionLoading,
     required TResult Function(ThreadsLoadError value) threadsLoadError,
   }) {
     return threadsLoadError(this);
@@ -465,7 +386,6 @@ class _$ThreadsLoadError implements ThreadsLoadError {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Initial value)? initial,
     TResult Function(ThreadsLoadSuccess value)? threadsLoadSuccess,
-    TResult Function(NewPortionLoading value)? newPortionLoading,
     TResult Function(ThreadsLoadError value)? threadsLoadError,
     required TResult orElse(),
   }) {

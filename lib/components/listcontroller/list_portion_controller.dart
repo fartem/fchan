@@ -1,11 +1,10 @@
-import 'package:fchan/components/listcontroller/list_entity.dart';
 import 'package:fchan/entities/entity_page.dart';
 import 'package:fchan/entities/entity_portion.dart';
 
 const _pageSize = 10;
 
 class ListPortionController<T> {
-  final items = <ListEntity>[];
+  final items = <T>[];
 
   final Function(EntityPage entityPage) portionProvider;
 
@@ -24,18 +23,12 @@ class ListPortionController<T> {
           pageSize: _pageSize,
         ),
       );
-      if (items.isNotEmpty && items.last == listLoader) {
-        items.removeLast();
-      }
       isLoading = false;
       isLastPage = portion.isLastPage;
       if (!isLastPage) {
         _page++;
       }
-      items.addAll(portion.entities.map((e) => ListEntity(e)));
-      if (!isLastPage) {
-        items.add(listLoader);
-      }
+      items.addAll(portion.entities);
     }
   }
 

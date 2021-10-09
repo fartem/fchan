@@ -5,6 +5,7 @@ analyzer:
     - dart_code_metrics
   errors:
     list_remove_unrelated_type: ignore
+    avoid_equals_and_hash_code_on_mutable_classes: ignore
   exclude:
     - lib/**/*.g.dart
     - lib/**/*.freezed.dart
@@ -29,7 +30,6 @@ linter:
     - avoid_bool_literals_in_conditional_expressions
     - avoid_classes_with_only_static_members
     - avoid_double_and_int_checks
-    - avoid_equals_and_hash_code_on_mutable_classes
     - avoid_escaping_inner_quotes
     - avoid_implementing_value_types
     - avoid_multiple_declarations_per_line

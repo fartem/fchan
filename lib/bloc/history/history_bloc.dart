@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:fchan/components/listcontroller/list_entity.dart';
 import 'package:fchan/components/listcontroller/list_portion_controller.dart';
 import 'package:fchan/data/repositories/data_repository.dart';
 import 'package:fchan/entities/thread.dart';
@@ -14,9 +13,9 @@ part 'history_state.dart';
 class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   final DataRepository dataRepository;
 
-  late ListPortionController _listPortionController;
+  late ListPortionController<Thread> _listPortionController;
 
-  List<ListEntity> get threads => _listPortionController.items;
+  List<Thread> get threads => _listPortionController.items;
 
   HistoryBloc({required this.dataRepository}) : super(HistoryInitial()) {
     add(HistoryEventInitialized());

@@ -1,11 +1,9 @@
 import 'package:fchan/bloc/bookmarks/bookmarks_bloc.dart';
-import 'package:fchan/components/listcontroller/list_entity.dart';
 import 'package:fchan/components/widgets/app_centered_circular_progress_indicator.dart';
 import 'package:fchan/components/widgets/app_centered_text.dart';
 import 'package:fchan/components/widgets/app_screen_frame.dart';
 import 'package:fchan/components/widgets/app_thread_card.dart';
 import 'package:fchan/data/repositories/data_repository.dart';
-import 'package:fchan/entities/thread.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -74,10 +72,8 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                 staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
                 itemBuilder: (context, index) {
                   final item = _bookmarksBloc.threads[index];
-                  if (item == listLoader) {
-                    return const AppCenteredCircularProgressIndicator();
-                  }
-                  final thread = item.item as Thread;
+                  // TODO(fartem): add Loader
+                  final thread = item;
                   return AppThreadCard(
                     key: ValueKey(thread.tim),
                     thread: thread,

@@ -6,7 +6,7 @@ abstract class HistoryState {}
 class HistoryInitial extends HistoryState {}
 
 class HistoryThreadsLoadSuccess extends HistoryState {
-  final List<ListEntity> threads;
+  final List<Thread> threads;
 
   HistoryThreadsLoadSuccess({required this.threads});
 }
