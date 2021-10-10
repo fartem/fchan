@@ -1,18 +1,19 @@
-part of 'explore_boards_bloc.dart';
+import 'package:fchan/entities/board.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class ExploreBoardsEvent {}
+part 'explore_boards_event.freezed.dart';
 
-class ExploreBoardsEventInitialized extends ExploreBoardsEvent {}
+@freezed
+abstract class ExploreBoardsEvent with _$ExploreBoardsEvent {
+  const ExploreBoardsEvent._();
 
-class ExploreBoardsEventBoardAddedToFavorites extends ExploreBoardsEvent {
-  final Board board;
+  const factory ExploreBoardsEvent.exploreBoardsInitialized() = ExploreBoardsInitialized;
 
-  ExploreBoardsEventBoardAddedToFavorites({required this.board});
-}
+  const factory ExploreBoardsEvent.exploreBoardsBoardAddedToFavorites({
+    required Board board,
+  }) = ExploreBoardsBoardAddedToFavorites;
 
-class ExploreBoardsEventBoardRemovesFromFavorites extends ExploreBoardsEvent {
-  final Board board;
-
-  ExploreBoardsEventBoardRemovesFromFavorites({required this.board});
+  const factory ExploreBoardsEvent.exploreBoardsBoardRemovedToFavorites({
+    required Board board
+  }) = ExploreBoardsBoardRemovedFromFavorites;
 }

@@ -7,7 +7,6 @@ import 'package:fchan/entities/thread.dart';
 import 'package:meta/meta.dart';
 
 part 'history_event.dart';
-
 part 'history_state.dart';
 
 class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {

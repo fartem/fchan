@@ -1,4 +1,5 @@
 import 'package:fchan/bloc/explore_boards/explore_boards_bloc.dart';
+import 'package:fchan/bloc/explore_boards/explore_boards_state.dart';
 import 'package:fchan/components/widgets/app_centered_circular_progress_indicator.dart';
 import 'package:fchan/components/widgets/app_centered_text.dart';
 import 'package:fchan/data/repositories/data_repository.dart';
@@ -24,35 +25,37 @@ class ExploreBoardsScreen extends StatelessWidget {
         ),
         body: BlocBuilder<ExploreBoardsBloc, ExploreBoardsState>(
           builder: (context, state) {
-            if (state is ExploreBoardsLoadSuccess) {
-              if (state.boards.isEmpty) {
-                return AppCenteredText(
-                  text: context.localizations.messageBoardsIsEmpty,
+            return state.when(
+              exploreBoardsInitial: () => const AppCenteredCircularProgressIndicator(),
+              exploreBoardsLoadSuccess: (boards) {
+                return ListView.builder(
+                  itemBuilder: (context, index) {
+                    final board = boards[index];
+                    return ListTile(
+                      title: Text(board.toString()),
+                      trailing: Icon(
+                        (board.isFavorite ?? false) ? Icons.star : Icons.star_border,
+                        color: Colors.grey,
+                      ),
+                      onTap: () async {
+                        if (board.isFavorite ?? false) {
+                          context.read<ExploreBoardsBloc>().remoteBoardFromFavorites(board);
+                        } else {
+                          context.read<ExploreBoardsBloc>().addBoardToFavorites(board);
+                        }
+                      },
+                    );
+                  },
+                  itemCount: boards.length,
                 );
-              }
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final board = state.boards[index];
-                  return ListTile(
-                    title: Text(board.toString()),
-                    trailing: Icon(
-                      (board.isFavorite ?? false) ? Icons.star : Icons.star_border,
-                      color: Colors.grey,
-                    ),
-                    onTap: () async {
-                      if (board.isFavorite ?? false) {
-                        context.read<ExploreBoardsBloc>().remoteBoardFromFavorites(board);
-                      } else {
-                        context.read<ExploreBoardsBloc>().addBoardToFavorites(board);
-                      }
-                    },
-                  );
-                },
-                itemCount: state.boards.length,
-              );
-            } else {
-              return const AppCenteredCircularProgressIndicator();
-            }
+              },
+              exploreBoardsLoadError: () => AppCenteredText(
+                text: context.localizations.messageBoardsIsEmpty,
+              ),
+              exploreBoardsAreEmpty: () => AppCenteredText(
+                text: context.localizations.messageBoardsIsEmpty,
+              ),
+            );
           },
         ),
       ),

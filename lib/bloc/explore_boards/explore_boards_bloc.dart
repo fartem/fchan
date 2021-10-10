@@ -1,69 +1,72 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:fchan/bloc/explore_boards/explore_boards_event.dart';
+import 'package:fchan/bloc/explore_boards/explore_boards_state.dart';
 import 'package:fchan/data/repositories/data_repository.dart';
 import 'package:fchan/entities/board.dart';
-import 'package:meta/meta.dart';
-
-part 'explore_boards_event.dart';
-
-part 'explore_boards_state.dart';
 
 class ExploreBoardsBloc extends Bloc<ExploreBoardsEvent, ExploreBoardsState> {
   final DataRepository dataRepository;
 
   ExploreBoardsBloc({
     required this.dataRepository,
-  }) : super(ExploreBoardsInitial()) {
-    add(ExploreBoardsEventInitialized());
+  }) : super(const ExploreBoardsInitial()) {
+    add(const ExploreBoardsInitialized());
   }
 
   @override
   Stream<ExploreBoardsState> mapEventToState(
     ExploreBoardsEvent event,
   ) async* {
-    if (event is ExploreBoardsEventInitialized) {
-      yield* _mapExploreBoardsEventInitializedToState();
-    } else if (event is ExploreBoardsEventBoardAddedToFavorites) {
-      yield* _mapExploreBoardsEventBoardAddedToFavoritesToState(event: event);
-    } else if (event is ExploreBoardsEventBoardRemovesFromFavorites) {
-      yield* _mapExploreBoardsEventBoardRemovesFromFavoritesToState(event: event);
-    }
+    yield* event.when(
+      exploreBoardsInitialized: _mapExploreBoardsEventInitializedToState,
+      exploreBoardsBoardAddedToFavorites: (board) => _mapExploreBoardsEventBoardAddedToFavoritesToState(
+        board: board,
+      ),
+      exploreBoardsBoardRemovedToFavorites: (board) => _mapExploreBoardsEventBoardRemovedFromFavoritesToState(
+        board: board,
+      ),
+    );
   }
 
   Stream<ExploreBoardsState> _mapExploreBoardsEventInitializedToState() async* {
     try {
       final boards = await dataRepository.boards();
-      yield ExploreBoardsLoadSuccess(boards: boards);
+      if (boards.isNotEmpty) {
+        yield ExploreBoardsLoadSuccess(boards: boards);
+      } else {
+        yield const ExploreBoardsAreEmpty();
+      }
     } on Exception {
-      yield ExploreBoardsLoadError();
+      yield const ExploreBoardsLoadError();
     }
   }
 
   Stream<ExploreBoardsState> _mapExploreBoardsEventBoardAddedToFavoritesToState({
-    required ExploreBoardsEventBoardAddedToFavorites event,
+    required Board board,
   }) async* {
-    await dataRepository.addBoardToFavorites(event.board);
-    yield ExploreBoardsInitial();
-    add(ExploreBoardsEventInitialized());
+    await dataRepository.addBoardToFavorites(board);
+    yield const ExploreBoardsInitial();
+    add(const ExploreBoardsInitialized());
   }
 
-  Stream<ExploreBoardsState> _mapExploreBoardsEventBoardRemovesFromFavoritesToState({
-    required ExploreBoardsEventBoardRemovesFromFavorites event,
+  Stream<ExploreBoardsState> _mapExploreBoardsEventBoardRemovedFromFavoritesToState({
+    required Board board,
   }) async* {
-    await dataRepository.removeBoardFromFavorites(event.board);
-    yield ExploreBoardsInitial();
-    add(ExploreBoardsEventInitialized());
+    await dataRepository.removeBoardFromFavorites(board);
+    yield const ExploreBoardsInitial();
+    add(const ExploreBoardsInitialized());
   }
 
   void addBoardToFavorites(Board board) => add(
-        ExploreBoardsEventBoardAddedToFavorites(
+        ExploreBoardsBoardAddedToFavorites(
           board: board,
         ),
       );
 
   void remoteBoardFromFavorites(Board board) => add(
-        ExploreBoardsEventBoardRemovesFromFavorites(
+        ExploreBoardsBoardRemovedFromFavorites(
           board: board,
         ),
       );

@@ -6,7 +6,6 @@ import 'package:fchan/bloc/bookmarks/bookmarks_state.dart';
 import 'package:fchan/components/listcontroller/list_portion_controller.dart';
 import 'package:fchan/data/repositories/data_repository.dart';
 import 'package:fchan/entities/thread.dart';
-import 'package:flutter/cupertino.dart';
 
 class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
   final DataRepository dataRepository;

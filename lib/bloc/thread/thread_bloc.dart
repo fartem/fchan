@@ -7,7 +7,6 @@ import 'package:fchan/entities/thread.dart';
 import 'package:meta/meta.dart';
 
 part 'thread_event.dart';
-
 part 'thread_state.dart';
 
 class ThreadBloc extends Bloc<ThreadEvent, ThreadState> {

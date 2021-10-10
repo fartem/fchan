@@ -10,7 +10,7 @@ abstract class BookmarksState with _$BookmarksState {
   const factory BookmarksState.bookmarksLoadSuccess({
     required List<Thread> threads,
     required bool isLastPage,
-}) = BookmarksLoadSuccess;
+  }) = BookmarksLoadSuccess;
 
   const factory BookmarksState.bookmarksLoadError() = BookmarksLoadError;
 

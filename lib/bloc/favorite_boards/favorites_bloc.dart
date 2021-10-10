@@ -6,7 +6,6 @@ import 'package:fchan/entities/board.dart';
 import 'package:meta/meta.dart';
 
 part 'favorites_event.dart';
-
 part 'favorites_state.dart';
 
 class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
