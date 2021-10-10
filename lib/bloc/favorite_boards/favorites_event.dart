@@ -1,8 +1,10 @@
-part of 'favorites_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class FavoritesEvent {}
+part 'favorites_event.freezed.dart';
 
-class FavoritesEventInitialized extends FavoritesEvent {}
+@freezed
+abstract class FavoritesEvent with _$FavoritesEvent {
+  const factory FavoritesEvent.favoritesInitialized() = FavoritesInitialized;
 
-class FavoritesEventBoardsUpdated extends FavoritesEvent {}
+  const factory FavoritesEvent.favoritesWasUpdated() = FavoritesWasUpdated;
+}

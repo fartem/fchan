@@ -1,42 +1,42 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:fchan/bloc/favorite_boards/favorites_event.dart';
+import 'package:fchan/bloc/favorite_boards/favorites_state.dart';
 import 'package:fchan/data/repositories/data_repository.dart';
-import 'package:fchan/entities/board.dart';
-import 'package:meta/meta.dart';
-
-part 'favorites_event.dart';
-part 'favorites_state.dart';
 
 class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   final DataRepository dataRepository;
 
-  FavoritesBloc({required this.dataRepository}) : super(FavoritesInitial()) {
-    add(FavoritesEventInitialized());
+  FavoritesBloc({required this.dataRepository}) : super(const FavoritesInitial()) {
+    add(const FavoritesInitialized());
   }
 
   @override
   Stream<FavoritesState> mapEventToState(
     FavoritesEvent event,
   ) async* {
-    if (event is FavoritesEventInitialized) {
-      yield* _mapFavoritesEventInitializedToState();
-    } else if (event is FavoritesEventBoardsUpdated) {
-      yield* _mapFavoritesEventBoardsUpdated();
-    }
+    yield* event.when(
+      favoritesInitialized: _mapFavoritesEventInitializedToState,
+      favoritesWasUpdated: _mapFavoritesEventBoardsUpdatedToState,
+    );
   }
 
   Stream<FavoritesState> _mapFavoritesEventInitializedToState() async* {
     try {
       final favorites = await dataRepository.favorites();
-      yield FavoritesLoadSuccess(favorites: favorites);
+      if (favorites.isNotEmpty) {
+        yield FavoritesLoadSuccess(favorites: favorites);
+      } else {
+        yield const FavoritesAreEmpty();
+      }
     } on Exception {
-      yield FavoritesLoadError();
+      yield const FavoritesLoadError();
     }
   }
 
-  Stream<FavoritesState> _mapFavoritesEventBoardsUpdated() async* {
-    yield FavoritesInitial();
-    add(FavoritesEventInitialized());
+  Stream<FavoritesState> _mapFavoritesEventBoardsUpdatedToState() async* {
+    yield const FavoritesInitial();
+    add(const FavoritesInitialized());
   }
 }

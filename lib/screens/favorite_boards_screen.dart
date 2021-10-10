@@ -1,4 +1,6 @@
 import 'package:fchan/bloc/favorite_boards/favorites_bloc.dart';
+import 'package:fchan/bloc/favorite_boards/favorites_event.dart';
+import 'package:fchan/bloc/favorite_boards/favorites_state.dart';
 import 'package:fchan/components/routes/fchan_routes.dart';
 import 'package:fchan/components/widgets/app_centered_circular_progress_indicator.dart';
 import 'package:fchan/components/widgets/app_centered_text.dart';
@@ -30,7 +32,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             await context.push(
               route: routeExploreBoards,
             );
-            _bloc?.add(FavoritesEventBoardsUpdated());
+            _bloc?.add(const FavoritesWasUpdated());
           },
         ),
       ],
@@ -41,30 +43,30 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         child: BlocBuilder<FavoritesBloc, FavoritesState>(
           builder: (context, state) {
             _bloc = context.read<FavoritesBloc>();
-            if (state is FavoritesInitial) {
-              return const AppCenteredCircularProgressIndicator();
-            } else if (state is FavoritesLoadSuccess) {
-              if (state.favorites.isEmpty) {
-                return AppCenteredText(
-                  text: context.localizations.messageFavoritesIsEmpty,
+            return state.when(
+              favoritesInitial: () => const AppCenteredCircularProgressIndicator(),
+              favoritesLoadSuccess: (favorites) {
+                return ListView.builder(
+                  itemBuilder: (context, index) {
+                    final board = favorites[index];
+                    return ListTile(
+                      title: Text(board.toString()),
+                      onTap: () => Navigator.of(context).pushNamed(
+                        routeBoard,
+                        arguments: board,
+                      ),
+                    );
+                  },
+                  itemCount: favorites.length,
                 );
-              }
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final board = state.favorites[index];
-                  return ListTile(
-                    title: Text(board.toString()),
-                    onTap: () => Navigator.of(context).pushNamed(
-                      routeBoard,
-                      arguments: board,
-                    ),
-                  );
-                },
-                itemCount: state.favorites.length,
-              );
-            } else {
-              return const AppCenteredCircularProgressIndicator();
-            }
+              },
+              favoritesLoadError: () => AppCenteredText(
+                text: context.localizations.messageFavoritesIsEmpty,
+              ),
+              favoritesAreEmpty: () => AppCenteredText(
+                text: context.localizations.messageFavoritesIsEmpty,
+              ),
+            );
           },
         ),
       ),

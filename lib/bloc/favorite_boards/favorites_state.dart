@@ -1,14 +1,17 @@
-part of 'favorites_bloc.dart';
+import 'package:fchan/entities/board.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class FavoritesState {}
+part 'favorites_state.freezed.dart';
 
-class FavoritesInitial extends FavoritesState {}
+@freezed
+abstract class FavoritesState with _$FavoritesState {
+  const factory FavoritesState.favoritesInitial() = FavoritesInitial;
 
-class FavoritesLoadSuccess extends FavoritesState {
-  final List<Board> favorites;
+  const factory FavoritesState.favoritesLoadSuccess({
+    required List<Board> favorites,
+  }) = FavoritesLoadSuccess;
 
-  FavoritesLoadSuccess({required this.favorites});
+  const factory FavoritesState.favoritesLoadError() = FavoritesLoadError;
+
+  const factory FavoritesState.favoritesAreEmpty() = FavoritesAreEmpty;
 }
-
-class FavoritesLoadError extends FavoritesState {}
