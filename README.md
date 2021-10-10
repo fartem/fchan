@@ -17,7 +17,7 @@ You can track a next test app version development status on [GitHub Projects](ht
 * [x] Boards list
 * [x] Favorite boards list
 * [x] History
-* [ ] Bookmarks
+* [x] Bookmarks
 * [ ] Gallery
 * [ ] Settings
 
