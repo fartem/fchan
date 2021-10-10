@@ -125,8 +125,8 @@ class _$BookmarksInitializedCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$BookmarksInitialized extends BookmarksInitialized {
-  const _$BookmarksInitialized() : super._();
+class _$BookmarksInitialized implements BookmarksInitialized {
+  const _$BookmarksInitialized();
 
   @override
   String toString() {
@@ -202,9 +202,8 @@ class _$BookmarksInitialized extends BookmarksInitialized {
   }
 }
 
-abstract class BookmarksInitialized extends BookmarksEvent {
+abstract class BookmarksInitialized implements BookmarksEvent {
   const factory BookmarksInitialized() = _$BookmarksInitialized;
-  const BookmarksInitialized._() : super._();
 }
 
 /// @nodoc
@@ -228,8 +227,8 @@ class _$BookmarksPortionRequestedCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$BookmarksPortionRequested extends BookmarksPortionRequested {
-  const _$BookmarksPortionRequested() : super._();
+class _$BookmarksPortionRequested implements BookmarksPortionRequested {
+  const _$BookmarksPortionRequested();
 
   @override
   String toString() {
@@ -305,9 +304,8 @@ class _$BookmarksPortionRequested extends BookmarksPortionRequested {
   }
 }
 
-abstract class BookmarksPortionRequested extends BookmarksEvent {
+abstract class BookmarksPortionRequested implements BookmarksEvent {
   const factory BookmarksPortionRequested() = _$BookmarksPortionRequested;
-  const BookmarksPortionRequested._() : super._();
 }
 
 /// @nodoc
@@ -331,8 +329,8 @@ class _$BookmarksUpdateRequestedCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$BookmarksUpdateRequested extends BookmarksUpdateRequested {
-  const _$BookmarksUpdateRequested() : super._();
+class _$BookmarksUpdateRequested implements BookmarksUpdateRequested {
+  const _$BookmarksUpdateRequested();
 
   @override
   String toString() {
@@ -408,9 +406,8 @@ class _$BookmarksUpdateRequested extends BookmarksUpdateRequested {
   }
 }
 
-abstract class BookmarksUpdateRequested extends BookmarksEvent {
+abstract class BookmarksUpdateRequested implements BookmarksEvent {
   const factory BookmarksUpdateRequested() = _$BookmarksUpdateRequested;
-  const BookmarksUpdateRequested._() : super._();
 }
 
 /// @nodoc
@@ -433,8 +430,8 @@ class _$BookmarksClearRequestedCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$BookmarksClearRequested extends BookmarksClearRequested {
-  const _$BookmarksClearRequested() : super._();
+class _$BookmarksClearRequested implements BookmarksClearRequested {
+  const _$BookmarksClearRequested();
 
   @override
   String toString() {
@@ -510,9 +507,8 @@ class _$BookmarksClearRequested extends BookmarksClearRequested {
   }
 }
 
-abstract class BookmarksClearRequested extends BookmarksEvent {
+abstract class BookmarksClearRequested implements BookmarksEvent {
   const factory BookmarksClearRequested() = _$BookmarksClearRequested;
-  const BookmarksClearRequested._() : super._();
 }
 
 /// @nodoc
@@ -548,8 +544,8 @@ class _$BookmarkRemovedCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$BookmarkRemoved extends BookmarkRemoved {
-  const _$BookmarkRemoved({required this.bookmark}) : super._();
+class _$BookmarkRemoved implements BookmarkRemoved {
+  const _$BookmarkRemoved({required this.bookmark});
 
   @override
   final Thread bookmark;
@@ -638,9 +634,8 @@ class _$BookmarkRemoved extends BookmarkRemoved {
   }
 }
 
-abstract class BookmarkRemoved extends BookmarksEvent {
+abstract class BookmarkRemoved implements BookmarksEvent {
   const factory BookmarkRemoved({required Thread bookmark}) = _$BookmarkRemoved;
-  const BookmarkRemoved._() : super._();
 
   Thread get bookmark => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)

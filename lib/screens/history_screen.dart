@@ -1,6 +1,9 @@
 import 'package:fchan/bloc/history/history_bloc.dart';
+import 'package:fchan/bloc/history/history_event.dart';
+import 'package:fchan/bloc/history/history_state.dart';
 import 'package:fchan/components/widgets/app_centered_circular_progress_indicator.dart';
 import 'package:fchan/components/widgets/app_centered_text.dart';
+import 'package:fchan/components/widgets/app_list_loader.dart';
 import 'package:fchan/components/widgets/app_screen_frame.dart';
 import 'package:fchan/components/widgets/app_thread_card.dart';
 import 'package:fchan/data/repositories/data_repository.dart';
@@ -40,7 +43,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     context.localizations.commonOk,
                   ),
                   onPressed: () {
-                    _historyBloc.add(HistoryEventClearRequested());
+                    _historyBloc.add(const HistoryClearRequested());
                     Navigator.pop(context);
                   },
                 ),
@@ -62,32 +65,38 @@ class _HistoryScreenState extends State<HistoryScreen> {
         child: BlocBuilder<HistoryBloc, HistoryState>(
           builder: (context, state) {
             _historyBloc = context.read<HistoryBloc>();
-            if (state is HistoryThreadsLoadSuccess) {
-              if (_historyBloc.threads.isEmpty) {
-                return AppCenteredText(
-                  text: context.localizations.messageHistoryIsEmpty,
+            return state.when(
+              historyInitial: () => const AppCenteredCircularProgressIndicator(),
+              historyLoadSuccess: (threads, isLastPage) {
+                return StaggeredGridView.countBuilder(
+                  crossAxisCount: 4,
+                  staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
+                  itemBuilder: (context, index) {
+                    if (!isLastPage && index == threads.length) {
+                      return const AppListLoader();
+                    }
+                    final thread = threads[index];
+                    return AppThreadCard(
+                      key: ValueKey(thread.tim),
+                      thread: thread,
+                      availableActions: const [
+                        ThreadPopupMenuAction.removeFromHistory,
+                      ],
+                      // TODO(fartem): change event to `Update` or similar
+                      actionNotifier: (action) => _historyBloc.add(const HistoryInitialized()),
+                    );
+                  },
+                  itemCount: threads.length + (isLastPage ? 0 : 1),
                 );
-              }
-              return StaggeredGridView.countBuilder(
-                crossAxisCount: 4,
-                staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
-                itemBuilder: (context, index) {
-                  final thread = _historyBloc.threads[index];
-                  // TODO(fartem): add Loader
-                  return AppThreadCard(
-                    key: ValueKey(thread.tim),
-                    thread: thread,
-                    availableActions: const [
-                      ThreadPopupMenuAction.removeFromHistory,
-                    ],
-                    // TODO(fartem): change event to `Update` or similar
-                    actionNotifier: (action) => _historyBloc.add(HistoryEventInitialized()),
-                  );
-                },
-                itemCount: _historyBloc.threads.length,
-              );
-            }
-            return const AppCenteredCircularProgressIndicator();
+              },
+              historyLoadError: () => AppCenteredText(
+                text: context.localizations.messageHistoryIsEmpty,
+              ),
+              historyIsEmpty: () => AppCenteredText(
+                text: context.localizations.messageHistoryIsEmpty,
+              ),
+              historyClearInProgress: () => const AppCenteredCircularProgressIndicator(),
+            );
           },
         ),
       ),
@@ -99,7 +108,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
-        _historyBloc.add(HistoryEventThreadPortionRequested());
+        _historyBloc.add(const HistoryPortionRequested());
       }
     });
   }

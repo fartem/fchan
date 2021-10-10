@@ -1,16 +1,20 @@
-part of 'history_bloc.dart';
+import 'package:fchan/entities/thread.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class HistoryState {}
+part 'history_state.freezed.dart';
 
-class HistoryInitial extends HistoryState {}
+@freezed
+abstract class HistoryState with _$HistoryState {
+  const factory HistoryState.historyInitial() = HistoryInitial;
 
-class HistoryThreadsLoadSuccess extends HistoryState {
-  final List<Thread> threads;
+  const factory HistoryState.historyLoadSuccess({
+    required List<Thread> threads,
+    required bool isLastPage,
+  }) = HistoryLoadSuccess;
 
-  HistoryThreadsLoadSuccess({required this.threads});
+  const factory HistoryState.historyLoadError() = HistoryLoadError;
+
+  const factory HistoryState.historyIsEmpty() = HistoryIsEmpty;
+
+  const factory HistoryState.historyClearInProgress() = HistoryClearInProgress;
 }
-
-class HistoryThreadsLoadError extends HistoryState {}
-
-class HistoryClearInProgress extends HistoryState {}

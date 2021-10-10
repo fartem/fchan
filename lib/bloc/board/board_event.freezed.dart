@@ -103,8 +103,8 @@ class _$BoardInitializedCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$BoardInitialized extends BoardInitialized {
-  const _$BoardInitialized() : super._();
+class _$BoardInitialized implements BoardInitialized {
+  const _$BoardInitialized();
 
   @override
   String toString() {
@@ -169,9 +169,8 @@ class _$BoardInitialized extends BoardInitialized {
   }
 }
 
-abstract class BoardInitialized extends BoardEvent {
+abstract class BoardInitialized implements BoardEvent {
   const factory BoardInitialized() = _$BoardInitialized;
-  const BoardInitialized._() : super._();
 }
 
 /// @nodoc
@@ -194,8 +193,8 @@ class _$BoardPortionRequestedCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$BoardPortionRequested extends BoardPortionRequested {
-  const _$BoardPortionRequested() : super._();
+class _$BoardPortionRequested implements BoardPortionRequested {
+  const _$BoardPortionRequested();
 
   @override
   String toString() {
@@ -260,9 +259,8 @@ class _$BoardPortionRequested extends BoardPortionRequested {
   }
 }
 
-abstract class BoardPortionRequested extends BoardEvent {
+abstract class BoardPortionRequested implements BoardEvent {
   const factory BoardPortionRequested() = _$BoardPortionRequested;
-  const BoardPortionRequested._() : super._();
 }
 
 /// @nodoc
@@ -284,8 +282,8 @@ class _$BoardRefreshedCopyWithImpl<$Res> extends _$BoardEventCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$BoardRefreshed extends BoardRefreshed {
-  const _$BoardRefreshed() : super._();
+class _$BoardRefreshed implements BoardRefreshed {
+  const _$BoardRefreshed();
 
   @override
   String toString() {
@@ -350,7 +348,6 @@ class _$BoardRefreshed extends BoardRefreshed {
   }
 }
 
-abstract class BoardRefreshed extends BoardEvent {
+abstract class BoardRefreshed implements BoardEvent {
   const factory BoardRefreshed() = _$BoardRefreshed;
-  const BoardRefreshed._() : super._();
 }

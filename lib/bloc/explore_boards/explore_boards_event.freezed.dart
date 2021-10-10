@@ -115,8 +115,8 @@ class _$ExploreBoardsInitializedCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$ExploreBoardsInitialized extends ExploreBoardsInitialized {
-  const _$ExploreBoardsInitialized() : super._();
+class _$ExploreBoardsInitialized implements ExploreBoardsInitialized {
+  const _$ExploreBoardsInitialized();
 
   @override
   String toString() {
@@ -185,9 +185,8 @@ class _$ExploreBoardsInitialized extends ExploreBoardsInitialized {
   }
 }
 
-abstract class ExploreBoardsInitialized extends ExploreBoardsEvent {
+abstract class ExploreBoardsInitialized implements ExploreBoardsEvent {
   const factory ExploreBoardsInitialized() = _$ExploreBoardsInitialized;
-  const ExploreBoardsInitialized._() : super._();
 }
 
 /// @nodoc
@@ -227,8 +226,8 @@ class _$ExploreBoardsBoardAddedToFavoritesCopyWithImpl<$Res>
 
 /// @nodoc
 class _$ExploreBoardsBoardAddedToFavorites
-    extends ExploreBoardsBoardAddedToFavorites {
-  const _$ExploreBoardsBoardAddedToFavorites({required this.board}) : super._();
+    implements ExploreBoardsBoardAddedToFavorites {
+  const _$ExploreBoardsBoardAddedToFavorites({required this.board});
 
   @override
   final Board board;
@@ -311,10 +310,10 @@ class _$ExploreBoardsBoardAddedToFavorites
   }
 }
 
-abstract class ExploreBoardsBoardAddedToFavorites extends ExploreBoardsEvent {
+abstract class ExploreBoardsBoardAddedToFavorites
+    implements ExploreBoardsEvent {
   const factory ExploreBoardsBoardAddedToFavorites({required Board board}) =
       _$ExploreBoardsBoardAddedToFavorites;
-  const ExploreBoardsBoardAddedToFavorites._() : super._();
 
   Board get board => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -361,9 +360,8 @@ class _$ExploreBoardsBoardRemovedFromFavoritesCopyWithImpl<$Res>
 
 /// @nodoc
 class _$ExploreBoardsBoardRemovedFromFavorites
-    extends ExploreBoardsBoardRemovedFromFavorites {
-  const _$ExploreBoardsBoardRemovedFromFavorites({required this.board})
-      : super._();
+    implements ExploreBoardsBoardRemovedFromFavorites {
+  const _$ExploreBoardsBoardRemovedFromFavorites({required this.board});
 
   @override
   final Board board;
@@ -447,10 +445,9 @@ class _$ExploreBoardsBoardRemovedFromFavorites
 }
 
 abstract class ExploreBoardsBoardRemovedFromFavorites
-    extends ExploreBoardsEvent {
+    implements ExploreBoardsEvent {
   const factory ExploreBoardsBoardRemovedFromFavorites({required Board board}) =
       _$ExploreBoardsBoardRemovedFromFavorites;
-  const ExploreBoardsBoardRemovedFromFavorites._() : super._();
 
   Board get board => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)

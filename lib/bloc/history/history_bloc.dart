@@ -1,23 +1,19 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:fchan/bloc/history/history_event.dart';
+import 'package:fchan/bloc/history/history_state.dart';
 import 'package:fchan/components/listcontroller/list_portion_controller.dart';
 import 'package:fchan/data/repositories/data_repository.dart';
 import 'package:fchan/entities/thread.dart';
-import 'package:meta/meta.dart';
-
-part 'history_event.dart';
-part 'history_state.dart';
 
 class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   final DataRepository dataRepository;
 
   late ListPortionController<Thread> _listPortionController;
 
-  List<Thread> get threads => _listPortionController.items;
-
-  HistoryBloc({required this.dataRepository}) : super(HistoryInitial()) {
-    add(HistoryEventInitialized());
+  HistoryBloc({required this.dataRepository}) : super(const HistoryInitial()) {
+    add(const HistoryInitialized());
     _listPortionController = ListPortionController<Thread>(
       portionProvider: dataRepository.history,
     );
@@ -27,42 +23,46 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   Stream<HistoryState> mapEventToState(
     HistoryEvent event,
   ) async* {
-    if (event is HistoryEventInitialized) {
-      yield* _mapHistoryEventInitialized();
-    } else if (event is HistoryEventThreadPortionRequested) {
-      yield* _mapHistoryEventThreadPortionRequested();
-    } else if (event is HistoryEventClearRequested) {
-      yield* _mapHistoryEventClearRequested();
-    }
+    yield* event.when(
+      historyInitialized: _mapHistoryEventInitialized,
+      historyPortionRequested: _mapHistoryEventThreadPortionRequested,
+      historyClearRequested: _mapHistoryEventClearRequested,
+    );
   }
 
   Stream<HistoryState> _mapHistoryEventInitialized() async* {
     try {
       await _listPortionController.loadMore();
-      yield HistoryThreadsLoadSuccess(
-        threads: _listPortionController.items,
-      );
+      if (_listPortionController.items.isNotEmpty) {
+        yield HistoryLoadSuccess(
+          threads: List.unmodifiable(_listPortionController.items),
+          isLastPage: _listPortionController.isLastPage,
+        );
+      } else {
+        yield const HistoryIsEmpty();
+      }
     } on Exception {
-      yield HistoryThreadsLoadError();
+      yield const HistoryLoadError();
     }
   }
 
   Stream<HistoryState> _mapHistoryEventThreadPortionRequested() async* {
     await _listPortionController.loadMore();
-    yield HistoryThreadsLoadSuccess(
-      threads: _listPortionController.items,
+    yield HistoryLoadSuccess(
+      threads: List.unmodifiable(_listPortionController.items),
+      isLastPage: _listPortionController.isLastPage,
     );
   }
 
   Stream<HistoryState> _mapHistoryEventClearRequested() async* {
-    yield HistoryClearInProgress();
+    yield const HistoryClearInProgress();
     await _listPortionController.reset();
     await dataRepository.localDataProvider.clearHistory();
-    add(HistoryEventInitialized());
+    add(const HistoryInitialized());
   }
 
   Future<void> deleteFromHistory(Thread thread) async {
+    // TODO(fartem): update History
     await dataRepository.removeThreadFromHistory(thread);
-    threads.remove(thread);
   }
 }

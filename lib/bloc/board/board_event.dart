@@ -4,8 +4,6 @@ part 'board_event.freezed.dart';
 
 @freezed
 abstract class BoardEvent with _$BoardEvent {
-  const BoardEvent._();
-
   const factory BoardEvent.boardInitialized() = BoardInitialized;
 
   const factory BoardEvent.boardPortionRequested() = BoardPortionRequested;

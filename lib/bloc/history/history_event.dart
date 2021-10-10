@@ -1,10 +1,12 @@
-part of 'history_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class HistoryEvent {}
+part 'history_event.freezed.dart';
 
-class HistoryEventInitialized extends HistoryEvent {}
+@freezed
+abstract class HistoryEvent with _$HistoryEvent {
+  const factory HistoryEvent.historyInitialized() = HistoryInitialized;
 
-class HistoryEventThreadPortionRequested extends HistoryEvent {}
+  const factory HistoryEvent.historyPortionRequested() = HistoryPortionRequested;
 
-class HistoryEventClearRequested extends HistoryEvent {}
+  const factory HistoryEvent.historyClearRequested() = HistoryClearRequested;
+}

@@ -5,8 +5,6 @@ part 'explore_boards_event.freezed.dart';
 
 @freezed
 abstract class ExploreBoardsEvent with _$ExploreBoardsEvent {
-  const ExploreBoardsEvent._();
-
   const factory ExploreBoardsEvent.exploreBoardsInitialized() = ExploreBoardsInitialized;
 
   const factory ExploreBoardsEvent.exploreBoardsBoardAddedToFavorites({

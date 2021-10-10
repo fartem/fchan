@@ -5,8 +5,6 @@ part 'bookmarks_event.freezed.dart';
 
 @freezed
 abstract class BookmarksEvent with _$BookmarksEvent {
-  const BookmarksEvent._();
-
   const factory BookmarksEvent.bookmarksInitialized() = BookmarksInitialized;
 
   const factory BookmarksEvent.bookmarksPortionRequested() = BookmarksPortionRequested;
