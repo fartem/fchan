@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 final themeLight = _themeData(
   brightness: Brightness.light,
   accentColor: Colors.orangeAccent,
-  colorScheme: ColorScheme.light(),
+  colorScheme: const ColorScheme.light(),
   appBarColor: Colors.grey,
 );
 
 final themeDark = _themeData(
   brightness: Brightness.dark,
   accentColor: Colors.orangeAccent,
-  colorScheme: ColorScheme.dark(),
+  colorScheme: const ColorScheme.dark(),
 );
 
 ThemeData _themeData({

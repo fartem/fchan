@@ -1,11 +1,12 @@
+import 'package:fchan/components/routes/fchan_routes.dart';
+import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../components/routes/fchan_routes.dart';
-import '../data/repositories/data_repository.dart';
-import '../extensions/build_context_extensions.dart';
-
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _SplashScreenState();
 }
@@ -15,16 +16,16 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     final fChanRepository = context.read<DataRepository>();
-    Future.microtask(() => fChanRepository.init()).then((fChanDatabase) {
+    Future.microtask(fChanRepository.init).then((fChanDatabase) {
       context.pushReplace(
-        route: FChanRoutes.routeHome,
+        route: routeHome,
       );
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: CircularProgressIndicator(),
     );
   }

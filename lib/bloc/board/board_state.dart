@@ -1,14 +1,18 @@
-part of 'board_bloc.dart';
+import 'package:fchan/entities/thread.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class BoardState {}
+part 'board_state.freezed.dart';
 
-class BoardInitial extends BoardState {}
+@freezed
+abstract class BoardState with _$BoardState {
+  const factory BoardState.boardInitial() = BoardInitial;
 
-class BoardThreadsLoadSuccess extends BoardState {
-  final List<ListEntity> threads;
+  const factory BoardState.boardLoadSuccess({
+    required List<Thread> threads,
+    required bool isLastPage,
+  }) = BoardLoadSuccess;
 
-  BoardThreadsLoadSuccess({required this.threads});
+  const factory BoardState.boardLoadError() = BoardLoadError;
+
+  const factory BoardState.boardIsEmpty() = BoardIsEmpty;
 }
-
-class BoardThreadsLoadError extends BoardState {}

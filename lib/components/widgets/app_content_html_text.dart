@@ -7,11 +7,12 @@ class AppContentHtmlText extends StatelessWidget {
   final FontWeight bodyWeight;
   final bool wrapText;
 
-  AppContentHtmlText({
+  const AppContentHtmlText({
     required this.text,
     this.bodyWeight = FontWeight.normal,
     this.wrapText = false,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +26,13 @@ class AppContentHtmlText extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
         'body': Style(
-          margin: const EdgeInsets.all(0),
-          padding: const EdgeInsets.all(0),
+          margin: EdgeInsets.zero,
+          padding: EdgeInsets.zero,
           fontWeight: bodyWeight,
           maxLines: wrapText ? 5 : null,
           textOverflow: TextOverflow.ellipsis,
         ),
         'span': Style(
-          // TODO: add theme
           color: Colors.green[700],
         ),
       },

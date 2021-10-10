@@ -1,8 +1,7 @@
+import 'package:fchan/entities/board.dart';
+import 'package:fchan/entities/parsers.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'board.dart';
-import 'parsers.dart';
 
 part 'thread.g.dart';
 
@@ -63,8 +62,10 @@ class Thread {
   DateTime? lastSeenDate;
 
   Thread({
-    id,
     required this.no,
+    required this.time,
+    required this.replies,
+    required this.images,
     this.sub,
     this.com,
     this.tim,
@@ -73,9 +74,6 @@ class Thread {
     this.imageHeight,
     this.thumbnailWidth,
     this.thumbnailHeight,
-    required this.time,
-    required this.replies,
-    required this.images,
     this.lastSeenDate,
   });
 

@@ -1,9 +1,10 @@
-import '../../entities/entity_page.dart';
-import '../../entities/entity_portion.dart';
-import 'list_entity.dart';
+import 'package:fchan/entities/entity_page.dart';
+import 'package:fchan/entities/entity_portion.dart';
+
+const _pageSize = 10;
 
 class ListPortionController<T> {
-  final List<ListEntity> items = [];
+  final items = <T>[];
 
   final Function(EntityPage entityPage) portionProvider;
 
@@ -16,28 +17,22 @@ class ListPortionController<T> {
   Future<void> loadMore() async {
     if (!isLoading && !isLastPage) {
       isLoading = true;
-      EntityPortion<T> portion = await portionProvider(
+      final EntityPortion<T> portion = await portionProvider(
         EntityPage.paging(
           page: _page,
-          pageSize: 10,
+          pageSize: _pageSize,
         ),
       );
-      if (items.isNotEmpty && items.last == listLoader) {
-        items.removeLast();
-      }
       isLoading = false;
       isLastPage = portion.isLastPage;
       if (!isLastPage) {
         _page++;
       }
-      items.addAll(portion.entities.map((e) => ListEntity(e)));
-      if (!isLastPage) {
-        items.add(listLoader);
-      }
+      items.addAll(portion.entities);
     }
   }
 
-  Future<void> refresh() async {
+  Future<void> reset() async {
     items.clear();
     isLoading = false;
     isLastPage = false;

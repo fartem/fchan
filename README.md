@@ -1,7 +1,6 @@
 # fchan
 
 [![Codemagic](https://api.codemagic.io/apps/5f762964afe9c4000f3e41ce/5f762964afe9c4000f3e41cd/status_badge.svg)](https://codemagic.io/apps/5f762964afe9c4000f3e41ce/5f762964afe9c4000f3e41cd/latest_build)
-[![Coverage](./coverage_badge.svg)](./coverage_badge.svg)
 
 ## About
 
@@ -58,7 +57,7 @@ flutter build apk --profile --split-per-abi
 
 ### From IDE
 
-Just clone or download the project from GitHub and run it from your IDE. How to start with Flutter on your IDE search [here](https://flutter.dev/docs/get-started/editor).
+Just clone or download the project from GitHub and run it from your IDE. How to start with Flutter search [here](https://flutter.dev/docs/get-started/editor).
 
 ## How to contribute
 

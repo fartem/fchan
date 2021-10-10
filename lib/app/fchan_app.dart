@@ -1,22 +1,24 @@
+import 'package:fchan/components/routes/fchan_routes.dart';
+import 'package:fchan/components/themes/fchan_themes.dart';
+import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/entities/board.dart';
+import 'package:fchan/entities/thread.dart';
+import 'package:fchan/extensions/build_context_extensions.dart';
+import 'package:fchan/screens/board_screen.dart';
+import 'package:fchan/screens/bookmarks_screen.dart';
+import 'package:fchan/screens/explore_boards_screen.dart';
+import 'package:fchan/screens/favorite_boards_screen.dart';
+import 'package:fchan/screens/history_screen.dart';
+import 'package:fchan/screens/splash_screen.dart';
+import 'package:fchan/screens/thread_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-import '../components/routes/fchan_routes.dart';
-import '../components/themes/fchan_themes.dart';
-import '../data/repositories/data_repository.dart';
-import '../entities/board.dart';
-import '../entities/thread.dart';
-import '../extensions/build_context_extensions.dart';
-import '../screens/board_screen.dart';
-import '../screens/explore_boards_screen.dart';
-import '../screens/favorite_boards_screen.dart';
-import '../screens/history_screen.dart';
-import '../screens/splash_screen.dart';
-import '../screens/thread_screen.dart';
-
 class FChanApp extends StatefulWidget {
+  const FChanApp({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => FChanAppState();
 }
@@ -27,25 +29,25 @@ class FChanAppState extends State<FChanApp> {
     return MaterialApp(
       onGenerateRoute: (settings) {
         switch (settings.name) {
-          case FChanRoutes.routeInit:
+          case routeInit:
             return MaterialPageRoute(
-              builder: (context) => SplashScreen(),
+              builder: (context) => const SplashScreen(),
             );
-          case FChanRoutes.routeHome:
+          case routeHome:
             return MaterialPageRoute(
-              builder: (context) => FChan(),
+              builder: (context) => const FChan(),
             );
-          case FChanRoutes.routeExploreBoards:
+          case routeExploreBoards:
             return MaterialPageRoute(
-              builder: (context) => ExploreBoardsScreen(),
+              builder: (context) => const ExploreBoardsScreen(),
             );
-          case FChanRoutes.routeBoard:
+          case routeBoard:
             return MaterialPageRoute(
               builder: (context) => BoardScreen(
                 board: settings.arguments as Board,
               ),
             );
-          case FChanRoutes.routeThread:
+          case routeThread:
             return MaterialPageRoute(
               builder: (context) => ThreadScreen(
                 thread: settings.arguments as Thread,
@@ -55,7 +57,7 @@ class FChanAppState extends State<FChanApp> {
             return null;
         }
       },
-      initialRoute: FChanRoutes.routeInit,
+      initialRoute: routeInit,
       title: 'FChan',
       theme: themeLight,
       darkTheme: themeDark,
@@ -67,13 +69,14 @@ class FChanAppState extends State<FChanApp> {
 
   @override
   void dispose() {
-    final fChanRepository = context.read<DataRepository>();
-    fChanRepository.dispose();
+    context.read<DataRepository>().dispose();
     super.dispose();
   }
 }
 
 class FChan extends StatefulWidget {
+  const FChan({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _FChanState();
 }
@@ -81,35 +84,37 @@ class FChan extends StatefulWidget {
 class _FChanState extends State<FChan> {
   final _currentScreen = ValueNotifier<int>(0);
   final screens = [
-    FavoriteBoardsScreen(),
-    HistoryScreen(),
+    const FavoritesScreen(),
+    const BookmarksScreen(),
+    const HistoryScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<int>(
       valueListenable: _currentScreen,
-      builder: (context, currentScreen, child) {
-        return Scaffold(
-          body: screens[currentScreen],
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            currentIndex: _currentScreen.value,
-            // TODO: performance?
-            items: [
-              BottomNavigationBarItem(
-                label: context.localizations.titleHome,
-                icon: Icon(Icons.home),
-              ),
-              BottomNavigationBarItem(
-                label: context.localizations.titleHistory,
-                icon: Icon(Icons.history),
-              ),
-            ],
-            onTap: (page) => _currentScreen.value = page,
-          ),
-        );
-      },
+      builder: (context, currentScreen, child) => Scaffold(
+        body: screens[currentScreen],
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _currentScreen.value,
+          items: [
+            BottomNavigationBarItem(
+              label: context.localizations.titleHome,
+              icon: const Icon(Icons.home),
+            ),
+            BottomNavigationBarItem(
+              label: context.localizations.titleBookmarks,
+              icon: const Icon(Icons.bookmarks),
+            ),
+            BottomNavigationBarItem(
+              label: context.localizations.titleHistory,
+              icon: const Icon(Icons.history),
+            ),
+          ],
+          onTap: (page) => _currentScreen.value = page,
+        ),
+      ),
     );
   }
 }

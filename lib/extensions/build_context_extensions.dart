@@ -2,27 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 extension BuildContextNavigationExtensions on BuildContext {
-  void push({
+  Future<void> push({
     required String route,
     arguments,
-  }) {
-    Navigator.pushNamed(
-      this,
-      route,
-      arguments: arguments,
-    );
-  }
+  }) =>
+      Navigator.pushNamed(
+        this,
+        route,
+        arguments: arguments,
+      );
 
-  void pushReplace({
+  Future<void> pushReplace({
     required String route,
     arguments,
-  }) {
-    Navigator.pushReplacementNamed(
-      this,
-      route,
-      arguments: arguments,
-    );
-  }
+  }) =>
+      Navigator.pushReplacementNamed(
+        this,
+        route,
+        arguments: arguments,
+      );
 }
 
 extension BuildContextLocalizationExtensions on BuildContext {

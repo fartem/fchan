@@ -1,14 +1,17 @@
-part of 'explore_boards_bloc.dart';
+import 'package:fchan/entities/board.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class ExploreBoardsState {}
+part 'explore_boards_state.freezed.dart';
 
-class ExploreBoardsInitial extends ExploreBoardsState {}
+@freezed
+abstract class ExploreBoardsState with _$ExploreBoardsState {
+  const factory ExploreBoardsState.exploreBoardsInitial() = ExploreBoardsInitial;
 
-class ExploreBoardsLoadSuccess extends ExploreBoardsState {
-  final List<Board> boards;
+  const factory ExploreBoardsState.exploreBoardsLoadSuccess({
+    required List<Board> boards,
+  }) = ExploreBoardsLoadSuccess;
 
-  ExploreBoardsLoadSuccess({required this.boards});
+  const factory ExploreBoardsState.exploreBoardsLoadError() = ExploreBoardsLoadError;
+
+  const factory ExploreBoardsState.exploreBoardsAreEmpty() = ExploreBoardsAreEmpty;
 }
-
-class ExploreBoardsLoadError extends ExploreBoardsState {}

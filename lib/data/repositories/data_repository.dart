@@ -1,12 +1,11 @@
 import 'package:collection/collection.dart' show IterableExtension;
-
-import '../../entities/board.dart';
-import '../../entities/entity_page.dart';
-import '../../entities/entity_portion.dart';
-import '../../entities/post.dart';
-import '../../entities/thread.dart';
-import '../providers/local/api/local_data_provider.dart';
-import '../providers/remote/api/remote_data_provider.dart';
+import 'package:fchan/data/providers/local/api/local_data_provider.dart';
+import 'package:fchan/data/providers/remote/api/remote_data_provider.dart';
+import 'package:fchan/entities/board.dart';
+import 'package:fchan/entities/entity_page.dart';
+import 'package:fchan/entities/entity_portion.dart';
+import 'package:fchan/entities/post.dart';
+import 'package:fchan/entities/thread.dart';
 
 class DataRepository {
   final LocalDataProvider localDataProvider;
@@ -19,17 +18,17 @@ class DataRepository {
     required this.remoteDataProvider,
   });
 
-  Future<void> init() async => await localDataProvider.init();
+  Future<void> init() => localDataProvider.init();
 
-  Future<void> dispose() async => await localDataProvider.close();
+  Future<void> dispose() => localDataProvider.close();
 
   Future<List<Board>> boards() async {
     if (_boardsSessionCache.isEmpty) {
-      final favorites = await favoriteBoards();
+      final favoriteBoards = await favorites();
       final result = <Board>[];
       final boards = await remoteDataProvider.fetchBoards();
-      boards.forEach((board) {
-        final favorite = favorites.firstWhereOrNull(
+      for (final board in boards) {
+        final favorite = favoriteBoards.firstWhereOrNull(
           (favorite) => favorite == board,
         );
         if (favorite != null) {
@@ -37,13 +36,13 @@ class DataRepository {
         } else {
           result.add(board);
         }
-      });
+      }
       _boardsSessionCache.addAll(result);
     }
     return _boardsSessionCache;
   }
 
-  Future<List<Board>> favoriteBoards() => localDataProvider.favoriteBoards();
+  Future<List<Board>> favorites() => localDataProvider.favorites();
 
   Future<void> addBoardToFavorites(Board board) => localDataProvider.addBoardToFavorites(board);
 
@@ -61,22 +60,20 @@ class DataRepository {
 
   Future<void> clearHistory() => localDataProvider.clearHistory();
 
+  Future<EntityPortion<Thread>> bookmarks(EntityPage entityPage) => localDataProvider.bookmarks(entityPage);
+
+  Future<void> addThreadToBookmarks(Thread thread) => localDataProvider.addThreadToBookmarks(thread);
+
+  Future<void> removeThreadFromBookmarks(Thread thread) => localDataProvider.removeThreadFromBookmarks(thread);
+
   Future<EntityPortion<Thread>> catalogForBoard(
     Board board,
     EntityPage entityPage,
-  ) async {
-    final portion = await remoteDataProvider.fetchCatalog(
-      board: board,
-      entityPage: entityPage,
-    );
-    for (var i = 0; i < portion.entities.length; i++) {
-      final historyThread = await localDataProvider.threadFromHistory(portion.entities[i]);
-      if (historyThread != null) {
-        portion.entities[i] = historyThread;
-      }
-    }
-    return portion;
-  }
+  ) =>
+      remoteDataProvider.fetchCatalog(
+        board: board,
+        entityPage: entityPage,
+      );
 
   Future<List<Post>> postsForThread(Thread thread) => remoteDataProvider.fetchPosts(thread);
 

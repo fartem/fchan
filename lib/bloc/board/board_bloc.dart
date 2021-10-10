@@ -1,29 +1,22 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
-
-import '../../components/listcontroller/list_entity.dart';
-import '../../components/listcontroller/list_portion_controller.dart';
-import '../../data/repositories/data_repository.dart';
-import '../../entities/board.dart';
-import '../../entities/thread.dart';
-
-part 'board_event.dart';
-part 'board_state.dart';
+import 'package:fchan/bloc/board/board_event.dart';
+import 'package:fchan/bloc/board/board_state.dart';
+import 'package:fchan/components/listcontroller/list_portion_controller.dart';
+import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/entities/board.dart';
+import 'package:fchan/entities/thread.dart';
 
 class BoardBloc extends Bloc<BoardEvent, BoardState> {
   final DataRepository dataRepository;
 
-  late ListPortionController _listPortionController;
-
-  List<ListEntity> get threads => _listPortionController.items;
+  late ListPortionController<Thread> _listPortionController;
 
   BoardBloc({
     required this.dataRepository,
     required Board board,
-  }) : super(BoardInitial()) {
-    add(BoardEventInitialized());
+  }) : super(const BoardInitial()) {
     _listPortionController = ListPortionController<Thread>(
       portionProvider: (entityPage) => dataRepository.catalogForBoard(
         board,
@@ -36,44 +29,48 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
   Stream<BoardState> mapEventToState(
     BoardEvent event,
   ) async* {
-    if (event is BoardEventInitialized) {
-      yield* _mapBoardEventInitializedToState();
-    } else if (event is BoardEventThreadPortionRequested) {
-      yield* _mapBoardEventThreadPortionRequestToState();
-    } else if (event is BoardEventBoardRefreshed) {
-      yield* _mapBoardEventBoardRefreshedToState();
-    }
+    yield* event.when(
+      boardInitialized: _mapBoardEventInitializedToState,
+      boardPortionRequested: _mapBoardEventThreadPortionRequestToState,
+      boardRefreshed: _mapBoardEventBoardRefreshedToState,
+    );
   }
 
   Stream<BoardState> _mapBoardEventInitializedToState() async* {
     try {
       await _listPortionController.loadMore();
-      yield BoardThreadsLoadSuccess(
-        threads: _listPortionController.items,
-      );
+      if (_listPortionController.items.isNotEmpty) {
+        yield BoardLoadSuccess(
+          threads: List.unmodifiable(_listPortionController.items),
+          isLastPage: _listPortionController.isLastPage,
+        );
+      } else {
+        yield const BoardIsEmpty();
+      }
     } on Exception {
-      yield BoardThreadsLoadError();
+      yield const BoardLoadError();
     }
   }
 
   Stream<BoardState> _mapBoardEventThreadPortionRequestToState() async* {
     await _listPortionController.loadMore();
-    yield BoardThreadsLoadSuccess(
-      threads: _listPortionController.items,
+    yield BoardLoadSuccess(
+      threads: List.unmodifiable(_listPortionController.items),
+      isLastPage: _listPortionController.isLastPage,
     );
   }
 
   Stream<BoardState> _mapBoardEventBoardRefreshedToState() async* {
-    await _listPortionController.refresh();
-    add(BoardEventInitialized());
-    yield BoardInitial();
+    await _listPortionController.reset();
+    add(const BoardInitialized());
+    yield const BoardInitial();
   }
 
   Future<void> addToHistory(Thread thread) async {
     if (!(await dataRepository.threadContainsInHistory(thread))) {
-      dataRepository.addThreadToHistory(thread);
+      await dataRepository.addThreadToHistory(thread);
     } else {
-      dataRepository.updateThreadInHistory(thread);
+      await dataRepository.updateThreadInHistory(thread);
     }
   }
 }

@@ -18,6 +18,9 @@ class ThreadAdapter extends TypeAdapter<Thread> {
     };
     return Thread(
       no: fields[2] as int,
+      time: fields[7] as Duration,
+      replies: fields[12] as int,
+      images: fields[13] as int,
       sub: fields[3] as String?,
       com: fields[4] as String?,
       tim: fields[5] as int?,
@@ -26,9 +29,6 @@ class ThreadAdapter extends TypeAdapter<Thread> {
       imageHeight: fields[9] as int?,
       thumbnailWidth: fields[10] as int?,
       thumbnailHeight: fields[11] as int?,
-      time: fields[7] as Duration,
-      replies: fields[12] as int,
-      images: fields[13] as int,
       lastSeenDate: fields[14] as DateTime?,
     )
       ..board = fields[0] as String
@@ -86,6 +86,9 @@ class ThreadAdapter extends TypeAdapter<Thread> {
 Thread _$ThreadFromJson(Map<String, dynamic> json) {
   return Thread(
     no: json['no'] as int,
+    time: parseTimeFromInt(json['time'] as int),
+    replies: json['replies'] as int,
+    images: json['images'] as int,
     sub: json['sub'] as String?,
     com: json['com'] as String?,
     tim: json['tim'] as int?,
@@ -94,9 +97,6 @@ Thread _$ThreadFromJson(Map<String, dynamic> json) {
     imageHeight: json['h'] as int?,
     thumbnailWidth: json['tn_w'] as int?,
     thumbnailHeight: json['tn_h'] as int?,
-    time: parseTimeFromInt(json['time'] as int),
-    replies: json['replies'] as int,
-    images: json['images'] as int,
     lastSeenDate: json['last_seen_date'] == null ? null : DateTime.parse(json['last_seen_date'] as String),
   )..boardId = json['board_id'] as int?;
 }

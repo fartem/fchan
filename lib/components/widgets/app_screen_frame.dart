@@ -6,10 +6,10 @@ class AppScreenFrame extends StatelessWidget {
   final Widget body;
 
   const AppScreenFrame({
-    Key? key,
     required this.title,
     required this.actions,
     required this.body,
+    Key? key,
   }) : super(key: key);
 
   @override

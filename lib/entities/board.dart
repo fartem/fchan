@@ -19,7 +19,6 @@ class Board {
     required this.board,
     required this.title,
     this.isFavorite = false,
-    int? id,
   });
 
   @override

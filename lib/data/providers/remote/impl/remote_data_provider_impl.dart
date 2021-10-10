@@ -1,43 +1,40 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:fchan/data/providers/remote/api/remote_data_provider.dart';
+import 'package:fchan/data/providers/remote/impl/interceptors/logger_interceptor.dart';
+import 'package:fchan/entities/board.dart';
+import 'package:fchan/entities/entity_page.dart';
+import 'package:fchan/entities/entity_portion.dart';
+import 'package:fchan/entities/post.dart';
+import 'package:fchan/entities/thread.dart';
 
-import '../../../../entities/board.dart';
-import '../../../../entities/entity_page.dart';
-import '../../../../entities/entity_portion.dart';
-import '../../../../entities/post.dart';
-import '../../../../entities/thread.dart';
-import '../api/remote_data_provider.dart';
-import 'interceptors/logger_interceptor.dart';
+const _baseUrl = 'https://a.4cdn.org';
+const _imageBaseUrl = 'https://i.4cdn.org';
 
 class RemoteDataProviderImpl extends RemoteDataProvider {
-  final String baseUrl;
-  final String imageBaseUrl;
-  late Dio dio;
+  late Dio _dio;
 
-  RemoteDataProviderImpl({
-    required this.baseUrl,
-    required this.imageBaseUrl,
-  }) {
-    dio = Dio(
+  RemoteDataProviderImpl() {
+    _dio = Dio(
       BaseOptions(
-        baseUrl: baseUrl,
+        baseUrl: _baseUrl,
       ),
     )..interceptors.add(LoggerInterceptor());
   }
 
   @override
-  String baseUrlImage() => imageBaseUrl;
+  String baseUrlImage() => _imageBaseUrl;
 
   @override
   Future<List<Board>> fetchBoards() async {
-    final url = '$baseUrl/boards.json';
-    final response = await dio.get<Map<String, dynamic>>(url);
+    const url = '$_baseUrl/boards.json';
+    final response = await _dio.get<Map<String, dynamic>>(url);
     if (response.statusCode == HttpStatus.ok) {
       final boards = response.data!['boards'].map((rawBoard) => Board.fromJson(rawBoard)).toList();
       return List<Board>.from(boards);
     } else {
-      throw HttpException(
+      throw const HttpException(
         'Cannot fetch boards from $url',
       );
     }
@@ -48,8 +45,8 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
     required Board board,
     required EntityPage entityPage,
   }) async {
-    final uri = '$baseUrl/${board.board}/${entityPage.page}.json';
-    final response = await dio.get<Map<String, dynamic>>(uri);
+    final uri = '$_baseUrl/${board.board}/${entityPage.page}.json';
+    final response = await _dio.get<Map<String, dynamic>>(uri);
     if (response.statusCode == HttpStatus.ok) {
       final rawThreads = response.data!['threads']!;
       final threads = <Thread>[
@@ -68,8 +65,8 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
 
   @override
   Future<List<Post>> fetchPosts(Thread thread) async {
-    final uri = '$baseUrl/${thread.board}/thread/${thread.no}.json';
-    final response = await dio.get<Map<String, dynamic>>(uri);
+    final uri = '$_baseUrl/${thread.board}/thread/${thread.no}.json';
+    final response = await _dio.get<Map<String, dynamic>>(uri);
     if (response.statusCode == HttpStatus.ok) {
       return (response.data!['posts'] as List).map((rawPost) => Post.fromJson(rawPost)..board = thread.board).toList();
     } else {
@@ -88,14 +85,14 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
   }
 
   @override
-  String urlForThreadsImage(Thread thread) => '$imageBaseUrl/${thread.board}/${thread.tim}${thread.ext}';
+  String urlForThreadsImage(Thread thread) => '$_imageBaseUrl/${thread.board}/${thread.tim}${thread.ext}';
 
   @override
-  String urlForThreadsImageThumbnail(Thread thread) => '$imageBaseUrl/${thread.board}/${thread.tim}s.jpg';
+  String urlForThreadsImageThumbnail(Thread thread) => '$_imageBaseUrl/${thread.board}/${thread.tim}s.jpg';
 
   @override
-  String urlForPostsImage(Post post) => '$imageBaseUrl/${post.board}/${post.tim}${post.ext}';
+  String urlForPostsImage(Post post) => '$_imageBaseUrl/${post.board}/${post.tim}${post.ext}';
 
   @override
-  String urlForPostsImageThumbnail(Post post) => '$imageBaseUrl/${post.board}/${post.tim}s.jpg';
+  String urlForPostsImageThumbnail(Post post) => '$_imageBaseUrl/${post.board}/${post.tim}s.jpg';
 }

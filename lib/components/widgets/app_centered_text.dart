@@ -3,7 +3,10 @@ import 'package:flutter/cupertino.dart';
 class AppCenteredText extends StatelessWidget {
   final String text;
 
-  AppCenteredText({required this.text});
+  const AppCenteredText({
+    required this.text,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
