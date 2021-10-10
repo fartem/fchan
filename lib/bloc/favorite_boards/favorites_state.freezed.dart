@@ -48,6 +48,7 @@ mixin _$FavoritesState {
     required TResult Function() favoritesAreEmpty,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? favoritesInitial,
@@ -57,6 +58,7 @@ mixin _$FavoritesState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(FavoritesInitial value) favoritesInitial,
@@ -65,6 +67,7 @@ mixin _$FavoritesState {
     required TResult Function(FavoritesAreEmpty value) favoritesAreEmpty,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(FavoritesInitial value)? favoritesInitial,
@@ -78,34 +81,30 @@ mixin _$FavoritesState {
 
 /// @nodoc
 abstract class $FavoritesStateCopyWith<$Res> {
-  factory $FavoritesStateCopyWith(
-          FavoritesState value, $Res Function(FavoritesState) then) =
+  factory $FavoritesStateCopyWith(FavoritesState value, $Res Function(FavoritesState) then) =
       _$FavoritesStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FavoritesStateCopyWithImpl<$Res>
-    implements $FavoritesStateCopyWith<$Res> {
+class _$FavoritesStateCopyWithImpl<$Res> implements $FavoritesStateCopyWith<$Res> {
   _$FavoritesStateCopyWithImpl(this._value, this._then);
 
   final FavoritesState _value;
+
   // ignore: unused_field
   final $Res Function(FavoritesState) _then;
 }
 
 /// @nodoc
 abstract class $FavoritesInitialCopyWith<$Res> {
-  factory $FavoritesInitialCopyWith(
-          FavoritesInitial value, $Res Function(FavoritesInitial) then) =
+  factory $FavoritesInitialCopyWith(FavoritesInitial value, $Res Function(FavoritesInitial) then) =
       _$FavoritesInitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FavoritesInitialCopyWithImpl<$Res>
-    extends _$FavoritesStateCopyWithImpl<$Res>
+class _$FavoritesInitialCopyWithImpl<$Res> extends _$FavoritesStateCopyWithImpl<$Res>
     implements $FavoritesInitialCopyWith<$Res> {
-  _$FavoritesInitialCopyWithImpl(
-      FavoritesInitial _value, $Res Function(FavoritesInitial) _then)
+  _$FavoritesInitialCopyWithImpl(FavoritesInitial _value, $Res Function(FavoritesInitial) _then)
       : super(_value, (v) => _then(v as FavoritesInitial));
 
   @override
@@ -188,18 +187,16 @@ abstract class FavoritesInitial implements FavoritesState {
 
 /// @nodoc
 abstract class $FavoritesLoadSuccessCopyWith<$Res> {
-  factory $FavoritesLoadSuccessCopyWith(FavoritesLoadSuccess value,
-          $Res Function(FavoritesLoadSuccess) then) =
+  factory $FavoritesLoadSuccessCopyWith(FavoritesLoadSuccess value, $Res Function(FavoritesLoadSuccess) then) =
       _$FavoritesLoadSuccessCopyWithImpl<$Res>;
+
   $Res call({List<Board> favorites});
 }
 
 /// @nodoc
-class _$FavoritesLoadSuccessCopyWithImpl<$Res>
-    extends _$FavoritesStateCopyWithImpl<$Res>
+class _$FavoritesLoadSuccessCopyWithImpl<$Res> extends _$FavoritesStateCopyWithImpl<$Res>
     implements $FavoritesLoadSuccessCopyWith<$Res> {
-  _$FavoritesLoadSuccessCopyWithImpl(
-      FavoritesLoadSuccess _value, $Res Function(FavoritesLoadSuccess) _then)
+  _$FavoritesLoadSuccessCopyWithImpl(FavoritesLoadSuccess _value, $Res Function(FavoritesLoadSuccess) _then)
       : super(_value, (v) => _then(v as FavoritesLoadSuccess));
 
   @override
@@ -235,19 +232,16 @@ class _$FavoritesLoadSuccess implements FavoritesLoadSuccess {
     return identical(this, other) ||
         (other is FavoritesLoadSuccess &&
             (identical(other.favorites, favorites) ||
-                const DeepCollectionEquality()
-                    .equals(other.favorites, favorites)));
+                const DeepCollectionEquality().equals(other.favorites, favorites)));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(favorites);
+  int get hashCode => runtimeType.hashCode ^ const DeepCollectionEquality().hash(favorites);
 
   @JsonKey(ignore: true)
   @override
   $FavoritesLoadSuccessCopyWith<FavoritesLoadSuccess> get copyWith =>
-      _$FavoritesLoadSuccessCopyWithImpl<FavoritesLoadSuccess>(
-          this, _$identity);
+      _$FavoritesLoadSuccessCopyWithImpl<FavoritesLoadSuccess>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -303,28 +297,24 @@ class _$FavoritesLoadSuccess implements FavoritesLoadSuccess {
 }
 
 abstract class FavoritesLoadSuccess implements FavoritesState {
-  const factory FavoritesLoadSuccess({required List<Board> favorites}) =
-      _$FavoritesLoadSuccess;
+  const factory FavoritesLoadSuccess({required List<Board> favorites}) = _$FavoritesLoadSuccess;
 
   List<Board> get favorites => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
-  $FavoritesLoadSuccessCopyWith<FavoritesLoadSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
+  $FavoritesLoadSuccessCopyWith<FavoritesLoadSuccess> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $FavoritesLoadErrorCopyWith<$Res> {
-  factory $FavoritesLoadErrorCopyWith(
-          FavoritesLoadError value, $Res Function(FavoritesLoadError) then) =
+  factory $FavoritesLoadErrorCopyWith(FavoritesLoadError value, $Res Function(FavoritesLoadError) then) =
       _$FavoritesLoadErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FavoritesLoadErrorCopyWithImpl<$Res>
-    extends _$FavoritesStateCopyWithImpl<$Res>
+class _$FavoritesLoadErrorCopyWithImpl<$Res> extends _$FavoritesStateCopyWithImpl<$Res>
     implements $FavoritesLoadErrorCopyWith<$Res> {
-  _$FavoritesLoadErrorCopyWithImpl(
-      FavoritesLoadError _value, $Res Function(FavoritesLoadError) _then)
+  _$FavoritesLoadErrorCopyWithImpl(FavoritesLoadError _value, $Res Function(FavoritesLoadError) _then)
       : super(_value, (v) => _then(v as FavoritesLoadError));
 
   @override
@@ -407,17 +397,14 @@ abstract class FavoritesLoadError implements FavoritesState {
 
 /// @nodoc
 abstract class $FavoritesAreEmptyCopyWith<$Res> {
-  factory $FavoritesAreEmptyCopyWith(
-          FavoritesAreEmpty value, $Res Function(FavoritesAreEmpty) then) =
+  factory $FavoritesAreEmptyCopyWith(FavoritesAreEmpty value, $Res Function(FavoritesAreEmpty) then) =
       _$FavoritesAreEmptyCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FavoritesAreEmptyCopyWithImpl<$Res>
-    extends _$FavoritesStateCopyWithImpl<$Res>
+class _$FavoritesAreEmptyCopyWithImpl<$Res> extends _$FavoritesStateCopyWithImpl<$Res>
     implements $FavoritesAreEmptyCopyWith<$Res> {
-  _$FavoritesAreEmptyCopyWithImpl(
-      FavoritesAreEmpty _value, $Res Function(FavoritesAreEmpty) _then)
+  _$FavoritesAreEmptyCopyWithImpl(FavoritesAreEmpty _value, $Res Function(FavoritesAreEmpty) _then)
       : super(_value, (v) => _then(v as FavoritesAreEmpty));
 
   @override

@@ -24,13 +24,13 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     HistoryEvent event,
   ) async* {
     yield* event.when(
-      historyInitialized: _mapHistoryEventInitialized,
-      historyPortionRequested: _mapHistoryEventThreadPortionRequested,
-      historyClearRequested: _mapHistoryEventClearRequested,
+      historyInitialized: _mapHistoryEventInitializedToState,
+      historyPortionRequested: _mapHistoryEventThreadPortionRequestedToState,
+      historyClearRequested: _mapHistoryEventClearRequestedToState,
     );
   }
 
-  Stream<HistoryState> _mapHistoryEventInitialized() async* {
+  Stream<HistoryState> _mapHistoryEventInitializedToState() async* {
     try {
       await _listPortionController.loadMore();
       if (_listPortionController.items.isNotEmpty) {
@@ -46,7 +46,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     }
   }
 
-  Stream<HistoryState> _mapHistoryEventThreadPortionRequested() async* {
+  Stream<HistoryState> _mapHistoryEventThreadPortionRequestedToState() async* {
     await _listPortionController.loadMore();
     yield HistoryLoadSuccess(
       threads: List.unmodifiable(_listPortionController.items),
@@ -54,7 +54,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     );
   }
 
-  Stream<HistoryState> _mapHistoryEventClearRequested() async* {
+  Stream<HistoryState> _mapHistoryEventClearRequestedToState() async* {
     yield const HistoryClearInProgress();
     await _listPortionController.reset();
     await dataRepository.localDataProvider.clearHistory();

@@ -24,17 +24,17 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
     BookmarksEvent event,
   ) async* {
     yield* event.when(
-      bookmarksInitialized: _mapBookmarksEventInitialized,
-      bookmarksPortionRequested: _mapBookmarksEventThreadPortionRequested,
-      bookmarksUpdateRequested: _mapBookmarksEventUpdateRequested,
-      bookmarksClearRequested: _mapBookmarksEventClearRequested,
-      bookmarkRemoved: (thread) => _mapBookmarksEventBookmarkRemoved(
+      bookmarksInitialized: _mapBookmarksEventInitializedToState,
+      bookmarksPortionRequested: _mapBookmarksEventThreadPortionRequestedToState,
+      bookmarksUpdateRequested: _mapBookmarksEventUpdateRequestedToState,
+      bookmarksClearRequested: _mapBookmarksEventClearRequestedToState,
+      bookmarkRemoved: (thread) => _mapBookmarksEventBookmarkRemovedToState(
         thread: thread,
       ),
     );
   }
 
-  Stream<BookmarksState> _mapBookmarksEventInitialized() async* {
+  Stream<BookmarksState> _mapBookmarksEventInitializedToState() async* {
     try {
       await _listPortionController.loadMore();
       if (_listPortionController.items.isNotEmpty) {
@@ -50,7 +50,7 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
     }
   }
 
-  Stream<BookmarksState> _mapBookmarksEventThreadPortionRequested() async* {
+  Stream<BookmarksState> _mapBookmarksEventThreadPortionRequestedToState() async* {
     await _listPortionController.loadMore();
     yield BookmarksLoadSuccess(
       threads: List.unmodifiable(_listPortionController.items),
@@ -58,21 +58,21 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
     );
   }
 
-  Stream<BookmarksState> _mapBookmarksEventUpdateRequested() async* {
+  Stream<BookmarksState> _mapBookmarksEventUpdateRequestedToState() async* {
     yield BookmarksLoadSuccess(
       threads: List.unmodifiable(_listPortionController.items),
       isLastPage: _listPortionController.isLastPage,
     );
   }
 
-  Stream<BookmarksState> _mapBookmarksEventClearRequested() async* {
+  Stream<BookmarksState> _mapBookmarksEventClearRequestedToState() async* {
     yield const BookmarksClearInProgress();
     await _listPortionController.reset();
     await dataRepository.localDataProvider.clearHistory();
     add(const BookmarksInitialized());
   }
 
-  Stream<BookmarksState> _mapBookmarksEventBookmarkRemoved({
+  Stream<BookmarksState> _mapBookmarksEventBookmarkRemovedToState({
     required Thread thread,
   }) async* {
     _listPortionController.items.remove(thread);

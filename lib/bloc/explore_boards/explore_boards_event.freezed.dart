@@ -20,15 +20,13 @@ class _$ExploreBoardsEventTearOff {
     return const ExploreBoardsInitialized();
   }
 
-  ExploreBoardsBoardAddedToFavorites exploreBoardsBoardAddedToFavorites(
-      {required Board board}) {
+  ExploreBoardsBoardAddedToFavorites exploreBoardsBoardAddedToFavorites({required Board board}) {
     return ExploreBoardsBoardAddedToFavorites(
       board: board,
     );
   }
 
-  ExploreBoardsBoardRemovedFromFavorites exploreBoardsBoardRemovedToFavorites(
-      {required Board board}) {
+  ExploreBoardsBoardRemovedFromFavorites exploreBoardsBoardRemovedToFavorites({required Board board}) {
     return ExploreBoardsBoardRemovedFromFavorites(
       board: board,
     );
@@ -47,6 +45,7 @@ mixin _$ExploreBoardsEvent {
     required TResult Function(Board board) exploreBoardsBoardRemovedToFavorites,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? exploreBoardsInitialized,
@@ -55,23 +54,20 @@ mixin _$ExploreBoardsEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ExploreBoardsInitialized value)
-        exploreBoardsInitialized,
-    required TResult Function(ExploreBoardsBoardAddedToFavorites value)
-        exploreBoardsBoardAddedToFavorites,
-    required TResult Function(ExploreBoardsBoardRemovedFromFavorites value)
-        exploreBoardsBoardRemovedToFavorites,
+    required TResult Function(ExploreBoardsInitialized value) exploreBoardsInitialized,
+    required TResult Function(ExploreBoardsBoardAddedToFavorites value) exploreBoardsBoardAddedToFavorites,
+    required TResult Function(ExploreBoardsBoardRemovedFromFavorites value) exploreBoardsBoardRemovedToFavorites,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ExploreBoardsInitialized value)? exploreBoardsInitialized,
-    TResult Function(ExploreBoardsBoardAddedToFavorites value)?
-        exploreBoardsBoardAddedToFavorites,
-    TResult Function(ExploreBoardsBoardRemovedFromFavorites value)?
-        exploreBoardsBoardRemovedToFavorites,
+    TResult Function(ExploreBoardsBoardAddedToFavorites value)? exploreBoardsBoardAddedToFavorites,
+    TResult Function(ExploreBoardsBoardRemovedFromFavorites value)? exploreBoardsBoardRemovedToFavorites,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -79,39 +75,35 @@ mixin _$ExploreBoardsEvent {
 
 /// @nodoc
 abstract class $ExploreBoardsEventCopyWith<$Res> {
-  factory $ExploreBoardsEventCopyWith(
-          ExploreBoardsEvent value, $Res Function(ExploreBoardsEvent) then) =
+  factory $ExploreBoardsEventCopyWith(ExploreBoardsEvent value, $Res Function(ExploreBoardsEvent) then) =
       _$ExploreBoardsEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ExploreBoardsEventCopyWithImpl<$Res>
-    implements $ExploreBoardsEventCopyWith<$Res> {
+class _$ExploreBoardsEventCopyWithImpl<$Res> implements $ExploreBoardsEventCopyWith<$Res> {
   _$ExploreBoardsEventCopyWithImpl(this._value, this._then);
 
   final ExploreBoardsEvent _value;
+
   // ignore: unused_field
   final $Res Function(ExploreBoardsEvent) _then;
 }
 
 /// @nodoc
 abstract class $ExploreBoardsInitializedCopyWith<$Res> {
-  factory $ExploreBoardsInitializedCopyWith(ExploreBoardsInitialized value,
-          $Res Function(ExploreBoardsInitialized) then) =
+  factory $ExploreBoardsInitializedCopyWith(
+          ExploreBoardsInitialized value, $Res Function(ExploreBoardsInitialized) then) =
       _$ExploreBoardsInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ExploreBoardsInitializedCopyWithImpl<$Res>
-    extends _$ExploreBoardsEventCopyWithImpl<$Res>
+class _$ExploreBoardsInitializedCopyWithImpl<$Res> extends _$ExploreBoardsEventCopyWithImpl<$Res>
     implements $ExploreBoardsInitializedCopyWith<$Res> {
-  _$ExploreBoardsInitializedCopyWithImpl(ExploreBoardsInitialized _value,
-      $Res Function(ExploreBoardsInitialized) _then)
+  _$ExploreBoardsInitializedCopyWithImpl(ExploreBoardsInitialized _value, $Res Function(ExploreBoardsInitialized) _then)
       : super(_value, (v) => _then(v as ExploreBoardsInitialized));
 
   @override
-  ExploreBoardsInitialized get _value =>
-      super._value as ExploreBoardsInitialized;
+  ExploreBoardsInitialized get _value => super._value as ExploreBoardsInitialized;
 }
 
 /// @nodoc
@@ -158,12 +150,9 @@ class _$ExploreBoardsInitialized implements ExploreBoardsInitialized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ExploreBoardsInitialized value)
-        exploreBoardsInitialized,
-    required TResult Function(ExploreBoardsBoardAddedToFavorites value)
-        exploreBoardsBoardAddedToFavorites,
-    required TResult Function(ExploreBoardsBoardRemovedFromFavorites value)
-        exploreBoardsBoardRemovedToFavorites,
+    required TResult Function(ExploreBoardsInitialized value) exploreBoardsInitialized,
+    required TResult Function(ExploreBoardsBoardAddedToFavorites value) exploreBoardsBoardAddedToFavorites,
+    required TResult Function(ExploreBoardsBoardRemovedFromFavorites value) exploreBoardsBoardRemovedToFavorites,
   }) {
     return exploreBoardsInitialized(this);
   }
@@ -172,10 +161,8 @@ class _$ExploreBoardsInitialized implements ExploreBoardsInitialized {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ExploreBoardsInitialized value)? exploreBoardsInitialized,
-    TResult Function(ExploreBoardsBoardAddedToFavorites value)?
-        exploreBoardsBoardAddedToFavorites,
-    TResult Function(ExploreBoardsBoardRemovedFromFavorites value)?
-        exploreBoardsBoardRemovedToFavorites,
+    TResult Function(ExploreBoardsBoardAddedToFavorites value)? exploreBoardsBoardAddedToFavorites,
+    TResult Function(ExploreBoardsBoardRemovedFromFavorites value)? exploreBoardsBoardRemovedToFavorites,
     required TResult orElse(),
   }) {
     if (exploreBoardsInitialized != null) {
@@ -192,24 +179,21 @@ abstract class ExploreBoardsInitialized implements ExploreBoardsEvent {
 /// @nodoc
 abstract class $ExploreBoardsBoardAddedToFavoritesCopyWith<$Res> {
   factory $ExploreBoardsBoardAddedToFavoritesCopyWith(
-          ExploreBoardsBoardAddedToFavorites value,
-          $Res Function(ExploreBoardsBoardAddedToFavorites) then) =
+          ExploreBoardsBoardAddedToFavorites value, $Res Function(ExploreBoardsBoardAddedToFavorites) then) =
       _$ExploreBoardsBoardAddedToFavoritesCopyWithImpl<$Res>;
+
   $Res call({Board board});
 }
 
 /// @nodoc
-class _$ExploreBoardsBoardAddedToFavoritesCopyWithImpl<$Res>
-    extends _$ExploreBoardsEventCopyWithImpl<$Res>
+class _$ExploreBoardsBoardAddedToFavoritesCopyWithImpl<$Res> extends _$ExploreBoardsEventCopyWithImpl<$Res>
     implements $ExploreBoardsBoardAddedToFavoritesCopyWith<$Res> {
   _$ExploreBoardsBoardAddedToFavoritesCopyWithImpl(
-      ExploreBoardsBoardAddedToFavorites _value,
-      $Res Function(ExploreBoardsBoardAddedToFavorites) _then)
+      ExploreBoardsBoardAddedToFavorites _value, $Res Function(ExploreBoardsBoardAddedToFavorites) _then)
       : super(_value, (v) => _then(v as ExploreBoardsBoardAddedToFavorites));
 
   @override
-  ExploreBoardsBoardAddedToFavorites get _value =>
-      super._value as ExploreBoardsBoardAddedToFavorites;
+  ExploreBoardsBoardAddedToFavorites get _value => super._value as ExploreBoardsBoardAddedToFavorites;
 
   @override
   $Res call({
@@ -225,8 +209,7 @@ class _$ExploreBoardsBoardAddedToFavoritesCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$ExploreBoardsBoardAddedToFavorites
-    implements ExploreBoardsBoardAddedToFavorites {
+class _$ExploreBoardsBoardAddedToFavorites implements ExploreBoardsBoardAddedToFavorites {
   const _$ExploreBoardsBoardAddedToFavorites({required this.board});
 
   @override
@@ -241,20 +224,16 @@ class _$ExploreBoardsBoardAddedToFavorites
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is ExploreBoardsBoardAddedToFavorites &&
-            (identical(other.board, board) ||
-                const DeepCollectionEquality().equals(other.board, board)));
+            (identical(other.board, board) || const DeepCollectionEquality().equals(other.board, board)));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(board);
+  int get hashCode => runtimeType.hashCode ^ const DeepCollectionEquality().hash(board);
 
   @JsonKey(ignore: true)
   @override
-  $ExploreBoardsBoardAddedToFavoritesCopyWith<
-          ExploreBoardsBoardAddedToFavorites>
-      get copyWith => _$ExploreBoardsBoardAddedToFavoritesCopyWithImpl<
-          ExploreBoardsBoardAddedToFavorites>(this, _$identity);
+  $ExploreBoardsBoardAddedToFavoritesCopyWith<ExploreBoardsBoardAddedToFavorites> get copyWith =>
+      _$ExploreBoardsBoardAddedToFavoritesCopyWithImpl<ExploreBoardsBoardAddedToFavorites>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -283,12 +262,9 @@ class _$ExploreBoardsBoardAddedToFavorites
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ExploreBoardsInitialized value)
-        exploreBoardsInitialized,
-    required TResult Function(ExploreBoardsBoardAddedToFavorites value)
-        exploreBoardsBoardAddedToFavorites,
-    required TResult Function(ExploreBoardsBoardRemovedFromFavorites value)
-        exploreBoardsBoardRemovedToFavorites,
+    required TResult Function(ExploreBoardsInitialized value) exploreBoardsInitialized,
+    required TResult Function(ExploreBoardsBoardAddedToFavorites value) exploreBoardsBoardAddedToFavorites,
+    required TResult Function(ExploreBoardsBoardRemovedFromFavorites value) exploreBoardsBoardRemovedToFavorites,
   }) {
     return exploreBoardsBoardAddedToFavorites(this);
   }
@@ -297,10 +273,8 @@ class _$ExploreBoardsBoardAddedToFavorites
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ExploreBoardsInitialized value)? exploreBoardsInitialized,
-    TResult Function(ExploreBoardsBoardAddedToFavorites value)?
-        exploreBoardsBoardAddedToFavorites,
-    TResult Function(ExploreBoardsBoardRemovedFromFavorites value)?
-        exploreBoardsBoardRemovedToFavorites,
+    TResult Function(ExploreBoardsBoardAddedToFavorites value)? exploreBoardsBoardAddedToFavorites,
+    TResult Function(ExploreBoardsBoardRemovedFromFavorites value)? exploreBoardsBoardRemovedToFavorites,
     required TResult orElse(),
   }) {
     if (exploreBoardsBoardAddedToFavorites != null) {
@@ -310,40 +284,34 @@ class _$ExploreBoardsBoardAddedToFavorites
   }
 }
 
-abstract class ExploreBoardsBoardAddedToFavorites
-    implements ExploreBoardsEvent {
-  const factory ExploreBoardsBoardAddedToFavorites({required Board board}) =
-      _$ExploreBoardsBoardAddedToFavorites;
+abstract class ExploreBoardsBoardAddedToFavorites implements ExploreBoardsEvent {
+  const factory ExploreBoardsBoardAddedToFavorites({required Board board}) = _$ExploreBoardsBoardAddedToFavorites;
 
   Board get board => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
-  $ExploreBoardsBoardAddedToFavoritesCopyWith<
-          ExploreBoardsBoardAddedToFavorites>
-      get copyWith => throw _privateConstructorUsedError;
+  $ExploreBoardsBoardAddedToFavoritesCopyWith<ExploreBoardsBoardAddedToFavorites> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ExploreBoardsBoardRemovedFromFavoritesCopyWith<$Res> {
   factory $ExploreBoardsBoardRemovedFromFavoritesCopyWith(
-          ExploreBoardsBoardRemovedFromFavorites value,
-          $Res Function(ExploreBoardsBoardRemovedFromFavorites) then) =
+          ExploreBoardsBoardRemovedFromFavorites value, $Res Function(ExploreBoardsBoardRemovedFromFavorites) then) =
       _$ExploreBoardsBoardRemovedFromFavoritesCopyWithImpl<$Res>;
+
   $Res call({Board board});
 }
 
 /// @nodoc
-class _$ExploreBoardsBoardRemovedFromFavoritesCopyWithImpl<$Res>
-    extends _$ExploreBoardsEventCopyWithImpl<$Res>
+class _$ExploreBoardsBoardRemovedFromFavoritesCopyWithImpl<$Res> extends _$ExploreBoardsEventCopyWithImpl<$Res>
     implements $ExploreBoardsBoardRemovedFromFavoritesCopyWith<$Res> {
   _$ExploreBoardsBoardRemovedFromFavoritesCopyWithImpl(
-      ExploreBoardsBoardRemovedFromFavorites _value,
-      $Res Function(ExploreBoardsBoardRemovedFromFavorites) _then)
-      : super(
-            _value, (v) => _then(v as ExploreBoardsBoardRemovedFromFavorites));
+      ExploreBoardsBoardRemovedFromFavorites _value, $Res Function(ExploreBoardsBoardRemovedFromFavorites) _then)
+      : super(_value, (v) => _then(v as ExploreBoardsBoardRemovedFromFavorites));
 
   @override
-  ExploreBoardsBoardRemovedFromFavorites get _value =>
-      super._value as ExploreBoardsBoardRemovedFromFavorites;
+  ExploreBoardsBoardRemovedFromFavorites get _value => super._value as ExploreBoardsBoardRemovedFromFavorites;
 
   @override
   $Res call({
@@ -359,8 +327,7 @@ class _$ExploreBoardsBoardRemovedFromFavoritesCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$ExploreBoardsBoardRemovedFromFavorites
-    implements ExploreBoardsBoardRemovedFromFavorites {
+class _$ExploreBoardsBoardRemovedFromFavorites implements ExploreBoardsBoardRemovedFromFavorites {
   const _$ExploreBoardsBoardRemovedFromFavorites({required this.board});
 
   @override
@@ -375,20 +342,16 @@ class _$ExploreBoardsBoardRemovedFromFavorites
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is ExploreBoardsBoardRemovedFromFavorites &&
-            (identical(other.board, board) ||
-                const DeepCollectionEquality().equals(other.board, board)));
+            (identical(other.board, board) || const DeepCollectionEquality().equals(other.board, board)));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(board);
+  int get hashCode => runtimeType.hashCode ^ const DeepCollectionEquality().hash(board);
 
   @JsonKey(ignore: true)
   @override
-  $ExploreBoardsBoardRemovedFromFavoritesCopyWith<
-          ExploreBoardsBoardRemovedFromFavorites>
-      get copyWith => _$ExploreBoardsBoardRemovedFromFavoritesCopyWithImpl<
-          ExploreBoardsBoardRemovedFromFavorites>(this, _$identity);
+  $ExploreBoardsBoardRemovedFromFavoritesCopyWith<ExploreBoardsBoardRemovedFromFavorites> get copyWith =>
+      _$ExploreBoardsBoardRemovedFromFavoritesCopyWithImpl<ExploreBoardsBoardRemovedFromFavorites>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -417,12 +380,9 @@ class _$ExploreBoardsBoardRemovedFromFavorites
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ExploreBoardsInitialized value)
-        exploreBoardsInitialized,
-    required TResult Function(ExploreBoardsBoardAddedToFavorites value)
-        exploreBoardsBoardAddedToFavorites,
-    required TResult Function(ExploreBoardsBoardRemovedFromFavorites value)
-        exploreBoardsBoardRemovedToFavorites,
+    required TResult Function(ExploreBoardsInitialized value) exploreBoardsInitialized,
+    required TResult Function(ExploreBoardsBoardAddedToFavorites value) exploreBoardsBoardAddedToFavorites,
+    required TResult Function(ExploreBoardsBoardRemovedFromFavorites value) exploreBoardsBoardRemovedToFavorites,
   }) {
     return exploreBoardsBoardRemovedToFavorites(this);
   }
@@ -431,10 +391,8 @@ class _$ExploreBoardsBoardRemovedFromFavorites
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ExploreBoardsInitialized value)? exploreBoardsInitialized,
-    TResult Function(ExploreBoardsBoardAddedToFavorites value)?
-        exploreBoardsBoardAddedToFavorites,
-    TResult Function(ExploreBoardsBoardRemovedFromFavorites value)?
-        exploreBoardsBoardRemovedToFavorites,
+    TResult Function(ExploreBoardsBoardAddedToFavorites value)? exploreBoardsBoardAddedToFavorites,
+    TResult Function(ExploreBoardsBoardRemovedFromFavorites value)? exploreBoardsBoardRemovedToFavorites,
     required TResult orElse(),
   }) {
     if (exploreBoardsBoardRemovedToFavorites != null) {
@@ -444,14 +402,13 @@ class _$ExploreBoardsBoardRemovedFromFavorites
   }
 }
 
-abstract class ExploreBoardsBoardRemovedFromFavorites
-    implements ExploreBoardsEvent {
+abstract class ExploreBoardsBoardRemovedFromFavorites implements ExploreBoardsEvent {
   const factory ExploreBoardsBoardRemovedFromFavorites({required Board board}) =
       _$ExploreBoardsBoardRemovedFromFavorites;
 
   Board get board => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
-  $ExploreBoardsBoardRemovedFromFavoritesCopyWith<
-          ExploreBoardsBoardRemovedFromFavorites>
-      get copyWith => throw _privateConstructorUsedError;
+  $ExploreBoardsBoardRemovedFromFavoritesCopyWith<ExploreBoardsBoardRemovedFromFavorites> get copyWith =>
+      throw _privateConstructorUsedError;
 }

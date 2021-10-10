@@ -53,6 +53,7 @@ mixin _$BookmarksEvent {
     required TResult Function(Thread bookmark) bookmarkRemoved,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? bookmarksInitialized,
@@ -63,23 +64,21 @@ mixin _$BookmarksEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(BookmarksInitialized value) bookmarksInitialized,
-    required TResult Function(BookmarksPortionRequested value)
-        bookmarksPortionRequested,
-    required TResult Function(BookmarksUpdateRequested value)
-        bookmarksUpdateRequested,
-    required TResult Function(BookmarksClearRequested value)
-        bookmarksClearRequested,
+    required TResult Function(BookmarksPortionRequested value) bookmarksPortionRequested,
+    required TResult Function(BookmarksUpdateRequested value) bookmarksUpdateRequested,
+    required TResult Function(BookmarksClearRequested value) bookmarksClearRequested,
     required TResult Function(BookmarkRemoved value) bookmarkRemoved,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BookmarksInitialized value)? bookmarksInitialized,
-    TResult Function(BookmarksPortionRequested value)?
-        bookmarksPortionRequested,
+    TResult Function(BookmarksPortionRequested value)? bookmarksPortionRequested,
     TResult Function(BookmarksUpdateRequested value)? bookmarksUpdateRequested,
     TResult Function(BookmarksClearRequested value)? bookmarksClearRequested,
     TResult Function(BookmarkRemoved value)? bookmarkRemoved,
@@ -90,34 +89,30 @@ mixin _$BookmarksEvent {
 
 /// @nodoc
 abstract class $BookmarksEventCopyWith<$Res> {
-  factory $BookmarksEventCopyWith(
-          BookmarksEvent value, $Res Function(BookmarksEvent) then) =
+  factory $BookmarksEventCopyWith(BookmarksEvent value, $Res Function(BookmarksEvent) then) =
       _$BookmarksEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BookmarksEventCopyWithImpl<$Res>
-    implements $BookmarksEventCopyWith<$Res> {
+class _$BookmarksEventCopyWithImpl<$Res> implements $BookmarksEventCopyWith<$Res> {
   _$BookmarksEventCopyWithImpl(this._value, this._then);
 
   final BookmarksEvent _value;
+
   // ignore: unused_field
   final $Res Function(BookmarksEvent) _then;
 }
 
 /// @nodoc
 abstract class $BookmarksInitializedCopyWith<$Res> {
-  factory $BookmarksInitializedCopyWith(BookmarksInitialized value,
-          $Res Function(BookmarksInitialized) then) =
+  factory $BookmarksInitializedCopyWith(BookmarksInitialized value, $Res Function(BookmarksInitialized) then) =
       _$BookmarksInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BookmarksInitializedCopyWithImpl<$Res>
-    extends _$BookmarksEventCopyWithImpl<$Res>
+class _$BookmarksInitializedCopyWithImpl<$Res> extends _$BookmarksEventCopyWithImpl<$Res>
     implements $BookmarksInitializedCopyWith<$Res> {
-  _$BookmarksInitializedCopyWithImpl(
-      BookmarksInitialized _value, $Res Function(BookmarksInitialized) _then)
+  _$BookmarksInitializedCopyWithImpl(BookmarksInitialized _value, $Res Function(BookmarksInitialized) _then)
       : super(_value, (v) => _then(v as BookmarksInitialized));
 
   @override
@@ -173,12 +168,9 @@ class _$BookmarksInitialized implements BookmarksInitialized {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(BookmarksInitialized value) bookmarksInitialized,
-    required TResult Function(BookmarksPortionRequested value)
-        bookmarksPortionRequested,
-    required TResult Function(BookmarksUpdateRequested value)
-        bookmarksUpdateRequested,
-    required TResult Function(BookmarksClearRequested value)
-        bookmarksClearRequested,
+    required TResult Function(BookmarksPortionRequested value) bookmarksPortionRequested,
+    required TResult Function(BookmarksUpdateRequested value) bookmarksUpdateRequested,
+    required TResult Function(BookmarksClearRequested value) bookmarksClearRequested,
     required TResult Function(BookmarkRemoved value) bookmarkRemoved,
   }) {
     return bookmarksInitialized(this);
@@ -188,8 +180,7 @@ class _$BookmarksInitialized implements BookmarksInitialized {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BookmarksInitialized value)? bookmarksInitialized,
-    TResult Function(BookmarksPortionRequested value)?
-        bookmarksPortionRequested,
+    TResult Function(BookmarksPortionRequested value)? bookmarksPortionRequested,
     TResult Function(BookmarksUpdateRequested value)? bookmarksUpdateRequested,
     TResult Function(BookmarksClearRequested value)? bookmarksClearRequested,
     TResult Function(BookmarkRemoved value)? bookmarkRemoved,
@@ -208,22 +199,20 @@ abstract class BookmarksInitialized implements BookmarksEvent {
 
 /// @nodoc
 abstract class $BookmarksPortionRequestedCopyWith<$Res> {
-  factory $BookmarksPortionRequestedCopyWith(BookmarksPortionRequested value,
-          $Res Function(BookmarksPortionRequested) then) =
+  factory $BookmarksPortionRequestedCopyWith(
+          BookmarksPortionRequested value, $Res Function(BookmarksPortionRequested) then) =
       _$BookmarksPortionRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BookmarksPortionRequestedCopyWithImpl<$Res>
-    extends _$BookmarksEventCopyWithImpl<$Res>
+class _$BookmarksPortionRequestedCopyWithImpl<$Res> extends _$BookmarksEventCopyWithImpl<$Res>
     implements $BookmarksPortionRequestedCopyWith<$Res> {
-  _$BookmarksPortionRequestedCopyWithImpl(BookmarksPortionRequested _value,
-      $Res Function(BookmarksPortionRequested) _then)
+  _$BookmarksPortionRequestedCopyWithImpl(
+      BookmarksPortionRequested _value, $Res Function(BookmarksPortionRequested) _then)
       : super(_value, (v) => _then(v as BookmarksPortionRequested));
 
   @override
-  BookmarksPortionRequested get _value =>
-      super._value as BookmarksPortionRequested;
+  BookmarksPortionRequested get _value => super._value as BookmarksPortionRequested;
 }
 
 /// @nodoc
@@ -275,12 +264,9 @@ class _$BookmarksPortionRequested implements BookmarksPortionRequested {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(BookmarksInitialized value) bookmarksInitialized,
-    required TResult Function(BookmarksPortionRequested value)
-        bookmarksPortionRequested,
-    required TResult Function(BookmarksUpdateRequested value)
-        bookmarksUpdateRequested,
-    required TResult Function(BookmarksClearRequested value)
-        bookmarksClearRequested,
+    required TResult Function(BookmarksPortionRequested value) bookmarksPortionRequested,
+    required TResult Function(BookmarksUpdateRequested value) bookmarksUpdateRequested,
+    required TResult Function(BookmarksClearRequested value) bookmarksClearRequested,
     required TResult Function(BookmarkRemoved value) bookmarkRemoved,
   }) {
     return bookmarksPortionRequested(this);
@@ -290,8 +276,7 @@ class _$BookmarksPortionRequested implements BookmarksPortionRequested {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BookmarksInitialized value)? bookmarksInitialized,
-    TResult Function(BookmarksPortionRequested value)?
-        bookmarksPortionRequested,
+    TResult Function(BookmarksPortionRequested value)? bookmarksPortionRequested,
     TResult Function(BookmarksUpdateRequested value)? bookmarksUpdateRequested,
     TResult Function(BookmarksClearRequested value)? bookmarksClearRequested,
     TResult Function(BookmarkRemoved value)? bookmarkRemoved,
@@ -310,22 +295,19 @@ abstract class BookmarksPortionRequested implements BookmarksEvent {
 
 /// @nodoc
 abstract class $BookmarksUpdateRequestedCopyWith<$Res> {
-  factory $BookmarksUpdateRequestedCopyWith(BookmarksUpdateRequested value,
-          $Res Function(BookmarksUpdateRequested) then) =
+  factory $BookmarksUpdateRequestedCopyWith(
+          BookmarksUpdateRequested value, $Res Function(BookmarksUpdateRequested) then) =
       _$BookmarksUpdateRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BookmarksUpdateRequestedCopyWithImpl<$Res>
-    extends _$BookmarksEventCopyWithImpl<$Res>
+class _$BookmarksUpdateRequestedCopyWithImpl<$Res> extends _$BookmarksEventCopyWithImpl<$Res>
     implements $BookmarksUpdateRequestedCopyWith<$Res> {
-  _$BookmarksUpdateRequestedCopyWithImpl(BookmarksUpdateRequested _value,
-      $Res Function(BookmarksUpdateRequested) _then)
+  _$BookmarksUpdateRequestedCopyWithImpl(BookmarksUpdateRequested _value, $Res Function(BookmarksUpdateRequested) _then)
       : super(_value, (v) => _then(v as BookmarksUpdateRequested));
 
   @override
-  BookmarksUpdateRequested get _value =>
-      super._value as BookmarksUpdateRequested;
+  BookmarksUpdateRequested get _value => super._value as BookmarksUpdateRequested;
 }
 
 /// @nodoc
@@ -377,12 +359,9 @@ class _$BookmarksUpdateRequested implements BookmarksUpdateRequested {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(BookmarksInitialized value) bookmarksInitialized,
-    required TResult Function(BookmarksPortionRequested value)
-        bookmarksPortionRequested,
-    required TResult Function(BookmarksUpdateRequested value)
-        bookmarksUpdateRequested,
-    required TResult Function(BookmarksClearRequested value)
-        bookmarksClearRequested,
+    required TResult Function(BookmarksPortionRequested value) bookmarksPortionRequested,
+    required TResult Function(BookmarksUpdateRequested value) bookmarksUpdateRequested,
+    required TResult Function(BookmarksClearRequested value) bookmarksClearRequested,
     required TResult Function(BookmarkRemoved value) bookmarkRemoved,
   }) {
     return bookmarksUpdateRequested(this);
@@ -392,8 +371,7 @@ class _$BookmarksUpdateRequested implements BookmarksUpdateRequested {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BookmarksInitialized value)? bookmarksInitialized,
-    TResult Function(BookmarksPortionRequested value)?
-        bookmarksPortionRequested,
+    TResult Function(BookmarksPortionRequested value)? bookmarksPortionRequested,
     TResult Function(BookmarksUpdateRequested value)? bookmarksUpdateRequested,
     TResult Function(BookmarksClearRequested value)? bookmarksClearRequested,
     TResult Function(BookmarkRemoved value)? bookmarkRemoved,
@@ -412,17 +390,14 @@ abstract class BookmarksUpdateRequested implements BookmarksEvent {
 
 /// @nodoc
 abstract class $BookmarksClearRequestedCopyWith<$Res> {
-  factory $BookmarksClearRequestedCopyWith(BookmarksClearRequested value,
-          $Res Function(BookmarksClearRequested) then) =
+  factory $BookmarksClearRequestedCopyWith(BookmarksClearRequested value, $Res Function(BookmarksClearRequested) then) =
       _$BookmarksClearRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BookmarksClearRequestedCopyWithImpl<$Res>
-    extends _$BookmarksEventCopyWithImpl<$Res>
+class _$BookmarksClearRequestedCopyWithImpl<$Res> extends _$BookmarksEventCopyWithImpl<$Res>
     implements $BookmarksClearRequestedCopyWith<$Res> {
-  _$BookmarksClearRequestedCopyWithImpl(BookmarksClearRequested _value,
-      $Res Function(BookmarksClearRequested) _then)
+  _$BookmarksClearRequestedCopyWithImpl(BookmarksClearRequested _value, $Res Function(BookmarksClearRequested) _then)
       : super(_value, (v) => _then(v as BookmarksClearRequested));
 
   @override
@@ -478,12 +453,9 @@ class _$BookmarksClearRequested implements BookmarksClearRequested {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(BookmarksInitialized value) bookmarksInitialized,
-    required TResult Function(BookmarksPortionRequested value)
-        bookmarksPortionRequested,
-    required TResult Function(BookmarksUpdateRequested value)
-        bookmarksUpdateRequested,
-    required TResult Function(BookmarksClearRequested value)
-        bookmarksClearRequested,
+    required TResult Function(BookmarksPortionRequested value) bookmarksPortionRequested,
+    required TResult Function(BookmarksUpdateRequested value) bookmarksUpdateRequested,
+    required TResult Function(BookmarksClearRequested value) bookmarksClearRequested,
     required TResult Function(BookmarkRemoved value) bookmarkRemoved,
   }) {
     return bookmarksClearRequested(this);
@@ -493,8 +465,7 @@ class _$BookmarksClearRequested implements BookmarksClearRequested {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BookmarksInitialized value)? bookmarksInitialized,
-    TResult Function(BookmarksPortionRequested value)?
-        bookmarksPortionRequested,
+    TResult Function(BookmarksPortionRequested value)? bookmarksPortionRequested,
     TResult Function(BookmarksUpdateRequested value)? bookmarksUpdateRequested,
     TResult Function(BookmarksClearRequested value)? bookmarksClearRequested,
     TResult Function(BookmarkRemoved value)? bookmarkRemoved,
@@ -513,18 +484,16 @@ abstract class BookmarksClearRequested implements BookmarksEvent {
 
 /// @nodoc
 abstract class $BookmarkRemovedCopyWith<$Res> {
-  factory $BookmarkRemovedCopyWith(
-          BookmarkRemoved value, $Res Function(BookmarkRemoved) then) =
+  factory $BookmarkRemovedCopyWith(BookmarkRemoved value, $Res Function(BookmarkRemoved) then) =
       _$BookmarkRemovedCopyWithImpl<$Res>;
+
   $Res call({Thread bookmark});
 }
 
 /// @nodoc
-class _$BookmarkRemovedCopyWithImpl<$Res>
-    extends _$BookmarksEventCopyWithImpl<$Res>
+class _$BookmarkRemovedCopyWithImpl<$Res> extends _$BookmarksEventCopyWithImpl<$Res>
     implements $BookmarkRemovedCopyWith<$Res> {
-  _$BookmarkRemovedCopyWithImpl(
-      BookmarkRemoved _value, $Res Function(BookmarkRemoved) _then)
+  _$BookmarkRemovedCopyWithImpl(BookmarkRemoved _value, $Res Function(BookmarkRemoved) _then)
       : super(_value, (v) => _then(v as BookmarkRemoved));
 
   @override
@@ -559,14 +528,11 @@ class _$BookmarkRemoved implements BookmarkRemoved {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is BookmarkRemoved &&
-            (identical(other.bookmark, bookmark) ||
-                const DeepCollectionEquality()
-                    .equals(other.bookmark, bookmark)));
+            (identical(other.bookmark, bookmark) || const DeepCollectionEquality().equals(other.bookmark, bookmark)));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(bookmark);
+  int get hashCode => runtimeType.hashCode ^ const DeepCollectionEquality().hash(bookmark);
 
   @JsonKey(ignore: true)
   @override
@@ -605,12 +571,9 @@ class _$BookmarkRemoved implements BookmarkRemoved {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(BookmarksInitialized value) bookmarksInitialized,
-    required TResult Function(BookmarksPortionRequested value)
-        bookmarksPortionRequested,
-    required TResult Function(BookmarksUpdateRequested value)
-        bookmarksUpdateRequested,
-    required TResult Function(BookmarksClearRequested value)
-        bookmarksClearRequested,
+    required TResult Function(BookmarksPortionRequested value) bookmarksPortionRequested,
+    required TResult Function(BookmarksUpdateRequested value) bookmarksUpdateRequested,
+    required TResult Function(BookmarksClearRequested value) bookmarksClearRequested,
     required TResult Function(BookmarkRemoved value) bookmarkRemoved,
   }) {
     return bookmarkRemoved(this);
@@ -620,8 +583,7 @@ class _$BookmarkRemoved implements BookmarkRemoved {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BookmarksInitialized value)? bookmarksInitialized,
-    TResult Function(BookmarksPortionRequested value)?
-        bookmarksPortionRequested,
+    TResult Function(BookmarksPortionRequested value)? bookmarksPortionRequested,
     TResult Function(BookmarksUpdateRequested value)? bookmarksUpdateRequested,
     TResult Function(BookmarksClearRequested value)? bookmarksClearRequested,
     TResult Function(BookmarkRemoved value)? bookmarkRemoved,
@@ -638,7 +600,7 @@ abstract class BookmarkRemoved implements BookmarksEvent {
   const factory BookmarkRemoved({required Thread bookmark}) = _$BookmarkRemoved;
 
   Thread get bookmark => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
-  $BookmarkRemovedCopyWith<BookmarkRemoved> get copyWith =>
-      throw _privateConstructorUsedError;
+  $BookmarkRemovedCopyWith<BookmarkRemoved> get copyWith => throw _privateConstructorUsedError;
 }

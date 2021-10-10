@@ -11,7 +11,6 @@ abstract class ExploreBoardsEvent with _$ExploreBoardsEvent {
     required Board board,
   }) = ExploreBoardsBoardAddedToFavorites;
 
-  const factory ExploreBoardsEvent.exploreBoardsBoardRemovedToFavorites({
-    required Board board
-  }) = ExploreBoardsBoardRemovedFromFavorites;
+  const factory ExploreBoardsEvent.exploreBoardsBoardRemovedToFavorites({required Board board}) =
+      ExploreBoardsBoardRemovedFromFavorites;
 }

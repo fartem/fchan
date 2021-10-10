@@ -1,8 +1,10 @@
-part of 'thread_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class ThreadEvent {}
+part 'thread_event.freezed.dart';
 
-class ThreadEventInitialized extends ThreadEvent {}
+@freezed
+abstract class ThreadEvent with _$ThreadEvent {
+  const factory ThreadEvent.threadInitialized() = ThreadInitialized;
 
-class ThreadEventThreadRefreshRequested extends ThreadEvent {}
+  const factory ThreadEvent.threadRefreshRequested() = ThreadRefreshRequested;
+}

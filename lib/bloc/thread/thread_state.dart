@@ -1,14 +1,17 @@
-part of 'thread_bloc.dart';
+import 'package:fchan/entities/post.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-@immutable
-abstract class ThreadState {}
+part 'thread_state.freezed.dart';
 
-class ThreadInitial extends ThreadState {}
+@freezed
+abstract class ThreadState with _$ThreadState {
+  const factory ThreadState.threadInitial() = ThreadInitial;
 
-class ThreadPostsLoadSuccess extends ThreadState {
-  final List<Post> posts;
+  const factory ThreadState.threadLoadSuccess({
+    required List<Post> posts,
+  }) = ThreadLoadSuccess;
 
-  ThreadPostsLoadSuccess({required this.posts});
+  const factory ThreadState.threadLoadError() = ThreadLoadError;
+
+  const factory ThreadState.threadIsEmpty() = ThreadIsEmpty;
 }
-
-class ThreadPostsLoadError extends ThreadState {}

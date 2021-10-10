@@ -20,8 +20,7 @@ class _$ExploreBoardsStateTearOff {
     return const ExploreBoardsInitial();
   }
 
-  ExploreBoardsLoadSuccess exploreBoardsLoadSuccess(
-      {required List<Board> boards}) {
+  ExploreBoardsLoadSuccess exploreBoardsLoadSuccess({required List<Board> boards}) {
     return ExploreBoardsLoadSuccess(
       boards: boards,
     );
@@ -49,6 +48,7 @@ mixin _$ExploreBoardsState {
     required TResult Function() exploreBoardsAreEmpty,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? exploreBoardsInitial,
@@ -58,17 +58,16 @@ mixin _$ExploreBoardsState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ExploreBoardsInitial value) exploreBoardsInitial,
-    required TResult Function(ExploreBoardsLoadSuccess value)
-        exploreBoardsLoadSuccess,
-    required TResult Function(ExploreBoardsLoadError value)
-        exploreBoardsLoadError,
-    required TResult Function(ExploreBoardsAreEmpty value)
-        exploreBoardsAreEmpty,
+    required TResult Function(ExploreBoardsLoadSuccess value) exploreBoardsLoadSuccess,
+    required TResult Function(ExploreBoardsLoadError value) exploreBoardsLoadError,
+    required TResult Function(ExploreBoardsAreEmpty value) exploreBoardsAreEmpty,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ExploreBoardsInitial value)? exploreBoardsInitial,
@@ -82,34 +81,30 @@ mixin _$ExploreBoardsState {
 
 /// @nodoc
 abstract class $ExploreBoardsStateCopyWith<$Res> {
-  factory $ExploreBoardsStateCopyWith(
-          ExploreBoardsState value, $Res Function(ExploreBoardsState) then) =
+  factory $ExploreBoardsStateCopyWith(ExploreBoardsState value, $Res Function(ExploreBoardsState) then) =
       _$ExploreBoardsStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ExploreBoardsStateCopyWithImpl<$Res>
-    implements $ExploreBoardsStateCopyWith<$Res> {
+class _$ExploreBoardsStateCopyWithImpl<$Res> implements $ExploreBoardsStateCopyWith<$Res> {
   _$ExploreBoardsStateCopyWithImpl(this._value, this._then);
 
   final ExploreBoardsState _value;
+
   // ignore: unused_field
   final $Res Function(ExploreBoardsState) _then;
 }
 
 /// @nodoc
 abstract class $ExploreBoardsInitialCopyWith<$Res> {
-  factory $ExploreBoardsInitialCopyWith(ExploreBoardsInitial value,
-          $Res Function(ExploreBoardsInitial) then) =
+  factory $ExploreBoardsInitialCopyWith(ExploreBoardsInitial value, $Res Function(ExploreBoardsInitial) then) =
       _$ExploreBoardsInitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ExploreBoardsInitialCopyWithImpl<$Res>
-    extends _$ExploreBoardsStateCopyWithImpl<$Res>
+class _$ExploreBoardsInitialCopyWithImpl<$Res> extends _$ExploreBoardsStateCopyWithImpl<$Res>
     implements $ExploreBoardsInitialCopyWith<$Res> {
-  _$ExploreBoardsInitialCopyWithImpl(
-      ExploreBoardsInitial _value, $Res Function(ExploreBoardsInitial) _then)
+  _$ExploreBoardsInitialCopyWithImpl(ExploreBoardsInitial _value, $Res Function(ExploreBoardsInitial) _then)
       : super(_value, (v) => _then(v as ExploreBoardsInitial));
 
   @override
@@ -163,12 +158,9 @@ class _$ExploreBoardsInitial implements ExploreBoardsInitial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ExploreBoardsInitial value) exploreBoardsInitial,
-    required TResult Function(ExploreBoardsLoadSuccess value)
-        exploreBoardsLoadSuccess,
-    required TResult Function(ExploreBoardsLoadError value)
-        exploreBoardsLoadError,
-    required TResult Function(ExploreBoardsAreEmpty value)
-        exploreBoardsAreEmpty,
+    required TResult Function(ExploreBoardsLoadSuccess value) exploreBoardsLoadSuccess,
+    required TResult Function(ExploreBoardsLoadError value) exploreBoardsLoadError,
+    required TResult Function(ExploreBoardsAreEmpty value) exploreBoardsAreEmpty,
   }) {
     return exploreBoardsInitial(this);
   }
@@ -195,23 +187,21 @@ abstract class ExploreBoardsInitial implements ExploreBoardsState {
 
 /// @nodoc
 abstract class $ExploreBoardsLoadSuccessCopyWith<$Res> {
-  factory $ExploreBoardsLoadSuccessCopyWith(ExploreBoardsLoadSuccess value,
-          $Res Function(ExploreBoardsLoadSuccess) then) =
+  factory $ExploreBoardsLoadSuccessCopyWith(
+          ExploreBoardsLoadSuccess value, $Res Function(ExploreBoardsLoadSuccess) then) =
       _$ExploreBoardsLoadSuccessCopyWithImpl<$Res>;
+
   $Res call({List<Board> boards});
 }
 
 /// @nodoc
-class _$ExploreBoardsLoadSuccessCopyWithImpl<$Res>
-    extends _$ExploreBoardsStateCopyWithImpl<$Res>
+class _$ExploreBoardsLoadSuccessCopyWithImpl<$Res> extends _$ExploreBoardsStateCopyWithImpl<$Res>
     implements $ExploreBoardsLoadSuccessCopyWith<$Res> {
-  _$ExploreBoardsLoadSuccessCopyWithImpl(ExploreBoardsLoadSuccess _value,
-      $Res Function(ExploreBoardsLoadSuccess) _then)
+  _$ExploreBoardsLoadSuccessCopyWithImpl(ExploreBoardsLoadSuccess _value, $Res Function(ExploreBoardsLoadSuccess) _then)
       : super(_value, (v) => _then(v as ExploreBoardsLoadSuccess));
 
   @override
-  ExploreBoardsLoadSuccess get _value =>
-      super._value as ExploreBoardsLoadSuccess;
+  ExploreBoardsLoadSuccess get _value => super._value as ExploreBoardsLoadSuccess;
 
   @override
   $Res call({
@@ -242,19 +232,16 @@ class _$ExploreBoardsLoadSuccess implements ExploreBoardsLoadSuccess {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is ExploreBoardsLoadSuccess &&
-            (identical(other.boards, boards) ||
-                const DeepCollectionEquality().equals(other.boards, boards)));
+            (identical(other.boards, boards) || const DeepCollectionEquality().equals(other.boards, boards)));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(boards);
+  int get hashCode => runtimeType.hashCode ^ const DeepCollectionEquality().hash(boards);
 
   @JsonKey(ignore: true)
   @override
   $ExploreBoardsLoadSuccessCopyWith<ExploreBoardsLoadSuccess> get copyWith =>
-      _$ExploreBoardsLoadSuccessCopyWithImpl<ExploreBoardsLoadSuccess>(
-          this, _$identity);
+      _$ExploreBoardsLoadSuccessCopyWithImpl<ExploreBoardsLoadSuccess>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -286,12 +273,9 @@ class _$ExploreBoardsLoadSuccess implements ExploreBoardsLoadSuccess {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ExploreBoardsInitial value) exploreBoardsInitial,
-    required TResult Function(ExploreBoardsLoadSuccess value)
-        exploreBoardsLoadSuccess,
-    required TResult Function(ExploreBoardsLoadError value)
-        exploreBoardsLoadError,
-    required TResult Function(ExploreBoardsAreEmpty value)
-        exploreBoardsAreEmpty,
+    required TResult Function(ExploreBoardsLoadSuccess value) exploreBoardsLoadSuccess,
+    required TResult Function(ExploreBoardsLoadError value) exploreBoardsLoadError,
+    required TResult Function(ExploreBoardsAreEmpty value) exploreBoardsAreEmpty,
   }) {
     return exploreBoardsLoadSuccess(this);
   }
@@ -313,28 +297,24 @@ class _$ExploreBoardsLoadSuccess implements ExploreBoardsLoadSuccess {
 }
 
 abstract class ExploreBoardsLoadSuccess implements ExploreBoardsState {
-  const factory ExploreBoardsLoadSuccess({required List<Board> boards}) =
-      _$ExploreBoardsLoadSuccess;
+  const factory ExploreBoardsLoadSuccess({required List<Board> boards}) = _$ExploreBoardsLoadSuccess;
 
   List<Board> get boards => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
-  $ExploreBoardsLoadSuccessCopyWith<ExploreBoardsLoadSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
+  $ExploreBoardsLoadSuccessCopyWith<ExploreBoardsLoadSuccess> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ExploreBoardsLoadErrorCopyWith<$Res> {
-  factory $ExploreBoardsLoadErrorCopyWith(ExploreBoardsLoadError value,
-          $Res Function(ExploreBoardsLoadError) then) =
+  factory $ExploreBoardsLoadErrorCopyWith(ExploreBoardsLoadError value, $Res Function(ExploreBoardsLoadError) then) =
       _$ExploreBoardsLoadErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ExploreBoardsLoadErrorCopyWithImpl<$Res>
-    extends _$ExploreBoardsStateCopyWithImpl<$Res>
+class _$ExploreBoardsLoadErrorCopyWithImpl<$Res> extends _$ExploreBoardsStateCopyWithImpl<$Res>
     implements $ExploreBoardsLoadErrorCopyWith<$Res> {
-  _$ExploreBoardsLoadErrorCopyWithImpl(ExploreBoardsLoadError _value,
-      $Res Function(ExploreBoardsLoadError) _then)
+  _$ExploreBoardsLoadErrorCopyWithImpl(ExploreBoardsLoadError _value, $Res Function(ExploreBoardsLoadError) _then)
       : super(_value, (v) => _then(v as ExploreBoardsLoadError));
 
   @override
@@ -388,12 +368,9 @@ class _$ExploreBoardsLoadError implements ExploreBoardsLoadError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ExploreBoardsInitial value) exploreBoardsInitial,
-    required TResult Function(ExploreBoardsLoadSuccess value)
-        exploreBoardsLoadSuccess,
-    required TResult Function(ExploreBoardsLoadError value)
-        exploreBoardsLoadError,
-    required TResult Function(ExploreBoardsAreEmpty value)
-        exploreBoardsAreEmpty,
+    required TResult Function(ExploreBoardsLoadSuccess value) exploreBoardsLoadSuccess,
+    required TResult Function(ExploreBoardsLoadError value) exploreBoardsLoadError,
+    required TResult Function(ExploreBoardsAreEmpty value) exploreBoardsAreEmpty,
   }) {
     return exploreBoardsLoadError(this);
   }
@@ -420,17 +397,14 @@ abstract class ExploreBoardsLoadError implements ExploreBoardsState {
 
 /// @nodoc
 abstract class $ExploreBoardsAreEmptyCopyWith<$Res> {
-  factory $ExploreBoardsAreEmptyCopyWith(ExploreBoardsAreEmpty value,
-          $Res Function(ExploreBoardsAreEmpty) then) =
+  factory $ExploreBoardsAreEmptyCopyWith(ExploreBoardsAreEmpty value, $Res Function(ExploreBoardsAreEmpty) then) =
       _$ExploreBoardsAreEmptyCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ExploreBoardsAreEmptyCopyWithImpl<$Res>
-    extends _$ExploreBoardsStateCopyWithImpl<$Res>
+class _$ExploreBoardsAreEmptyCopyWithImpl<$Res> extends _$ExploreBoardsStateCopyWithImpl<$Res>
     implements $ExploreBoardsAreEmptyCopyWith<$Res> {
-  _$ExploreBoardsAreEmptyCopyWithImpl(
-      ExploreBoardsAreEmpty _value, $Res Function(ExploreBoardsAreEmpty) _then)
+  _$ExploreBoardsAreEmptyCopyWithImpl(ExploreBoardsAreEmpty _value, $Res Function(ExploreBoardsAreEmpty) _then)
       : super(_value, (v) => _then(v as ExploreBoardsAreEmpty));
 
   @override
@@ -484,12 +458,9 @@ class _$ExploreBoardsAreEmpty implements ExploreBoardsAreEmpty {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ExploreBoardsInitial value) exploreBoardsInitial,
-    required TResult Function(ExploreBoardsLoadSuccess value)
-        exploreBoardsLoadSuccess,
-    required TResult Function(ExploreBoardsLoadError value)
-        exploreBoardsLoadError,
-    required TResult Function(ExploreBoardsAreEmpty value)
-        exploreBoardsAreEmpty,
+    required TResult Function(ExploreBoardsLoadSuccess value) exploreBoardsLoadSuccess,
+    required TResult Function(ExploreBoardsLoadError value) exploreBoardsLoadError,
+    required TResult Function(ExploreBoardsAreEmpty value) exploreBoardsAreEmpty,
   }) {
     return exploreBoardsAreEmpty(this);
   }

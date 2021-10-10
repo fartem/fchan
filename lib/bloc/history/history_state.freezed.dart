@@ -20,8 +20,7 @@ class _$HistoryStateTearOff {
     return const HistoryInitial();
   }
 
-  HistoryLoadSuccess historyLoadSuccess(
-      {required List<Thread> threads, required bool isLastPage}) {
+  HistoryLoadSuccess historyLoadSuccess({required List<Thread> threads, required bool isLastPage}) {
     return HistoryLoadSuccess(
       threads: threads,
       isLastPage: isLastPage,
@@ -49,13 +48,13 @@ mixin _$HistoryState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() historyInitial,
-    required TResult Function(List<Thread> threads, bool isLastPage)
-        historyLoadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage) historyLoadSuccess,
     required TResult Function() historyLoadError,
     required TResult Function() historyIsEmpty,
     required TResult Function() historyClearInProgress,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? historyInitial,
@@ -66,16 +65,17 @@ mixin _$HistoryState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HistoryInitial value) historyInitial,
     required TResult Function(HistoryLoadSuccess value) historyLoadSuccess,
     required TResult Function(HistoryLoadError value) historyLoadError,
     required TResult Function(HistoryIsEmpty value) historyIsEmpty,
-    required TResult Function(HistoryClearInProgress value)
-        historyClearInProgress,
+    required TResult Function(HistoryClearInProgress value) historyClearInProgress,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HistoryInitial value)? historyInitial,
@@ -90,8 +90,7 @@ mixin _$HistoryState {
 
 /// @nodoc
 abstract class $HistoryStateCopyWith<$Res> {
-  factory $HistoryStateCopyWith(
-          HistoryState value, $Res Function(HistoryState) then) =
+  factory $HistoryStateCopyWith(HistoryState value, $Res Function(HistoryState) then) =
       _$HistoryStateCopyWithImpl<$Res>;
 }
 
@@ -100,23 +99,21 @@ class _$HistoryStateCopyWithImpl<$Res> implements $HistoryStateCopyWith<$Res> {
   _$HistoryStateCopyWithImpl(this._value, this._then);
 
   final HistoryState _value;
+
   // ignore: unused_field
   final $Res Function(HistoryState) _then;
 }
 
 /// @nodoc
 abstract class $HistoryInitialCopyWith<$Res> {
-  factory $HistoryInitialCopyWith(
-          HistoryInitial value, $Res Function(HistoryInitial) then) =
+  factory $HistoryInitialCopyWith(HistoryInitial value, $Res Function(HistoryInitial) then) =
       _$HistoryInitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HistoryInitialCopyWithImpl<$Res>
-    extends _$HistoryStateCopyWithImpl<$Res>
+class _$HistoryInitialCopyWithImpl<$Res> extends _$HistoryStateCopyWithImpl<$Res>
     implements $HistoryInitialCopyWith<$Res> {
-  _$HistoryInitialCopyWithImpl(
-      HistoryInitial _value, $Res Function(HistoryInitial) _then)
+  _$HistoryInitialCopyWithImpl(HistoryInitial _value, $Res Function(HistoryInitial) _then)
       : super(_value, (v) => _then(v as HistoryInitial));
 
   @override
@@ -144,8 +141,7 @@ class _$HistoryInitial implements HistoryInitial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() historyInitial,
-    required TResult Function(List<Thread> threads, bool isLastPage)
-        historyLoadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage) historyLoadSuccess,
     required TResult Function() historyLoadError,
     required TResult Function() historyIsEmpty,
     required TResult Function() historyClearInProgress,
@@ -176,8 +172,7 @@ class _$HistoryInitial implements HistoryInitial {
     required TResult Function(HistoryLoadSuccess value) historyLoadSuccess,
     required TResult Function(HistoryLoadError value) historyLoadError,
     required TResult Function(HistoryIsEmpty value) historyIsEmpty,
-    required TResult Function(HistoryClearInProgress value)
-        historyClearInProgress,
+    required TResult Function(HistoryClearInProgress value) historyClearInProgress,
   }) {
     return historyInitial(this);
   }
@@ -205,18 +200,16 @@ abstract class HistoryInitial implements HistoryState {
 
 /// @nodoc
 abstract class $HistoryLoadSuccessCopyWith<$Res> {
-  factory $HistoryLoadSuccessCopyWith(
-          HistoryLoadSuccess value, $Res Function(HistoryLoadSuccess) then) =
+  factory $HistoryLoadSuccessCopyWith(HistoryLoadSuccess value, $Res Function(HistoryLoadSuccess) then) =
       _$HistoryLoadSuccessCopyWithImpl<$Res>;
+
   $Res call({List<Thread> threads, bool isLastPage});
 }
 
 /// @nodoc
-class _$HistoryLoadSuccessCopyWithImpl<$Res>
-    extends _$HistoryStateCopyWithImpl<$Res>
+class _$HistoryLoadSuccessCopyWithImpl<$Res> extends _$HistoryStateCopyWithImpl<$Res>
     implements $HistoryLoadSuccessCopyWith<$Res> {
-  _$HistoryLoadSuccessCopyWithImpl(
-      HistoryLoadSuccess _value, $Res Function(HistoryLoadSuccess) _then)
+  _$HistoryLoadSuccessCopyWithImpl(HistoryLoadSuccess _value, $Res Function(HistoryLoadSuccess) _then)
       : super(_value, (v) => _then(v as HistoryLoadSuccess));
 
   @override
@@ -258,12 +251,9 @@ class _$HistoryLoadSuccess implements HistoryLoadSuccess {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is HistoryLoadSuccess &&
-            (identical(other.threads, threads) ||
-                const DeepCollectionEquality()
-                    .equals(other.threads, threads)) &&
+            (identical(other.threads, threads) || const DeepCollectionEquality().equals(other.threads, threads)) &&
             (identical(other.isLastPage, isLastPage) ||
-                const DeepCollectionEquality()
-                    .equals(other.isLastPage, isLastPage)));
+                const DeepCollectionEquality().equals(other.isLastPage, isLastPage)));
   }
 
   @override
@@ -281,8 +271,7 @@ class _$HistoryLoadSuccess implements HistoryLoadSuccess {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() historyInitial,
-    required TResult Function(List<Thread> threads, bool isLastPage)
-        historyLoadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage) historyLoadSuccess,
     required TResult Function() historyLoadError,
     required TResult Function() historyIsEmpty,
     required TResult Function() historyClearInProgress,
@@ -313,8 +302,7 @@ class _$HistoryLoadSuccess implements HistoryLoadSuccess {
     required TResult Function(HistoryLoadSuccess value) historyLoadSuccess,
     required TResult Function(HistoryLoadError value) historyLoadError,
     required TResult Function(HistoryIsEmpty value) historyIsEmpty,
-    required TResult Function(HistoryClearInProgress value)
-        historyClearInProgress,
+    required TResult Function(HistoryClearInProgress value) historyClearInProgress,
   }) {
     return historyLoadSuccess(this);
   }
@@ -337,30 +325,26 @@ class _$HistoryLoadSuccess implements HistoryLoadSuccess {
 }
 
 abstract class HistoryLoadSuccess implements HistoryState {
-  const factory HistoryLoadSuccess(
-      {required List<Thread> threads,
-      required bool isLastPage}) = _$HistoryLoadSuccess;
+  const factory HistoryLoadSuccess({required List<Thread> threads, required bool isLastPage}) = _$HistoryLoadSuccess;
 
   List<Thread> get threads => throw _privateConstructorUsedError;
+
   bool get isLastPage => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
-  $HistoryLoadSuccessCopyWith<HistoryLoadSuccess> get copyWith =>
-      throw _privateConstructorUsedError;
+  $HistoryLoadSuccessCopyWith<HistoryLoadSuccess> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $HistoryLoadErrorCopyWith<$Res> {
-  factory $HistoryLoadErrorCopyWith(
-          HistoryLoadError value, $Res Function(HistoryLoadError) then) =
+  factory $HistoryLoadErrorCopyWith(HistoryLoadError value, $Res Function(HistoryLoadError) then) =
       _$HistoryLoadErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HistoryLoadErrorCopyWithImpl<$Res>
-    extends _$HistoryStateCopyWithImpl<$Res>
+class _$HistoryLoadErrorCopyWithImpl<$Res> extends _$HistoryStateCopyWithImpl<$Res>
     implements $HistoryLoadErrorCopyWith<$Res> {
-  _$HistoryLoadErrorCopyWithImpl(
-      HistoryLoadError _value, $Res Function(HistoryLoadError) _then)
+  _$HistoryLoadErrorCopyWithImpl(HistoryLoadError _value, $Res Function(HistoryLoadError) _then)
       : super(_value, (v) => _then(v as HistoryLoadError));
 
   @override
@@ -388,8 +372,7 @@ class _$HistoryLoadError implements HistoryLoadError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() historyInitial,
-    required TResult Function(List<Thread> threads, bool isLastPage)
-        historyLoadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage) historyLoadSuccess,
     required TResult Function() historyLoadError,
     required TResult Function() historyIsEmpty,
     required TResult Function() historyClearInProgress,
@@ -420,8 +403,7 @@ class _$HistoryLoadError implements HistoryLoadError {
     required TResult Function(HistoryLoadSuccess value) historyLoadSuccess,
     required TResult Function(HistoryLoadError value) historyLoadError,
     required TResult Function(HistoryIsEmpty value) historyIsEmpty,
-    required TResult Function(HistoryClearInProgress value)
-        historyClearInProgress,
+    required TResult Function(HistoryClearInProgress value) historyClearInProgress,
   }) {
     return historyLoadError(this);
   }
@@ -449,17 +431,14 @@ abstract class HistoryLoadError implements HistoryState {
 
 /// @nodoc
 abstract class $HistoryIsEmptyCopyWith<$Res> {
-  factory $HistoryIsEmptyCopyWith(
-          HistoryIsEmpty value, $Res Function(HistoryIsEmpty) then) =
+  factory $HistoryIsEmptyCopyWith(HistoryIsEmpty value, $Res Function(HistoryIsEmpty) then) =
       _$HistoryIsEmptyCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HistoryIsEmptyCopyWithImpl<$Res>
-    extends _$HistoryStateCopyWithImpl<$Res>
+class _$HistoryIsEmptyCopyWithImpl<$Res> extends _$HistoryStateCopyWithImpl<$Res>
     implements $HistoryIsEmptyCopyWith<$Res> {
-  _$HistoryIsEmptyCopyWithImpl(
-      HistoryIsEmpty _value, $Res Function(HistoryIsEmpty) _then)
+  _$HistoryIsEmptyCopyWithImpl(HistoryIsEmpty _value, $Res Function(HistoryIsEmpty) _then)
       : super(_value, (v) => _then(v as HistoryIsEmpty));
 
   @override
@@ -487,8 +466,7 @@ class _$HistoryIsEmpty implements HistoryIsEmpty {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() historyInitial,
-    required TResult Function(List<Thread> threads, bool isLastPage)
-        historyLoadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage) historyLoadSuccess,
     required TResult Function() historyLoadError,
     required TResult Function() historyIsEmpty,
     required TResult Function() historyClearInProgress,
@@ -519,8 +497,7 @@ class _$HistoryIsEmpty implements HistoryIsEmpty {
     required TResult Function(HistoryLoadSuccess value) historyLoadSuccess,
     required TResult Function(HistoryLoadError value) historyLoadError,
     required TResult Function(HistoryIsEmpty value) historyIsEmpty,
-    required TResult Function(HistoryClearInProgress value)
-        historyClearInProgress,
+    required TResult Function(HistoryClearInProgress value) historyClearInProgress,
   }) {
     return historyIsEmpty(this);
   }
@@ -548,17 +525,14 @@ abstract class HistoryIsEmpty implements HistoryState {
 
 /// @nodoc
 abstract class $HistoryClearInProgressCopyWith<$Res> {
-  factory $HistoryClearInProgressCopyWith(HistoryClearInProgress value,
-          $Res Function(HistoryClearInProgress) then) =
+  factory $HistoryClearInProgressCopyWith(HistoryClearInProgress value, $Res Function(HistoryClearInProgress) then) =
       _$HistoryClearInProgressCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HistoryClearInProgressCopyWithImpl<$Res>
-    extends _$HistoryStateCopyWithImpl<$Res>
+class _$HistoryClearInProgressCopyWithImpl<$Res> extends _$HistoryStateCopyWithImpl<$Res>
     implements $HistoryClearInProgressCopyWith<$Res> {
-  _$HistoryClearInProgressCopyWithImpl(HistoryClearInProgress _value,
-      $Res Function(HistoryClearInProgress) _then)
+  _$HistoryClearInProgressCopyWithImpl(HistoryClearInProgress _value, $Res Function(HistoryClearInProgress) _then)
       : super(_value, (v) => _then(v as HistoryClearInProgress));
 
   @override
@@ -586,8 +560,7 @@ class _$HistoryClearInProgress implements HistoryClearInProgress {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() historyInitial,
-    required TResult Function(List<Thread> threads, bool isLastPage)
-        historyLoadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage) historyLoadSuccess,
     required TResult Function() historyLoadError,
     required TResult Function() historyIsEmpty,
     required TResult Function() historyClearInProgress,
@@ -618,8 +591,7 @@ class _$HistoryClearInProgress implements HistoryClearInProgress {
     required TResult Function(HistoryLoadSuccess value) historyLoadSuccess,
     required TResult Function(HistoryLoadError value) historyLoadError,
     required TResult Function(HistoryIsEmpty value) historyIsEmpty,
-    required TResult Function(HistoryClearInProgress value)
-        historyClearInProgress,
+    required TResult Function(HistoryClearInProgress value) historyClearInProgress,
   }) {
     return historyClearInProgress(this);
   }

@@ -41,6 +41,7 @@ mixin _$HistoryEvent {
     required TResult Function() historyClearRequested,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? historyInitialized,
@@ -49,15 +50,15 @@ mixin _$HistoryEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HistoryInitialized value) historyInitialized,
-    required TResult Function(HistoryPortionRequested value)
-        historyPortionRequested,
-    required TResult Function(HistoryClearRequested value)
-        historyClearRequested,
+    required TResult Function(HistoryPortionRequested value) historyPortionRequested,
+    required TResult Function(HistoryClearRequested value) historyClearRequested,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HistoryInitialized value)? historyInitialized,
@@ -70,8 +71,7 @@ mixin _$HistoryEvent {
 
 /// @nodoc
 abstract class $HistoryEventCopyWith<$Res> {
-  factory $HistoryEventCopyWith(
-          HistoryEvent value, $Res Function(HistoryEvent) then) =
+  factory $HistoryEventCopyWith(HistoryEvent value, $Res Function(HistoryEvent) then) =
       _$HistoryEventCopyWithImpl<$Res>;
 }
 
@@ -80,23 +80,21 @@ class _$HistoryEventCopyWithImpl<$Res> implements $HistoryEventCopyWith<$Res> {
   _$HistoryEventCopyWithImpl(this._value, this._then);
 
   final HistoryEvent _value;
+
   // ignore: unused_field
   final $Res Function(HistoryEvent) _then;
 }
 
 /// @nodoc
 abstract class $HistoryInitializedCopyWith<$Res> {
-  factory $HistoryInitializedCopyWith(
-          HistoryInitialized value, $Res Function(HistoryInitialized) then) =
+  factory $HistoryInitializedCopyWith(HistoryInitialized value, $Res Function(HistoryInitialized) then) =
       _$HistoryInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HistoryInitializedCopyWithImpl<$Res>
-    extends _$HistoryEventCopyWithImpl<$Res>
+class _$HistoryInitializedCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
     implements $HistoryInitializedCopyWith<$Res> {
-  _$HistoryInitializedCopyWithImpl(
-      HistoryInitialized _value, $Res Function(HistoryInitialized) _then)
+  _$HistoryInitializedCopyWithImpl(HistoryInitialized _value, $Res Function(HistoryInitialized) _then)
       : super(_value, (v) => _then(v as HistoryInitialized));
 
   @override
@@ -148,10 +146,8 @@ class _$HistoryInitialized implements HistoryInitialized {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HistoryInitialized value) historyInitialized,
-    required TResult Function(HistoryPortionRequested value)
-        historyPortionRequested,
-    required TResult Function(HistoryClearRequested value)
-        historyClearRequested,
+    required TResult Function(HistoryPortionRequested value) historyPortionRequested,
+    required TResult Function(HistoryClearRequested value) historyClearRequested,
   }) {
     return historyInitialized(this);
   }
@@ -177,17 +173,14 @@ abstract class HistoryInitialized implements HistoryEvent {
 
 /// @nodoc
 abstract class $HistoryPortionRequestedCopyWith<$Res> {
-  factory $HistoryPortionRequestedCopyWith(HistoryPortionRequested value,
-          $Res Function(HistoryPortionRequested) then) =
+  factory $HistoryPortionRequestedCopyWith(HistoryPortionRequested value, $Res Function(HistoryPortionRequested) then) =
       _$HistoryPortionRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HistoryPortionRequestedCopyWithImpl<$Res>
-    extends _$HistoryEventCopyWithImpl<$Res>
+class _$HistoryPortionRequestedCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
     implements $HistoryPortionRequestedCopyWith<$Res> {
-  _$HistoryPortionRequestedCopyWithImpl(HistoryPortionRequested _value,
-      $Res Function(HistoryPortionRequested) _then)
+  _$HistoryPortionRequestedCopyWithImpl(HistoryPortionRequested _value, $Res Function(HistoryPortionRequested) _then)
       : super(_value, (v) => _then(v as HistoryPortionRequested));
 
   @override
@@ -239,10 +232,8 @@ class _$HistoryPortionRequested implements HistoryPortionRequested {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HistoryInitialized value) historyInitialized,
-    required TResult Function(HistoryPortionRequested value)
-        historyPortionRequested,
-    required TResult Function(HistoryClearRequested value)
-        historyClearRequested,
+    required TResult Function(HistoryPortionRequested value) historyPortionRequested,
+    required TResult Function(HistoryClearRequested value) historyClearRequested,
   }) {
     return historyPortionRequested(this);
   }
@@ -268,17 +259,14 @@ abstract class HistoryPortionRequested implements HistoryEvent {
 
 /// @nodoc
 abstract class $HistoryClearRequestedCopyWith<$Res> {
-  factory $HistoryClearRequestedCopyWith(HistoryClearRequested value,
-          $Res Function(HistoryClearRequested) then) =
+  factory $HistoryClearRequestedCopyWith(HistoryClearRequested value, $Res Function(HistoryClearRequested) then) =
       _$HistoryClearRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HistoryClearRequestedCopyWithImpl<$Res>
-    extends _$HistoryEventCopyWithImpl<$Res>
+class _$HistoryClearRequestedCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
     implements $HistoryClearRequestedCopyWith<$Res> {
-  _$HistoryClearRequestedCopyWithImpl(
-      HistoryClearRequested _value, $Res Function(HistoryClearRequested) _then)
+  _$HistoryClearRequestedCopyWithImpl(HistoryClearRequested _value, $Res Function(HistoryClearRequested) _then)
       : super(_value, (v) => _then(v as HistoryClearRequested));
 
   @override
@@ -330,10 +318,8 @@ class _$HistoryClearRequested implements HistoryClearRequested {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HistoryInitialized value) historyInitialized,
-    required TResult Function(HistoryPortionRequested value)
-        historyPortionRequested,
-    required TResult Function(HistoryClearRequested value)
-        historyClearRequested,
+    required TResult Function(HistoryPortionRequested value) historyPortionRequested,
+    required TResult Function(HistoryClearRequested value) historyClearRequested,
   }) {
     return historyClearRequested(this);
   }

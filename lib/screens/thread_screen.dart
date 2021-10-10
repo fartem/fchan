@@ -1,4 +1,6 @@
 import 'package:fchan/bloc/thread/thread_bloc.dart';
+import 'package:fchan/bloc/thread/thread_event.dart';
+import 'package:fchan/bloc/thread/thread_state.dart';
 import 'package:fchan/components/widgets/app_centered_circular_progress_indicator.dart';
 import 'package:fchan/components/widgets/app_centered_text.dart';
 import 'package:fchan/components/widgets/app_post_card.dart';
@@ -39,27 +41,30 @@ class _ThreadScreenState extends State<ThreadScreen> {
         ),
         body: BlocBuilder<ThreadBloc, ThreadState>(
           builder: (context, state) {
-            if (state is ThreadPostsLoadSuccess) {
-              if (state.posts.isEmpty) {
-                return AppCenteredText(
-                  text: context.localizations.messageThreadIsEmpty,
+            return state.when(
+              threadInitial: () => const AppCenteredCircularProgressIndicator(),
+              threadLoadSuccess: (posts) {
+                return ListView.builder(
+                  itemBuilder: (context, index) => AppPostCard(
+                    post: posts[index],
+                  ),
+                  itemCount: posts.length,
+                  controller: _scrollController,
                 );
-              }
-              return ListView.builder(
-                itemBuilder: (context, index) => AppPostCard(
-                  post: state.posts[index],
-                ),
-                itemCount: state.posts.length,
-                controller: _scrollController,
-              );
-            }
-            return const AppCenteredCircularProgressIndicator();
+              },
+              threadLoadError: () => AppCenteredText(
+                text: context.localizations.messageThreadIsEmpty,
+              ),
+              threadIsEmpty: () => AppCenteredText(
+                text: context.localizations.messageThreadIsEmpty,
+              ),
+            );
           },
         ),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.refresh),
           onPressed: () => context.read<ThreadBloc>().add(
-                ThreadEventThreadRefreshRequested(),
+                const ThreadRefreshRequested(),
               ),
         ),
       ),

@@ -76,10 +76,7 @@ class ThreadAdapter extends TypeAdapter<Thread> {
 
   @override
   bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ThreadAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
+      identical(this, other) || other is ThreadAdapter && runtimeType == other.runtimeType && typeId == other.typeId;
 }
 
 // **************************************************************************
@@ -100,9 +97,7 @@ Thread _$ThreadFromJson(Map<String, dynamic> json) {
     imageHeight: json['h'] as int?,
     thumbnailWidth: json['tn_w'] as int?,
     thumbnailHeight: json['tn_h'] as int?,
-    lastSeenDate: json['last_seen_date'] == null
-        ? null
-        : DateTime.parse(json['last_seen_date'] as String),
+    lastSeenDate: json['last_seen_date'] == null ? null : DateTime.parse(json['last_seen_date'] as String),
   )..boardId = json['board_id'] as int?;
 }
 

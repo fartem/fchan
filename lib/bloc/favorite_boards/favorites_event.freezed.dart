@@ -36,6 +36,7 @@ mixin _$FavoritesEvent {
     required TResult Function() favoritesWasUpdated,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? favoritesInitialized,
@@ -43,12 +44,14 @@ mixin _$FavoritesEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(FavoritesInitialized value) favoritesInitialized,
     required TResult Function(FavoritesWasUpdated value) favoritesWasUpdated,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(FavoritesInitialized value)? favoritesInitialized,
@@ -60,34 +63,30 @@ mixin _$FavoritesEvent {
 
 /// @nodoc
 abstract class $FavoritesEventCopyWith<$Res> {
-  factory $FavoritesEventCopyWith(
-          FavoritesEvent value, $Res Function(FavoritesEvent) then) =
+  factory $FavoritesEventCopyWith(FavoritesEvent value, $Res Function(FavoritesEvent) then) =
       _$FavoritesEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FavoritesEventCopyWithImpl<$Res>
-    implements $FavoritesEventCopyWith<$Res> {
+class _$FavoritesEventCopyWithImpl<$Res> implements $FavoritesEventCopyWith<$Res> {
   _$FavoritesEventCopyWithImpl(this._value, this._then);
 
   final FavoritesEvent _value;
+
   // ignore: unused_field
   final $Res Function(FavoritesEvent) _then;
 }
 
 /// @nodoc
 abstract class $FavoritesInitializedCopyWith<$Res> {
-  factory $FavoritesInitializedCopyWith(FavoritesInitialized value,
-          $Res Function(FavoritesInitialized) then) =
+  factory $FavoritesInitializedCopyWith(FavoritesInitialized value, $Res Function(FavoritesInitialized) then) =
       _$FavoritesInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FavoritesInitializedCopyWithImpl<$Res>
-    extends _$FavoritesEventCopyWithImpl<$Res>
+class _$FavoritesInitializedCopyWithImpl<$Res> extends _$FavoritesEventCopyWithImpl<$Res>
     implements $FavoritesInitializedCopyWith<$Res> {
-  _$FavoritesInitializedCopyWithImpl(
-      FavoritesInitialized _value, $Res Function(FavoritesInitialized) _then)
+  _$FavoritesInitializedCopyWithImpl(FavoritesInitialized _value, $Res Function(FavoritesInitialized) _then)
       : super(_value, (v) => _then(v as FavoritesInitialized));
 
   @override
@@ -162,17 +161,14 @@ abstract class FavoritesInitialized implements FavoritesEvent {
 
 /// @nodoc
 abstract class $FavoritesWasUpdatedCopyWith<$Res> {
-  factory $FavoritesWasUpdatedCopyWith(
-          FavoritesWasUpdated value, $Res Function(FavoritesWasUpdated) then) =
+  factory $FavoritesWasUpdatedCopyWith(FavoritesWasUpdated value, $Res Function(FavoritesWasUpdated) then) =
       _$FavoritesWasUpdatedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FavoritesWasUpdatedCopyWithImpl<$Res>
-    extends _$FavoritesEventCopyWithImpl<$Res>
+class _$FavoritesWasUpdatedCopyWithImpl<$Res> extends _$FavoritesEventCopyWithImpl<$Res>
     implements $FavoritesWasUpdatedCopyWith<$Res> {
-  _$FavoritesWasUpdatedCopyWithImpl(
-      FavoritesWasUpdated _value, $Res Function(FavoritesWasUpdated) _then)
+  _$FavoritesWasUpdatedCopyWithImpl(FavoritesWasUpdated _value, $Res Function(FavoritesWasUpdated) _then)
       : super(_value, (v) => _then(v as FavoritesWasUpdated));
 
   @override
