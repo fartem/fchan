@@ -11,8 +11,8 @@ class ExploreBoardsBloc extends Bloc<ExploreBoardsEvent, ExploreBoardsState> {
 
   ExploreBoardsBloc({
     required this.dataRepository,
-  }) : super(const ExploreBoardsInitial()) {
-    add(const ExploreBoardsInitialized());
+  }) : super(const ExploreBoardsStateInitial()) {
+    add(const ExploreBoardsEventInitialized());
   }
 
   @override
@@ -20,11 +20,11 @@ class ExploreBoardsBloc extends Bloc<ExploreBoardsEvent, ExploreBoardsState> {
     ExploreBoardsEvent event,
   ) async* {
     yield* event.when(
-      exploreBoardsInitialized: _mapExploreBoardsEventInitializedToState,
-      exploreBoardsBoardAddedToFavorites: (board) => _mapExploreBoardsEventBoardAddedToFavoritesToState(
+      initialized: _mapExploreBoardsEventInitializedToState,
+      boardAddedToFavorites: (board) => _mapExploreBoardsEventBoardAddedToFavoritesToState(
         board: board,
       ),
-      exploreBoardsBoardRemovedToFavorites: (board) => _mapExploreBoardsEventBoardRemovedFromFavoritesToState(
+      boardRemovedToFavorites: (board) => _mapExploreBoardsEventBoardRemovedFromFavoritesToState(
         board: board,
       ),
     );
@@ -34,12 +34,12 @@ class ExploreBoardsBloc extends Bloc<ExploreBoardsEvent, ExploreBoardsState> {
     try {
       final boards = await dataRepository.boards();
       if (boards.isNotEmpty) {
-        yield ExploreBoardsLoadSuccess(boards: boards);
+        yield ExploreBoardsStateLoadSuccess(boards: boards);
       } else {
-        yield const ExploreBoardsAreEmpty();
+        yield const ExploreBoardsStateLoadError();
       }
     } on Exception {
-      yield const ExploreBoardsLoadError();
+      yield const ExploreBoardsStateLoadError();
     }
   }
 
@@ -47,26 +47,26 @@ class ExploreBoardsBloc extends Bloc<ExploreBoardsEvent, ExploreBoardsState> {
     required Board board,
   }) async* {
     await dataRepository.addBoardToFavorites(board);
-    yield const ExploreBoardsInitial();
-    add(const ExploreBoardsInitialized());
+    yield const ExploreBoardsStateInitial();
+    add(const ExploreBoardsEventInitialized());
   }
 
   Stream<ExploreBoardsState> _mapExploreBoardsEventBoardRemovedFromFavoritesToState({
     required Board board,
   }) async* {
     await dataRepository.removeBoardFromFavorites(board);
-    yield const ExploreBoardsInitial();
-    add(const ExploreBoardsInitialized());
+    yield const ExploreBoardsStateInitial();
+    add(const ExploreBoardsEventInitialized());
   }
 
   void addBoardToFavorites(Board board) => add(
-        ExploreBoardsBoardAddedToFavorites(
+        ExploreBoardsEventBoardAddedToFavorites(
           board: board,
         ),
       );
 
   void remoteBoardFromFavorites(Board board) => add(
-        ExploreBoardsBoardRemovedFromFavorites(
+        ExploreBoardsEventBoardRemovedFromFavorites(
           board: board,
         ),
       );

@@ -5,13 +5,13 @@ part 'explore_boards_state.freezed.dart';
 
 @freezed
 abstract class ExploreBoardsState with _$ExploreBoardsState {
-  const factory ExploreBoardsState.exploreBoardsInitial() = ExploreBoardsInitial;
+  const factory ExploreBoardsState.initial() = ExploreBoardsStateInitial;
 
-  const factory ExploreBoardsState.exploreBoardsLoadSuccess({
+  const factory ExploreBoardsState.loadSuccess({
     required List<Board> boards,
-  }) = ExploreBoardsLoadSuccess;
+  }) = ExploreBoardsStateLoadSuccess;
 
-  const factory ExploreBoardsState.exploreBoardsLoadError() = ExploreBoardsLoadError;
+  const factory ExploreBoardsState.loadError() = ExploreBoardsStateLoadError;
 
-  const factory ExploreBoardsState.exploreBoardsAreEmpty() = ExploreBoardsAreEmpty;
+  const factory ExploreBoardsState.boardsListIsEmpty() = ExploreBoardsBoardsListIsEmpty;
 }

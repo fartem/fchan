@@ -31,25 +31,25 @@ class FChanAppState extends State<FChanApp> {
         switch (settings.name) {
           case routeInit:
             return MaterialPageRoute(
-              builder: (context) => const SplashScreen(),
+              builder: (_) => const SplashScreen(),
             );
           case routeHome:
             return MaterialPageRoute(
-              builder: (context) => const FChan(),
+              builder: (_) => const FChan(),
             );
           case routeExploreBoards:
             return MaterialPageRoute(
-              builder: (context) => const ExploreBoardsScreen(),
+              builder: (_) => const ExploreBoardsScreen(),
             );
           case routeBoard:
             return MaterialPageRoute(
-              builder: (context) => BoardScreen(
+              builder: (_) => BoardScreen(
                 board: settings.arguments as Board,
               ),
             );
           case routeThread:
             return MaterialPageRoute(
-              builder: (context) => ThreadScreen(
+              builder: (_) => ThreadScreen(
                 thread: settings.arguments as Thread,
               ),
             );
@@ -93,7 +93,7 @@ class _FChanState extends State<FChan> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder<int>(
       valueListenable: _currentScreen,
-      builder: (context, currentScreen, child) => Scaffold(
+      builder: (context, currentScreen, _) => Scaffold(
         body: screens[currentScreen],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,

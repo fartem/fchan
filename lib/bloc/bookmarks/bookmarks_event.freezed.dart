@@ -16,24 +16,24 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$BookmarksEventTearOff {
   const _$BookmarksEventTearOff();
 
-  BookmarksInitialized bookmarksInitialized() {
-    return const BookmarksInitialized();
+  BookmarksEventInitialized initialized() {
+    return const BookmarksEventInitialized();
   }
 
-  BookmarksPortionRequested bookmarksPortionRequested() {
-    return const BookmarksPortionRequested();
+  BookmarksEventPortionRequested portionRequested() {
+    return const BookmarksEventPortionRequested();
   }
 
-  BookmarksUpdateRequested bookmarksUpdateRequested() {
-    return const BookmarksUpdateRequested();
+  BookmarksEventUpdateRequested updateRequested() {
+    return const BookmarksEventUpdateRequested();
   }
 
-  BookmarksClearRequested bookmarksClearRequested() {
-    return const BookmarksClearRequested();
+  BookmarksEventClearRequested clearRequested() {
+    return const BookmarksEventClearRequested();
   }
 
-  BookmarkRemoved bookmarkRemoved({required Thread bookmark}) {
-    return BookmarkRemoved(
+  BookmarksEventBookmarkRemoved bookmarkRemoved({required Thread bookmark}) {
+    return BookmarksEventBookmarkRemoved(
       bookmark: bookmark,
     );
   }
@@ -46,20 +46,20 @@ const $BookmarksEvent = _$BookmarksEventTearOff();
 mixin _$BookmarksEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() bookmarksInitialized,
-    required TResult Function() bookmarksPortionRequested,
-    required TResult Function() bookmarksUpdateRequested,
-    required TResult Function() bookmarksClearRequested,
+    required TResult Function() initialized,
+    required TResult Function() portionRequested,
+    required TResult Function() updateRequested,
+    required TResult Function() clearRequested,
     required TResult Function(Thread bookmark) bookmarkRemoved,
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? bookmarksInitialized,
-    TResult Function()? bookmarksPortionRequested,
-    TResult Function()? bookmarksUpdateRequested,
-    TResult Function()? bookmarksClearRequested,
+    TResult Function()? initialized,
+    TResult Function()? portionRequested,
+    TResult Function()? updateRequested,
+    TResult Function()? clearRequested,
     TResult Function(Thread bookmark)? bookmarkRemoved,
     required TResult orElse(),
   }) =>
@@ -67,21 +67,21 @@ mixin _$BookmarksEvent {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(BookmarksInitialized value) bookmarksInitialized,
-    required TResult Function(BookmarksPortionRequested value) bookmarksPortionRequested,
-    required TResult Function(BookmarksUpdateRequested value) bookmarksUpdateRequested,
-    required TResult Function(BookmarksClearRequested value) bookmarksClearRequested,
-    required TResult Function(BookmarkRemoved value) bookmarkRemoved,
+    required TResult Function(BookmarksEventInitialized value) initialized,
+    required TResult Function(BookmarksEventPortionRequested value) portionRequested,
+    required TResult Function(BookmarksEventUpdateRequested value) updateRequested,
+    required TResult Function(BookmarksEventClearRequested value) clearRequested,
+    required TResult Function(BookmarksEventBookmarkRemoved value) bookmarkRemoved,
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(BookmarksInitialized value)? bookmarksInitialized,
-    TResult Function(BookmarksPortionRequested value)? bookmarksPortionRequested,
-    TResult Function(BookmarksUpdateRequested value)? bookmarksUpdateRequested,
-    TResult Function(BookmarksClearRequested value)? bookmarksClearRequested,
-    TResult Function(BookmarkRemoved value)? bookmarkRemoved,
+    TResult Function(BookmarksEventInitialized value)? initialized,
+    TResult Function(BookmarksEventPortionRequested value)? portionRequested,
+    TResult Function(BookmarksEventUpdateRequested value)? updateRequested,
+    TResult Function(BookmarksEventClearRequested value)? clearRequested,
+    TResult Function(BookmarksEventBookmarkRemoved value)? bookmarkRemoved,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -104,33 +104,35 @@ class _$BookmarksEventCopyWithImpl<$Res> implements $BookmarksEventCopyWith<$Res
 }
 
 /// @nodoc
-abstract class $BookmarksInitializedCopyWith<$Res> {
-  factory $BookmarksInitializedCopyWith(BookmarksInitialized value, $Res Function(BookmarksInitialized) then) =
-      _$BookmarksInitializedCopyWithImpl<$Res>;
+abstract class $BookmarksEventInitializedCopyWith<$Res> {
+  factory $BookmarksEventInitializedCopyWith(
+          BookmarksEventInitialized value, $Res Function(BookmarksEventInitialized) then) =
+      _$BookmarksEventInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BookmarksInitializedCopyWithImpl<$Res> extends _$BookmarksEventCopyWithImpl<$Res>
-    implements $BookmarksInitializedCopyWith<$Res> {
-  _$BookmarksInitializedCopyWithImpl(BookmarksInitialized _value, $Res Function(BookmarksInitialized) _then)
-      : super(_value, (v) => _then(v as BookmarksInitialized));
+class _$BookmarksEventInitializedCopyWithImpl<$Res> extends _$BookmarksEventCopyWithImpl<$Res>
+    implements $BookmarksEventInitializedCopyWith<$Res> {
+  _$BookmarksEventInitializedCopyWithImpl(
+      BookmarksEventInitialized _value, $Res Function(BookmarksEventInitialized) _then)
+      : super(_value, (v) => _then(v as BookmarksEventInitialized));
 
   @override
-  BookmarksInitialized get _value => super._value as BookmarksInitialized;
+  BookmarksEventInitialized get _value => super._value as BookmarksEventInitialized;
 }
 
 /// @nodoc
-class _$BookmarksInitialized implements BookmarksInitialized {
-  const _$BookmarksInitialized();
+class _$BookmarksEventInitialized implements BookmarksEventInitialized {
+  const _$BookmarksEventInitialized();
 
   @override
   String toString() {
-    return 'BookmarksEvent.bookmarksInitialized()';
+    return 'BookmarksEvent.initialized()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is BookmarksInitialized);
+    return identical(this, other) || (other is BookmarksEventInitialized);
   }
 
   @override
@@ -139,27 +141,27 @@ class _$BookmarksInitialized implements BookmarksInitialized {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() bookmarksInitialized,
-    required TResult Function() bookmarksPortionRequested,
-    required TResult Function() bookmarksUpdateRequested,
-    required TResult Function() bookmarksClearRequested,
+    required TResult Function() initialized,
+    required TResult Function() portionRequested,
+    required TResult Function() updateRequested,
+    required TResult Function() clearRequested,
     required TResult Function(Thread bookmark) bookmarkRemoved,
   }) {
-    return bookmarksInitialized();
+    return initialized();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? bookmarksInitialized,
-    TResult Function()? bookmarksPortionRequested,
-    TResult Function()? bookmarksUpdateRequested,
-    TResult Function()? bookmarksClearRequested,
+    TResult Function()? initialized,
+    TResult Function()? portionRequested,
+    TResult Function()? updateRequested,
+    TResult Function()? clearRequested,
     TResult Function(Thread bookmark)? bookmarkRemoved,
     required TResult orElse(),
   }) {
-    if (bookmarksInitialized != null) {
-      return bookmarksInitialized();
+    if (initialized != null) {
+      return initialized();
     }
     return orElse();
   }
@@ -167,66 +169,66 @@ class _$BookmarksInitialized implements BookmarksInitialized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(BookmarksInitialized value) bookmarksInitialized,
-    required TResult Function(BookmarksPortionRequested value) bookmarksPortionRequested,
-    required TResult Function(BookmarksUpdateRequested value) bookmarksUpdateRequested,
-    required TResult Function(BookmarksClearRequested value) bookmarksClearRequested,
-    required TResult Function(BookmarkRemoved value) bookmarkRemoved,
+    required TResult Function(BookmarksEventInitialized value) initialized,
+    required TResult Function(BookmarksEventPortionRequested value) portionRequested,
+    required TResult Function(BookmarksEventUpdateRequested value) updateRequested,
+    required TResult Function(BookmarksEventClearRequested value) clearRequested,
+    required TResult Function(BookmarksEventBookmarkRemoved value) bookmarkRemoved,
   }) {
-    return bookmarksInitialized(this);
+    return initialized(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(BookmarksInitialized value)? bookmarksInitialized,
-    TResult Function(BookmarksPortionRequested value)? bookmarksPortionRequested,
-    TResult Function(BookmarksUpdateRequested value)? bookmarksUpdateRequested,
-    TResult Function(BookmarksClearRequested value)? bookmarksClearRequested,
-    TResult Function(BookmarkRemoved value)? bookmarkRemoved,
+    TResult Function(BookmarksEventInitialized value)? initialized,
+    TResult Function(BookmarksEventPortionRequested value)? portionRequested,
+    TResult Function(BookmarksEventUpdateRequested value)? updateRequested,
+    TResult Function(BookmarksEventClearRequested value)? clearRequested,
+    TResult Function(BookmarksEventBookmarkRemoved value)? bookmarkRemoved,
     required TResult orElse(),
   }) {
-    if (bookmarksInitialized != null) {
-      return bookmarksInitialized(this);
+    if (initialized != null) {
+      return initialized(this);
     }
     return orElse();
   }
 }
 
-abstract class BookmarksInitialized implements BookmarksEvent {
-  const factory BookmarksInitialized() = _$BookmarksInitialized;
+abstract class BookmarksEventInitialized implements BookmarksEvent {
+  const factory BookmarksEventInitialized() = _$BookmarksEventInitialized;
 }
 
 /// @nodoc
-abstract class $BookmarksPortionRequestedCopyWith<$Res> {
-  factory $BookmarksPortionRequestedCopyWith(
-          BookmarksPortionRequested value, $Res Function(BookmarksPortionRequested) then) =
-      _$BookmarksPortionRequestedCopyWithImpl<$Res>;
+abstract class $BookmarksEventPortionRequestedCopyWith<$Res> {
+  factory $BookmarksEventPortionRequestedCopyWith(
+          BookmarksEventPortionRequested value, $Res Function(BookmarksEventPortionRequested) then) =
+      _$BookmarksEventPortionRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BookmarksPortionRequestedCopyWithImpl<$Res> extends _$BookmarksEventCopyWithImpl<$Res>
-    implements $BookmarksPortionRequestedCopyWith<$Res> {
-  _$BookmarksPortionRequestedCopyWithImpl(
-      BookmarksPortionRequested _value, $Res Function(BookmarksPortionRequested) _then)
-      : super(_value, (v) => _then(v as BookmarksPortionRequested));
+class _$BookmarksEventPortionRequestedCopyWithImpl<$Res> extends _$BookmarksEventCopyWithImpl<$Res>
+    implements $BookmarksEventPortionRequestedCopyWith<$Res> {
+  _$BookmarksEventPortionRequestedCopyWithImpl(
+      BookmarksEventPortionRequested _value, $Res Function(BookmarksEventPortionRequested) _then)
+      : super(_value, (v) => _then(v as BookmarksEventPortionRequested));
 
   @override
-  BookmarksPortionRequested get _value => super._value as BookmarksPortionRequested;
+  BookmarksEventPortionRequested get _value => super._value as BookmarksEventPortionRequested;
 }
 
 /// @nodoc
-class _$BookmarksPortionRequested implements BookmarksPortionRequested {
-  const _$BookmarksPortionRequested();
+class _$BookmarksEventPortionRequested implements BookmarksEventPortionRequested {
+  const _$BookmarksEventPortionRequested();
 
   @override
   String toString() {
-    return 'BookmarksEvent.bookmarksPortionRequested()';
+    return 'BookmarksEvent.portionRequested()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is BookmarksPortionRequested);
+    return identical(this, other) || (other is BookmarksEventPortionRequested);
   }
 
   @override
@@ -235,27 +237,27 @@ class _$BookmarksPortionRequested implements BookmarksPortionRequested {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() bookmarksInitialized,
-    required TResult Function() bookmarksPortionRequested,
-    required TResult Function() bookmarksUpdateRequested,
-    required TResult Function() bookmarksClearRequested,
+    required TResult Function() initialized,
+    required TResult Function() portionRequested,
+    required TResult Function() updateRequested,
+    required TResult Function() clearRequested,
     required TResult Function(Thread bookmark) bookmarkRemoved,
   }) {
-    return bookmarksPortionRequested();
+    return portionRequested();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? bookmarksInitialized,
-    TResult Function()? bookmarksPortionRequested,
-    TResult Function()? bookmarksUpdateRequested,
-    TResult Function()? bookmarksClearRequested,
+    TResult Function()? initialized,
+    TResult Function()? portionRequested,
+    TResult Function()? updateRequested,
+    TResult Function()? clearRequested,
     TResult Function(Thread bookmark)? bookmarkRemoved,
     required TResult orElse(),
   }) {
-    if (bookmarksPortionRequested != null) {
-      return bookmarksPortionRequested();
+    if (portionRequested != null) {
+      return portionRequested();
     }
     return orElse();
   }
@@ -263,65 +265,66 @@ class _$BookmarksPortionRequested implements BookmarksPortionRequested {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(BookmarksInitialized value) bookmarksInitialized,
-    required TResult Function(BookmarksPortionRequested value) bookmarksPortionRequested,
-    required TResult Function(BookmarksUpdateRequested value) bookmarksUpdateRequested,
-    required TResult Function(BookmarksClearRequested value) bookmarksClearRequested,
-    required TResult Function(BookmarkRemoved value) bookmarkRemoved,
+    required TResult Function(BookmarksEventInitialized value) initialized,
+    required TResult Function(BookmarksEventPortionRequested value) portionRequested,
+    required TResult Function(BookmarksEventUpdateRequested value) updateRequested,
+    required TResult Function(BookmarksEventClearRequested value) clearRequested,
+    required TResult Function(BookmarksEventBookmarkRemoved value) bookmarkRemoved,
   }) {
-    return bookmarksPortionRequested(this);
+    return portionRequested(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(BookmarksInitialized value)? bookmarksInitialized,
-    TResult Function(BookmarksPortionRequested value)? bookmarksPortionRequested,
-    TResult Function(BookmarksUpdateRequested value)? bookmarksUpdateRequested,
-    TResult Function(BookmarksClearRequested value)? bookmarksClearRequested,
-    TResult Function(BookmarkRemoved value)? bookmarkRemoved,
+    TResult Function(BookmarksEventInitialized value)? initialized,
+    TResult Function(BookmarksEventPortionRequested value)? portionRequested,
+    TResult Function(BookmarksEventUpdateRequested value)? updateRequested,
+    TResult Function(BookmarksEventClearRequested value)? clearRequested,
+    TResult Function(BookmarksEventBookmarkRemoved value)? bookmarkRemoved,
     required TResult orElse(),
   }) {
-    if (bookmarksPortionRequested != null) {
-      return bookmarksPortionRequested(this);
+    if (portionRequested != null) {
+      return portionRequested(this);
     }
     return orElse();
   }
 }
 
-abstract class BookmarksPortionRequested implements BookmarksEvent {
-  const factory BookmarksPortionRequested() = _$BookmarksPortionRequested;
+abstract class BookmarksEventPortionRequested implements BookmarksEvent {
+  const factory BookmarksEventPortionRequested() = _$BookmarksEventPortionRequested;
 }
 
 /// @nodoc
-abstract class $BookmarksUpdateRequestedCopyWith<$Res> {
-  factory $BookmarksUpdateRequestedCopyWith(
-          BookmarksUpdateRequested value, $Res Function(BookmarksUpdateRequested) then) =
-      _$BookmarksUpdateRequestedCopyWithImpl<$Res>;
+abstract class $BookmarksEventUpdateRequestedCopyWith<$Res> {
+  factory $BookmarksEventUpdateRequestedCopyWith(
+          BookmarksEventUpdateRequested value, $Res Function(BookmarksEventUpdateRequested) then) =
+      _$BookmarksEventUpdateRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BookmarksUpdateRequestedCopyWithImpl<$Res> extends _$BookmarksEventCopyWithImpl<$Res>
-    implements $BookmarksUpdateRequestedCopyWith<$Res> {
-  _$BookmarksUpdateRequestedCopyWithImpl(BookmarksUpdateRequested _value, $Res Function(BookmarksUpdateRequested) _then)
-      : super(_value, (v) => _then(v as BookmarksUpdateRequested));
+class _$BookmarksEventUpdateRequestedCopyWithImpl<$Res> extends _$BookmarksEventCopyWithImpl<$Res>
+    implements $BookmarksEventUpdateRequestedCopyWith<$Res> {
+  _$BookmarksEventUpdateRequestedCopyWithImpl(
+      BookmarksEventUpdateRequested _value, $Res Function(BookmarksEventUpdateRequested) _then)
+      : super(_value, (v) => _then(v as BookmarksEventUpdateRequested));
 
   @override
-  BookmarksUpdateRequested get _value => super._value as BookmarksUpdateRequested;
+  BookmarksEventUpdateRequested get _value => super._value as BookmarksEventUpdateRequested;
 }
 
 /// @nodoc
-class _$BookmarksUpdateRequested implements BookmarksUpdateRequested {
-  const _$BookmarksUpdateRequested();
+class _$BookmarksEventUpdateRequested implements BookmarksEventUpdateRequested {
+  const _$BookmarksEventUpdateRequested();
 
   @override
   String toString() {
-    return 'BookmarksEvent.bookmarksUpdateRequested()';
+    return 'BookmarksEvent.updateRequested()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is BookmarksUpdateRequested);
+    return identical(this, other) || (other is BookmarksEventUpdateRequested);
   }
 
   @override
@@ -330,27 +333,27 @@ class _$BookmarksUpdateRequested implements BookmarksUpdateRequested {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() bookmarksInitialized,
-    required TResult Function() bookmarksPortionRequested,
-    required TResult Function() bookmarksUpdateRequested,
-    required TResult Function() bookmarksClearRequested,
+    required TResult Function() initialized,
+    required TResult Function() portionRequested,
+    required TResult Function() updateRequested,
+    required TResult Function() clearRequested,
     required TResult Function(Thread bookmark) bookmarkRemoved,
   }) {
-    return bookmarksUpdateRequested();
+    return updateRequested();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? bookmarksInitialized,
-    TResult Function()? bookmarksPortionRequested,
-    TResult Function()? bookmarksUpdateRequested,
-    TResult Function()? bookmarksClearRequested,
+    TResult Function()? initialized,
+    TResult Function()? portionRequested,
+    TResult Function()? updateRequested,
+    TResult Function()? clearRequested,
     TResult Function(Thread bookmark)? bookmarkRemoved,
     required TResult orElse(),
   }) {
-    if (bookmarksUpdateRequested != null) {
-      return bookmarksUpdateRequested();
+    if (updateRequested != null) {
+      return updateRequested();
     }
     return orElse();
   }
@@ -358,64 +361,66 @@ class _$BookmarksUpdateRequested implements BookmarksUpdateRequested {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(BookmarksInitialized value) bookmarksInitialized,
-    required TResult Function(BookmarksPortionRequested value) bookmarksPortionRequested,
-    required TResult Function(BookmarksUpdateRequested value) bookmarksUpdateRequested,
-    required TResult Function(BookmarksClearRequested value) bookmarksClearRequested,
-    required TResult Function(BookmarkRemoved value) bookmarkRemoved,
+    required TResult Function(BookmarksEventInitialized value) initialized,
+    required TResult Function(BookmarksEventPortionRequested value) portionRequested,
+    required TResult Function(BookmarksEventUpdateRequested value) updateRequested,
+    required TResult Function(BookmarksEventClearRequested value) clearRequested,
+    required TResult Function(BookmarksEventBookmarkRemoved value) bookmarkRemoved,
   }) {
-    return bookmarksUpdateRequested(this);
+    return updateRequested(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(BookmarksInitialized value)? bookmarksInitialized,
-    TResult Function(BookmarksPortionRequested value)? bookmarksPortionRequested,
-    TResult Function(BookmarksUpdateRequested value)? bookmarksUpdateRequested,
-    TResult Function(BookmarksClearRequested value)? bookmarksClearRequested,
-    TResult Function(BookmarkRemoved value)? bookmarkRemoved,
+    TResult Function(BookmarksEventInitialized value)? initialized,
+    TResult Function(BookmarksEventPortionRequested value)? portionRequested,
+    TResult Function(BookmarksEventUpdateRequested value)? updateRequested,
+    TResult Function(BookmarksEventClearRequested value)? clearRequested,
+    TResult Function(BookmarksEventBookmarkRemoved value)? bookmarkRemoved,
     required TResult orElse(),
   }) {
-    if (bookmarksUpdateRequested != null) {
-      return bookmarksUpdateRequested(this);
+    if (updateRequested != null) {
+      return updateRequested(this);
     }
     return orElse();
   }
 }
 
-abstract class BookmarksUpdateRequested implements BookmarksEvent {
-  const factory BookmarksUpdateRequested() = _$BookmarksUpdateRequested;
+abstract class BookmarksEventUpdateRequested implements BookmarksEvent {
+  const factory BookmarksEventUpdateRequested() = _$BookmarksEventUpdateRequested;
 }
 
 /// @nodoc
-abstract class $BookmarksClearRequestedCopyWith<$Res> {
-  factory $BookmarksClearRequestedCopyWith(BookmarksClearRequested value, $Res Function(BookmarksClearRequested) then) =
-      _$BookmarksClearRequestedCopyWithImpl<$Res>;
+abstract class $BookmarksEventClearRequestedCopyWith<$Res> {
+  factory $BookmarksEventClearRequestedCopyWith(
+          BookmarksEventClearRequested value, $Res Function(BookmarksEventClearRequested) then) =
+      _$BookmarksEventClearRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BookmarksClearRequestedCopyWithImpl<$Res> extends _$BookmarksEventCopyWithImpl<$Res>
-    implements $BookmarksClearRequestedCopyWith<$Res> {
-  _$BookmarksClearRequestedCopyWithImpl(BookmarksClearRequested _value, $Res Function(BookmarksClearRequested) _then)
-      : super(_value, (v) => _then(v as BookmarksClearRequested));
+class _$BookmarksEventClearRequestedCopyWithImpl<$Res> extends _$BookmarksEventCopyWithImpl<$Res>
+    implements $BookmarksEventClearRequestedCopyWith<$Res> {
+  _$BookmarksEventClearRequestedCopyWithImpl(
+      BookmarksEventClearRequested _value, $Res Function(BookmarksEventClearRequested) _then)
+      : super(_value, (v) => _then(v as BookmarksEventClearRequested));
 
   @override
-  BookmarksClearRequested get _value => super._value as BookmarksClearRequested;
+  BookmarksEventClearRequested get _value => super._value as BookmarksEventClearRequested;
 }
 
 /// @nodoc
-class _$BookmarksClearRequested implements BookmarksClearRequested {
-  const _$BookmarksClearRequested();
+class _$BookmarksEventClearRequested implements BookmarksEventClearRequested {
+  const _$BookmarksEventClearRequested();
 
   @override
   String toString() {
-    return 'BookmarksEvent.bookmarksClearRequested()';
+    return 'BookmarksEvent.clearRequested()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is BookmarksClearRequested);
+    return identical(this, other) || (other is BookmarksEventClearRequested);
   }
 
   @override
@@ -424,27 +429,27 @@ class _$BookmarksClearRequested implements BookmarksClearRequested {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() bookmarksInitialized,
-    required TResult Function() bookmarksPortionRequested,
-    required TResult Function() bookmarksUpdateRequested,
-    required TResult Function() bookmarksClearRequested,
+    required TResult Function() initialized,
+    required TResult Function() portionRequested,
+    required TResult Function() updateRequested,
+    required TResult Function() clearRequested,
     required TResult Function(Thread bookmark) bookmarkRemoved,
   }) {
-    return bookmarksClearRequested();
+    return clearRequested();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? bookmarksInitialized,
-    TResult Function()? bookmarksPortionRequested,
-    TResult Function()? bookmarksUpdateRequested,
-    TResult Function()? bookmarksClearRequested,
+    TResult Function()? initialized,
+    TResult Function()? portionRequested,
+    TResult Function()? updateRequested,
+    TResult Function()? clearRequested,
     TResult Function(Thread bookmark)? bookmarkRemoved,
     required TResult orElse(),
   }) {
-    if (bookmarksClearRequested != null) {
-      return bookmarksClearRequested();
+    if (clearRequested != null) {
+      return clearRequested();
     }
     return orElse();
   }
@@ -452,58 +457,60 @@ class _$BookmarksClearRequested implements BookmarksClearRequested {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(BookmarksInitialized value) bookmarksInitialized,
-    required TResult Function(BookmarksPortionRequested value) bookmarksPortionRequested,
-    required TResult Function(BookmarksUpdateRequested value) bookmarksUpdateRequested,
-    required TResult Function(BookmarksClearRequested value) bookmarksClearRequested,
-    required TResult Function(BookmarkRemoved value) bookmarkRemoved,
+    required TResult Function(BookmarksEventInitialized value) initialized,
+    required TResult Function(BookmarksEventPortionRequested value) portionRequested,
+    required TResult Function(BookmarksEventUpdateRequested value) updateRequested,
+    required TResult Function(BookmarksEventClearRequested value) clearRequested,
+    required TResult Function(BookmarksEventBookmarkRemoved value) bookmarkRemoved,
   }) {
-    return bookmarksClearRequested(this);
+    return clearRequested(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(BookmarksInitialized value)? bookmarksInitialized,
-    TResult Function(BookmarksPortionRequested value)? bookmarksPortionRequested,
-    TResult Function(BookmarksUpdateRequested value)? bookmarksUpdateRequested,
-    TResult Function(BookmarksClearRequested value)? bookmarksClearRequested,
-    TResult Function(BookmarkRemoved value)? bookmarkRemoved,
+    TResult Function(BookmarksEventInitialized value)? initialized,
+    TResult Function(BookmarksEventPortionRequested value)? portionRequested,
+    TResult Function(BookmarksEventUpdateRequested value)? updateRequested,
+    TResult Function(BookmarksEventClearRequested value)? clearRequested,
+    TResult Function(BookmarksEventBookmarkRemoved value)? bookmarkRemoved,
     required TResult orElse(),
   }) {
-    if (bookmarksClearRequested != null) {
-      return bookmarksClearRequested(this);
+    if (clearRequested != null) {
+      return clearRequested(this);
     }
     return orElse();
   }
 }
 
-abstract class BookmarksClearRequested implements BookmarksEvent {
-  const factory BookmarksClearRequested() = _$BookmarksClearRequested;
+abstract class BookmarksEventClearRequested implements BookmarksEvent {
+  const factory BookmarksEventClearRequested() = _$BookmarksEventClearRequested;
 }
 
 /// @nodoc
-abstract class $BookmarkRemovedCopyWith<$Res> {
-  factory $BookmarkRemovedCopyWith(BookmarkRemoved value, $Res Function(BookmarkRemoved) then) =
-      _$BookmarkRemovedCopyWithImpl<$Res>;
+abstract class $BookmarksEventBookmarkRemovedCopyWith<$Res> {
+  factory $BookmarksEventBookmarkRemovedCopyWith(
+          BookmarksEventBookmarkRemoved value, $Res Function(BookmarksEventBookmarkRemoved) then) =
+      _$BookmarksEventBookmarkRemovedCopyWithImpl<$Res>;
 
   $Res call({Thread bookmark});
 }
 
 /// @nodoc
-class _$BookmarkRemovedCopyWithImpl<$Res> extends _$BookmarksEventCopyWithImpl<$Res>
-    implements $BookmarkRemovedCopyWith<$Res> {
-  _$BookmarkRemovedCopyWithImpl(BookmarkRemoved _value, $Res Function(BookmarkRemoved) _then)
-      : super(_value, (v) => _then(v as BookmarkRemoved));
+class _$BookmarksEventBookmarkRemovedCopyWithImpl<$Res> extends _$BookmarksEventCopyWithImpl<$Res>
+    implements $BookmarksEventBookmarkRemovedCopyWith<$Res> {
+  _$BookmarksEventBookmarkRemovedCopyWithImpl(
+      BookmarksEventBookmarkRemoved _value, $Res Function(BookmarksEventBookmarkRemoved) _then)
+      : super(_value, (v) => _then(v as BookmarksEventBookmarkRemoved));
 
   @override
-  BookmarkRemoved get _value => super._value as BookmarkRemoved;
+  BookmarksEventBookmarkRemoved get _value => super._value as BookmarksEventBookmarkRemoved;
 
   @override
   $Res call({
     Object? bookmark = freezed,
   }) {
-    return _then(BookmarkRemoved(
+    return _then(BookmarksEventBookmarkRemoved(
       bookmark: bookmark == freezed
           ? _value.bookmark
           : bookmark // ignore: cast_nullable_to_non_nullable
@@ -513,8 +520,8 @@ class _$BookmarkRemovedCopyWithImpl<$Res> extends _$BookmarksEventCopyWithImpl<$
 }
 
 /// @nodoc
-class _$BookmarkRemoved implements BookmarkRemoved {
-  const _$BookmarkRemoved({required this.bookmark});
+class _$BookmarksEventBookmarkRemoved implements BookmarksEventBookmarkRemoved {
+  const _$BookmarksEventBookmarkRemoved({required this.bookmark});
 
   @override
   final Thread bookmark;
@@ -527,7 +534,7 @@ class _$BookmarkRemoved implements BookmarkRemoved {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is BookmarkRemoved &&
+        (other is BookmarksEventBookmarkRemoved &&
             (identical(other.bookmark, bookmark) || const DeepCollectionEquality().equals(other.bookmark, bookmark)));
   }
 
@@ -536,16 +543,16 @@ class _$BookmarkRemoved implements BookmarkRemoved {
 
   @JsonKey(ignore: true)
   @override
-  $BookmarkRemovedCopyWith<BookmarkRemoved> get copyWith =>
-      _$BookmarkRemovedCopyWithImpl<BookmarkRemoved>(this, _$identity);
+  $BookmarksEventBookmarkRemovedCopyWith<BookmarksEventBookmarkRemoved> get copyWith =>
+      _$BookmarksEventBookmarkRemovedCopyWithImpl<BookmarksEventBookmarkRemoved>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() bookmarksInitialized,
-    required TResult Function() bookmarksPortionRequested,
-    required TResult Function() bookmarksUpdateRequested,
-    required TResult Function() bookmarksClearRequested,
+    required TResult Function() initialized,
+    required TResult Function() portionRequested,
+    required TResult Function() updateRequested,
+    required TResult Function() clearRequested,
     required TResult Function(Thread bookmark) bookmarkRemoved,
   }) {
     return bookmarkRemoved(bookmark);
@@ -554,10 +561,10 @@ class _$BookmarkRemoved implements BookmarkRemoved {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? bookmarksInitialized,
-    TResult Function()? bookmarksPortionRequested,
-    TResult Function()? bookmarksUpdateRequested,
-    TResult Function()? bookmarksClearRequested,
+    TResult Function()? initialized,
+    TResult Function()? portionRequested,
+    TResult Function()? updateRequested,
+    TResult Function()? clearRequested,
     TResult Function(Thread bookmark)? bookmarkRemoved,
     required TResult orElse(),
   }) {
@@ -570,11 +577,11 @@ class _$BookmarkRemoved implements BookmarkRemoved {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(BookmarksInitialized value) bookmarksInitialized,
-    required TResult Function(BookmarksPortionRequested value) bookmarksPortionRequested,
-    required TResult Function(BookmarksUpdateRequested value) bookmarksUpdateRequested,
-    required TResult Function(BookmarksClearRequested value) bookmarksClearRequested,
-    required TResult Function(BookmarkRemoved value) bookmarkRemoved,
+    required TResult Function(BookmarksEventInitialized value) initialized,
+    required TResult Function(BookmarksEventPortionRequested value) portionRequested,
+    required TResult Function(BookmarksEventUpdateRequested value) updateRequested,
+    required TResult Function(BookmarksEventClearRequested value) clearRequested,
+    required TResult Function(BookmarksEventBookmarkRemoved value) bookmarkRemoved,
   }) {
     return bookmarkRemoved(this);
   }
@@ -582,11 +589,11 @@ class _$BookmarkRemoved implements BookmarkRemoved {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(BookmarksInitialized value)? bookmarksInitialized,
-    TResult Function(BookmarksPortionRequested value)? bookmarksPortionRequested,
-    TResult Function(BookmarksUpdateRequested value)? bookmarksUpdateRequested,
-    TResult Function(BookmarksClearRequested value)? bookmarksClearRequested,
-    TResult Function(BookmarkRemoved value)? bookmarkRemoved,
+    TResult Function(BookmarksEventInitialized value)? initialized,
+    TResult Function(BookmarksEventPortionRequested value)? portionRequested,
+    TResult Function(BookmarksEventUpdateRequested value)? updateRequested,
+    TResult Function(BookmarksEventClearRequested value)? clearRequested,
+    TResult Function(BookmarksEventBookmarkRemoved value)? bookmarkRemoved,
     required TResult orElse(),
   }) {
     if (bookmarkRemoved != null) {
@@ -596,11 +603,12 @@ class _$BookmarkRemoved implements BookmarkRemoved {
   }
 }
 
-abstract class BookmarkRemoved implements BookmarksEvent {
-  const factory BookmarkRemoved({required Thread bookmark}) = _$BookmarkRemoved;
+abstract class BookmarksEventBookmarkRemoved implements BookmarksEvent {
+  const factory BookmarksEventBookmarkRemoved({required Thread bookmark}) = _$BookmarksEventBookmarkRemoved;
 
   Thread get bookmark => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $BookmarkRemovedCopyWith<BookmarkRemoved> get copyWith => throw _privateConstructorUsedError;
+  $BookmarksEventBookmarkRemovedCopyWith<BookmarksEventBookmarkRemoved> get copyWith =>
+      throw _privateConstructorUsedError;
 }

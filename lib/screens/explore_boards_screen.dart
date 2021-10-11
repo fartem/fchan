@@ -26,8 +26,8 @@ class ExploreBoardsScreen extends StatelessWidget {
         body: BlocBuilder<ExploreBoardsBloc, ExploreBoardsState>(
           builder: (context, state) {
             return state.when(
-              exploreBoardsInitial: () => const AppCenteredCircularProgressIndicator(),
-              exploreBoardsLoadSuccess: (boards) {
+              initial: () => const AppCenteredCircularProgressIndicator(),
+              loadSuccess: (boards) {
                 return ListView.builder(
                   itemBuilder: (context, index) {
                     final board = boards[index];
@@ -49,10 +49,10 @@ class ExploreBoardsScreen extends StatelessWidget {
                   itemCount: boards.length,
                 );
               },
-              exploreBoardsLoadError: () => AppCenteredText(
+              loadError: () => AppCenteredText(
                 text: context.localizations.messageBoardsIsEmpty,
               ),
-              exploreBoardsAreEmpty: () => AppCenteredText(
+              boardsListIsEmpty: () => AppCenteredText(
                 text: context.localizations.messageBoardsIsEmpty,
               ),
             );

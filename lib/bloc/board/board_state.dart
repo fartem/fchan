@@ -5,14 +5,14 @@ part 'board_state.freezed.dart';
 
 @freezed
 abstract class BoardState with _$BoardState {
-  const factory BoardState.boardInitial() = BoardInitial;
+  const factory BoardState.initial() = BoardStateInitial;
 
-  const factory BoardState.boardLoadSuccess({
+  const factory BoardState.loadSuccess({
     required List<Thread> threads,
     required bool isLastPage,
-  }) = BoardLoadSuccess;
+  }) = BoardStateLoadSuccess;
 
-  const factory BoardState.boardLoadError() = BoardLoadError;
+  const factory BoardState.loadError() = BoardStateLoadError;
 
-  const factory BoardState.boardIsEmpty() = BoardIsEmpty;
+  const factory BoardState.isEmpty() = BoardStateIsEmpty;
 }

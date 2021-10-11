@@ -4,7 +4,7 @@ part 'thread_event.freezed.dart';
 
 @freezed
 abstract class ThreadEvent with _$ThreadEvent {
-  const factory ThreadEvent.threadInitialized() = ThreadInitialized;
+  const factory ThreadEvent.initialized() = ThreadEventInitialized;
 
-  const factory ThreadEvent.threadRefreshRequested() = ThreadRefreshRequested;
+  const factory ThreadEvent.refreshRequested() = ThreadEventRefreshRequested;
 }

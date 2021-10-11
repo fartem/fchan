@@ -16,16 +16,16 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$HistoryEventTearOff {
   const _$HistoryEventTearOff();
 
-  HistoryInitialized historyInitialized() {
-    return const HistoryInitialized();
+  HistoryEventInitialized initialized() {
+    return const HistoryEventInitialized();
   }
 
-  HistoryPortionRequested historyPortionRequested() {
-    return const HistoryPortionRequested();
+  HistoryEventPortionRequested portionRequested() {
+    return const HistoryEventPortionRequested();
   }
 
-  HistoryClearRequested historyClearRequested() {
-    return const HistoryClearRequested();
+  HistoryEventClearRequested clearRequested() {
+    return const HistoryEventClearRequested();
   }
 }
 
@@ -36,34 +36,34 @@ const $HistoryEvent = _$HistoryEventTearOff();
 mixin _$HistoryEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() historyInitialized,
-    required TResult Function() historyPortionRequested,
-    required TResult Function() historyClearRequested,
+    required TResult Function() initialized,
+    required TResult Function() portionRequested,
+    required TResult Function() clearRequested,
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? historyInitialized,
-    TResult Function()? historyPortionRequested,
-    TResult Function()? historyClearRequested,
+    TResult Function()? initialized,
+    TResult Function()? portionRequested,
+    TResult Function()? clearRequested,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HistoryInitialized value) historyInitialized,
-    required TResult Function(HistoryPortionRequested value) historyPortionRequested,
-    required TResult Function(HistoryClearRequested value) historyClearRequested,
+    required TResult Function(HistoryEventInitialized value) initialized,
+    required TResult Function(HistoryEventPortionRequested value) portionRequested,
+    required TResult Function(HistoryEventClearRequested value) clearRequested,
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HistoryInitialized value)? historyInitialized,
-    TResult Function(HistoryPortionRequested value)? historyPortionRequested,
-    TResult Function(HistoryClearRequested value)? historyClearRequested,
+    TResult Function(HistoryEventInitialized value)? initialized,
+    TResult Function(HistoryEventPortionRequested value)? portionRequested,
+    TResult Function(HistoryEventClearRequested value)? clearRequested,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -86,33 +86,33 @@ class _$HistoryEventCopyWithImpl<$Res> implements $HistoryEventCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $HistoryInitializedCopyWith<$Res> {
-  factory $HistoryInitializedCopyWith(HistoryInitialized value, $Res Function(HistoryInitialized) then) =
-      _$HistoryInitializedCopyWithImpl<$Res>;
+abstract class $HistoryEventInitializedCopyWith<$Res> {
+  factory $HistoryEventInitializedCopyWith(HistoryEventInitialized value, $Res Function(HistoryEventInitialized) then) =
+      _$HistoryEventInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HistoryInitializedCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
-    implements $HistoryInitializedCopyWith<$Res> {
-  _$HistoryInitializedCopyWithImpl(HistoryInitialized _value, $Res Function(HistoryInitialized) _then)
-      : super(_value, (v) => _then(v as HistoryInitialized));
+class _$HistoryEventInitializedCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
+    implements $HistoryEventInitializedCopyWith<$Res> {
+  _$HistoryEventInitializedCopyWithImpl(HistoryEventInitialized _value, $Res Function(HistoryEventInitialized) _then)
+      : super(_value, (v) => _then(v as HistoryEventInitialized));
 
   @override
-  HistoryInitialized get _value => super._value as HistoryInitialized;
+  HistoryEventInitialized get _value => super._value as HistoryEventInitialized;
 }
 
 /// @nodoc
-class _$HistoryInitialized implements HistoryInitialized {
-  const _$HistoryInitialized();
+class _$HistoryEventInitialized implements HistoryEventInitialized {
+  const _$HistoryEventInitialized();
 
   @override
   String toString() {
-    return 'HistoryEvent.historyInitialized()';
+    return 'HistoryEvent.initialized()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is HistoryInitialized);
+    return identical(this, other) || (other is HistoryEventInitialized);
   }
 
   @override
@@ -121,23 +121,23 @@ class _$HistoryInitialized implements HistoryInitialized {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() historyInitialized,
-    required TResult Function() historyPortionRequested,
-    required TResult Function() historyClearRequested,
+    required TResult Function() initialized,
+    required TResult Function() portionRequested,
+    required TResult Function() clearRequested,
   }) {
-    return historyInitialized();
+    return initialized();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? historyInitialized,
-    TResult Function()? historyPortionRequested,
-    TResult Function()? historyClearRequested,
+    TResult Function()? initialized,
+    TResult Function()? portionRequested,
+    TResult Function()? clearRequested,
     required TResult orElse(),
   }) {
-    if (historyInitialized != null) {
-      return historyInitialized();
+    if (initialized != null) {
+      return initialized();
     }
     return orElse();
   }
@@ -145,60 +145,62 @@ class _$HistoryInitialized implements HistoryInitialized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HistoryInitialized value) historyInitialized,
-    required TResult Function(HistoryPortionRequested value) historyPortionRequested,
-    required TResult Function(HistoryClearRequested value) historyClearRequested,
+    required TResult Function(HistoryEventInitialized value) initialized,
+    required TResult Function(HistoryEventPortionRequested value) portionRequested,
+    required TResult Function(HistoryEventClearRequested value) clearRequested,
   }) {
-    return historyInitialized(this);
+    return initialized(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HistoryInitialized value)? historyInitialized,
-    TResult Function(HistoryPortionRequested value)? historyPortionRequested,
-    TResult Function(HistoryClearRequested value)? historyClearRequested,
+    TResult Function(HistoryEventInitialized value)? initialized,
+    TResult Function(HistoryEventPortionRequested value)? portionRequested,
+    TResult Function(HistoryEventClearRequested value)? clearRequested,
     required TResult orElse(),
   }) {
-    if (historyInitialized != null) {
-      return historyInitialized(this);
+    if (initialized != null) {
+      return initialized(this);
     }
     return orElse();
   }
 }
 
-abstract class HistoryInitialized implements HistoryEvent {
-  const factory HistoryInitialized() = _$HistoryInitialized;
+abstract class HistoryEventInitialized implements HistoryEvent {
+  const factory HistoryEventInitialized() = _$HistoryEventInitialized;
 }
 
 /// @nodoc
-abstract class $HistoryPortionRequestedCopyWith<$Res> {
-  factory $HistoryPortionRequestedCopyWith(HistoryPortionRequested value, $Res Function(HistoryPortionRequested) then) =
-      _$HistoryPortionRequestedCopyWithImpl<$Res>;
+abstract class $HistoryEventPortionRequestedCopyWith<$Res> {
+  factory $HistoryEventPortionRequestedCopyWith(
+          HistoryEventPortionRequested value, $Res Function(HistoryEventPortionRequested) then) =
+      _$HistoryEventPortionRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HistoryPortionRequestedCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
-    implements $HistoryPortionRequestedCopyWith<$Res> {
-  _$HistoryPortionRequestedCopyWithImpl(HistoryPortionRequested _value, $Res Function(HistoryPortionRequested) _then)
-      : super(_value, (v) => _then(v as HistoryPortionRequested));
+class _$HistoryEventPortionRequestedCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
+    implements $HistoryEventPortionRequestedCopyWith<$Res> {
+  _$HistoryEventPortionRequestedCopyWithImpl(
+      HistoryEventPortionRequested _value, $Res Function(HistoryEventPortionRequested) _then)
+      : super(_value, (v) => _then(v as HistoryEventPortionRequested));
 
   @override
-  HistoryPortionRequested get _value => super._value as HistoryPortionRequested;
+  HistoryEventPortionRequested get _value => super._value as HistoryEventPortionRequested;
 }
 
 /// @nodoc
-class _$HistoryPortionRequested implements HistoryPortionRequested {
-  const _$HistoryPortionRequested();
+class _$HistoryEventPortionRequested implements HistoryEventPortionRequested {
+  const _$HistoryEventPortionRequested();
 
   @override
   String toString() {
-    return 'HistoryEvent.historyPortionRequested()';
+    return 'HistoryEvent.portionRequested()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is HistoryPortionRequested);
+    return identical(this, other) || (other is HistoryEventPortionRequested);
   }
 
   @override
@@ -207,23 +209,23 @@ class _$HistoryPortionRequested implements HistoryPortionRequested {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() historyInitialized,
-    required TResult Function() historyPortionRequested,
-    required TResult Function() historyClearRequested,
+    required TResult Function() initialized,
+    required TResult Function() portionRequested,
+    required TResult Function() clearRequested,
   }) {
-    return historyPortionRequested();
+    return portionRequested();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? historyInitialized,
-    TResult Function()? historyPortionRequested,
-    TResult Function()? historyClearRequested,
+    TResult Function()? initialized,
+    TResult Function()? portionRequested,
+    TResult Function()? clearRequested,
     required TResult orElse(),
   }) {
-    if (historyPortionRequested != null) {
-      return historyPortionRequested();
+    if (portionRequested != null) {
+      return portionRequested();
     }
     return orElse();
   }
@@ -231,60 +233,62 @@ class _$HistoryPortionRequested implements HistoryPortionRequested {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HistoryInitialized value) historyInitialized,
-    required TResult Function(HistoryPortionRequested value) historyPortionRequested,
-    required TResult Function(HistoryClearRequested value) historyClearRequested,
+    required TResult Function(HistoryEventInitialized value) initialized,
+    required TResult Function(HistoryEventPortionRequested value) portionRequested,
+    required TResult Function(HistoryEventClearRequested value) clearRequested,
   }) {
-    return historyPortionRequested(this);
+    return portionRequested(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HistoryInitialized value)? historyInitialized,
-    TResult Function(HistoryPortionRequested value)? historyPortionRequested,
-    TResult Function(HistoryClearRequested value)? historyClearRequested,
+    TResult Function(HistoryEventInitialized value)? initialized,
+    TResult Function(HistoryEventPortionRequested value)? portionRequested,
+    TResult Function(HistoryEventClearRequested value)? clearRequested,
     required TResult orElse(),
   }) {
-    if (historyPortionRequested != null) {
-      return historyPortionRequested(this);
+    if (portionRequested != null) {
+      return portionRequested(this);
     }
     return orElse();
   }
 }
 
-abstract class HistoryPortionRequested implements HistoryEvent {
-  const factory HistoryPortionRequested() = _$HistoryPortionRequested;
+abstract class HistoryEventPortionRequested implements HistoryEvent {
+  const factory HistoryEventPortionRequested() = _$HistoryEventPortionRequested;
 }
 
 /// @nodoc
-abstract class $HistoryClearRequestedCopyWith<$Res> {
-  factory $HistoryClearRequestedCopyWith(HistoryClearRequested value, $Res Function(HistoryClearRequested) then) =
-      _$HistoryClearRequestedCopyWithImpl<$Res>;
+abstract class $HistoryEventClearRequestedCopyWith<$Res> {
+  factory $HistoryEventClearRequestedCopyWith(
+          HistoryEventClearRequested value, $Res Function(HistoryEventClearRequested) then) =
+      _$HistoryEventClearRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HistoryClearRequestedCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
-    implements $HistoryClearRequestedCopyWith<$Res> {
-  _$HistoryClearRequestedCopyWithImpl(HistoryClearRequested _value, $Res Function(HistoryClearRequested) _then)
-      : super(_value, (v) => _then(v as HistoryClearRequested));
+class _$HistoryEventClearRequestedCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
+    implements $HistoryEventClearRequestedCopyWith<$Res> {
+  _$HistoryEventClearRequestedCopyWithImpl(
+      HistoryEventClearRequested _value, $Res Function(HistoryEventClearRequested) _then)
+      : super(_value, (v) => _then(v as HistoryEventClearRequested));
 
   @override
-  HistoryClearRequested get _value => super._value as HistoryClearRequested;
+  HistoryEventClearRequested get _value => super._value as HistoryEventClearRequested;
 }
 
 /// @nodoc
-class _$HistoryClearRequested implements HistoryClearRequested {
-  const _$HistoryClearRequested();
+class _$HistoryEventClearRequested implements HistoryEventClearRequested {
+  const _$HistoryEventClearRequested();
 
   @override
   String toString() {
-    return 'HistoryEvent.historyClearRequested()';
+    return 'HistoryEvent.clearRequested()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is HistoryClearRequested);
+    return identical(this, other) || (other is HistoryEventClearRequested);
   }
 
   @override
@@ -293,23 +297,23 @@ class _$HistoryClearRequested implements HistoryClearRequested {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() historyInitialized,
-    required TResult Function() historyPortionRequested,
-    required TResult Function() historyClearRequested,
+    required TResult Function() initialized,
+    required TResult Function() portionRequested,
+    required TResult Function() clearRequested,
   }) {
-    return historyClearRequested();
+    return clearRequested();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? historyInitialized,
-    TResult Function()? historyPortionRequested,
-    TResult Function()? historyClearRequested,
+    TResult Function()? initialized,
+    TResult Function()? portionRequested,
+    TResult Function()? clearRequested,
     required TResult orElse(),
   }) {
-    if (historyClearRequested != null) {
-      return historyClearRequested();
+    if (clearRequested != null) {
+      return clearRequested();
     }
     return orElse();
   }
@@ -317,28 +321,28 @@ class _$HistoryClearRequested implements HistoryClearRequested {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(HistoryInitialized value) historyInitialized,
-    required TResult Function(HistoryPortionRequested value) historyPortionRequested,
-    required TResult Function(HistoryClearRequested value) historyClearRequested,
+    required TResult Function(HistoryEventInitialized value) initialized,
+    required TResult Function(HistoryEventPortionRequested value) portionRequested,
+    required TResult Function(HistoryEventClearRequested value) clearRequested,
   }) {
-    return historyClearRequested(this);
+    return clearRequested(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(HistoryInitialized value)? historyInitialized,
-    TResult Function(HistoryPortionRequested value)? historyPortionRequested,
-    TResult Function(HistoryClearRequested value)? historyClearRequested,
+    TResult Function(HistoryEventInitialized value)? initialized,
+    TResult Function(HistoryEventPortionRequested value)? portionRequested,
+    TResult Function(HistoryEventClearRequested value)? clearRequested,
     required TResult orElse(),
   }) {
-    if (historyClearRequested != null) {
-      return historyClearRequested(this);
+    if (clearRequested != null) {
+      return clearRequested(this);
     }
     return orElse();
   }
 }
 
-abstract class HistoryClearRequested implements HistoryEvent {
-  const factory HistoryClearRequested() = _$HistoryClearRequested;
+abstract class HistoryEventClearRequested implements HistoryEvent {
+  const factory HistoryEventClearRequested() = _$HistoryEventClearRequested;
 }

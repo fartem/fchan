@@ -5,16 +5,16 @@ part 'history_state.freezed.dart';
 
 @freezed
 abstract class HistoryState with _$HistoryState {
-  const factory HistoryState.historyInitial() = HistoryInitial;
+  const factory HistoryState.initial() = HistoryStateInitial;
 
-  const factory HistoryState.historyLoadSuccess({
+  const factory HistoryState.loadSuccess({
     required List<Thread> threads,
     required bool isLastPage,
-  }) = HistoryLoadSuccess;
+  }) = HistoryStateLoadSuccess;
 
-  const factory HistoryState.historyLoadError() = HistoryLoadError;
+  const factory HistoryState.loadError() = HistoryStateLoadError;
 
-  const factory HistoryState.historyIsEmpty() = HistoryIsEmpty;
+  const factory HistoryState.historyIsEmpty() = HistoryStateHistoryIsEmpty;
 
-  const factory HistoryState.historyClearInProgress() = HistoryClearInProgress;
+  const factory HistoryState.clearInProgress() = HistoryStateClearInProgress;
 }

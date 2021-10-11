@@ -12,8 +12,8 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
 
   late ListPortionController<Thread> _listPortionController;
 
-  BookmarksBloc({required this.dataRepository}) : super(const BookmarksInitial()) {
-    add(const BookmarksInitialized());
+  BookmarksBloc({required this.dataRepository}) : super(const BookmarksStateInitial()) {
+    add(const BookmarksEventInitialized());
     _listPortionController = ListPortionController<Thread>(
       portionProvider: dataRepository.bookmarks,
     );
@@ -24,10 +24,10 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
     BookmarksEvent event,
   ) async* {
     yield* event.when(
-      bookmarksInitialized: _mapBookmarksEventInitializedToState,
-      bookmarksPortionRequested: _mapBookmarksEventThreadPortionRequestedToState,
-      bookmarksUpdateRequested: _mapBookmarksEventUpdateRequestedToState,
-      bookmarksClearRequested: _mapBookmarksEventClearRequestedToState,
+      initialized: _mapBookmarksEventInitializedToState,
+      portionRequested: _mapBookmarksEventThreadPortionRequestedToState,
+      updateRequested: _mapBookmarksEventUpdateRequestedToState,
+      clearRequested: _mapBookmarksEventClearRequestedToState,
       bookmarkRemoved: (thread) => _mapBookmarksEventBookmarkRemovedToState(
         thread: thread,
       ),
@@ -38,38 +38,38 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
     try {
       await _listPortionController.loadMore();
       if (_listPortionController.items.isNotEmpty) {
-        yield BookmarksLoadSuccess(
+        yield BookmarksStateLoadSuccess(
           threads: List.unmodifiable(_listPortionController.items),
           isLastPage: _listPortionController.isLastPage,
         );
       } else {
-        yield const BookmarksIsEmpty();
+        yield const BookmarksStateLoadError();
       }
     } on Exception {
-      yield const BookmarksLoadError();
+      yield const BookmarksStateLoadError();
     }
   }
 
   Stream<BookmarksState> _mapBookmarksEventThreadPortionRequestedToState() async* {
     await _listPortionController.loadMore();
-    yield BookmarksLoadSuccess(
+    yield BookmarksStateLoadSuccess(
       threads: List.unmodifiable(_listPortionController.items),
       isLastPage: _listPortionController.isLastPage,
     );
   }
 
   Stream<BookmarksState> _mapBookmarksEventUpdateRequestedToState() async* {
-    yield BookmarksLoadSuccess(
+    yield BookmarksStateLoadSuccess(
       threads: List.unmodifiable(_listPortionController.items),
       isLastPage: _listPortionController.isLastPage,
     );
   }
 
   Stream<BookmarksState> _mapBookmarksEventClearRequestedToState() async* {
-    yield const BookmarksClearInProgress();
+    yield const BookmarksStateClearInProgress();
     await _listPortionController.reset();
     await dataRepository.localDataProvider.clearHistory();
-    add(const BookmarksInitialized());
+    add(const BookmarksEventInitialized());
   }
 
   Stream<BookmarksState> _mapBookmarksEventBookmarkRemovedToState({
@@ -77,6 +77,6 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
   }) async* {
     _listPortionController.items.remove(thread);
     await dataRepository.removeThreadFromBookmarks(thread);
-    add(const BookmarksUpdateRequested());
+    add(const BookmarksEventUpdateRequested());
   }
 }

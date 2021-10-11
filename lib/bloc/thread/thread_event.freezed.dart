@@ -16,12 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$ThreadEventTearOff {
   const _$ThreadEventTearOff();
 
-  ThreadInitialized threadInitialized() {
-    return const ThreadInitialized();
+  ThreadEventInitialized initialized() {
+    return const ThreadEventInitialized();
   }
 
-  ThreadRefreshRequested threadRefreshRequested() {
-    return const ThreadRefreshRequested();
+  ThreadEventRefreshRequested refreshRequested() {
+    return const ThreadEventRefreshRequested();
   }
 }
 
@@ -32,30 +32,30 @@ const $ThreadEvent = _$ThreadEventTearOff();
 mixin _$ThreadEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() threadInitialized,
-    required TResult Function() threadRefreshRequested,
+    required TResult Function() initialized,
+    required TResult Function() refreshRequested,
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? threadInitialized,
-    TResult Function()? threadRefreshRequested,
+    TResult Function()? initialized,
+    TResult Function()? refreshRequested,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ThreadInitialized value) threadInitialized,
-    required TResult Function(ThreadRefreshRequested value) threadRefreshRequested,
+    required TResult Function(ThreadEventInitialized value) initialized,
+    required TResult Function(ThreadEventRefreshRequested value) refreshRequested,
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ThreadInitialized value)? threadInitialized,
-    TResult Function(ThreadRefreshRequested value)? threadRefreshRequested,
+    TResult Function(ThreadEventInitialized value)? initialized,
+    TResult Function(ThreadEventRefreshRequested value)? refreshRequested,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -77,33 +77,33 @@ class _$ThreadEventCopyWithImpl<$Res> implements $ThreadEventCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $ThreadInitializedCopyWith<$Res> {
-  factory $ThreadInitializedCopyWith(ThreadInitialized value, $Res Function(ThreadInitialized) then) =
-      _$ThreadInitializedCopyWithImpl<$Res>;
+abstract class $ThreadEventInitializedCopyWith<$Res> {
+  factory $ThreadEventInitializedCopyWith(ThreadEventInitialized value, $Res Function(ThreadEventInitialized) then) =
+      _$ThreadEventInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ThreadInitializedCopyWithImpl<$Res> extends _$ThreadEventCopyWithImpl<$Res>
-    implements $ThreadInitializedCopyWith<$Res> {
-  _$ThreadInitializedCopyWithImpl(ThreadInitialized _value, $Res Function(ThreadInitialized) _then)
-      : super(_value, (v) => _then(v as ThreadInitialized));
+class _$ThreadEventInitializedCopyWithImpl<$Res> extends _$ThreadEventCopyWithImpl<$Res>
+    implements $ThreadEventInitializedCopyWith<$Res> {
+  _$ThreadEventInitializedCopyWithImpl(ThreadEventInitialized _value, $Res Function(ThreadEventInitialized) _then)
+      : super(_value, (v) => _then(v as ThreadEventInitialized));
 
   @override
-  ThreadInitialized get _value => super._value as ThreadInitialized;
+  ThreadEventInitialized get _value => super._value as ThreadEventInitialized;
 }
 
 /// @nodoc
-class _$ThreadInitialized implements ThreadInitialized {
-  const _$ThreadInitialized();
+class _$ThreadEventInitialized implements ThreadEventInitialized {
+  const _$ThreadEventInitialized();
 
   @override
   String toString() {
-    return 'ThreadEvent.threadInitialized()';
+    return 'ThreadEvent.initialized()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is ThreadInitialized);
+    return identical(this, other) || (other is ThreadEventInitialized);
   }
 
   @override
@@ -112,21 +112,21 @@ class _$ThreadInitialized implements ThreadInitialized {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() threadInitialized,
-    required TResult Function() threadRefreshRequested,
+    required TResult Function() initialized,
+    required TResult Function() refreshRequested,
   }) {
-    return threadInitialized();
+    return initialized();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? threadInitialized,
-    TResult Function()? threadRefreshRequested,
+    TResult Function()? initialized,
+    TResult Function()? refreshRequested,
     required TResult orElse(),
   }) {
-    if (threadInitialized != null) {
-      return threadInitialized();
+    if (initialized != null) {
+      return initialized();
     }
     return orElse();
   }
@@ -134,58 +134,60 @@ class _$ThreadInitialized implements ThreadInitialized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ThreadInitialized value) threadInitialized,
-    required TResult Function(ThreadRefreshRequested value) threadRefreshRequested,
+    required TResult Function(ThreadEventInitialized value) initialized,
+    required TResult Function(ThreadEventRefreshRequested value) refreshRequested,
   }) {
-    return threadInitialized(this);
+    return initialized(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ThreadInitialized value)? threadInitialized,
-    TResult Function(ThreadRefreshRequested value)? threadRefreshRequested,
+    TResult Function(ThreadEventInitialized value)? initialized,
+    TResult Function(ThreadEventRefreshRequested value)? refreshRequested,
     required TResult orElse(),
   }) {
-    if (threadInitialized != null) {
-      return threadInitialized(this);
+    if (initialized != null) {
+      return initialized(this);
     }
     return orElse();
   }
 }
 
-abstract class ThreadInitialized implements ThreadEvent {
-  const factory ThreadInitialized() = _$ThreadInitialized;
+abstract class ThreadEventInitialized implements ThreadEvent {
+  const factory ThreadEventInitialized() = _$ThreadEventInitialized;
 }
 
 /// @nodoc
-abstract class $ThreadRefreshRequestedCopyWith<$Res> {
-  factory $ThreadRefreshRequestedCopyWith(ThreadRefreshRequested value, $Res Function(ThreadRefreshRequested) then) =
-      _$ThreadRefreshRequestedCopyWithImpl<$Res>;
+abstract class $ThreadEventRefreshRequestedCopyWith<$Res> {
+  factory $ThreadEventRefreshRequestedCopyWith(
+          ThreadEventRefreshRequested value, $Res Function(ThreadEventRefreshRequested) then) =
+      _$ThreadEventRefreshRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ThreadRefreshRequestedCopyWithImpl<$Res> extends _$ThreadEventCopyWithImpl<$Res>
-    implements $ThreadRefreshRequestedCopyWith<$Res> {
-  _$ThreadRefreshRequestedCopyWithImpl(ThreadRefreshRequested _value, $Res Function(ThreadRefreshRequested) _then)
-      : super(_value, (v) => _then(v as ThreadRefreshRequested));
+class _$ThreadEventRefreshRequestedCopyWithImpl<$Res> extends _$ThreadEventCopyWithImpl<$Res>
+    implements $ThreadEventRefreshRequestedCopyWith<$Res> {
+  _$ThreadEventRefreshRequestedCopyWithImpl(
+      ThreadEventRefreshRequested _value, $Res Function(ThreadEventRefreshRequested) _then)
+      : super(_value, (v) => _then(v as ThreadEventRefreshRequested));
 
   @override
-  ThreadRefreshRequested get _value => super._value as ThreadRefreshRequested;
+  ThreadEventRefreshRequested get _value => super._value as ThreadEventRefreshRequested;
 }
 
 /// @nodoc
-class _$ThreadRefreshRequested implements ThreadRefreshRequested {
-  const _$ThreadRefreshRequested();
+class _$ThreadEventRefreshRequested implements ThreadEventRefreshRequested {
+  const _$ThreadEventRefreshRequested();
 
   @override
   String toString() {
-    return 'ThreadEvent.threadRefreshRequested()';
+    return 'ThreadEvent.refreshRequested()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is ThreadRefreshRequested);
+    return identical(this, other) || (other is ThreadEventRefreshRequested);
   }
 
   @override
@@ -194,21 +196,21 @@ class _$ThreadRefreshRequested implements ThreadRefreshRequested {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() threadInitialized,
-    required TResult Function() threadRefreshRequested,
+    required TResult Function() initialized,
+    required TResult Function() refreshRequested,
   }) {
-    return threadRefreshRequested();
+    return refreshRequested();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? threadInitialized,
-    TResult Function()? threadRefreshRequested,
+    TResult Function()? initialized,
+    TResult Function()? refreshRequested,
     required TResult orElse(),
   }) {
-    if (threadRefreshRequested != null) {
-      return threadRefreshRequested();
+    if (refreshRequested != null) {
+      return refreshRequested();
     }
     return orElse();
   }
@@ -216,26 +218,26 @@ class _$ThreadRefreshRequested implements ThreadRefreshRequested {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ThreadInitialized value) threadInitialized,
-    required TResult Function(ThreadRefreshRequested value) threadRefreshRequested,
+    required TResult Function(ThreadEventInitialized value) initialized,
+    required TResult Function(ThreadEventRefreshRequested value) refreshRequested,
   }) {
-    return threadRefreshRequested(this);
+    return refreshRequested(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ThreadInitialized value)? threadInitialized,
-    TResult Function(ThreadRefreshRequested value)? threadRefreshRequested,
+    TResult Function(ThreadEventInitialized value)? initialized,
+    TResult Function(ThreadEventRefreshRequested value)? refreshRequested,
     required TResult orElse(),
   }) {
-    if (threadRefreshRequested != null) {
-      return threadRefreshRequested(this);
+    if (refreshRequested != null) {
+      return refreshRequested(this);
     }
     return orElse();
   }
 }
 
-abstract class ThreadRefreshRequested implements ThreadEvent {
-  const factory ThreadRefreshRequested() = _$ThreadRefreshRequested;
+abstract class ThreadEventRefreshRequested implements ThreadEvent {
+  const factory ThreadEventRefreshRequested() = _$ThreadEventRefreshRequested;
 }

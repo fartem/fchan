@@ -16,12 +16,12 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$FavoritesEventTearOff {
   const _$FavoritesEventTearOff();
 
-  FavoritesInitialized favoritesInitialized() {
-    return const FavoritesInitialized();
+  FavoritesEventInitialized initialized() {
+    return const FavoritesEventInitialized();
   }
 
-  FavoritesWasUpdated favoritesWasUpdated() {
-    return const FavoritesWasUpdated();
+  FavoritesEventFavoritesWasUpdated favoritesListWasUpdated() {
+    return const FavoritesEventFavoritesWasUpdated();
   }
 }
 
@@ -32,30 +32,30 @@ const $FavoritesEvent = _$FavoritesEventTearOff();
 mixin _$FavoritesEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() favoritesInitialized,
-    required TResult Function() favoritesWasUpdated,
+    required TResult Function() initialized,
+    required TResult Function() favoritesListWasUpdated,
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? favoritesInitialized,
-    TResult Function()? favoritesWasUpdated,
+    TResult Function()? initialized,
+    TResult Function()? favoritesListWasUpdated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(FavoritesInitialized value) favoritesInitialized,
-    required TResult Function(FavoritesWasUpdated value) favoritesWasUpdated,
+    required TResult Function(FavoritesEventInitialized value) initialized,
+    required TResult Function(FavoritesEventFavoritesWasUpdated value) favoritesListWasUpdated,
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(FavoritesInitialized value)? favoritesInitialized,
-    TResult Function(FavoritesWasUpdated value)? favoritesWasUpdated,
+    TResult Function(FavoritesEventInitialized value)? initialized,
+    TResult Function(FavoritesEventFavoritesWasUpdated value)? favoritesListWasUpdated,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -78,33 +78,35 @@ class _$FavoritesEventCopyWithImpl<$Res> implements $FavoritesEventCopyWith<$Res
 }
 
 /// @nodoc
-abstract class $FavoritesInitializedCopyWith<$Res> {
-  factory $FavoritesInitializedCopyWith(FavoritesInitialized value, $Res Function(FavoritesInitialized) then) =
-      _$FavoritesInitializedCopyWithImpl<$Res>;
+abstract class $FavoritesEventInitializedCopyWith<$Res> {
+  factory $FavoritesEventInitializedCopyWith(
+          FavoritesEventInitialized value, $Res Function(FavoritesEventInitialized) then) =
+      _$FavoritesEventInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FavoritesInitializedCopyWithImpl<$Res> extends _$FavoritesEventCopyWithImpl<$Res>
-    implements $FavoritesInitializedCopyWith<$Res> {
-  _$FavoritesInitializedCopyWithImpl(FavoritesInitialized _value, $Res Function(FavoritesInitialized) _then)
-      : super(_value, (v) => _then(v as FavoritesInitialized));
+class _$FavoritesEventInitializedCopyWithImpl<$Res> extends _$FavoritesEventCopyWithImpl<$Res>
+    implements $FavoritesEventInitializedCopyWith<$Res> {
+  _$FavoritesEventInitializedCopyWithImpl(
+      FavoritesEventInitialized _value, $Res Function(FavoritesEventInitialized) _then)
+      : super(_value, (v) => _then(v as FavoritesEventInitialized));
 
   @override
-  FavoritesInitialized get _value => super._value as FavoritesInitialized;
+  FavoritesEventInitialized get _value => super._value as FavoritesEventInitialized;
 }
 
 /// @nodoc
-class _$FavoritesInitialized implements FavoritesInitialized {
-  const _$FavoritesInitialized();
+class _$FavoritesEventInitialized implements FavoritesEventInitialized {
+  const _$FavoritesEventInitialized();
 
   @override
   String toString() {
-    return 'FavoritesEvent.favoritesInitialized()';
+    return 'FavoritesEvent.initialized()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is FavoritesInitialized);
+    return identical(this, other) || (other is FavoritesEventInitialized);
   }
 
   @override
@@ -113,21 +115,21 @@ class _$FavoritesInitialized implements FavoritesInitialized {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() favoritesInitialized,
-    required TResult Function() favoritesWasUpdated,
+    required TResult Function() initialized,
+    required TResult Function() favoritesListWasUpdated,
   }) {
-    return favoritesInitialized();
+    return initialized();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? favoritesInitialized,
-    TResult Function()? favoritesWasUpdated,
+    TResult Function()? initialized,
+    TResult Function()? favoritesListWasUpdated,
     required TResult orElse(),
   }) {
-    if (favoritesInitialized != null) {
-      return favoritesInitialized();
+    if (initialized != null) {
+      return initialized();
     }
     return orElse();
   }
@@ -135,58 +137,60 @@ class _$FavoritesInitialized implements FavoritesInitialized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(FavoritesInitialized value) favoritesInitialized,
-    required TResult Function(FavoritesWasUpdated value) favoritesWasUpdated,
+    required TResult Function(FavoritesEventInitialized value) initialized,
+    required TResult Function(FavoritesEventFavoritesWasUpdated value) favoritesListWasUpdated,
   }) {
-    return favoritesInitialized(this);
+    return initialized(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(FavoritesInitialized value)? favoritesInitialized,
-    TResult Function(FavoritesWasUpdated value)? favoritesWasUpdated,
+    TResult Function(FavoritesEventInitialized value)? initialized,
+    TResult Function(FavoritesEventFavoritesWasUpdated value)? favoritesListWasUpdated,
     required TResult orElse(),
   }) {
-    if (favoritesInitialized != null) {
-      return favoritesInitialized(this);
+    if (initialized != null) {
+      return initialized(this);
     }
     return orElse();
   }
 }
 
-abstract class FavoritesInitialized implements FavoritesEvent {
-  const factory FavoritesInitialized() = _$FavoritesInitialized;
+abstract class FavoritesEventInitialized implements FavoritesEvent {
+  const factory FavoritesEventInitialized() = _$FavoritesEventInitialized;
 }
 
 /// @nodoc
-abstract class $FavoritesWasUpdatedCopyWith<$Res> {
-  factory $FavoritesWasUpdatedCopyWith(FavoritesWasUpdated value, $Res Function(FavoritesWasUpdated) then) =
-      _$FavoritesWasUpdatedCopyWithImpl<$Res>;
+abstract class $FavoritesEventFavoritesWasUpdatedCopyWith<$Res> {
+  factory $FavoritesEventFavoritesWasUpdatedCopyWith(
+          FavoritesEventFavoritesWasUpdated value, $Res Function(FavoritesEventFavoritesWasUpdated) then) =
+      _$FavoritesEventFavoritesWasUpdatedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FavoritesWasUpdatedCopyWithImpl<$Res> extends _$FavoritesEventCopyWithImpl<$Res>
-    implements $FavoritesWasUpdatedCopyWith<$Res> {
-  _$FavoritesWasUpdatedCopyWithImpl(FavoritesWasUpdated _value, $Res Function(FavoritesWasUpdated) _then)
-      : super(_value, (v) => _then(v as FavoritesWasUpdated));
+class _$FavoritesEventFavoritesWasUpdatedCopyWithImpl<$Res> extends _$FavoritesEventCopyWithImpl<$Res>
+    implements $FavoritesEventFavoritesWasUpdatedCopyWith<$Res> {
+  _$FavoritesEventFavoritesWasUpdatedCopyWithImpl(
+      FavoritesEventFavoritesWasUpdated _value, $Res Function(FavoritesEventFavoritesWasUpdated) _then)
+      : super(_value, (v) => _then(v as FavoritesEventFavoritesWasUpdated));
 
   @override
-  FavoritesWasUpdated get _value => super._value as FavoritesWasUpdated;
+  FavoritesEventFavoritesWasUpdated get _value => super._value as FavoritesEventFavoritesWasUpdated;
 }
 
 /// @nodoc
-class _$FavoritesWasUpdated implements FavoritesWasUpdated {
-  const _$FavoritesWasUpdated();
+class _$FavoritesEventFavoritesWasUpdated implements FavoritesEventFavoritesWasUpdated {
+  const _$FavoritesEventFavoritesWasUpdated();
 
   @override
   String toString() {
-    return 'FavoritesEvent.favoritesWasUpdated()';
+    return 'FavoritesEvent.favoritesListWasUpdated()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is FavoritesWasUpdated);
+    return identical(this, other) || (other is FavoritesEventFavoritesWasUpdated);
   }
 
   @override
@@ -195,21 +199,21 @@ class _$FavoritesWasUpdated implements FavoritesWasUpdated {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() favoritesInitialized,
-    required TResult Function() favoritesWasUpdated,
+    required TResult Function() initialized,
+    required TResult Function() favoritesListWasUpdated,
   }) {
-    return favoritesWasUpdated();
+    return favoritesListWasUpdated();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? favoritesInitialized,
-    TResult Function()? favoritesWasUpdated,
+    TResult Function()? initialized,
+    TResult Function()? favoritesListWasUpdated,
     required TResult orElse(),
   }) {
-    if (favoritesWasUpdated != null) {
-      return favoritesWasUpdated();
+    if (favoritesListWasUpdated != null) {
+      return favoritesListWasUpdated();
     }
     return orElse();
   }
@@ -217,26 +221,26 @@ class _$FavoritesWasUpdated implements FavoritesWasUpdated {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(FavoritesInitialized value) favoritesInitialized,
-    required TResult Function(FavoritesWasUpdated value) favoritesWasUpdated,
+    required TResult Function(FavoritesEventInitialized value) initialized,
+    required TResult Function(FavoritesEventFavoritesWasUpdated value) favoritesListWasUpdated,
   }) {
-    return favoritesWasUpdated(this);
+    return favoritesListWasUpdated(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(FavoritesInitialized value)? favoritesInitialized,
-    TResult Function(FavoritesWasUpdated value)? favoritesWasUpdated,
+    TResult Function(FavoritesEventInitialized value)? initialized,
+    TResult Function(FavoritesEventFavoritesWasUpdated value)? favoritesListWasUpdated,
     required TResult orElse(),
   }) {
-    if (favoritesWasUpdated != null) {
-      return favoritesWasUpdated(this);
+    if (favoritesListWasUpdated != null) {
+      return favoritesListWasUpdated(this);
     }
     return orElse();
   }
 }
 
-abstract class FavoritesWasUpdated implements FavoritesEvent {
-  const factory FavoritesWasUpdated() = _$FavoritesWasUpdated;
+abstract class FavoritesEventFavoritesWasUpdated implements FavoritesEvent {
+  const factory FavoritesEventFavoritesWasUpdated() = _$FavoritesEventFavoritesWasUpdated;
 }

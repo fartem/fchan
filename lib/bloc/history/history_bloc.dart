@@ -12,8 +12,8 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
 
   late ListPortionController<Thread> _listPortionController;
 
-  HistoryBloc({required this.dataRepository}) : super(const HistoryInitial()) {
-    add(const HistoryInitialized());
+  HistoryBloc({required this.dataRepository}) : super(const HistoryStateInitial()) {
+    add(const HistoryEventInitialized());
     _listPortionController = ListPortionController<Thread>(
       portionProvider: dataRepository.history,
     );
@@ -24,9 +24,9 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     HistoryEvent event,
   ) async* {
     yield* event.when(
-      historyInitialized: _mapHistoryEventInitializedToState,
-      historyPortionRequested: _mapHistoryEventThreadPortionRequestedToState,
-      historyClearRequested: _mapHistoryEventClearRequestedToState,
+      initialized: _mapHistoryEventInitializedToState,
+      portionRequested: _mapHistoryEventThreadPortionRequestedToState,
+      clearRequested: _mapHistoryEventClearRequestedToState,
     );
   }
 
@@ -34,31 +34,31 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     try {
       await _listPortionController.loadMore();
       if (_listPortionController.items.isNotEmpty) {
-        yield HistoryLoadSuccess(
+        yield HistoryStateLoadSuccess(
           threads: List.unmodifiable(_listPortionController.items),
           isLastPage: _listPortionController.isLastPage,
         );
       } else {
-        yield const HistoryIsEmpty();
+        yield const HistoryStateHistoryIsEmpty();
       }
     } on Exception {
-      yield const HistoryLoadError();
+      yield const HistoryStateLoadError();
     }
   }
 
   Stream<HistoryState> _mapHistoryEventThreadPortionRequestedToState() async* {
     await _listPortionController.loadMore();
-    yield HistoryLoadSuccess(
+    yield HistoryStateLoadSuccess(
       threads: List.unmodifiable(_listPortionController.items),
       isLastPage: _listPortionController.isLastPage,
     );
   }
 
   Stream<HistoryState> _mapHistoryEventClearRequestedToState() async* {
-    yield const HistoryClearInProgress();
+    yield const HistoryStateClearInProgress();
     await _listPortionController.reset();
     await dataRepository.localDataProvider.clearHistory();
-    add(const HistoryInitialized());
+    add(const HistoryEventInitialized());
   }
 
   Future<void> deleteFromHistory(Thread thread) async {

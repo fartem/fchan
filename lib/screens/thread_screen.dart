@@ -42,8 +42,8 @@ class _ThreadScreenState extends State<ThreadScreen> {
         body: BlocBuilder<ThreadBloc, ThreadState>(
           builder: (context, state) {
             return state.when(
-              threadInitial: () => const AppCenteredCircularProgressIndicator(),
-              threadLoadSuccess: (posts) {
+              initial: () => const AppCenteredCircularProgressIndicator(),
+              loadSuccess: (posts) {
                 return ListView.builder(
                   itemBuilder: (context, index) => AppPostCard(
                     post: posts[index],
@@ -52,10 +52,10 @@ class _ThreadScreenState extends State<ThreadScreen> {
                   controller: _scrollController,
                 );
               },
-              threadLoadError: () => AppCenteredText(
+              loadError: () => AppCenteredText(
                 text: context.localizations.messageThreadIsEmpty,
               ),
-              threadIsEmpty: () => AppCenteredText(
+              threadsListIsEmpty: () => AppCenteredText(
                 text: context.localizations.messageThreadIsEmpty,
               ),
             );
@@ -64,7 +64,7 @@ class _ThreadScreenState extends State<ThreadScreen> {
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.refresh),
           onPressed: () => context.read<ThreadBloc>().add(
-                const ThreadRefreshRequested(),
+                const ThreadEventRefreshRequested(),
               ),
         ),
       ),

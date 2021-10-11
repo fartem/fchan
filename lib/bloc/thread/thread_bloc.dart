@@ -13,8 +13,8 @@ class ThreadBloc extends Bloc<ThreadEvent, ThreadState> {
   ThreadBloc({
     required this.dataRepository,
     required this.thread,
-  }) : super(const ThreadInitial()) {
-    add(const ThreadInitialized());
+  }) : super(const ThreadStateInitial()) {
+    add(const ThreadEventInitialized());
   }
 
   @override
@@ -22,8 +22,8 @@ class ThreadBloc extends Bloc<ThreadEvent, ThreadState> {
     ThreadEvent event,
   ) async* {
     yield* event.when(
-      threadInitialized: _mapEventToState,
-      threadRefreshRequested: _mapEventToState,
+      initialized: _mapEventToState,
+      refreshRequested: _mapEventToState,
     );
   }
 
@@ -31,12 +31,12 @@ class ThreadBloc extends Bloc<ThreadEvent, ThreadState> {
     try {
       final posts = await dataRepository.remoteDataProvider.fetchPosts(thread);
       if (posts.isNotEmpty) {
-        yield ThreadLoadSuccess(posts: posts);
+        yield ThreadStateLoadSuccess(posts: posts);
       } else {
-        yield const ThreadLoadError();
+        yield const ThreadStateThreadsListIsEmpty();
       }
     } on Exception {
-      yield const ThreadLoadError();
+      yield const ThreadStateLoadError();
     }
   }
 }

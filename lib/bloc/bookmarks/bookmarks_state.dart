@@ -5,16 +5,16 @@ part 'bookmarks_state.freezed.dart';
 
 @freezed
 abstract class BookmarksState with _$BookmarksState {
-  const factory BookmarksState.bookmarksInitial() = BookmarksInitial;
+  const factory BookmarksState.initial() = BookmarksStateInitial;
 
-  const factory BookmarksState.bookmarksLoadSuccess({
+  const factory BookmarksState.loadSuccess({
     required List<Thread> threads,
     required bool isLastPage,
-  }) = BookmarksLoadSuccess;
+  }) = BookmarksStateLoadSuccess;
 
-  const factory BookmarksState.bookmarksLoadError() = BookmarksLoadError;
+  const factory BookmarksState.loadError() = BookmarksStateLoadError;
 
-  const factory BookmarksState.bookmarksClearInProgress() = BookmarksClearInProgress;
+  const factory BookmarksState.clearInProgress() = BookmarksStateClearInProgress;
 
-  const factory BookmarksState.bookmarksIsEmpty() = BookmarksIsEmpty;
+  const factory BookmarksState.bookmarksListIsEmpty() = BookmarksStateBookmarksListIsEmpty;
 }

@@ -5,12 +5,13 @@ part 'explore_boards_event.freezed.dart';
 
 @freezed
 abstract class ExploreBoardsEvent with _$ExploreBoardsEvent {
-  const factory ExploreBoardsEvent.exploreBoardsInitialized() = ExploreBoardsInitialized;
+  const factory ExploreBoardsEvent.initialized() = ExploreBoardsEventInitialized;
 
-  const factory ExploreBoardsEvent.exploreBoardsBoardAddedToFavorites({
+  const factory ExploreBoardsEvent.boardAddedToFavorites({
     required Board board,
-  }) = ExploreBoardsBoardAddedToFavorites;
+  }) = ExploreBoardsEventBoardAddedToFavorites;
 
-  const factory ExploreBoardsEvent.exploreBoardsBoardRemovedToFavorites({required Board board}) =
-      ExploreBoardsBoardRemovedFromFavorites;
+  const factory ExploreBoardsEvent.boardRemovedToFavorites({
+    required Board board,
+  }) = ExploreBoardsEventBoardRemovedFromFavorites;
 }

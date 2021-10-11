@@ -16,7 +16,7 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
   BoardBloc({
     required this.dataRepository,
     required Board board,
-  }) : super(const BoardInitial()) {
+  }) : super(const BoardStateInitial()) {
     _listPortionController = ListPortionController<Thread>(
       portionProvider: (entityPage) => dataRepository.catalogForBoard(
         board,
@@ -30,9 +30,9 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
     BoardEvent event,
   ) async* {
     yield* event.when(
-      boardInitialized: _mapBoardEventInitializedToState,
-      boardPortionRequested: _mapBoardEventThreadPortionRequestToState,
-      boardRefreshed: _mapBoardEventBoardRefreshedToState,
+      initialized: _mapBoardEventInitializedToState,
+      portionRequested: _mapBoardEventThreadPortionRequestToState,
+      refreshed: _mapBoardEventBoardRefreshedToState,
     );
   }
 
@@ -40,21 +40,21 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
     try {
       await _listPortionController.loadMore();
       if (_listPortionController.items.isNotEmpty) {
-        yield BoardLoadSuccess(
+        yield BoardStateLoadSuccess(
           threads: List.unmodifiable(_listPortionController.items),
           isLastPage: _listPortionController.isLastPage,
         );
       } else {
-        yield const BoardIsEmpty();
+        yield const BoardStateIsEmpty();
       }
     } on Exception {
-      yield const BoardLoadError();
+      yield const BoardStateLoadError();
     }
   }
 
   Stream<BoardState> _mapBoardEventThreadPortionRequestToState() async* {
     await _listPortionController.loadMore();
-    yield BoardLoadSuccess(
+    yield BoardStateLoadSuccess(
       threads: List.unmodifiable(_listPortionController.items),
       isLastPage: _listPortionController.isLastPage,
     );
@@ -62,8 +62,8 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
 
   Stream<BoardState> _mapBoardEventBoardRefreshedToState() async* {
     await _listPortionController.reset();
-    add(const BoardInitialized());
-    yield const BoardInitial();
+    add(const BoardEventInitialized());
+    yield const BoardStateInitial();
   }
 
   Future<void> addToHistory(Thread thread) async {

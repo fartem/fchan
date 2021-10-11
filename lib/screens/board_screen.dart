@@ -34,21 +34,21 @@ class _BoardScreenState extends State<BoardScreen> {
       create: (context) => BoardBloc(
         dataRepository: context.read<DataRepository>(),
         board: widget.board,
-      )..add(const BoardInitialized()),
+      )..add(const BoardEventInitialized()),
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.board.toString()),
         ),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.refresh),
-          onPressed: () => _boardBloc.add(const BoardRefreshed()),
+          onPressed: () => _boardBloc.add(const BoardEventRefreshed()),
         ),
         body: BlocBuilder<BoardBloc, BoardState>(
           builder: (context, state) {
             _boardBloc = context.read<BoardBloc>();
             return state.when(
-              boardInitial: () => const AppCenteredCircularProgressIndicator(),
-              boardLoadSuccess: (threads, isLastPage) {
+              initial: () => const AppCenteredCircularProgressIndicator(),
+              loadSuccess: (threads, isLastPage) {
                 if (threads.isEmpty) {
                   return AppCenteredText(
                     text: context.localizations.messageBoardIsEmpty,
@@ -77,8 +77,8 @@ class _BoardScreenState extends State<BoardScreen> {
                   controller: _scrollController,
                 );
               },
-              boardLoadError: () => const AppCenteredCircularProgressIndicator(),
-              boardIsEmpty: () => AppCenteredText(
+              loadError: () => const AppCenteredCircularProgressIndicator(),
+              isEmpty: () => AppCenteredText(
                 text: context.localizations.messageBoardIsEmpty,
               ),
             );
@@ -93,7 +93,7 @@ class _BoardScreenState extends State<BoardScreen> {
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
-        _boardBloc.add(const BoardPortionRequested());
+        _boardBloc.add(const BoardEventPortionRequested());
       }
     });
   }

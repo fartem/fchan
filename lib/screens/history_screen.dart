@@ -43,7 +43,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     context.localizations.commonOk,
                   ),
                   onPressed: () {
-                    _historyBloc.add(const HistoryClearRequested());
+                    _historyBloc.add(const HistoryEventClearRequested());
                     Navigator.pop(context);
                   },
                 ),
@@ -66,8 +66,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
           builder: (context, state) {
             _historyBloc = context.read<HistoryBloc>();
             return state.when(
-              historyInitial: () => const AppCenteredCircularProgressIndicator(),
-              historyLoadSuccess: (threads, isLastPage) {
+              initial: () => const AppCenteredCircularProgressIndicator(),
+              loadSuccess: (threads, isLastPage) {
                 return StaggeredGridView.countBuilder(
                   crossAxisCount: 4,
                   staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
@@ -83,19 +83,19 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         ThreadPopupMenuAction.removeFromHistory,
                       ],
                       // TODO(fartem): change event to `Update` or similar
-                      actionNotifier: (action) => _historyBloc.add(const HistoryInitialized()),
+                      actionNotifier: (action) => _historyBloc.add(const HistoryEventInitialized()),
                     );
                   },
                   itemCount: threads.length + (isLastPage ? 0 : 1),
                 );
               },
-              historyLoadError: () => AppCenteredText(
+              loadError: () => AppCenteredText(
                 text: context.localizations.messageHistoryIsEmpty,
               ),
               historyIsEmpty: () => AppCenteredText(
                 text: context.localizations.messageHistoryIsEmpty,
               ),
-              historyClearInProgress: () => const AppCenteredCircularProgressIndicator(),
+              clearInProgress: () => const AppCenteredCircularProgressIndicator(),
             );
           },
         ),
@@ -108,7 +108,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
-        _historyBloc.add(const HistoryPortionRequested());
+        _historyBloc.add(const HistoryEventPortionRequested());
       }
     });
   }

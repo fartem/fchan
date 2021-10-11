@@ -4,7 +4,7 @@ part 'favorites_event.freezed.dart';
 
 @freezed
 abstract class FavoritesEvent with _$FavoritesEvent {
-  const factory FavoritesEvent.favoritesInitialized() = FavoritesInitialized;
+  const factory FavoritesEvent.initialized() = FavoritesEventInitialized;
 
-  const factory FavoritesEvent.favoritesWasUpdated() = FavoritesWasUpdated;
+  const factory FavoritesEvent.favoritesListWasUpdated() = FavoritesEventFavoritesWasUpdated;
 }

@@ -16,22 +16,22 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$ExploreBoardsStateTearOff {
   const _$ExploreBoardsStateTearOff();
 
-  ExploreBoardsInitial exploreBoardsInitial() {
-    return const ExploreBoardsInitial();
+  ExploreBoardsStateInitial initial() {
+    return const ExploreBoardsStateInitial();
   }
 
-  ExploreBoardsLoadSuccess exploreBoardsLoadSuccess({required List<Board> boards}) {
-    return ExploreBoardsLoadSuccess(
+  ExploreBoardsStateLoadSuccess loadSuccess({required List<Board> boards}) {
+    return ExploreBoardsStateLoadSuccess(
       boards: boards,
     );
   }
 
-  ExploreBoardsLoadError exploreBoardsLoadError() {
-    return const ExploreBoardsLoadError();
+  ExploreBoardsStateLoadError loadError() {
+    return const ExploreBoardsStateLoadError();
   }
 
-  ExploreBoardsAreEmpty exploreBoardsAreEmpty() {
-    return const ExploreBoardsAreEmpty();
+  ExploreBoardsBoardsListIsEmpty boardsListIsEmpty() {
+    return const ExploreBoardsBoardsListIsEmpty();
   }
 }
 
@@ -42,38 +42,38 @@ const $ExploreBoardsState = _$ExploreBoardsStateTearOff();
 mixin _$ExploreBoardsState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() exploreBoardsInitial,
-    required TResult Function(List<Board> boards) exploreBoardsLoadSuccess,
-    required TResult Function() exploreBoardsLoadError,
-    required TResult Function() exploreBoardsAreEmpty,
+    required TResult Function() initial,
+    required TResult Function(List<Board> boards) loadSuccess,
+    required TResult Function() loadError,
+    required TResult Function() boardsListIsEmpty,
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? exploreBoardsInitial,
-    TResult Function(List<Board> boards)? exploreBoardsLoadSuccess,
-    TResult Function()? exploreBoardsLoadError,
-    TResult Function()? exploreBoardsAreEmpty,
+    TResult Function()? initial,
+    TResult Function(List<Board> boards)? loadSuccess,
+    TResult Function()? loadError,
+    TResult Function()? boardsListIsEmpty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ExploreBoardsInitial value) exploreBoardsInitial,
-    required TResult Function(ExploreBoardsLoadSuccess value) exploreBoardsLoadSuccess,
-    required TResult Function(ExploreBoardsLoadError value) exploreBoardsLoadError,
-    required TResult Function(ExploreBoardsAreEmpty value) exploreBoardsAreEmpty,
+    required TResult Function(ExploreBoardsStateInitial value) initial,
+    required TResult Function(ExploreBoardsStateLoadSuccess value) loadSuccess,
+    required TResult Function(ExploreBoardsStateLoadError value) loadError,
+    required TResult Function(ExploreBoardsBoardsListIsEmpty value) boardsListIsEmpty,
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ExploreBoardsInitial value)? exploreBoardsInitial,
-    TResult Function(ExploreBoardsLoadSuccess value)? exploreBoardsLoadSuccess,
-    TResult Function(ExploreBoardsLoadError value)? exploreBoardsLoadError,
-    TResult Function(ExploreBoardsAreEmpty value)? exploreBoardsAreEmpty,
+    TResult Function(ExploreBoardsStateInitial value)? initial,
+    TResult Function(ExploreBoardsStateLoadSuccess value)? loadSuccess,
+    TResult Function(ExploreBoardsStateLoadError value)? loadError,
+    TResult Function(ExploreBoardsBoardsListIsEmpty value)? boardsListIsEmpty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -96,33 +96,35 @@ class _$ExploreBoardsStateCopyWithImpl<$Res> implements $ExploreBoardsStateCopyW
 }
 
 /// @nodoc
-abstract class $ExploreBoardsInitialCopyWith<$Res> {
-  factory $ExploreBoardsInitialCopyWith(ExploreBoardsInitial value, $Res Function(ExploreBoardsInitial) then) =
-      _$ExploreBoardsInitialCopyWithImpl<$Res>;
+abstract class $ExploreBoardsStateInitialCopyWith<$Res> {
+  factory $ExploreBoardsStateInitialCopyWith(
+          ExploreBoardsStateInitial value, $Res Function(ExploreBoardsStateInitial) then) =
+      _$ExploreBoardsStateInitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ExploreBoardsInitialCopyWithImpl<$Res> extends _$ExploreBoardsStateCopyWithImpl<$Res>
-    implements $ExploreBoardsInitialCopyWith<$Res> {
-  _$ExploreBoardsInitialCopyWithImpl(ExploreBoardsInitial _value, $Res Function(ExploreBoardsInitial) _then)
-      : super(_value, (v) => _then(v as ExploreBoardsInitial));
+class _$ExploreBoardsStateInitialCopyWithImpl<$Res> extends _$ExploreBoardsStateCopyWithImpl<$Res>
+    implements $ExploreBoardsStateInitialCopyWith<$Res> {
+  _$ExploreBoardsStateInitialCopyWithImpl(
+      ExploreBoardsStateInitial _value, $Res Function(ExploreBoardsStateInitial) _then)
+      : super(_value, (v) => _then(v as ExploreBoardsStateInitial));
 
   @override
-  ExploreBoardsInitial get _value => super._value as ExploreBoardsInitial;
+  ExploreBoardsStateInitial get _value => super._value as ExploreBoardsStateInitial;
 }
 
 /// @nodoc
-class _$ExploreBoardsInitial implements ExploreBoardsInitial {
-  const _$ExploreBoardsInitial();
+class _$ExploreBoardsStateInitial implements ExploreBoardsStateInitial {
+  const _$ExploreBoardsStateInitial();
 
   @override
   String toString() {
-    return 'ExploreBoardsState.exploreBoardsInitial()';
+    return 'ExploreBoardsState.initial()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is ExploreBoardsInitial);
+    return identical(this, other) || (other is ExploreBoardsStateInitial);
   }
 
   @override
@@ -131,25 +133,25 @@ class _$ExploreBoardsInitial implements ExploreBoardsInitial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() exploreBoardsInitial,
-    required TResult Function(List<Board> boards) exploreBoardsLoadSuccess,
-    required TResult Function() exploreBoardsLoadError,
-    required TResult Function() exploreBoardsAreEmpty,
+    required TResult Function() initial,
+    required TResult Function(List<Board> boards) loadSuccess,
+    required TResult Function() loadError,
+    required TResult Function() boardsListIsEmpty,
   }) {
-    return exploreBoardsInitial();
+    return initial();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? exploreBoardsInitial,
-    TResult Function(List<Board> boards)? exploreBoardsLoadSuccess,
-    TResult Function()? exploreBoardsLoadError,
-    TResult Function()? exploreBoardsAreEmpty,
+    TResult Function()? initial,
+    TResult Function(List<Board> boards)? loadSuccess,
+    TResult Function()? loadError,
+    TResult Function()? boardsListIsEmpty,
     required TResult orElse(),
   }) {
-    if (exploreBoardsInitial != null) {
-      return exploreBoardsInitial();
+    if (initial != null) {
+      return initial();
     }
     return orElse();
   }
@@ -157,57 +159,58 @@ class _$ExploreBoardsInitial implements ExploreBoardsInitial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ExploreBoardsInitial value) exploreBoardsInitial,
-    required TResult Function(ExploreBoardsLoadSuccess value) exploreBoardsLoadSuccess,
-    required TResult Function(ExploreBoardsLoadError value) exploreBoardsLoadError,
-    required TResult Function(ExploreBoardsAreEmpty value) exploreBoardsAreEmpty,
+    required TResult Function(ExploreBoardsStateInitial value) initial,
+    required TResult Function(ExploreBoardsStateLoadSuccess value) loadSuccess,
+    required TResult Function(ExploreBoardsStateLoadError value) loadError,
+    required TResult Function(ExploreBoardsBoardsListIsEmpty value) boardsListIsEmpty,
   }) {
-    return exploreBoardsInitial(this);
+    return initial(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ExploreBoardsInitial value)? exploreBoardsInitial,
-    TResult Function(ExploreBoardsLoadSuccess value)? exploreBoardsLoadSuccess,
-    TResult Function(ExploreBoardsLoadError value)? exploreBoardsLoadError,
-    TResult Function(ExploreBoardsAreEmpty value)? exploreBoardsAreEmpty,
+    TResult Function(ExploreBoardsStateInitial value)? initial,
+    TResult Function(ExploreBoardsStateLoadSuccess value)? loadSuccess,
+    TResult Function(ExploreBoardsStateLoadError value)? loadError,
+    TResult Function(ExploreBoardsBoardsListIsEmpty value)? boardsListIsEmpty,
     required TResult orElse(),
   }) {
-    if (exploreBoardsInitial != null) {
-      return exploreBoardsInitial(this);
+    if (initial != null) {
+      return initial(this);
     }
     return orElse();
   }
 }
 
-abstract class ExploreBoardsInitial implements ExploreBoardsState {
-  const factory ExploreBoardsInitial() = _$ExploreBoardsInitial;
+abstract class ExploreBoardsStateInitial implements ExploreBoardsState {
+  const factory ExploreBoardsStateInitial() = _$ExploreBoardsStateInitial;
 }
 
 /// @nodoc
-abstract class $ExploreBoardsLoadSuccessCopyWith<$Res> {
-  factory $ExploreBoardsLoadSuccessCopyWith(
-          ExploreBoardsLoadSuccess value, $Res Function(ExploreBoardsLoadSuccess) then) =
-      _$ExploreBoardsLoadSuccessCopyWithImpl<$Res>;
+abstract class $ExploreBoardsStateLoadSuccessCopyWith<$Res> {
+  factory $ExploreBoardsStateLoadSuccessCopyWith(
+          ExploreBoardsStateLoadSuccess value, $Res Function(ExploreBoardsStateLoadSuccess) then) =
+      _$ExploreBoardsStateLoadSuccessCopyWithImpl<$Res>;
 
   $Res call({List<Board> boards});
 }
 
 /// @nodoc
-class _$ExploreBoardsLoadSuccessCopyWithImpl<$Res> extends _$ExploreBoardsStateCopyWithImpl<$Res>
-    implements $ExploreBoardsLoadSuccessCopyWith<$Res> {
-  _$ExploreBoardsLoadSuccessCopyWithImpl(ExploreBoardsLoadSuccess _value, $Res Function(ExploreBoardsLoadSuccess) _then)
-      : super(_value, (v) => _then(v as ExploreBoardsLoadSuccess));
+class _$ExploreBoardsStateLoadSuccessCopyWithImpl<$Res> extends _$ExploreBoardsStateCopyWithImpl<$Res>
+    implements $ExploreBoardsStateLoadSuccessCopyWith<$Res> {
+  _$ExploreBoardsStateLoadSuccessCopyWithImpl(
+      ExploreBoardsStateLoadSuccess _value, $Res Function(ExploreBoardsStateLoadSuccess) _then)
+      : super(_value, (v) => _then(v as ExploreBoardsStateLoadSuccess));
 
   @override
-  ExploreBoardsLoadSuccess get _value => super._value as ExploreBoardsLoadSuccess;
+  ExploreBoardsStateLoadSuccess get _value => super._value as ExploreBoardsStateLoadSuccess;
 
   @override
   $Res call({
     Object? boards = freezed,
   }) {
-    return _then(ExploreBoardsLoadSuccess(
+    return _then(ExploreBoardsStateLoadSuccess(
       boards: boards == freezed
           ? _value.boards
           : boards // ignore: cast_nullable_to_non_nullable
@@ -217,21 +220,21 @@ class _$ExploreBoardsLoadSuccessCopyWithImpl<$Res> extends _$ExploreBoardsStateC
 }
 
 /// @nodoc
-class _$ExploreBoardsLoadSuccess implements ExploreBoardsLoadSuccess {
-  const _$ExploreBoardsLoadSuccess({required this.boards});
+class _$ExploreBoardsStateLoadSuccess implements ExploreBoardsStateLoadSuccess {
+  const _$ExploreBoardsStateLoadSuccess({required this.boards});
 
   @override
   final List<Board> boards;
 
   @override
   String toString() {
-    return 'ExploreBoardsState.exploreBoardsLoadSuccess(boards: $boards)';
+    return 'ExploreBoardsState.loadSuccess(boards: $boards)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is ExploreBoardsLoadSuccess &&
+        (other is ExploreBoardsStateLoadSuccess &&
             (identical(other.boards, boards) || const DeepCollectionEquality().equals(other.boards, boards)));
   }
 
@@ -240,31 +243,31 @@ class _$ExploreBoardsLoadSuccess implements ExploreBoardsLoadSuccess {
 
   @JsonKey(ignore: true)
   @override
-  $ExploreBoardsLoadSuccessCopyWith<ExploreBoardsLoadSuccess> get copyWith =>
-      _$ExploreBoardsLoadSuccessCopyWithImpl<ExploreBoardsLoadSuccess>(this, _$identity);
+  $ExploreBoardsStateLoadSuccessCopyWith<ExploreBoardsStateLoadSuccess> get copyWith =>
+      _$ExploreBoardsStateLoadSuccessCopyWithImpl<ExploreBoardsStateLoadSuccess>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() exploreBoardsInitial,
-    required TResult Function(List<Board> boards) exploreBoardsLoadSuccess,
-    required TResult Function() exploreBoardsLoadError,
-    required TResult Function() exploreBoardsAreEmpty,
+    required TResult Function() initial,
+    required TResult Function(List<Board> boards) loadSuccess,
+    required TResult Function() loadError,
+    required TResult Function() boardsListIsEmpty,
   }) {
-    return exploreBoardsLoadSuccess(boards);
+    return loadSuccess(boards);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? exploreBoardsInitial,
-    TResult Function(List<Board> boards)? exploreBoardsLoadSuccess,
-    TResult Function()? exploreBoardsLoadError,
-    TResult Function()? exploreBoardsAreEmpty,
+    TResult Function()? initial,
+    TResult Function(List<Board> boards)? loadSuccess,
+    TResult Function()? loadError,
+    TResult Function()? boardsListIsEmpty,
     required TResult orElse(),
   }) {
-    if (exploreBoardsLoadSuccess != null) {
-      return exploreBoardsLoadSuccess(boards);
+    if (loadSuccess != null) {
+      return loadSuccess(boards);
     }
     return orElse();
   }
@@ -272,67 +275,70 @@ class _$ExploreBoardsLoadSuccess implements ExploreBoardsLoadSuccess {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ExploreBoardsInitial value) exploreBoardsInitial,
-    required TResult Function(ExploreBoardsLoadSuccess value) exploreBoardsLoadSuccess,
-    required TResult Function(ExploreBoardsLoadError value) exploreBoardsLoadError,
-    required TResult Function(ExploreBoardsAreEmpty value) exploreBoardsAreEmpty,
+    required TResult Function(ExploreBoardsStateInitial value) initial,
+    required TResult Function(ExploreBoardsStateLoadSuccess value) loadSuccess,
+    required TResult Function(ExploreBoardsStateLoadError value) loadError,
+    required TResult Function(ExploreBoardsBoardsListIsEmpty value) boardsListIsEmpty,
   }) {
-    return exploreBoardsLoadSuccess(this);
+    return loadSuccess(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ExploreBoardsInitial value)? exploreBoardsInitial,
-    TResult Function(ExploreBoardsLoadSuccess value)? exploreBoardsLoadSuccess,
-    TResult Function(ExploreBoardsLoadError value)? exploreBoardsLoadError,
-    TResult Function(ExploreBoardsAreEmpty value)? exploreBoardsAreEmpty,
+    TResult Function(ExploreBoardsStateInitial value)? initial,
+    TResult Function(ExploreBoardsStateLoadSuccess value)? loadSuccess,
+    TResult Function(ExploreBoardsStateLoadError value)? loadError,
+    TResult Function(ExploreBoardsBoardsListIsEmpty value)? boardsListIsEmpty,
     required TResult orElse(),
   }) {
-    if (exploreBoardsLoadSuccess != null) {
-      return exploreBoardsLoadSuccess(this);
+    if (loadSuccess != null) {
+      return loadSuccess(this);
     }
     return orElse();
   }
 }
 
-abstract class ExploreBoardsLoadSuccess implements ExploreBoardsState {
-  const factory ExploreBoardsLoadSuccess({required List<Board> boards}) = _$ExploreBoardsLoadSuccess;
+abstract class ExploreBoardsStateLoadSuccess implements ExploreBoardsState {
+  const factory ExploreBoardsStateLoadSuccess({required List<Board> boards}) = _$ExploreBoardsStateLoadSuccess;
 
   List<Board> get boards => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ExploreBoardsLoadSuccessCopyWith<ExploreBoardsLoadSuccess> get copyWith => throw _privateConstructorUsedError;
+  $ExploreBoardsStateLoadSuccessCopyWith<ExploreBoardsStateLoadSuccess> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ExploreBoardsLoadErrorCopyWith<$Res> {
-  factory $ExploreBoardsLoadErrorCopyWith(ExploreBoardsLoadError value, $Res Function(ExploreBoardsLoadError) then) =
-      _$ExploreBoardsLoadErrorCopyWithImpl<$Res>;
+abstract class $ExploreBoardsStateLoadErrorCopyWith<$Res> {
+  factory $ExploreBoardsStateLoadErrorCopyWith(
+          ExploreBoardsStateLoadError value, $Res Function(ExploreBoardsStateLoadError) then) =
+      _$ExploreBoardsStateLoadErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ExploreBoardsLoadErrorCopyWithImpl<$Res> extends _$ExploreBoardsStateCopyWithImpl<$Res>
-    implements $ExploreBoardsLoadErrorCopyWith<$Res> {
-  _$ExploreBoardsLoadErrorCopyWithImpl(ExploreBoardsLoadError _value, $Res Function(ExploreBoardsLoadError) _then)
-      : super(_value, (v) => _then(v as ExploreBoardsLoadError));
+class _$ExploreBoardsStateLoadErrorCopyWithImpl<$Res> extends _$ExploreBoardsStateCopyWithImpl<$Res>
+    implements $ExploreBoardsStateLoadErrorCopyWith<$Res> {
+  _$ExploreBoardsStateLoadErrorCopyWithImpl(
+      ExploreBoardsStateLoadError _value, $Res Function(ExploreBoardsStateLoadError) _then)
+      : super(_value, (v) => _then(v as ExploreBoardsStateLoadError));
 
   @override
-  ExploreBoardsLoadError get _value => super._value as ExploreBoardsLoadError;
+  ExploreBoardsStateLoadError get _value => super._value as ExploreBoardsStateLoadError;
 }
 
 /// @nodoc
-class _$ExploreBoardsLoadError implements ExploreBoardsLoadError {
-  const _$ExploreBoardsLoadError();
+class _$ExploreBoardsStateLoadError implements ExploreBoardsStateLoadError {
+  const _$ExploreBoardsStateLoadError();
 
   @override
   String toString() {
-    return 'ExploreBoardsState.exploreBoardsLoadError()';
+    return 'ExploreBoardsState.loadError()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is ExploreBoardsLoadError);
+    return identical(this, other) || (other is ExploreBoardsStateLoadError);
   }
 
   @override
@@ -341,25 +347,25 @@ class _$ExploreBoardsLoadError implements ExploreBoardsLoadError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() exploreBoardsInitial,
-    required TResult Function(List<Board> boards) exploreBoardsLoadSuccess,
-    required TResult Function() exploreBoardsLoadError,
-    required TResult Function() exploreBoardsAreEmpty,
+    required TResult Function() initial,
+    required TResult Function(List<Board> boards) loadSuccess,
+    required TResult Function() loadError,
+    required TResult Function() boardsListIsEmpty,
   }) {
-    return exploreBoardsLoadError();
+    return loadError();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? exploreBoardsInitial,
-    TResult Function(List<Board> boards)? exploreBoardsLoadSuccess,
-    TResult Function()? exploreBoardsLoadError,
-    TResult Function()? exploreBoardsAreEmpty,
+    TResult Function()? initial,
+    TResult Function(List<Board> boards)? loadSuccess,
+    TResult Function()? loadError,
+    TResult Function()? boardsListIsEmpty,
     required TResult orElse(),
   }) {
-    if (exploreBoardsLoadError != null) {
-      return exploreBoardsLoadError();
+    if (loadError != null) {
+      return loadError();
     }
     return orElse();
   }
@@ -367,62 +373,64 @@ class _$ExploreBoardsLoadError implements ExploreBoardsLoadError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ExploreBoardsInitial value) exploreBoardsInitial,
-    required TResult Function(ExploreBoardsLoadSuccess value) exploreBoardsLoadSuccess,
-    required TResult Function(ExploreBoardsLoadError value) exploreBoardsLoadError,
-    required TResult Function(ExploreBoardsAreEmpty value) exploreBoardsAreEmpty,
+    required TResult Function(ExploreBoardsStateInitial value) initial,
+    required TResult Function(ExploreBoardsStateLoadSuccess value) loadSuccess,
+    required TResult Function(ExploreBoardsStateLoadError value) loadError,
+    required TResult Function(ExploreBoardsBoardsListIsEmpty value) boardsListIsEmpty,
   }) {
-    return exploreBoardsLoadError(this);
+    return loadError(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ExploreBoardsInitial value)? exploreBoardsInitial,
-    TResult Function(ExploreBoardsLoadSuccess value)? exploreBoardsLoadSuccess,
-    TResult Function(ExploreBoardsLoadError value)? exploreBoardsLoadError,
-    TResult Function(ExploreBoardsAreEmpty value)? exploreBoardsAreEmpty,
+    TResult Function(ExploreBoardsStateInitial value)? initial,
+    TResult Function(ExploreBoardsStateLoadSuccess value)? loadSuccess,
+    TResult Function(ExploreBoardsStateLoadError value)? loadError,
+    TResult Function(ExploreBoardsBoardsListIsEmpty value)? boardsListIsEmpty,
     required TResult orElse(),
   }) {
-    if (exploreBoardsLoadError != null) {
-      return exploreBoardsLoadError(this);
+    if (loadError != null) {
+      return loadError(this);
     }
     return orElse();
   }
 }
 
-abstract class ExploreBoardsLoadError implements ExploreBoardsState {
-  const factory ExploreBoardsLoadError() = _$ExploreBoardsLoadError;
+abstract class ExploreBoardsStateLoadError implements ExploreBoardsState {
+  const factory ExploreBoardsStateLoadError() = _$ExploreBoardsStateLoadError;
 }
 
 /// @nodoc
-abstract class $ExploreBoardsAreEmptyCopyWith<$Res> {
-  factory $ExploreBoardsAreEmptyCopyWith(ExploreBoardsAreEmpty value, $Res Function(ExploreBoardsAreEmpty) then) =
-      _$ExploreBoardsAreEmptyCopyWithImpl<$Res>;
+abstract class $ExploreBoardsBoardsListIsEmptyCopyWith<$Res> {
+  factory $ExploreBoardsBoardsListIsEmptyCopyWith(
+          ExploreBoardsBoardsListIsEmpty value, $Res Function(ExploreBoardsBoardsListIsEmpty) then) =
+      _$ExploreBoardsBoardsListIsEmptyCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ExploreBoardsAreEmptyCopyWithImpl<$Res> extends _$ExploreBoardsStateCopyWithImpl<$Res>
-    implements $ExploreBoardsAreEmptyCopyWith<$Res> {
-  _$ExploreBoardsAreEmptyCopyWithImpl(ExploreBoardsAreEmpty _value, $Res Function(ExploreBoardsAreEmpty) _then)
-      : super(_value, (v) => _then(v as ExploreBoardsAreEmpty));
+class _$ExploreBoardsBoardsListIsEmptyCopyWithImpl<$Res> extends _$ExploreBoardsStateCopyWithImpl<$Res>
+    implements $ExploreBoardsBoardsListIsEmptyCopyWith<$Res> {
+  _$ExploreBoardsBoardsListIsEmptyCopyWithImpl(
+      ExploreBoardsBoardsListIsEmpty _value, $Res Function(ExploreBoardsBoardsListIsEmpty) _then)
+      : super(_value, (v) => _then(v as ExploreBoardsBoardsListIsEmpty));
 
   @override
-  ExploreBoardsAreEmpty get _value => super._value as ExploreBoardsAreEmpty;
+  ExploreBoardsBoardsListIsEmpty get _value => super._value as ExploreBoardsBoardsListIsEmpty;
 }
 
 /// @nodoc
-class _$ExploreBoardsAreEmpty implements ExploreBoardsAreEmpty {
-  const _$ExploreBoardsAreEmpty();
+class _$ExploreBoardsBoardsListIsEmpty implements ExploreBoardsBoardsListIsEmpty {
+  const _$ExploreBoardsBoardsListIsEmpty();
 
   @override
   String toString() {
-    return 'ExploreBoardsState.exploreBoardsAreEmpty()';
+    return 'ExploreBoardsState.boardsListIsEmpty()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is ExploreBoardsAreEmpty);
+    return identical(this, other) || (other is ExploreBoardsBoardsListIsEmpty);
   }
 
   @override
@@ -431,25 +439,25 @@ class _$ExploreBoardsAreEmpty implements ExploreBoardsAreEmpty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() exploreBoardsInitial,
-    required TResult Function(List<Board> boards) exploreBoardsLoadSuccess,
-    required TResult Function() exploreBoardsLoadError,
-    required TResult Function() exploreBoardsAreEmpty,
+    required TResult Function() initial,
+    required TResult Function(List<Board> boards) loadSuccess,
+    required TResult Function() loadError,
+    required TResult Function() boardsListIsEmpty,
   }) {
-    return exploreBoardsAreEmpty();
+    return boardsListIsEmpty();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? exploreBoardsInitial,
-    TResult Function(List<Board> boards)? exploreBoardsLoadSuccess,
-    TResult Function()? exploreBoardsLoadError,
-    TResult Function()? exploreBoardsAreEmpty,
+    TResult Function()? initial,
+    TResult Function(List<Board> boards)? loadSuccess,
+    TResult Function()? loadError,
+    TResult Function()? boardsListIsEmpty,
     required TResult orElse(),
   }) {
-    if (exploreBoardsAreEmpty != null) {
-      return exploreBoardsAreEmpty();
+    if (boardsListIsEmpty != null) {
+      return boardsListIsEmpty();
     }
     return orElse();
   }
@@ -457,30 +465,30 @@ class _$ExploreBoardsAreEmpty implements ExploreBoardsAreEmpty {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ExploreBoardsInitial value) exploreBoardsInitial,
-    required TResult Function(ExploreBoardsLoadSuccess value) exploreBoardsLoadSuccess,
-    required TResult Function(ExploreBoardsLoadError value) exploreBoardsLoadError,
-    required TResult Function(ExploreBoardsAreEmpty value) exploreBoardsAreEmpty,
+    required TResult Function(ExploreBoardsStateInitial value) initial,
+    required TResult Function(ExploreBoardsStateLoadSuccess value) loadSuccess,
+    required TResult Function(ExploreBoardsStateLoadError value) loadError,
+    required TResult Function(ExploreBoardsBoardsListIsEmpty value) boardsListIsEmpty,
   }) {
-    return exploreBoardsAreEmpty(this);
+    return boardsListIsEmpty(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ExploreBoardsInitial value)? exploreBoardsInitial,
-    TResult Function(ExploreBoardsLoadSuccess value)? exploreBoardsLoadSuccess,
-    TResult Function(ExploreBoardsLoadError value)? exploreBoardsLoadError,
-    TResult Function(ExploreBoardsAreEmpty value)? exploreBoardsAreEmpty,
+    TResult Function(ExploreBoardsStateInitial value)? initial,
+    TResult Function(ExploreBoardsStateLoadSuccess value)? loadSuccess,
+    TResult Function(ExploreBoardsStateLoadError value)? loadError,
+    TResult Function(ExploreBoardsBoardsListIsEmpty value)? boardsListIsEmpty,
     required TResult orElse(),
   }) {
-    if (exploreBoardsAreEmpty != null) {
-      return exploreBoardsAreEmpty(this);
+    if (boardsListIsEmpty != null) {
+      return boardsListIsEmpty(this);
     }
     return orElse();
   }
 }
 
-abstract class ExploreBoardsAreEmpty implements ExploreBoardsState {
-  const factory ExploreBoardsAreEmpty() = _$ExploreBoardsAreEmpty;
+abstract class ExploreBoardsBoardsListIsEmpty implements ExploreBoardsState {
+  const factory ExploreBoardsBoardsListIsEmpty() = _$ExploreBoardsBoardsListIsEmpty;
 }

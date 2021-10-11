@@ -16,22 +16,22 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$FavoritesStateTearOff {
   const _$FavoritesStateTearOff();
 
-  FavoritesInitial favoritesInitial() {
-    return const FavoritesInitial();
+  FavoritesStateInitial initial() {
+    return const FavoritesStateInitial();
   }
 
-  FavoritesLoadSuccess favoritesLoadSuccess({required List<Board> favorites}) {
-    return FavoritesLoadSuccess(
+  FavoritesStateLoadSuccess loadSuccess({required List<Board> favorites}) {
+    return FavoritesStateLoadSuccess(
       favorites: favorites,
     );
   }
 
-  FavoritesLoadError favoritesLoadError() {
-    return const FavoritesLoadError();
+  FavoritesStateLoadError loadError() {
+    return const FavoritesStateLoadError();
   }
 
-  FavoritesAreEmpty favoritesAreEmpty() {
-    return const FavoritesAreEmpty();
+  FavoritesStateFavoritesListIsEmpty favoritesListIsEmpty() {
+    return const FavoritesStateFavoritesListIsEmpty();
   }
 }
 
@@ -42,38 +42,38 @@ const $FavoritesState = _$FavoritesStateTearOff();
 mixin _$FavoritesState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() favoritesInitial,
-    required TResult Function(List<Board> favorites) favoritesLoadSuccess,
-    required TResult Function() favoritesLoadError,
-    required TResult Function() favoritesAreEmpty,
+    required TResult Function() initial,
+    required TResult Function(List<Board> favorites) loadSuccess,
+    required TResult Function() loadError,
+    required TResult Function() favoritesListIsEmpty,
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? favoritesInitial,
-    TResult Function(List<Board> favorites)? favoritesLoadSuccess,
-    TResult Function()? favoritesLoadError,
-    TResult Function()? favoritesAreEmpty,
+    TResult Function()? initial,
+    TResult Function(List<Board> favorites)? loadSuccess,
+    TResult Function()? loadError,
+    TResult Function()? favoritesListIsEmpty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(FavoritesInitial value) favoritesInitial,
-    required TResult Function(FavoritesLoadSuccess value) favoritesLoadSuccess,
-    required TResult Function(FavoritesLoadError value) favoritesLoadError,
-    required TResult Function(FavoritesAreEmpty value) favoritesAreEmpty,
+    required TResult Function(FavoritesStateInitial value) initial,
+    required TResult Function(FavoritesStateLoadSuccess value) loadSuccess,
+    required TResult Function(FavoritesStateLoadError value) loadError,
+    required TResult Function(FavoritesStateFavoritesListIsEmpty value) favoritesListIsEmpty,
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(FavoritesInitial value)? favoritesInitial,
-    TResult Function(FavoritesLoadSuccess value)? favoritesLoadSuccess,
-    TResult Function(FavoritesLoadError value)? favoritesLoadError,
-    TResult Function(FavoritesAreEmpty value)? favoritesAreEmpty,
+    TResult Function(FavoritesStateInitial value)? initial,
+    TResult Function(FavoritesStateLoadSuccess value)? loadSuccess,
+    TResult Function(FavoritesStateLoadError value)? loadError,
+    TResult Function(FavoritesStateFavoritesListIsEmpty value)? favoritesListIsEmpty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -96,33 +96,33 @@ class _$FavoritesStateCopyWithImpl<$Res> implements $FavoritesStateCopyWith<$Res
 }
 
 /// @nodoc
-abstract class $FavoritesInitialCopyWith<$Res> {
-  factory $FavoritesInitialCopyWith(FavoritesInitial value, $Res Function(FavoritesInitial) then) =
-      _$FavoritesInitialCopyWithImpl<$Res>;
+abstract class $FavoritesStateInitialCopyWith<$Res> {
+  factory $FavoritesStateInitialCopyWith(FavoritesStateInitial value, $Res Function(FavoritesStateInitial) then) =
+      _$FavoritesStateInitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FavoritesInitialCopyWithImpl<$Res> extends _$FavoritesStateCopyWithImpl<$Res>
-    implements $FavoritesInitialCopyWith<$Res> {
-  _$FavoritesInitialCopyWithImpl(FavoritesInitial _value, $Res Function(FavoritesInitial) _then)
-      : super(_value, (v) => _then(v as FavoritesInitial));
+class _$FavoritesStateInitialCopyWithImpl<$Res> extends _$FavoritesStateCopyWithImpl<$Res>
+    implements $FavoritesStateInitialCopyWith<$Res> {
+  _$FavoritesStateInitialCopyWithImpl(FavoritesStateInitial _value, $Res Function(FavoritesStateInitial) _then)
+      : super(_value, (v) => _then(v as FavoritesStateInitial));
 
   @override
-  FavoritesInitial get _value => super._value as FavoritesInitial;
+  FavoritesStateInitial get _value => super._value as FavoritesStateInitial;
 }
 
 /// @nodoc
-class _$FavoritesInitial implements FavoritesInitial {
-  const _$FavoritesInitial();
+class _$FavoritesStateInitial implements FavoritesStateInitial {
+  const _$FavoritesStateInitial();
 
   @override
   String toString() {
-    return 'FavoritesState.favoritesInitial()';
+    return 'FavoritesState.initial()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is FavoritesInitial);
+    return identical(this, other) || (other is FavoritesStateInitial);
   }
 
   @override
@@ -131,25 +131,25 @@ class _$FavoritesInitial implements FavoritesInitial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() favoritesInitial,
-    required TResult Function(List<Board> favorites) favoritesLoadSuccess,
-    required TResult Function() favoritesLoadError,
-    required TResult Function() favoritesAreEmpty,
+    required TResult Function() initial,
+    required TResult Function(List<Board> favorites) loadSuccess,
+    required TResult Function() loadError,
+    required TResult Function() favoritesListIsEmpty,
   }) {
-    return favoritesInitial();
+    return initial();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? favoritesInitial,
-    TResult Function(List<Board> favorites)? favoritesLoadSuccess,
-    TResult Function()? favoritesLoadError,
-    TResult Function()? favoritesAreEmpty,
+    TResult Function()? initial,
+    TResult Function(List<Board> favorites)? loadSuccess,
+    TResult Function()? loadError,
+    TResult Function()? favoritesListIsEmpty,
     required TResult orElse(),
   }) {
-    if (favoritesInitial != null) {
-      return favoritesInitial();
+    if (initial != null) {
+      return initial();
     }
     return orElse();
   }
@@ -157,56 +157,58 @@ class _$FavoritesInitial implements FavoritesInitial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(FavoritesInitial value) favoritesInitial,
-    required TResult Function(FavoritesLoadSuccess value) favoritesLoadSuccess,
-    required TResult Function(FavoritesLoadError value) favoritesLoadError,
-    required TResult Function(FavoritesAreEmpty value) favoritesAreEmpty,
+    required TResult Function(FavoritesStateInitial value) initial,
+    required TResult Function(FavoritesStateLoadSuccess value) loadSuccess,
+    required TResult Function(FavoritesStateLoadError value) loadError,
+    required TResult Function(FavoritesStateFavoritesListIsEmpty value) favoritesListIsEmpty,
   }) {
-    return favoritesInitial(this);
+    return initial(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(FavoritesInitial value)? favoritesInitial,
-    TResult Function(FavoritesLoadSuccess value)? favoritesLoadSuccess,
-    TResult Function(FavoritesLoadError value)? favoritesLoadError,
-    TResult Function(FavoritesAreEmpty value)? favoritesAreEmpty,
+    TResult Function(FavoritesStateInitial value)? initial,
+    TResult Function(FavoritesStateLoadSuccess value)? loadSuccess,
+    TResult Function(FavoritesStateLoadError value)? loadError,
+    TResult Function(FavoritesStateFavoritesListIsEmpty value)? favoritesListIsEmpty,
     required TResult orElse(),
   }) {
-    if (favoritesInitial != null) {
-      return favoritesInitial(this);
+    if (initial != null) {
+      return initial(this);
     }
     return orElse();
   }
 }
 
-abstract class FavoritesInitial implements FavoritesState {
-  const factory FavoritesInitial() = _$FavoritesInitial;
+abstract class FavoritesStateInitial implements FavoritesState {
+  const factory FavoritesStateInitial() = _$FavoritesStateInitial;
 }
 
 /// @nodoc
-abstract class $FavoritesLoadSuccessCopyWith<$Res> {
-  factory $FavoritesLoadSuccessCopyWith(FavoritesLoadSuccess value, $Res Function(FavoritesLoadSuccess) then) =
-      _$FavoritesLoadSuccessCopyWithImpl<$Res>;
+abstract class $FavoritesStateLoadSuccessCopyWith<$Res> {
+  factory $FavoritesStateLoadSuccessCopyWith(
+          FavoritesStateLoadSuccess value, $Res Function(FavoritesStateLoadSuccess) then) =
+      _$FavoritesStateLoadSuccessCopyWithImpl<$Res>;
 
   $Res call({List<Board> favorites});
 }
 
 /// @nodoc
-class _$FavoritesLoadSuccessCopyWithImpl<$Res> extends _$FavoritesStateCopyWithImpl<$Res>
-    implements $FavoritesLoadSuccessCopyWith<$Res> {
-  _$FavoritesLoadSuccessCopyWithImpl(FavoritesLoadSuccess _value, $Res Function(FavoritesLoadSuccess) _then)
-      : super(_value, (v) => _then(v as FavoritesLoadSuccess));
+class _$FavoritesStateLoadSuccessCopyWithImpl<$Res> extends _$FavoritesStateCopyWithImpl<$Res>
+    implements $FavoritesStateLoadSuccessCopyWith<$Res> {
+  _$FavoritesStateLoadSuccessCopyWithImpl(
+      FavoritesStateLoadSuccess _value, $Res Function(FavoritesStateLoadSuccess) _then)
+      : super(_value, (v) => _then(v as FavoritesStateLoadSuccess));
 
   @override
-  FavoritesLoadSuccess get _value => super._value as FavoritesLoadSuccess;
+  FavoritesStateLoadSuccess get _value => super._value as FavoritesStateLoadSuccess;
 
   @override
   $Res call({
     Object? favorites = freezed,
   }) {
-    return _then(FavoritesLoadSuccess(
+    return _then(FavoritesStateLoadSuccess(
       favorites: favorites == freezed
           ? _value.favorites
           : favorites // ignore: cast_nullable_to_non_nullable
@@ -216,21 +218,21 @@ class _$FavoritesLoadSuccessCopyWithImpl<$Res> extends _$FavoritesStateCopyWithI
 }
 
 /// @nodoc
-class _$FavoritesLoadSuccess implements FavoritesLoadSuccess {
-  const _$FavoritesLoadSuccess({required this.favorites});
+class _$FavoritesStateLoadSuccess implements FavoritesStateLoadSuccess {
+  const _$FavoritesStateLoadSuccess({required this.favorites});
 
   @override
   final List<Board> favorites;
 
   @override
   String toString() {
-    return 'FavoritesState.favoritesLoadSuccess(favorites: $favorites)';
+    return 'FavoritesState.loadSuccess(favorites: $favorites)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is FavoritesLoadSuccess &&
+        (other is FavoritesStateLoadSuccess &&
             (identical(other.favorites, favorites) ||
                 const DeepCollectionEquality().equals(other.favorites, favorites)));
   }
@@ -240,31 +242,31 @@ class _$FavoritesLoadSuccess implements FavoritesLoadSuccess {
 
   @JsonKey(ignore: true)
   @override
-  $FavoritesLoadSuccessCopyWith<FavoritesLoadSuccess> get copyWith =>
-      _$FavoritesLoadSuccessCopyWithImpl<FavoritesLoadSuccess>(this, _$identity);
+  $FavoritesStateLoadSuccessCopyWith<FavoritesStateLoadSuccess> get copyWith =>
+      _$FavoritesStateLoadSuccessCopyWithImpl<FavoritesStateLoadSuccess>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() favoritesInitial,
-    required TResult Function(List<Board> favorites) favoritesLoadSuccess,
-    required TResult Function() favoritesLoadError,
-    required TResult Function() favoritesAreEmpty,
+    required TResult Function() initial,
+    required TResult Function(List<Board> favorites) loadSuccess,
+    required TResult Function() loadError,
+    required TResult Function() favoritesListIsEmpty,
   }) {
-    return favoritesLoadSuccess(favorites);
+    return loadSuccess(favorites);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? favoritesInitial,
-    TResult Function(List<Board> favorites)? favoritesLoadSuccess,
-    TResult Function()? favoritesLoadError,
-    TResult Function()? favoritesAreEmpty,
+    TResult Function()? initial,
+    TResult Function(List<Board> favorites)? loadSuccess,
+    TResult Function()? loadError,
+    TResult Function()? favoritesListIsEmpty,
     required TResult orElse(),
   }) {
-    if (favoritesLoadSuccess != null) {
-      return favoritesLoadSuccess(favorites);
+    if (loadSuccess != null) {
+      return loadSuccess(favorites);
     }
     return orElse();
   }
@@ -272,67 +274,67 @@ class _$FavoritesLoadSuccess implements FavoritesLoadSuccess {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(FavoritesInitial value) favoritesInitial,
-    required TResult Function(FavoritesLoadSuccess value) favoritesLoadSuccess,
-    required TResult Function(FavoritesLoadError value) favoritesLoadError,
-    required TResult Function(FavoritesAreEmpty value) favoritesAreEmpty,
+    required TResult Function(FavoritesStateInitial value) initial,
+    required TResult Function(FavoritesStateLoadSuccess value) loadSuccess,
+    required TResult Function(FavoritesStateLoadError value) loadError,
+    required TResult Function(FavoritesStateFavoritesListIsEmpty value) favoritesListIsEmpty,
   }) {
-    return favoritesLoadSuccess(this);
+    return loadSuccess(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(FavoritesInitial value)? favoritesInitial,
-    TResult Function(FavoritesLoadSuccess value)? favoritesLoadSuccess,
-    TResult Function(FavoritesLoadError value)? favoritesLoadError,
-    TResult Function(FavoritesAreEmpty value)? favoritesAreEmpty,
+    TResult Function(FavoritesStateInitial value)? initial,
+    TResult Function(FavoritesStateLoadSuccess value)? loadSuccess,
+    TResult Function(FavoritesStateLoadError value)? loadError,
+    TResult Function(FavoritesStateFavoritesListIsEmpty value)? favoritesListIsEmpty,
     required TResult orElse(),
   }) {
-    if (favoritesLoadSuccess != null) {
-      return favoritesLoadSuccess(this);
+    if (loadSuccess != null) {
+      return loadSuccess(this);
     }
     return orElse();
   }
 }
 
-abstract class FavoritesLoadSuccess implements FavoritesState {
-  const factory FavoritesLoadSuccess({required List<Board> favorites}) = _$FavoritesLoadSuccess;
+abstract class FavoritesStateLoadSuccess implements FavoritesState {
+  const factory FavoritesStateLoadSuccess({required List<Board> favorites}) = _$FavoritesStateLoadSuccess;
 
   List<Board> get favorites => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $FavoritesLoadSuccessCopyWith<FavoritesLoadSuccess> get copyWith => throw _privateConstructorUsedError;
+  $FavoritesStateLoadSuccessCopyWith<FavoritesStateLoadSuccess> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $FavoritesLoadErrorCopyWith<$Res> {
-  factory $FavoritesLoadErrorCopyWith(FavoritesLoadError value, $Res Function(FavoritesLoadError) then) =
-      _$FavoritesLoadErrorCopyWithImpl<$Res>;
+abstract class $FavoritesStateLoadErrorCopyWith<$Res> {
+  factory $FavoritesStateLoadErrorCopyWith(FavoritesStateLoadError value, $Res Function(FavoritesStateLoadError) then) =
+      _$FavoritesStateLoadErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FavoritesLoadErrorCopyWithImpl<$Res> extends _$FavoritesStateCopyWithImpl<$Res>
-    implements $FavoritesLoadErrorCopyWith<$Res> {
-  _$FavoritesLoadErrorCopyWithImpl(FavoritesLoadError _value, $Res Function(FavoritesLoadError) _then)
-      : super(_value, (v) => _then(v as FavoritesLoadError));
+class _$FavoritesStateLoadErrorCopyWithImpl<$Res> extends _$FavoritesStateCopyWithImpl<$Res>
+    implements $FavoritesStateLoadErrorCopyWith<$Res> {
+  _$FavoritesStateLoadErrorCopyWithImpl(FavoritesStateLoadError _value, $Res Function(FavoritesStateLoadError) _then)
+      : super(_value, (v) => _then(v as FavoritesStateLoadError));
 
   @override
-  FavoritesLoadError get _value => super._value as FavoritesLoadError;
+  FavoritesStateLoadError get _value => super._value as FavoritesStateLoadError;
 }
 
 /// @nodoc
-class _$FavoritesLoadError implements FavoritesLoadError {
-  const _$FavoritesLoadError();
+class _$FavoritesStateLoadError implements FavoritesStateLoadError {
+  const _$FavoritesStateLoadError();
 
   @override
   String toString() {
-    return 'FavoritesState.favoritesLoadError()';
+    return 'FavoritesState.loadError()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is FavoritesLoadError);
+    return identical(this, other) || (other is FavoritesStateLoadError);
   }
 
   @override
@@ -341,25 +343,25 @@ class _$FavoritesLoadError implements FavoritesLoadError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() favoritesInitial,
-    required TResult Function(List<Board> favorites) favoritesLoadSuccess,
-    required TResult Function() favoritesLoadError,
-    required TResult Function() favoritesAreEmpty,
+    required TResult Function() initial,
+    required TResult Function(List<Board> favorites) loadSuccess,
+    required TResult Function() loadError,
+    required TResult Function() favoritesListIsEmpty,
   }) {
-    return favoritesLoadError();
+    return loadError();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? favoritesInitial,
-    TResult Function(List<Board> favorites)? favoritesLoadSuccess,
-    TResult Function()? favoritesLoadError,
-    TResult Function()? favoritesAreEmpty,
+    TResult Function()? initial,
+    TResult Function(List<Board> favorites)? loadSuccess,
+    TResult Function()? loadError,
+    TResult Function()? favoritesListIsEmpty,
     required TResult orElse(),
   }) {
-    if (favoritesLoadError != null) {
-      return favoritesLoadError();
+    if (loadError != null) {
+      return loadError();
     }
     return orElse();
   }
@@ -367,62 +369,64 @@ class _$FavoritesLoadError implements FavoritesLoadError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(FavoritesInitial value) favoritesInitial,
-    required TResult Function(FavoritesLoadSuccess value) favoritesLoadSuccess,
-    required TResult Function(FavoritesLoadError value) favoritesLoadError,
-    required TResult Function(FavoritesAreEmpty value) favoritesAreEmpty,
+    required TResult Function(FavoritesStateInitial value) initial,
+    required TResult Function(FavoritesStateLoadSuccess value) loadSuccess,
+    required TResult Function(FavoritesStateLoadError value) loadError,
+    required TResult Function(FavoritesStateFavoritesListIsEmpty value) favoritesListIsEmpty,
   }) {
-    return favoritesLoadError(this);
+    return loadError(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(FavoritesInitial value)? favoritesInitial,
-    TResult Function(FavoritesLoadSuccess value)? favoritesLoadSuccess,
-    TResult Function(FavoritesLoadError value)? favoritesLoadError,
-    TResult Function(FavoritesAreEmpty value)? favoritesAreEmpty,
+    TResult Function(FavoritesStateInitial value)? initial,
+    TResult Function(FavoritesStateLoadSuccess value)? loadSuccess,
+    TResult Function(FavoritesStateLoadError value)? loadError,
+    TResult Function(FavoritesStateFavoritesListIsEmpty value)? favoritesListIsEmpty,
     required TResult orElse(),
   }) {
-    if (favoritesLoadError != null) {
-      return favoritesLoadError(this);
+    if (loadError != null) {
+      return loadError(this);
     }
     return orElse();
   }
 }
 
-abstract class FavoritesLoadError implements FavoritesState {
-  const factory FavoritesLoadError() = _$FavoritesLoadError;
+abstract class FavoritesStateLoadError implements FavoritesState {
+  const factory FavoritesStateLoadError() = _$FavoritesStateLoadError;
 }
 
 /// @nodoc
-abstract class $FavoritesAreEmptyCopyWith<$Res> {
-  factory $FavoritesAreEmptyCopyWith(FavoritesAreEmpty value, $Res Function(FavoritesAreEmpty) then) =
-      _$FavoritesAreEmptyCopyWithImpl<$Res>;
+abstract class $FavoritesStateFavoritesListIsEmptyCopyWith<$Res> {
+  factory $FavoritesStateFavoritesListIsEmptyCopyWith(
+          FavoritesStateFavoritesListIsEmpty value, $Res Function(FavoritesStateFavoritesListIsEmpty) then) =
+      _$FavoritesStateFavoritesListIsEmptyCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$FavoritesAreEmptyCopyWithImpl<$Res> extends _$FavoritesStateCopyWithImpl<$Res>
-    implements $FavoritesAreEmptyCopyWith<$Res> {
-  _$FavoritesAreEmptyCopyWithImpl(FavoritesAreEmpty _value, $Res Function(FavoritesAreEmpty) _then)
-      : super(_value, (v) => _then(v as FavoritesAreEmpty));
+class _$FavoritesStateFavoritesListIsEmptyCopyWithImpl<$Res> extends _$FavoritesStateCopyWithImpl<$Res>
+    implements $FavoritesStateFavoritesListIsEmptyCopyWith<$Res> {
+  _$FavoritesStateFavoritesListIsEmptyCopyWithImpl(
+      FavoritesStateFavoritesListIsEmpty _value, $Res Function(FavoritesStateFavoritesListIsEmpty) _then)
+      : super(_value, (v) => _then(v as FavoritesStateFavoritesListIsEmpty));
 
   @override
-  FavoritesAreEmpty get _value => super._value as FavoritesAreEmpty;
+  FavoritesStateFavoritesListIsEmpty get _value => super._value as FavoritesStateFavoritesListIsEmpty;
 }
 
 /// @nodoc
-class _$FavoritesAreEmpty implements FavoritesAreEmpty {
-  const _$FavoritesAreEmpty();
+class _$FavoritesStateFavoritesListIsEmpty implements FavoritesStateFavoritesListIsEmpty {
+  const _$FavoritesStateFavoritesListIsEmpty();
 
   @override
   String toString() {
-    return 'FavoritesState.favoritesAreEmpty()';
+    return 'FavoritesState.favoritesListIsEmpty()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is FavoritesAreEmpty);
+    return identical(this, other) || (other is FavoritesStateFavoritesListIsEmpty);
   }
 
   @override
@@ -431,25 +435,25 @@ class _$FavoritesAreEmpty implements FavoritesAreEmpty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() favoritesInitial,
-    required TResult Function(List<Board> favorites) favoritesLoadSuccess,
-    required TResult Function() favoritesLoadError,
-    required TResult Function() favoritesAreEmpty,
+    required TResult Function() initial,
+    required TResult Function(List<Board> favorites) loadSuccess,
+    required TResult Function() loadError,
+    required TResult Function() favoritesListIsEmpty,
   }) {
-    return favoritesAreEmpty();
+    return favoritesListIsEmpty();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? favoritesInitial,
-    TResult Function(List<Board> favorites)? favoritesLoadSuccess,
-    TResult Function()? favoritesLoadError,
-    TResult Function()? favoritesAreEmpty,
+    TResult Function()? initial,
+    TResult Function(List<Board> favorites)? loadSuccess,
+    TResult Function()? loadError,
+    TResult Function()? favoritesListIsEmpty,
     required TResult orElse(),
   }) {
-    if (favoritesAreEmpty != null) {
-      return favoritesAreEmpty();
+    if (favoritesListIsEmpty != null) {
+      return favoritesListIsEmpty();
     }
     return orElse();
   }
@@ -457,30 +461,30 @@ class _$FavoritesAreEmpty implements FavoritesAreEmpty {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(FavoritesInitial value) favoritesInitial,
-    required TResult Function(FavoritesLoadSuccess value) favoritesLoadSuccess,
-    required TResult Function(FavoritesLoadError value) favoritesLoadError,
-    required TResult Function(FavoritesAreEmpty value) favoritesAreEmpty,
+    required TResult Function(FavoritesStateInitial value) initial,
+    required TResult Function(FavoritesStateLoadSuccess value) loadSuccess,
+    required TResult Function(FavoritesStateLoadError value) loadError,
+    required TResult Function(FavoritesStateFavoritesListIsEmpty value) favoritesListIsEmpty,
   }) {
-    return favoritesAreEmpty(this);
+    return favoritesListIsEmpty(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(FavoritesInitial value)? favoritesInitial,
-    TResult Function(FavoritesLoadSuccess value)? favoritesLoadSuccess,
-    TResult Function(FavoritesLoadError value)? favoritesLoadError,
-    TResult Function(FavoritesAreEmpty value)? favoritesAreEmpty,
+    TResult Function(FavoritesStateInitial value)? initial,
+    TResult Function(FavoritesStateLoadSuccess value)? loadSuccess,
+    TResult Function(FavoritesStateLoadError value)? loadError,
+    TResult Function(FavoritesStateFavoritesListIsEmpty value)? favoritesListIsEmpty,
     required TResult orElse(),
   }) {
-    if (favoritesAreEmpty != null) {
-      return favoritesAreEmpty(this);
+    if (favoritesListIsEmpty != null) {
+      return favoritesListIsEmpty(this);
     }
     return orElse();
   }
 }
 
-abstract class FavoritesAreEmpty implements FavoritesState {
-  const factory FavoritesAreEmpty() = _$FavoritesAreEmpty;
+abstract class FavoritesStateFavoritesListIsEmpty implements FavoritesState {
+  const factory FavoritesStateFavoritesListIsEmpty() = _$FavoritesStateFavoritesListIsEmpty;
 }

@@ -4,9 +4,9 @@ part 'history_event.freezed.dart';
 
 @freezed
 abstract class HistoryEvent with _$HistoryEvent {
-  const factory HistoryEvent.historyInitialized() = HistoryInitialized;
+  const factory HistoryEvent.initialized() = HistoryEventInitialized;
 
-  const factory HistoryEvent.historyPortionRequested() = HistoryPortionRequested;
+  const factory HistoryEvent.portionRequested() = HistoryEventPortionRequested;
 
-  const factory HistoryEvent.historyClearRequested() = HistoryClearRequested;
+  const factory HistoryEvent.clearRequested() = HistoryEventClearRequested;
 }

@@ -32,7 +32,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             await context.push(
               route: routeExploreBoards,
             );
-            _bloc?.add(const FavoritesWasUpdated());
+            _bloc?.add(const FavoritesEventFavoritesWasUpdated());
           },
         ),
       ],
@@ -44,8 +44,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           builder: (context, state) {
             _bloc = context.read<FavoritesBloc>();
             return state.when(
-              favoritesInitial: () => const AppCenteredCircularProgressIndicator(),
-              favoritesLoadSuccess: (favorites) {
+              initial: () => const AppCenteredCircularProgressIndicator(),
+              loadSuccess: (favorites) {
                 return ListView.builder(
                   itemBuilder: (context, index) {
                     final board = favorites[index];
@@ -60,10 +60,10 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                   itemCount: favorites.length,
                 );
               },
-              favoritesLoadError: () => AppCenteredText(
+              loadError: () => AppCenteredText(
                 text: context.localizations.messageFavoritesIsEmpty,
               ),
-              favoritesAreEmpty: () => AppCenteredText(
+              favoritesListIsEmpty: () => AppCenteredText(
                 text: context.localizations.messageFavoritesIsEmpty,
               ),
             );

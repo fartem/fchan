@@ -5,13 +5,13 @@ part 'favorites_state.freezed.dart';
 
 @freezed
 abstract class FavoritesState with _$FavoritesState {
-  const factory FavoritesState.favoritesInitial() = FavoritesInitial;
+  const factory FavoritesState.initial() = FavoritesStateInitial;
 
-  const factory FavoritesState.favoritesLoadSuccess({
+  const factory FavoritesState.loadSuccess({
     required List<Board> favorites,
-  }) = FavoritesLoadSuccess;
+  }) = FavoritesStateLoadSuccess;
 
-  const factory FavoritesState.favoritesLoadError() = FavoritesLoadError;
+  const factory FavoritesState.loadError() = FavoritesStateLoadError;
 
-  const factory FavoritesState.favoritesAreEmpty() = FavoritesAreEmpty;
+  const factory FavoritesState.favoritesListIsEmpty() = FavoritesStateFavoritesListIsEmpty;
 }

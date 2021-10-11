@@ -42,7 +42,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                     context.localizations.commonOk,
                   ),
                   onPressed: () {
-                    _bookmarksBloc.add(const BookmarksClearRequested());
+                    _bookmarksBloc.add(const BookmarksEventClearRequested());
                     Navigator.pop(context);
                   },
                 ),
@@ -65,8 +65,8 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
           builder: (context, state) {
             _bookmarksBloc = context.read<BookmarksBloc>();
             return state.when(
-              bookmarksInitial: () => const AppCenteredCircularProgressIndicator(),
-              bookmarksLoadSuccess: (threads, isLastPage) {
+              initial: () => const AppCenteredCircularProgressIndicator(),
+              loadSuccess: (threads, isLastPage) {
                 return StaggeredGridView.countBuilder(
                   crossAxisCount: 4,
                   staggeredTileBuilder: (index) => const StaggeredTile.fit(2),
@@ -85,7 +85,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                       ],
                       actionNotifier: (action) {
                         if (action == ThreadPopupMenuAction.removeFromBookmarks) {
-                          _bookmarksBloc.add(BookmarkRemoved(bookmark: thread));
+                          _bookmarksBloc.add(BookmarksEventBookmarkRemoved(bookmark: thread));
                         }
                       },
                     );
@@ -93,11 +93,11 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                   itemCount: threads.length + (isLastPage ? 0 : 1),
                 );
               },
-              bookmarksLoadError: () => AppCenteredText(
+              loadError: () => AppCenteredText(
                 text: context.localizations.messageBookmarksIsEmpty,
               ),
-              bookmarksClearInProgress: () => const AppCenteredCircularProgressIndicator(),
-              bookmarksIsEmpty: () => AppCenteredText(
+              clearInProgress: () => const AppCenteredCircularProgressIndicator(),
+              bookmarksListIsEmpty: () => AppCenteredText(
                 text: context.localizations.messageBookmarksIsEmpty,
               ),
             );
@@ -112,7 +112,7 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
-        _bookmarksBloc.add(const BookmarksPortionRequested());
+        _bookmarksBloc.add(const BookmarksEventPortionRequested());
       }
     });
   }

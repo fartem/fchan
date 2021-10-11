@@ -16,22 +16,22 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$ThreadStateTearOff {
   const _$ThreadStateTearOff();
 
-  ThreadInitial threadInitial() {
-    return const ThreadInitial();
+  ThreadStateInitial initial() {
+    return const ThreadStateInitial();
   }
 
-  ThreadLoadSuccess threadLoadSuccess({required List<Post> posts}) {
-    return ThreadLoadSuccess(
+  ThreadStateLoadSuccess loadSuccess({required List<Post> posts}) {
+    return ThreadStateLoadSuccess(
       posts: posts,
     );
   }
 
-  ThreadLoadError threadLoadError() {
-    return const ThreadLoadError();
+  ThreadStateLoadError loadError() {
+    return const ThreadStateLoadError();
   }
 
-  ThreadIsEmpty threadIsEmpty() {
-    return const ThreadIsEmpty();
+  ThreadStateThreadsListIsEmpty threadsListIsEmpty() {
+    return const ThreadStateThreadsListIsEmpty();
   }
 }
 
@@ -42,38 +42,38 @@ const $ThreadState = _$ThreadStateTearOff();
 mixin _$ThreadState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() threadInitial,
-    required TResult Function(List<Post> posts) threadLoadSuccess,
-    required TResult Function() threadLoadError,
-    required TResult Function() threadIsEmpty,
+    required TResult Function() initial,
+    required TResult Function(List<Post> posts) loadSuccess,
+    required TResult Function() loadError,
+    required TResult Function() threadsListIsEmpty,
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? threadInitial,
-    TResult Function(List<Post> posts)? threadLoadSuccess,
-    TResult Function()? threadLoadError,
-    TResult Function()? threadIsEmpty,
+    TResult Function()? initial,
+    TResult Function(List<Post> posts)? loadSuccess,
+    TResult Function()? loadError,
+    TResult Function()? threadsListIsEmpty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ThreadInitial value) threadInitial,
-    required TResult Function(ThreadLoadSuccess value) threadLoadSuccess,
-    required TResult Function(ThreadLoadError value) threadLoadError,
-    required TResult Function(ThreadIsEmpty value) threadIsEmpty,
+    required TResult Function(ThreadStateInitial value) initial,
+    required TResult Function(ThreadStateLoadSuccess value) loadSuccess,
+    required TResult Function(ThreadStateLoadError value) loadError,
+    required TResult Function(ThreadStateThreadsListIsEmpty value) threadsListIsEmpty,
   }) =>
       throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ThreadInitial value)? threadInitial,
-    TResult Function(ThreadLoadSuccess value)? threadLoadSuccess,
-    TResult Function(ThreadLoadError value)? threadLoadError,
-    TResult Function(ThreadIsEmpty value)? threadIsEmpty,
+    TResult Function(ThreadStateInitial value)? initial,
+    TResult Function(ThreadStateLoadSuccess value)? loadSuccess,
+    TResult Function(ThreadStateLoadError value)? loadError,
+    TResult Function(ThreadStateThreadsListIsEmpty value)? threadsListIsEmpty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -95,33 +95,33 @@ class _$ThreadStateCopyWithImpl<$Res> implements $ThreadStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $ThreadInitialCopyWith<$Res> {
-  factory $ThreadInitialCopyWith(ThreadInitial value, $Res Function(ThreadInitial) then) =
-      _$ThreadInitialCopyWithImpl<$Res>;
+abstract class $ThreadStateInitialCopyWith<$Res> {
+  factory $ThreadStateInitialCopyWith(ThreadStateInitial value, $Res Function(ThreadStateInitial) then) =
+      _$ThreadStateInitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ThreadInitialCopyWithImpl<$Res> extends _$ThreadStateCopyWithImpl<$Res>
-    implements $ThreadInitialCopyWith<$Res> {
-  _$ThreadInitialCopyWithImpl(ThreadInitial _value, $Res Function(ThreadInitial) _then)
-      : super(_value, (v) => _then(v as ThreadInitial));
+class _$ThreadStateInitialCopyWithImpl<$Res> extends _$ThreadStateCopyWithImpl<$Res>
+    implements $ThreadStateInitialCopyWith<$Res> {
+  _$ThreadStateInitialCopyWithImpl(ThreadStateInitial _value, $Res Function(ThreadStateInitial) _then)
+      : super(_value, (v) => _then(v as ThreadStateInitial));
 
   @override
-  ThreadInitial get _value => super._value as ThreadInitial;
+  ThreadStateInitial get _value => super._value as ThreadStateInitial;
 }
 
 /// @nodoc
-class _$ThreadInitial implements ThreadInitial {
-  const _$ThreadInitial();
+class _$ThreadStateInitial implements ThreadStateInitial {
+  const _$ThreadStateInitial();
 
   @override
   String toString() {
-    return 'ThreadState.threadInitial()';
+    return 'ThreadState.initial()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is ThreadInitial);
+    return identical(this, other) || (other is ThreadStateInitial);
   }
 
   @override
@@ -130,25 +130,25 @@ class _$ThreadInitial implements ThreadInitial {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() threadInitial,
-    required TResult Function(List<Post> posts) threadLoadSuccess,
-    required TResult Function() threadLoadError,
-    required TResult Function() threadIsEmpty,
+    required TResult Function() initial,
+    required TResult Function(List<Post> posts) loadSuccess,
+    required TResult Function() loadError,
+    required TResult Function() threadsListIsEmpty,
   }) {
-    return threadInitial();
+    return initial();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? threadInitial,
-    TResult Function(List<Post> posts)? threadLoadSuccess,
-    TResult Function()? threadLoadError,
-    TResult Function()? threadIsEmpty,
+    TResult Function()? initial,
+    TResult Function(List<Post> posts)? loadSuccess,
+    TResult Function()? loadError,
+    TResult Function()? threadsListIsEmpty,
     required TResult orElse(),
   }) {
-    if (threadInitial != null) {
-      return threadInitial();
+    if (initial != null) {
+      return initial();
     }
     return orElse();
   }
@@ -156,56 +156,56 @@ class _$ThreadInitial implements ThreadInitial {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ThreadInitial value) threadInitial,
-    required TResult Function(ThreadLoadSuccess value) threadLoadSuccess,
-    required TResult Function(ThreadLoadError value) threadLoadError,
-    required TResult Function(ThreadIsEmpty value) threadIsEmpty,
+    required TResult Function(ThreadStateInitial value) initial,
+    required TResult Function(ThreadStateLoadSuccess value) loadSuccess,
+    required TResult Function(ThreadStateLoadError value) loadError,
+    required TResult Function(ThreadStateThreadsListIsEmpty value) threadsListIsEmpty,
   }) {
-    return threadInitial(this);
+    return initial(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ThreadInitial value)? threadInitial,
-    TResult Function(ThreadLoadSuccess value)? threadLoadSuccess,
-    TResult Function(ThreadLoadError value)? threadLoadError,
-    TResult Function(ThreadIsEmpty value)? threadIsEmpty,
+    TResult Function(ThreadStateInitial value)? initial,
+    TResult Function(ThreadStateLoadSuccess value)? loadSuccess,
+    TResult Function(ThreadStateLoadError value)? loadError,
+    TResult Function(ThreadStateThreadsListIsEmpty value)? threadsListIsEmpty,
     required TResult orElse(),
   }) {
-    if (threadInitial != null) {
-      return threadInitial(this);
+    if (initial != null) {
+      return initial(this);
     }
     return orElse();
   }
 }
 
-abstract class ThreadInitial implements ThreadState {
-  const factory ThreadInitial() = _$ThreadInitial;
+abstract class ThreadStateInitial implements ThreadState {
+  const factory ThreadStateInitial() = _$ThreadStateInitial;
 }
 
 /// @nodoc
-abstract class $ThreadLoadSuccessCopyWith<$Res> {
-  factory $ThreadLoadSuccessCopyWith(ThreadLoadSuccess value, $Res Function(ThreadLoadSuccess) then) =
-      _$ThreadLoadSuccessCopyWithImpl<$Res>;
+abstract class $ThreadStateLoadSuccessCopyWith<$Res> {
+  factory $ThreadStateLoadSuccessCopyWith(ThreadStateLoadSuccess value, $Res Function(ThreadStateLoadSuccess) then) =
+      _$ThreadStateLoadSuccessCopyWithImpl<$Res>;
 
   $Res call({List<Post> posts});
 }
 
 /// @nodoc
-class _$ThreadLoadSuccessCopyWithImpl<$Res> extends _$ThreadStateCopyWithImpl<$Res>
-    implements $ThreadLoadSuccessCopyWith<$Res> {
-  _$ThreadLoadSuccessCopyWithImpl(ThreadLoadSuccess _value, $Res Function(ThreadLoadSuccess) _then)
-      : super(_value, (v) => _then(v as ThreadLoadSuccess));
+class _$ThreadStateLoadSuccessCopyWithImpl<$Res> extends _$ThreadStateCopyWithImpl<$Res>
+    implements $ThreadStateLoadSuccessCopyWith<$Res> {
+  _$ThreadStateLoadSuccessCopyWithImpl(ThreadStateLoadSuccess _value, $Res Function(ThreadStateLoadSuccess) _then)
+      : super(_value, (v) => _then(v as ThreadStateLoadSuccess));
 
   @override
-  ThreadLoadSuccess get _value => super._value as ThreadLoadSuccess;
+  ThreadStateLoadSuccess get _value => super._value as ThreadStateLoadSuccess;
 
   @override
   $Res call({
     Object? posts = freezed,
   }) {
-    return _then(ThreadLoadSuccess(
+    return _then(ThreadStateLoadSuccess(
       posts: posts == freezed
           ? _value.posts
           : posts // ignore: cast_nullable_to_non_nullable
@@ -215,21 +215,21 @@ class _$ThreadLoadSuccessCopyWithImpl<$Res> extends _$ThreadStateCopyWithImpl<$R
 }
 
 /// @nodoc
-class _$ThreadLoadSuccess implements ThreadLoadSuccess {
-  const _$ThreadLoadSuccess({required this.posts});
+class _$ThreadStateLoadSuccess implements ThreadStateLoadSuccess {
+  const _$ThreadStateLoadSuccess({required this.posts});
 
   @override
   final List<Post> posts;
 
   @override
   String toString() {
-    return 'ThreadState.threadLoadSuccess(posts: $posts)';
+    return 'ThreadState.loadSuccess(posts: $posts)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is ThreadLoadSuccess &&
+        (other is ThreadStateLoadSuccess &&
             (identical(other.posts, posts) || const DeepCollectionEquality().equals(other.posts, posts)));
   }
 
@@ -238,31 +238,31 @@ class _$ThreadLoadSuccess implements ThreadLoadSuccess {
 
   @JsonKey(ignore: true)
   @override
-  $ThreadLoadSuccessCopyWith<ThreadLoadSuccess> get copyWith =>
-      _$ThreadLoadSuccessCopyWithImpl<ThreadLoadSuccess>(this, _$identity);
+  $ThreadStateLoadSuccessCopyWith<ThreadStateLoadSuccess> get copyWith =>
+      _$ThreadStateLoadSuccessCopyWithImpl<ThreadStateLoadSuccess>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() threadInitial,
-    required TResult Function(List<Post> posts) threadLoadSuccess,
-    required TResult Function() threadLoadError,
-    required TResult Function() threadIsEmpty,
+    required TResult Function() initial,
+    required TResult Function(List<Post> posts) loadSuccess,
+    required TResult Function() loadError,
+    required TResult Function() threadsListIsEmpty,
   }) {
-    return threadLoadSuccess(posts);
+    return loadSuccess(posts);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? threadInitial,
-    TResult Function(List<Post> posts)? threadLoadSuccess,
-    TResult Function()? threadLoadError,
-    TResult Function()? threadIsEmpty,
+    TResult Function()? initial,
+    TResult Function(List<Post> posts)? loadSuccess,
+    TResult Function()? loadError,
+    TResult Function()? threadsListIsEmpty,
     required TResult orElse(),
   }) {
-    if (threadLoadSuccess != null) {
-      return threadLoadSuccess(posts);
+    if (loadSuccess != null) {
+      return loadSuccess(posts);
     }
     return orElse();
   }
@@ -270,67 +270,67 @@ class _$ThreadLoadSuccess implements ThreadLoadSuccess {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ThreadInitial value) threadInitial,
-    required TResult Function(ThreadLoadSuccess value) threadLoadSuccess,
-    required TResult Function(ThreadLoadError value) threadLoadError,
-    required TResult Function(ThreadIsEmpty value) threadIsEmpty,
+    required TResult Function(ThreadStateInitial value) initial,
+    required TResult Function(ThreadStateLoadSuccess value) loadSuccess,
+    required TResult Function(ThreadStateLoadError value) loadError,
+    required TResult Function(ThreadStateThreadsListIsEmpty value) threadsListIsEmpty,
   }) {
-    return threadLoadSuccess(this);
+    return loadSuccess(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ThreadInitial value)? threadInitial,
-    TResult Function(ThreadLoadSuccess value)? threadLoadSuccess,
-    TResult Function(ThreadLoadError value)? threadLoadError,
-    TResult Function(ThreadIsEmpty value)? threadIsEmpty,
+    TResult Function(ThreadStateInitial value)? initial,
+    TResult Function(ThreadStateLoadSuccess value)? loadSuccess,
+    TResult Function(ThreadStateLoadError value)? loadError,
+    TResult Function(ThreadStateThreadsListIsEmpty value)? threadsListIsEmpty,
     required TResult orElse(),
   }) {
-    if (threadLoadSuccess != null) {
-      return threadLoadSuccess(this);
+    if (loadSuccess != null) {
+      return loadSuccess(this);
     }
     return orElse();
   }
 }
 
-abstract class ThreadLoadSuccess implements ThreadState {
-  const factory ThreadLoadSuccess({required List<Post> posts}) = _$ThreadLoadSuccess;
+abstract class ThreadStateLoadSuccess implements ThreadState {
+  const factory ThreadStateLoadSuccess({required List<Post> posts}) = _$ThreadStateLoadSuccess;
 
   List<Post> get posts => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ThreadLoadSuccessCopyWith<ThreadLoadSuccess> get copyWith => throw _privateConstructorUsedError;
+  $ThreadStateLoadSuccessCopyWith<ThreadStateLoadSuccess> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ThreadLoadErrorCopyWith<$Res> {
-  factory $ThreadLoadErrorCopyWith(ThreadLoadError value, $Res Function(ThreadLoadError) then) =
-      _$ThreadLoadErrorCopyWithImpl<$Res>;
+abstract class $ThreadStateLoadErrorCopyWith<$Res> {
+  factory $ThreadStateLoadErrorCopyWith(ThreadStateLoadError value, $Res Function(ThreadStateLoadError) then) =
+      _$ThreadStateLoadErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ThreadLoadErrorCopyWithImpl<$Res> extends _$ThreadStateCopyWithImpl<$Res>
-    implements $ThreadLoadErrorCopyWith<$Res> {
-  _$ThreadLoadErrorCopyWithImpl(ThreadLoadError _value, $Res Function(ThreadLoadError) _then)
-      : super(_value, (v) => _then(v as ThreadLoadError));
+class _$ThreadStateLoadErrorCopyWithImpl<$Res> extends _$ThreadStateCopyWithImpl<$Res>
+    implements $ThreadStateLoadErrorCopyWith<$Res> {
+  _$ThreadStateLoadErrorCopyWithImpl(ThreadStateLoadError _value, $Res Function(ThreadStateLoadError) _then)
+      : super(_value, (v) => _then(v as ThreadStateLoadError));
 
   @override
-  ThreadLoadError get _value => super._value as ThreadLoadError;
+  ThreadStateLoadError get _value => super._value as ThreadStateLoadError;
 }
 
 /// @nodoc
-class _$ThreadLoadError implements ThreadLoadError {
-  const _$ThreadLoadError();
+class _$ThreadStateLoadError implements ThreadStateLoadError {
+  const _$ThreadStateLoadError();
 
   @override
   String toString() {
-    return 'ThreadState.threadLoadError()';
+    return 'ThreadState.loadError()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is ThreadLoadError);
+    return identical(this, other) || (other is ThreadStateLoadError);
   }
 
   @override
@@ -339,25 +339,25 @@ class _$ThreadLoadError implements ThreadLoadError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() threadInitial,
-    required TResult Function(List<Post> posts) threadLoadSuccess,
-    required TResult Function() threadLoadError,
-    required TResult Function() threadIsEmpty,
+    required TResult Function() initial,
+    required TResult Function(List<Post> posts) loadSuccess,
+    required TResult Function() loadError,
+    required TResult Function() threadsListIsEmpty,
   }) {
-    return threadLoadError();
+    return loadError();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? threadInitial,
-    TResult Function(List<Post> posts)? threadLoadSuccess,
-    TResult Function()? threadLoadError,
-    TResult Function()? threadIsEmpty,
+    TResult Function()? initial,
+    TResult Function(List<Post> posts)? loadSuccess,
+    TResult Function()? loadError,
+    TResult Function()? threadsListIsEmpty,
     required TResult orElse(),
   }) {
-    if (threadLoadError != null) {
-      return threadLoadError();
+    if (loadError != null) {
+      return loadError();
     }
     return orElse();
   }
@@ -365,62 +365,64 @@ class _$ThreadLoadError implements ThreadLoadError {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ThreadInitial value) threadInitial,
-    required TResult Function(ThreadLoadSuccess value) threadLoadSuccess,
-    required TResult Function(ThreadLoadError value) threadLoadError,
-    required TResult Function(ThreadIsEmpty value) threadIsEmpty,
+    required TResult Function(ThreadStateInitial value) initial,
+    required TResult Function(ThreadStateLoadSuccess value) loadSuccess,
+    required TResult Function(ThreadStateLoadError value) loadError,
+    required TResult Function(ThreadStateThreadsListIsEmpty value) threadsListIsEmpty,
   }) {
-    return threadLoadError(this);
+    return loadError(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ThreadInitial value)? threadInitial,
-    TResult Function(ThreadLoadSuccess value)? threadLoadSuccess,
-    TResult Function(ThreadLoadError value)? threadLoadError,
-    TResult Function(ThreadIsEmpty value)? threadIsEmpty,
+    TResult Function(ThreadStateInitial value)? initial,
+    TResult Function(ThreadStateLoadSuccess value)? loadSuccess,
+    TResult Function(ThreadStateLoadError value)? loadError,
+    TResult Function(ThreadStateThreadsListIsEmpty value)? threadsListIsEmpty,
     required TResult orElse(),
   }) {
-    if (threadLoadError != null) {
-      return threadLoadError(this);
+    if (loadError != null) {
+      return loadError(this);
     }
     return orElse();
   }
 }
 
-abstract class ThreadLoadError implements ThreadState {
-  const factory ThreadLoadError() = _$ThreadLoadError;
+abstract class ThreadStateLoadError implements ThreadState {
+  const factory ThreadStateLoadError() = _$ThreadStateLoadError;
 }
 
 /// @nodoc
-abstract class $ThreadIsEmptyCopyWith<$Res> {
-  factory $ThreadIsEmptyCopyWith(ThreadIsEmpty value, $Res Function(ThreadIsEmpty) then) =
-      _$ThreadIsEmptyCopyWithImpl<$Res>;
+abstract class $ThreadStateThreadsListIsEmptyCopyWith<$Res> {
+  factory $ThreadStateThreadsListIsEmptyCopyWith(
+          ThreadStateThreadsListIsEmpty value, $Res Function(ThreadStateThreadsListIsEmpty) then) =
+      _$ThreadStateThreadsListIsEmptyCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ThreadIsEmptyCopyWithImpl<$Res> extends _$ThreadStateCopyWithImpl<$Res>
-    implements $ThreadIsEmptyCopyWith<$Res> {
-  _$ThreadIsEmptyCopyWithImpl(ThreadIsEmpty _value, $Res Function(ThreadIsEmpty) _then)
-      : super(_value, (v) => _then(v as ThreadIsEmpty));
+class _$ThreadStateThreadsListIsEmptyCopyWithImpl<$Res> extends _$ThreadStateCopyWithImpl<$Res>
+    implements $ThreadStateThreadsListIsEmptyCopyWith<$Res> {
+  _$ThreadStateThreadsListIsEmptyCopyWithImpl(
+      ThreadStateThreadsListIsEmpty _value, $Res Function(ThreadStateThreadsListIsEmpty) _then)
+      : super(_value, (v) => _then(v as ThreadStateThreadsListIsEmpty));
 
   @override
-  ThreadIsEmpty get _value => super._value as ThreadIsEmpty;
+  ThreadStateThreadsListIsEmpty get _value => super._value as ThreadStateThreadsListIsEmpty;
 }
 
 /// @nodoc
-class _$ThreadIsEmpty implements ThreadIsEmpty {
-  const _$ThreadIsEmpty();
+class _$ThreadStateThreadsListIsEmpty implements ThreadStateThreadsListIsEmpty {
+  const _$ThreadStateThreadsListIsEmpty();
 
   @override
   String toString() {
-    return 'ThreadState.threadIsEmpty()';
+    return 'ThreadState.threadsListIsEmpty()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is ThreadIsEmpty);
+    return identical(this, other) || (other is ThreadStateThreadsListIsEmpty);
   }
 
   @override
@@ -429,25 +431,25 @@ class _$ThreadIsEmpty implements ThreadIsEmpty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() threadInitial,
-    required TResult Function(List<Post> posts) threadLoadSuccess,
-    required TResult Function() threadLoadError,
-    required TResult Function() threadIsEmpty,
+    required TResult Function() initial,
+    required TResult Function(List<Post> posts) loadSuccess,
+    required TResult Function() loadError,
+    required TResult Function() threadsListIsEmpty,
   }) {
-    return threadIsEmpty();
+    return threadsListIsEmpty();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? threadInitial,
-    TResult Function(List<Post> posts)? threadLoadSuccess,
-    TResult Function()? threadLoadError,
-    TResult Function()? threadIsEmpty,
+    TResult Function()? initial,
+    TResult Function(List<Post> posts)? loadSuccess,
+    TResult Function()? loadError,
+    TResult Function()? threadsListIsEmpty,
     required TResult orElse(),
   }) {
-    if (threadIsEmpty != null) {
-      return threadIsEmpty();
+    if (threadsListIsEmpty != null) {
+      return threadsListIsEmpty();
     }
     return orElse();
   }
@@ -455,30 +457,30 @@ class _$ThreadIsEmpty implements ThreadIsEmpty {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(ThreadInitial value) threadInitial,
-    required TResult Function(ThreadLoadSuccess value) threadLoadSuccess,
-    required TResult Function(ThreadLoadError value) threadLoadError,
-    required TResult Function(ThreadIsEmpty value) threadIsEmpty,
+    required TResult Function(ThreadStateInitial value) initial,
+    required TResult Function(ThreadStateLoadSuccess value) loadSuccess,
+    required TResult Function(ThreadStateLoadError value) loadError,
+    required TResult Function(ThreadStateThreadsListIsEmpty value) threadsListIsEmpty,
   }) {
-    return threadIsEmpty(this);
+    return threadsListIsEmpty(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(ThreadInitial value)? threadInitial,
-    TResult Function(ThreadLoadSuccess value)? threadLoadSuccess,
-    TResult Function(ThreadLoadError value)? threadLoadError,
-    TResult Function(ThreadIsEmpty value)? threadIsEmpty,
+    TResult Function(ThreadStateInitial value)? initial,
+    TResult Function(ThreadStateLoadSuccess value)? loadSuccess,
+    TResult Function(ThreadStateLoadError value)? loadError,
+    TResult Function(ThreadStateThreadsListIsEmpty value)? threadsListIsEmpty,
     required TResult orElse(),
   }) {
-    if (threadIsEmpty != null) {
-      return threadIsEmpty(this);
+    if (threadsListIsEmpty != null) {
+      return threadsListIsEmpty(this);
     }
     return orElse();
   }
 }
 
-abstract class ThreadIsEmpty implements ThreadState {
-  const factory ThreadIsEmpty() = _$ThreadIsEmpty;
+abstract class ThreadStateThreadsListIsEmpty implements ThreadState {
+  const factory ThreadStateThreadsListIsEmpty() = _$ThreadStateThreadsListIsEmpty;
 }

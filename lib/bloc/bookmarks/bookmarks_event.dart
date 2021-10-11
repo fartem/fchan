@@ -5,15 +5,15 @@ part 'bookmarks_event.freezed.dart';
 
 @freezed
 abstract class BookmarksEvent with _$BookmarksEvent {
-  const factory BookmarksEvent.bookmarksInitialized() = BookmarksInitialized;
+  const factory BookmarksEvent.initialized() = BookmarksEventInitialized;
 
-  const factory BookmarksEvent.bookmarksPortionRequested() = BookmarksPortionRequested;
+  const factory BookmarksEvent.portionRequested() = BookmarksEventPortionRequested;
 
-  const factory BookmarksEvent.bookmarksUpdateRequested() = BookmarksUpdateRequested;
+  const factory BookmarksEvent.updateRequested() = BookmarksEventUpdateRequested;
 
-  const factory BookmarksEvent.bookmarksClearRequested() = BookmarksClearRequested;
+  const factory BookmarksEvent.clearRequested() = BookmarksEventClearRequested;
 
   const factory BookmarksEvent.bookmarkRemoved({
     required Thread bookmark,
-  }) = BookmarkRemoved;
+  }) = BookmarksEventBookmarkRemoved;
 }
