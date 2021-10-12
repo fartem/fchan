@@ -26,7 +26,11 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     yield* event.when(
       initialized: _mapHistoryEventInitializedToState,
       portionRequested: _mapHistoryEventThreadPortionRequestedToState,
+      updateRequested: _mapHistoryEventUpdateRequestedToState,
       clearRequested: _mapHistoryEventClearRequestedToState,
+      threadRemovedFromHistory: (thread) => _mapHistoryEventThreadRemovedFromHistory(
+        thread: thread,
+      ),
     );
   }
 
@@ -54,6 +58,17 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     );
   }
 
+  Stream<HistoryState> _mapHistoryEventUpdateRequestedToState() async* {
+    if (_listPortionController.items.isNotEmpty) {
+      yield HistoryStateLoadSuccess(
+        threads: List.unmodifiable(_listPortionController.items),
+        isLastPage: _listPortionController.isLastPage,
+      );
+    } else {
+      yield const HistoryStateHistoryIsEmpty();
+    }
+  }
+
   Stream<HistoryState> _mapHistoryEventClearRequestedToState() async* {
     yield const HistoryStateClearInProgress();
     await _listPortionController.reset();
@@ -61,8 +76,10 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     add(const HistoryEventInitialized());
   }
 
-  Future<void> deleteFromHistory(Thread thread) async {
-    // TODO(fartem): update History
-    await dataRepository.removeThreadFromHistory(thread);
+  Stream<HistoryState> _mapHistoryEventThreadRemovedFromHistory({
+    required Thread thread,
+  }) async* {
+    _listPortionController.items.remove(thread);
+    add(const HistoryEventUpdateRequested());
   }
 }

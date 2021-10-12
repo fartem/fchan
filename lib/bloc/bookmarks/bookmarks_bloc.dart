@@ -43,7 +43,7 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
           isLastPage: _listPortionController.isLastPage,
         );
       } else {
-        yield const BookmarksStateLoadError();
+        yield const BookmarksStateBookmarksListIsEmpty();
       }
     } on Exception {
       yield const BookmarksStateLoadError();
@@ -59,10 +59,14 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
   }
 
   Stream<BookmarksState> _mapBookmarksEventUpdateRequestedToState() async* {
-    yield BookmarksStateLoadSuccess(
-      threads: List.unmodifiable(_listPortionController.items),
-      isLastPage: _listPortionController.isLastPage,
-    );
+    if (_listPortionController.items.isNotEmpty) {
+      yield BookmarksStateLoadSuccess(
+        threads: List.unmodifiable(_listPortionController.items),
+        isLastPage: _listPortionController.isLastPage,
+      );
+    } else {
+      yield const BookmarksStateBookmarksListIsEmpty();
+    }
   }
 
   Stream<BookmarksState> _mapBookmarksEventClearRequestedToState() async* {

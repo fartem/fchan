@@ -83,7 +83,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         ThreadPopupMenuAction.removeFromHistory,
                       ],
                       // TODO(fartem): change event to `Update` or similar
-                      actionNotifier: (action) => _historyBloc.add(const HistoryEventInitialized()),
+                      actionNotifier: (action) => _historyBloc.add(
+                        HistoryEventThreadRemovedFromHistory(
+                          thread: thread,
+                        ),
+                      ),
                     );
                   },
                   itemCount: threads.length + (isLastPage ? 0 : 1),
