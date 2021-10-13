@@ -53,6 +53,7 @@ linter:
     - omit_local_variable_types
     - one_member_abstracts
     - prefer_constructors_over_static_methods
+    - prefer_single_quotes
     - prefer_final_in_for_each
     - prefer_final_locals
     - prefer_foreach
