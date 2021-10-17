@@ -1,6 +1,3 @@
-import 'package:fchan/data/providers/local/impl/local_data_provider_impl.dart';
-import 'package:fchan/data/providers/remote/impl/remote_data_provider_impl.dart';
-import 'package:fchan/data/repositories/data_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,12 +13,13 @@ class AppDependencies extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider<DataRepository>(
-          create: (context) => DataRepository(
-            localDataProvider: LocalDataProviderImpl(),
-            remoteDataProvider: RemoteDataProviderImpl(),
-          ),
-        ),
+        // TODO(fartem): init
+        // RepositoryProvider<DataRepository>(
+        //   create: (context) => DataRepository(
+        //     localDataProvider: LocalDataProviderImpl(),
+        //     remoteDataProvider: RemoteDataProviderImpl(),
+        //   ),
+        // ),
       ],
       child: child,
     );

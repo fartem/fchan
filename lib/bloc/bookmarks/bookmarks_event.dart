@@ -11,8 +11,6 @@ abstract class BookmarksEvent with _$BookmarksEvent {
 
   const factory BookmarksEvent.updateRequested() = BookmarksEventUpdateRequested;
 
-  const factory BookmarksEvent.clearRequested() = BookmarksEventClearRequested;
-
   const factory BookmarksEvent.bookmarkRemoved({
     required Thread bookmark,
   }) = BookmarksEventBookmarkRemoved;

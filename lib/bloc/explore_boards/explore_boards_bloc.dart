@@ -3,14 +3,17 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:fchan/bloc/explore_boards/explore_boards_event.dart';
 import 'package:fchan/bloc/explore_boards/explore_boards_state.dart';
-import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/data/repositories/api/boards_repository.dart';
+import 'package:fchan/data/repositories/api/favorites_repository.dart';
 import 'package:fchan/entities/board.dart';
 
 class ExploreBoardsBloc extends Bloc<ExploreBoardsEvent, ExploreBoardsState> {
-  final DataRepository dataRepository;
+  final BoardsRepository boardsRepository;
+  final FavoritesRepository favoritesRepository;
 
   ExploreBoardsBloc({
-    required this.dataRepository,
+    required this.boardsRepository,
+    required this.favoritesRepository,
   }) : super(const ExploreBoardsStateInitial()) {
     add(const ExploreBoardsEventInitialized());
   }
@@ -32,7 +35,7 @@ class ExploreBoardsBloc extends Bloc<ExploreBoardsEvent, ExploreBoardsState> {
 
   Stream<ExploreBoardsState> _mapExploreBoardsEventInitializedToState() async* {
     try {
-      final boards = await dataRepository.boards();
+      final boards = await boardsRepository.boards();
       if (boards.isNotEmpty) {
         yield ExploreBoardsStateLoadSuccess(boards: boards);
       } else {
@@ -46,7 +49,7 @@ class ExploreBoardsBloc extends Bloc<ExploreBoardsEvent, ExploreBoardsState> {
   Stream<ExploreBoardsState> _mapExploreBoardsEventBoardAddedToFavoritesToState({
     required Board board,
   }) async* {
-    await dataRepository.addBoardToFavorites(board);
+    await favoritesRepository.addBoardToFavorites(board);
     yield const ExploreBoardsStateInitial();
     add(const ExploreBoardsEventInitialized());
   }
@@ -54,7 +57,7 @@ class ExploreBoardsBloc extends Bloc<ExploreBoardsEvent, ExploreBoardsState> {
   Stream<ExploreBoardsState> _mapExploreBoardsEventBoardRemovedFromFavoritesToState({
     required Board board,
   }) async* {
-    await dataRepository.removeBoardFromFavorites(board);
+    await favoritesRepository.removeBoardFromFavorites(board);
     yield const ExploreBoardsStateInitial();
     add(const ExploreBoardsEventInitialized());
   }

@@ -3,15 +3,15 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:fchan/bloc/thread/thread_event.dart';
 import 'package:fchan/bloc/thread/thread_state.dart';
-import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/data/repositories/api/posts_repository.dart';
 import 'package:fchan/entities/thread.dart';
 
 class ThreadBloc extends Bloc<ThreadEvent, ThreadState> {
-  final DataRepository dataRepository;
+  final PostsRepository postsRepository;
   final Thread thread;
 
   ThreadBloc({
-    required this.dataRepository,
+    required this.postsRepository,
     required this.thread,
   }) : super(const ThreadStateInitial()) {
     add(const ThreadEventInitialized());
@@ -29,7 +29,7 @@ class ThreadBloc extends Bloc<ThreadEvent, ThreadState> {
 
   Stream<ThreadState> _mapEventToState() async* {
     try {
-      final posts = await dataRepository.remoteDataProvider.fetchPosts(thread);
+      final posts = await postsRepository.postsForThread(thread);
       if (posts.isNotEmpty) {
         yield ThreadStateLoadSuccess(posts: posts);
       } else {

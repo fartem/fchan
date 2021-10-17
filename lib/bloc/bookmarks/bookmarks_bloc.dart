@@ -4,18 +4,18 @@ import 'package:bloc/bloc.dart';
 import 'package:fchan/bloc/bookmarks/bookmarks_event.dart';
 import 'package:fchan/bloc/bookmarks/bookmarks_state.dart';
 import 'package:fchan/components/listcontroller/list_portion_controller.dart';
-import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/data/repositories/api/bookmarks_repository.dart';
 import 'package:fchan/entities/thread.dart';
 
 class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
-  final DataRepository dataRepository;
+  final BookmarksRepository bookmarksRepository;
 
   late ListPortionController<Thread> _listPortionController;
 
-  BookmarksBloc({required this.dataRepository}) : super(const BookmarksStateInitial()) {
+  BookmarksBloc({required this.bookmarksRepository}) : super(const BookmarksStateInitial()) {
     add(const BookmarksEventInitialized());
     _listPortionController = ListPortionController<Thread>(
-      portionProvider: dataRepository.bookmarks,
+      portionProvider: bookmarksRepository.bookmarks,
     );
   }
 
@@ -27,7 +27,6 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
       initialized: _mapBookmarksEventInitializedToState,
       portionRequested: _mapBookmarksEventThreadPortionRequestedToState,
       updateRequested: _mapBookmarksEventUpdateRequestedToState,
-      clearRequested: _mapBookmarksEventClearRequestedToState,
       bookmarkRemoved: (thread) => _mapBookmarksEventBookmarkRemovedToState(
         thread: thread,
       ),
@@ -69,18 +68,11 @@ class BookmarksBloc extends Bloc<BookmarksEvent, BookmarksState> {
     }
   }
 
-  Stream<BookmarksState> _mapBookmarksEventClearRequestedToState() async* {
-    yield const BookmarksStateClearInProgress();
-    await _listPortionController.reset();
-    await dataRepository.localDataProvider.clearHistory();
-    add(const BookmarksEventInitialized());
-  }
-
   Stream<BookmarksState> _mapBookmarksEventBookmarkRemovedToState({
     required Thread thread,
   }) async* {
     _listPortionController.items.remove(thread);
-    await dataRepository.removeThreadFromBookmarks(thread);
+    await bookmarksRepository.removeThreadFromBookmarks(thread);
     add(const BookmarksEventUpdateRequested());
   }
 }

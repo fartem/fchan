@@ -5,7 +5,7 @@ import 'package:fchan/components/routes/fchan_routes.dart';
 import 'package:fchan/components/widgets/app_centered_circular_progress_indicator.dart';
 import 'package:fchan/components/widgets/app_centered_text.dart';
 import 'package:fchan/components/widgets/app_screen_frame.dart';
-import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/data/repositories/api/favorites_repository.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       ],
       body: BlocProvider<FavoritesBloc>(
         create: (context) => FavoritesBloc(
-          dataRepository: RepositoryProvider.of<DataRepository>(context),
+          favoritesRepository: context.read<FavoritesRepository>(),
         ),
         child: BlocBuilder<FavoritesBloc, FavoritesState>(
           builder: (context, state) {

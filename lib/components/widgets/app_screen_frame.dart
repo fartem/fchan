@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class AppScreenFrame extends StatelessWidget {
   final String title;
-  final List<Widget> actions;
   final Widget body;
+  final List<Widget>? actions;
 
   const AppScreenFrame({
     required this.title,
-    required this.actions,
     required this.body,
+    this.actions,
     Key? key,
   }) : super(key: key);
 

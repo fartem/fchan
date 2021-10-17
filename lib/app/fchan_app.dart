@@ -1,6 +1,5 @@
 import 'package:fchan/components/routes/fchan_routes.dart';
 import 'package:fchan/components/themes/fchan_themes.dart';
-import 'package:fchan/data/repositories/data_repository.dart';
 import 'package:fchan/entities/board.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
@@ -14,7 +13,6 @@ import 'package:fchan/screens/thread_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:provider/provider.dart';
 
 class FChanApp extends StatefulWidget {
   const FChanApp({Key? key}) : super(key: key);
@@ -69,7 +67,8 @@ class FChanAppState extends State<FChanApp> {
 
   @override
   void dispose() {
-    context.read<DataRepository>().dispose();
+    // TODO(fartem): dispose
+    // context.read<DataRepository>().dispose();
     super.dispose();
   }
 }

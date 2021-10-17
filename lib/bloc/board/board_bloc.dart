@@ -4,21 +4,24 @@ import 'package:bloc/bloc.dart';
 import 'package:fchan/bloc/board/board_event.dart';
 import 'package:fchan/bloc/board/board_state.dart';
 import 'package:fchan/components/listcontroller/list_portion_controller.dart';
-import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/data/repositories/api/history_repository.dart';
+import 'package:fchan/data/repositories/api/threads_repository.dart';
 import 'package:fchan/entities/board.dart';
 import 'package:fchan/entities/thread.dart';
 
 class BoardBloc extends Bloc<BoardEvent, BoardState> {
-  final DataRepository dataRepository;
+  final ThreadsRepository threadsRepository;
+  final HistoryRepository historyRepository;
 
   late ListPortionController<Thread> _listPortionController;
 
   BoardBloc({
-    required this.dataRepository,
+    required this.threadsRepository,
+    required this.historyRepository,
     required Board board,
   }) : super(const BoardStateInitial()) {
     _listPortionController = ListPortionController<Thread>(
-      portionProvider: (entityPage) => dataRepository.catalogForBoard(
+      portionProvider: (entityPage) => threadsRepository.catalogForBoard(
         board,
         entityPage,
       ),
@@ -67,10 +70,10 @@ class BoardBloc extends Bloc<BoardEvent, BoardState> {
   }
 
   Future<void> addToHistory(Thread thread) async {
-    if (!(await dataRepository.threadContainsInHistory(thread))) {
-      await dataRepository.addThreadToHistory(thread);
+    if (!(await historyRepository.threadContainsInHistory(thread))) {
+      await historyRepository.addThreadToHistory(thread);
     } else {
-      await dataRepository.updateThreadInHistory(thread);
+      await historyRepository.updateThreadInHistory(thread);
     }
   }
 }

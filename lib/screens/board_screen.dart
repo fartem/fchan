@@ -5,7 +5,8 @@ import 'package:fchan/components/widgets/app_centered_circular_progress_indicato
 import 'package:fchan/components/widgets/app_centered_text.dart';
 import 'package:fchan/components/widgets/app_list_loader.dart';
 import 'package:fchan/components/widgets/app_thread_card.dart';
-import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/data/repositories/api/history_repository.dart';
+import 'package:fchan/data/repositories/api/threads_repository.dart';
 import 'package:fchan/entities/board.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,8 @@ class _BoardScreenState extends State<BoardScreen> {
   Widget build(BuildContext context) {
     return BlocProvider<BoardBloc>(
       create: (context) => BoardBloc(
-        dataRepository: context.read<DataRepository>(),
+        historyRepository: context.read<HistoryRepository>(),
+        threadsRepository: context.read<ThreadsRepository>(),
         board: widget.board,
       )..add(const BoardEventInitialized()),
       child: Scaffold(

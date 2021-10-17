@@ -2,7 +2,8 @@ import 'package:fchan/bloc/explore_boards/explore_boards_bloc.dart';
 import 'package:fchan/bloc/explore_boards/explore_boards_state.dart';
 import 'package:fchan/components/widgets/app_centered_circular_progress_indicator.dart';
 import 'package:fchan/components/widgets/app_centered_text.dart';
-import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/data/repositories/api/boards_repository.dart';
+import 'package:fchan/data/repositories/api/favorites_repository.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,8 @@ class ExploreBoardsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<ExploreBoardsBloc>(
       create: (context) => ExploreBoardsBloc(
-        dataRepository: RepositoryProvider.of<DataRepository>(context),
+        boardsRepository: context.read<BoardsRepository>(),
+        favoritesRepository: context.read<FavoritesRepository>(),
       ),
       child: Scaffold(
         appBar: AppBar(

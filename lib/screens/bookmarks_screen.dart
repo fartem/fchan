@@ -6,7 +6,7 @@ import 'package:fchan/components/widgets/app_centered_text.dart';
 import 'package:fchan/components/widgets/app_list_loader.dart';
 import 'package:fchan/components/widgets/app_screen_frame.dart';
 import 'package:fchan/components/widgets/app_thread_card.dart';
-import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/data/repositories/api/bookmarks_repository.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,39 +27,9 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
   Widget build(BuildContext context) {
     return AppScreenFrame(
       title: context.localizations.titleBookmarks,
-      actions: [
-        IconButton(
-          icon: const Icon(Icons.delete),
-          onPressed: () => showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              content: Text(
-                context.localizations.messageHistoryClear,
-              ),
-              actions: [
-                TextButton(
-                  child: Text(
-                    context.localizations.commonOk,
-                  ),
-                  onPressed: () {
-                    _bookmarksBloc.add(const BookmarksEventClearRequested());
-                    Navigator.pop(context);
-                  },
-                ),
-                TextButton(
-                  child: Text(
-                    context.localizations.commonCancel,
-                  ),
-                  onPressed: () => Navigator.pop(context),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
       body: BlocProvider(
         create: (context) => BookmarksBloc(
-          dataRepository: context.read<DataRepository>(),
+          bookmarksRepository: context.read<BookmarksRepository>(),
         ),
         child: BlocBuilder<BookmarksBloc, BookmarksState>(
           builder: (context, state) {

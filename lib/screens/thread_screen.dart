@@ -4,7 +4,7 @@ import 'package:fchan/bloc/thread/thread_state.dart';
 import 'package:fchan/components/widgets/app_centered_circular_progress_indicator.dart';
 import 'package:fchan/components/widgets/app_centered_text.dart';
 import 'package:fchan/components/widgets/app_post_card.dart';
-import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/data/repositories/api/posts_repository.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,7 +30,7 @@ class _ThreadScreenState extends State<ThreadScreen> {
   Widget build(BuildContext context) {
     return BlocProvider<ThreadBloc>(
       create: (context) => ThreadBloc(
-        dataRepository: context.read<DataRepository>(),
+        postsRepository: context.read<PostsRepository>(),
         thread: widget.thread,
       ),
       child: Scaffold(

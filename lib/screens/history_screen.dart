@@ -6,7 +6,7 @@ import 'package:fchan/components/widgets/app_centered_text.dart';
 import 'package:fchan/components/widgets/app_list_loader.dart';
 import 'package:fchan/components/widgets/app_screen_frame.dart';
 import 'package:fchan/components/widgets/app_thread_card.dart';
-import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/data/repositories/api/history_repository.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,7 +60,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       ],
       body: BlocProvider(
         create: (context) => HistoryBloc(
-          dataRepository: context.read<DataRepository>(),
+          historyRepository: context.read<HistoryRepository>(),
         ),
         child: BlocBuilder<HistoryBloc, HistoryState>(
           builder: (context, state) {

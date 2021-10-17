@@ -4,18 +4,18 @@ import 'package:bloc/bloc.dart';
 import 'package:fchan/bloc/history/history_event.dart';
 import 'package:fchan/bloc/history/history_state.dart';
 import 'package:fchan/components/listcontroller/list_portion_controller.dart';
-import 'package:fchan/data/repositories/data_repository.dart';
+import 'package:fchan/data/repositories/api/history_repository.dart';
 import 'package:fchan/entities/thread.dart';
 
 class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
-  final DataRepository dataRepository;
+  final HistoryRepository historyRepository;
 
   late ListPortionController<Thread> _listPortionController;
 
-  HistoryBloc({required this.dataRepository}) : super(const HistoryStateInitial()) {
+  HistoryBloc({required this.historyRepository}) : super(const HistoryStateInitial()) {
     add(const HistoryEventInitialized());
     _listPortionController = ListPortionController<Thread>(
-      portionProvider: dataRepository.history,
+      portionProvider: historyRepository.history,
     );
   }
 
@@ -72,7 +72,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   Stream<HistoryState> _mapHistoryEventClearRequestedToState() async* {
     yield const HistoryStateClearInProgress();
     await _listPortionController.reset();
-    await dataRepository.localDataProvider.clearHistory();
+    await historyRepository.clearHistory();
     add(const HistoryEventInitialized());
   }
 
