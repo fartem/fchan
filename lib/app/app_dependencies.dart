@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppDependencies extends StatelessWidget {
-  final Widget child;
+  final Widget app;
 
   const AppDependencies({
-    required this.child,
+    required this.app,
     Key? key,
   }) : super(key: key);
 
@@ -21,7 +21,7 @@ class AppDependencies extends StatelessWidget {
         //   ),
         // ),
       ],
-      child: child,
+      child: app,
     );
   }
 }

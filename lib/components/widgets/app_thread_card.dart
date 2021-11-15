@@ -19,7 +19,7 @@ class AppThreadCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO(fartem): init
+    // TODO(fartem): move to BLoC
     return Container();
     // final dataRepository = context.read<DataRepository>();
     // return Card(

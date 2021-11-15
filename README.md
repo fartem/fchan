@@ -8,7 +8,8 @@
 
 ## Project status
 
-Right now the app is in development. You can run the app on Android or iOS but build may be slow on some screens and UI is not finally approved.
+Right now the app is in development. You can run the app on Android or iOS but build may be slow on some screens and UI
+is not finally approved.
 
 You can track development state on [GitHub Projects](https://github.com/fartem/fchan/projects).
 
@@ -41,7 +42,8 @@ Just clone or download the project from GitHub and run it from your IDE.
 
 ### Without IDE
 
-You can build the app for Android from terminal without installing any IDE. For build the app from terminal, follow this steps:
+You can build the app for Android from terminal without installing any IDE. For build the app from terminal, follow this
+steps:
 
 1. install [Flutter](https://flutter.dev/docs/get-started/install) and dependencies for it;
 2. in terminal change current directory (by command `cd`) to the `android` folder int the project folder and run:
@@ -57,11 +59,13 @@ flutter build apk --profile --split-per-abi
 
 ### From IDE
 
-Just clone or download the project from GitHub and run it from your IDE. To find info about how to build app search [here](https://flutter.dev/docs/get-started/editor).
+Just clone or download the project from GitHub and run it from your IDE. To find info about how to build app
+search [here](https://flutter.dev/docs/get-started/editor).
 
 ## How to contribute
 
-Read [Commit Convention](https://github.com/fartem/repository-rules/blob/master/commit-convention/COMMIT_CONVENTION.md). Make sure your build is green before you contribute your pull request. Then:
+Read [Commit Convention](https://github.com/fartem/repository-rules/blob/master/commit-convention/COMMIT_CONVENTION.md).
+Make sure your build is green before you contribute your pull request. Then:
 
 ```shell
 $ flutter pub global activate dart_enum_to_string_check

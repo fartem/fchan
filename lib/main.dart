@@ -12,7 +12,7 @@ Future<void> main() async {
   );
   runApp(
     const AppDependencies(
-      child: FChanApp(),
+      app: FChanApp(),
     ),
   );
 }
