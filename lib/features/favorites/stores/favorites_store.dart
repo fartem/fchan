@@ -25,7 +25,9 @@ abstract class _FavoritesStore with Store {
     isBusy = true;
     hasError = false;
     try {
-      favorites.addAll(await favoritesRepository.favorites());
+      favorites
+        ..clear()
+        ..addAll(await favoritesRepository.favorites());
     } on Exception {
       hasError = true;
     }

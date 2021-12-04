@@ -11,19 +11,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ThreadScreen extends StatefulWidget {
+class ThreadPage extends StatefulWidget {
   final Thread thread;
 
-  const ThreadScreen({
+  const ThreadPage({
     required this.thread,
     Key? key,
   }) : super(key: key);
 
   @override
-  _ThreadScreenState createState() => _ThreadScreenState();
+  _ThreadPageState createState() => _ThreadPageState();
 }
 
-class _ThreadScreenState extends State<ThreadScreen> {
+class _ThreadPageState extends State<ThreadPage> {
   final ScrollController _scrollController = ScrollController();
 
   @override

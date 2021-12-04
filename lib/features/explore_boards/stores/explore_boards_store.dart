@@ -28,7 +28,14 @@ abstract class _ExploreBoardsStore with Store {
   @action
   Future<void> init() async {
     isBusy = true;
-    boards.addAll(await boardsRepository.boards());
+    hasError = false;
+    try {
+      boards
+        ..clear()
+        ..addAll(await boardsRepository.boards());
+    } on Exception {
+      hasError = true;
+    }
     isBusy = false;
   }
 }

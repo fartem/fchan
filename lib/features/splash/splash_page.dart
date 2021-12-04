@@ -1,18 +1,17 @@
 import 'package:fchan/components/routes/fchan_routes.dart';
 import 'package:fchan/data/providers/local/api/local_data_provider.dart';
-import 'package:fchan/data/providers/remote/api/remote_data_provider.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class SplashPage extends StatefulWidget {
+  const SplashPage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _SplashScreenState();
+  State<StatefulWidget> createState() => _SplashPageState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
