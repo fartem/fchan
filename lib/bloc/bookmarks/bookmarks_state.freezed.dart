@@ -20,7 +20,8 @@ class _$BookmarksStateTearOff {
     return const BookmarksStateInitial();
   }
 
-  BookmarksStateLoadSuccess loadSuccess({required List<Thread> threads, required bool isLastPage}) {
+  BookmarksStateLoadSuccess loadSuccess(
+      {required List<Thread> threads, required bool isLastPage}) {
     return BookmarksStateLoadSuccess(
       threads: threads,
       isLastPage: isLastPage,
@@ -48,13 +49,13 @@ mixin _$BookmarksState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Thread> threads, bool isLastPage) loadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage)
+        loadSuccess,
     required TResult Function() loadError,
     required TResult Function() clearInProgress,
     required TResult Function() bookmarksListIsEmpty,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
@@ -65,24 +66,25 @@ mixin _$BookmarksState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(BookmarksStateInitial value) initial,
     required TResult Function(BookmarksStateLoadSuccess value) loadSuccess,
     required TResult Function(BookmarksStateLoadError value) loadError,
-    required TResult Function(BookmarksStateClearInProgress value) clearInProgress,
-    required TResult Function(BookmarksStateBookmarksListIsEmpty value) bookmarksListIsEmpty,
+    required TResult Function(BookmarksStateClearInProgress value)
+        clearInProgress,
+    required TResult Function(BookmarksStateBookmarksListIsEmpty value)
+        bookmarksListIsEmpty,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BookmarksStateInitial value)? initial,
     TResult Function(BookmarksStateLoadSuccess value)? loadSuccess,
     TResult Function(BookmarksStateLoadError value)? loadError,
     TResult Function(BookmarksStateClearInProgress value)? clearInProgress,
-    TResult Function(BookmarksStateBookmarksListIsEmpty value)? bookmarksListIsEmpty,
+    TResult Function(BookmarksStateBookmarksListIsEmpty value)?
+        bookmarksListIsEmpty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -90,30 +92,34 @@ mixin _$BookmarksState {
 
 /// @nodoc
 abstract class $BookmarksStateCopyWith<$Res> {
-  factory $BookmarksStateCopyWith(BookmarksState value, $Res Function(BookmarksState) then) =
+  factory $BookmarksStateCopyWith(
+          BookmarksState value, $Res Function(BookmarksState) then) =
       _$BookmarksStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BookmarksStateCopyWithImpl<$Res> implements $BookmarksStateCopyWith<$Res> {
+class _$BookmarksStateCopyWithImpl<$Res>
+    implements $BookmarksStateCopyWith<$Res> {
   _$BookmarksStateCopyWithImpl(this._value, this._then);
 
   final BookmarksState _value;
-
   // ignore: unused_field
   final $Res Function(BookmarksState) _then;
 }
 
 /// @nodoc
 abstract class $BookmarksStateInitialCopyWith<$Res> {
-  factory $BookmarksStateInitialCopyWith(BookmarksStateInitial value, $Res Function(BookmarksStateInitial) then) =
+  factory $BookmarksStateInitialCopyWith(BookmarksStateInitial value,
+          $Res Function(BookmarksStateInitial) then) =
       _$BookmarksStateInitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BookmarksStateInitialCopyWithImpl<$Res> extends _$BookmarksStateCopyWithImpl<$Res>
+class _$BookmarksStateInitialCopyWithImpl<$Res>
+    extends _$BookmarksStateCopyWithImpl<$Res>
     implements $BookmarksStateInitialCopyWith<$Res> {
-  _$BookmarksStateInitialCopyWithImpl(BookmarksStateInitial _value, $Res Function(BookmarksStateInitial) _then)
+  _$BookmarksStateInitialCopyWithImpl(
+      BookmarksStateInitial _value, $Res Function(BookmarksStateInitial) _then)
       : super(_value, (v) => _then(v as BookmarksStateInitial));
 
   @override
@@ -141,7 +147,8 @@ class _$BookmarksStateInitial implements BookmarksStateInitial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Thread> threads, bool isLastPage) loadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage)
+        loadSuccess,
     required TResult Function() loadError,
     required TResult Function() clearInProgress,
     required TResult Function() bookmarksListIsEmpty,
@@ -171,8 +178,10 @@ class _$BookmarksStateInitial implements BookmarksStateInitial {
     required TResult Function(BookmarksStateInitial value) initial,
     required TResult Function(BookmarksStateLoadSuccess value) loadSuccess,
     required TResult Function(BookmarksStateLoadError value) loadError,
-    required TResult Function(BookmarksStateClearInProgress value) clearInProgress,
-    required TResult Function(BookmarksStateBookmarksListIsEmpty value) bookmarksListIsEmpty,
+    required TResult Function(BookmarksStateClearInProgress value)
+        clearInProgress,
+    required TResult Function(BookmarksStateBookmarksListIsEmpty value)
+        bookmarksListIsEmpty,
   }) {
     return initial(this);
   }
@@ -184,7 +193,8 @@ class _$BookmarksStateInitial implements BookmarksStateInitial {
     TResult Function(BookmarksStateLoadSuccess value)? loadSuccess,
     TResult Function(BookmarksStateLoadError value)? loadError,
     TResult Function(BookmarksStateClearInProgress value)? clearInProgress,
-    TResult Function(BookmarksStateBookmarksListIsEmpty value)? bookmarksListIsEmpty,
+    TResult Function(BookmarksStateBookmarksListIsEmpty value)?
+        bookmarksListIsEmpty,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -200,22 +210,23 @@ abstract class BookmarksStateInitial implements BookmarksState {
 
 /// @nodoc
 abstract class $BookmarksStateLoadSuccessCopyWith<$Res> {
-  factory $BookmarksStateLoadSuccessCopyWith(
-          BookmarksStateLoadSuccess value, $Res Function(BookmarksStateLoadSuccess) then) =
+  factory $BookmarksStateLoadSuccessCopyWith(BookmarksStateLoadSuccess value,
+          $Res Function(BookmarksStateLoadSuccess) then) =
       _$BookmarksStateLoadSuccessCopyWithImpl<$Res>;
-
   $Res call({List<Thread> threads, bool isLastPage});
 }
 
 /// @nodoc
-class _$BookmarksStateLoadSuccessCopyWithImpl<$Res> extends _$BookmarksStateCopyWithImpl<$Res>
+class _$BookmarksStateLoadSuccessCopyWithImpl<$Res>
+    extends _$BookmarksStateCopyWithImpl<$Res>
     implements $BookmarksStateLoadSuccessCopyWith<$Res> {
-  _$BookmarksStateLoadSuccessCopyWithImpl(
-      BookmarksStateLoadSuccess _value, $Res Function(BookmarksStateLoadSuccess) _then)
+  _$BookmarksStateLoadSuccessCopyWithImpl(BookmarksStateLoadSuccess _value,
+      $Res Function(BookmarksStateLoadSuccess) _then)
       : super(_value, (v) => _then(v as BookmarksStateLoadSuccess));
 
   @override
-  BookmarksStateLoadSuccess get _value => super._value as BookmarksStateLoadSuccess;
+  BookmarksStateLoadSuccess get _value =>
+      super._value as BookmarksStateLoadSuccess;
 
   @override
   $Res call({
@@ -237,7 +248,8 @@ class _$BookmarksStateLoadSuccessCopyWithImpl<$Res> extends _$BookmarksStateCopy
 
 /// @nodoc
 class _$BookmarksStateLoadSuccess implements BookmarksStateLoadSuccess {
-  const _$BookmarksStateLoadSuccess({required this.threads, required this.isLastPage});
+  const _$BookmarksStateLoadSuccess(
+      {required this.threads, required this.isLastPage});
 
   @override
   final List<Thread> threads;
@@ -253,9 +265,12 @@ class _$BookmarksStateLoadSuccess implements BookmarksStateLoadSuccess {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is BookmarksStateLoadSuccess &&
-            (identical(other.threads, threads) || const DeepCollectionEquality().equals(other.threads, threads)) &&
+            (identical(other.threads, threads) ||
+                const DeepCollectionEquality()
+                    .equals(other.threads, threads)) &&
             (identical(other.isLastPage, isLastPage) ||
-                const DeepCollectionEquality().equals(other.isLastPage, isLastPage)));
+                const DeepCollectionEquality()
+                    .equals(other.isLastPage, isLastPage)));
   }
 
   @override
@@ -267,13 +282,15 @@ class _$BookmarksStateLoadSuccess implements BookmarksStateLoadSuccess {
   @JsonKey(ignore: true)
   @override
   $BookmarksStateLoadSuccessCopyWith<BookmarksStateLoadSuccess> get copyWith =>
-      _$BookmarksStateLoadSuccessCopyWithImpl<BookmarksStateLoadSuccess>(this, _$identity);
+      _$BookmarksStateLoadSuccessCopyWithImpl<BookmarksStateLoadSuccess>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Thread> threads, bool isLastPage) loadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage)
+        loadSuccess,
     required TResult Function() loadError,
     required TResult Function() clearInProgress,
     required TResult Function() bookmarksListIsEmpty,
@@ -303,8 +320,10 @@ class _$BookmarksStateLoadSuccess implements BookmarksStateLoadSuccess {
     required TResult Function(BookmarksStateInitial value) initial,
     required TResult Function(BookmarksStateLoadSuccess value) loadSuccess,
     required TResult Function(BookmarksStateLoadError value) loadError,
-    required TResult Function(BookmarksStateClearInProgress value) clearInProgress,
-    required TResult Function(BookmarksStateBookmarksListIsEmpty value) bookmarksListIsEmpty,
+    required TResult Function(BookmarksStateClearInProgress value)
+        clearInProgress,
+    required TResult Function(BookmarksStateBookmarksListIsEmpty value)
+        bookmarksListIsEmpty,
   }) {
     return loadSuccess(this);
   }
@@ -316,7 +335,8 @@ class _$BookmarksStateLoadSuccess implements BookmarksStateLoadSuccess {
     TResult Function(BookmarksStateLoadSuccess value)? loadSuccess,
     TResult Function(BookmarksStateLoadError value)? loadError,
     TResult Function(BookmarksStateClearInProgress value)? clearInProgress,
-    TResult Function(BookmarksStateBookmarksListIsEmpty value)? bookmarksListIsEmpty,
+    TResult Function(BookmarksStateBookmarksListIsEmpty value)?
+        bookmarksListIsEmpty,
     required TResult orElse(),
   }) {
     if (loadSuccess != null) {
@@ -327,27 +347,30 @@ class _$BookmarksStateLoadSuccess implements BookmarksStateLoadSuccess {
 }
 
 abstract class BookmarksStateLoadSuccess implements BookmarksState {
-  const factory BookmarksStateLoadSuccess({required List<Thread> threads, required bool isLastPage}) =
-      _$BookmarksStateLoadSuccess;
+  const factory BookmarksStateLoadSuccess(
+      {required List<Thread> threads,
+      required bool isLastPage}) = _$BookmarksStateLoadSuccess;
 
   List<Thread> get threads => throw _privateConstructorUsedError;
-
   bool get isLastPage => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
-  $BookmarksStateLoadSuccessCopyWith<BookmarksStateLoadSuccess> get copyWith => throw _privateConstructorUsedError;
+  $BookmarksStateLoadSuccessCopyWith<BookmarksStateLoadSuccess> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $BookmarksStateLoadErrorCopyWith<$Res> {
-  factory $BookmarksStateLoadErrorCopyWith(BookmarksStateLoadError value, $Res Function(BookmarksStateLoadError) then) =
+  factory $BookmarksStateLoadErrorCopyWith(BookmarksStateLoadError value,
+          $Res Function(BookmarksStateLoadError) then) =
       _$BookmarksStateLoadErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BookmarksStateLoadErrorCopyWithImpl<$Res> extends _$BookmarksStateCopyWithImpl<$Res>
+class _$BookmarksStateLoadErrorCopyWithImpl<$Res>
+    extends _$BookmarksStateCopyWithImpl<$Res>
     implements $BookmarksStateLoadErrorCopyWith<$Res> {
-  _$BookmarksStateLoadErrorCopyWithImpl(BookmarksStateLoadError _value, $Res Function(BookmarksStateLoadError) _then)
+  _$BookmarksStateLoadErrorCopyWithImpl(BookmarksStateLoadError _value,
+      $Res Function(BookmarksStateLoadError) _then)
       : super(_value, (v) => _then(v as BookmarksStateLoadError));
 
   @override
@@ -375,7 +398,8 @@ class _$BookmarksStateLoadError implements BookmarksStateLoadError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Thread> threads, bool isLastPage) loadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage)
+        loadSuccess,
     required TResult Function() loadError,
     required TResult Function() clearInProgress,
     required TResult Function() bookmarksListIsEmpty,
@@ -405,8 +429,10 @@ class _$BookmarksStateLoadError implements BookmarksStateLoadError {
     required TResult Function(BookmarksStateInitial value) initial,
     required TResult Function(BookmarksStateLoadSuccess value) loadSuccess,
     required TResult Function(BookmarksStateLoadError value) loadError,
-    required TResult Function(BookmarksStateClearInProgress value) clearInProgress,
-    required TResult Function(BookmarksStateBookmarksListIsEmpty value) bookmarksListIsEmpty,
+    required TResult Function(BookmarksStateClearInProgress value)
+        clearInProgress,
+    required TResult Function(BookmarksStateBookmarksListIsEmpty value)
+        bookmarksListIsEmpty,
   }) {
     return loadError(this);
   }
@@ -418,7 +444,8 @@ class _$BookmarksStateLoadError implements BookmarksStateLoadError {
     TResult Function(BookmarksStateLoadSuccess value)? loadSuccess,
     TResult Function(BookmarksStateLoadError value)? loadError,
     TResult Function(BookmarksStateClearInProgress value)? clearInProgress,
-    TResult Function(BookmarksStateBookmarksListIsEmpty value)? bookmarksListIsEmpty,
+    TResult Function(BookmarksStateBookmarksListIsEmpty value)?
+        bookmarksListIsEmpty,
     required TResult orElse(),
   }) {
     if (loadError != null) {
@@ -435,19 +462,23 @@ abstract class BookmarksStateLoadError implements BookmarksState {
 /// @nodoc
 abstract class $BookmarksStateClearInProgressCopyWith<$Res> {
   factory $BookmarksStateClearInProgressCopyWith(
-          BookmarksStateClearInProgress value, $Res Function(BookmarksStateClearInProgress) then) =
+          BookmarksStateClearInProgress value,
+          $Res Function(BookmarksStateClearInProgress) then) =
       _$BookmarksStateClearInProgressCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BookmarksStateClearInProgressCopyWithImpl<$Res> extends _$BookmarksStateCopyWithImpl<$Res>
+class _$BookmarksStateClearInProgressCopyWithImpl<$Res>
+    extends _$BookmarksStateCopyWithImpl<$Res>
     implements $BookmarksStateClearInProgressCopyWith<$Res> {
   _$BookmarksStateClearInProgressCopyWithImpl(
-      BookmarksStateClearInProgress _value, $Res Function(BookmarksStateClearInProgress) _then)
+      BookmarksStateClearInProgress _value,
+      $Res Function(BookmarksStateClearInProgress) _then)
       : super(_value, (v) => _then(v as BookmarksStateClearInProgress));
 
   @override
-  BookmarksStateClearInProgress get _value => super._value as BookmarksStateClearInProgress;
+  BookmarksStateClearInProgress get _value =>
+      super._value as BookmarksStateClearInProgress;
 }
 
 /// @nodoc
@@ -471,7 +502,8 @@ class _$BookmarksStateClearInProgress implements BookmarksStateClearInProgress {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Thread> threads, bool isLastPage) loadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage)
+        loadSuccess,
     required TResult Function() loadError,
     required TResult Function() clearInProgress,
     required TResult Function() bookmarksListIsEmpty,
@@ -501,8 +533,10 @@ class _$BookmarksStateClearInProgress implements BookmarksStateClearInProgress {
     required TResult Function(BookmarksStateInitial value) initial,
     required TResult Function(BookmarksStateLoadSuccess value) loadSuccess,
     required TResult Function(BookmarksStateLoadError value) loadError,
-    required TResult Function(BookmarksStateClearInProgress value) clearInProgress,
-    required TResult Function(BookmarksStateBookmarksListIsEmpty value) bookmarksListIsEmpty,
+    required TResult Function(BookmarksStateClearInProgress value)
+        clearInProgress,
+    required TResult Function(BookmarksStateBookmarksListIsEmpty value)
+        bookmarksListIsEmpty,
   }) {
     return clearInProgress(this);
   }
@@ -514,7 +548,8 @@ class _$BookmarksStateClearInProgress implements BookmarksStateClearInProgress {
     TResult Function(BookmarksStateLoadSuccess value)? loadSuccess,
     TResult Function(BookmarksStateLoadError value)? loadError,
     TResult Function(BookmarksStateClearInProgress value)? clearInProgress,
-    TResult Function(BookmarksStateBookmarksListIsEmpty value)? bookmarksListIsEmpty,
+    TResult Function(BookmarksStateBookmarksListIsEmpty value)?
+        bookmarksListIsEmpty,
     required TResult orElse(),
   }) {
     if (clearInProgress != null) {
@@ -525,29 +560,35 @@ class _$BookmarksStateClearInProgress implements BookmarksStateClearInProgress {
 }
 
 abstract class BookmarksStateClearInProgress implements BookmarksState {
-  const factory BookmarksStateClearInProgress() = _$BookmarksStateClearInProgress;
+  const factory BookmarksStateClearInProgress() =
+      _$BookmarksStateClearInProgress;
 }
 
 /// @nodoc
 abstract class $BookmarksStateBookmarksListIsEmptyCopyWith<$Res> {
   factory $BookmarksStateBookmarksListIsEmptyCopyWith(
-          BookmarksStateBookmarksListIsEmpty value, $Res Function(BookmarksStateBookmarksListIsEmpty) then) =
+          BookmarksStateBookmarksListIsEmpty value,
+          $Res Function(BookmarksStateBookmarksListIsEmpty) then) =
       _$BookmarksStateBookmarksListIsEmptyCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BookmarksStateBookmarksListIsEmptyCopyWithImpl<$Res> extends _$BookmarksStateCopyWithImpl<$Res>
+class _$BookmarksStateBookmarksListIsEmptyCopyWithImpl<$Res>
+    extends _$BookmarksStateCopyWithImpl<$Res>
     implements $BookmarksStateBookmarksListIsEmptyCopyWith<$Res> {
   _$BookmarksStateBookmarksListIsEmptyCopyWithImpl(
-      BookmarksStateBookmarksListIsEmpty _value, $Res Function(BookmarksStateBookmarksListIsEmpty) _then)
+      BookmarksStateBookmarksListIsEmpty _value,
+      $Res Function(BookmarksStateBookmarksListIsEmpty) _then)
       : super(_value, (v) => _then(v as BookmarksStateBookmarksListIsEmpty));
 
   @override
-  BookmarksStateBookmarksListIsEmpty get _value => super._value as BookmarksStateBookmarksListIsEmpty;
+  BookmarksStateBookmarksListIsEmpty get _value =>
+      super._value as BookmarksStateBookmarksListIsEmpty;
 }
 
 /// @nodoc
-class _$BookmarksStateBookmarksListIsEmpty implements BookmarksStateBookmarksListIsEmpty {
+class _$BookmarksStateBookmarksListIsEmpty
+    implements BookmarksStateBookmarksListIsEmpty {
   const _$BookmarksStateBookmarksListIsEmpty();
 
   @override
@@ -557,7 +598,8 @@ class _$BookmarksStateBookmarksListIsEmpty implements BookmarksStateBookmarksLis
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is BookmarksStateBookmarksListIsEmpty);
+    return identical(this, other) ||
+        (other is BookmarksStateBookmarksListIsEmpty);
   }
 
   @override
@@ -567,7 +609,8 @@ class _$BookmarksStateBookmarksListIsEmpty implements BookmarksStateBookmarksLis
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Thread> threads, bool isLastPage) loadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage)
+        loadSuccess,
     required TResult Function() loadError,
     required TResult Function() clearInProgress,
     required TResult Function() bookmarksListIsEmpty,
@@ -597,8 +640,10 @@ class _$BookmarksStateBookmarksListIsEmpty implements BookmarksStateBookmarksLis
     required TResult Function(BookmarksStateInitial value) initial,
     required TResult Function(BookmarksStateLoadSuccess value) loadSuccess,
     required TResult Function(BookmarksStateLoadError value) loadError,
-    required TResult Function(BookmarksStateClearInProgress value) clearInProgress,
-    required TResult Function(BookmarksStateBookmarksListIsEmpty value) bookmarksListIsEmpty,
+    required TResult Function(BookmarksStateClearInProgress value)
+        clearInProgress,
+    required TResult Function(BookmarksStateBookmarksListIsEmpty value)
+        bookmarksListIsEmpty,
   }) {
     return bookmarksListIsEmpty(this);
   }
@@ -610,7 +655,8 @@ class _$BookmarksStateBookmarksListIsEmpty implements BookmarksStateBookmarksLis
     TResult Function(BookmarksStateLoadSuccess value)? loadSuccess,
     TResult Function(BookmarksStateLoadError value)? loadError,
     TResult Function(BookmarksStateClearInProgress value)? clearInProgress,
-    TResult Function(BookmarksStateBookmarksListIsEmpty value)? bookmarksListIsEmpty,
+    TResult Function(BookmarksStateBookmarksListIsEmpty value)?
+        bookmarksListIsEmpty,
     required TResult orElse(),
   }) {
     if (bookmarksListIsEmpty != null) {
@@ -621,5 +667,6 @@ class _$BookmarksStateBookmarksListIsEmpty implements BookmarksStateBookmarksLis
 }
 
 abstract class BookmarksStateBookmarksListIsEmpty implements BookmarksState {
-  const factory BookmarksStateBookmarksListIsEmpty() = _$BookmarksStateBookmarksListIsEmpty;
+  const factory BookmarksStateBookmarksListIsEmpty() =
+      _$BookmarksStateBookmarksListIsEmpty;
 }

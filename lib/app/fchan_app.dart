@@ -3,10 +3,10 @@ import 'package:fchan/components/themes/fchan_themes.dart';
 import 'package:fchan/entities/board.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
+import 'package:fchan/features/favorites/page/favorites_page.dart';
 import 'package:fchan/screens/board_screen.dart';
 import 'package:fchan/screens/bookmarks_screen.dart';
-import 'package:fchan/screens/explore_boards_screen.dart';
-import 'package:fchan/screens/favorite_boards_screen.dart';
+import 'package:fchan/features/explore_boards/page/explore_boards_page.dart';
 import 'package:fchan/screens/history_screen.dart';
 import 'package:fchan/screens/splash_screen.dart';
 import 'package:fchan/screens/thread_screen.dart';
@@ -37,7 +37,7 @@ class FChanAppState extends State<FChanApp> {
             );
           case routeExploreBoards:
             return MaterialPageRoute(
-              builder: (_) => const ExploreBoardsScreen(),
+              builder: (_) => const ExploreBoardsPage(),
             );
           case routeBoard:
             return MaterialPageRoute(
@@ -83,7 +83,7 @@ class FChan extends StatefulWidget {
 class _FChanState extends State<FChan> {
   final _currentScreen = ValueNotifier<int>(0);
   final screens = [
-    const FavoritesScreen(),
+    const FavoritesPage(),
     const BookmarksScreen(),
     const HistoryScreen(),
   ];

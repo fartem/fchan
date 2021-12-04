@@ -41,7 +41,6 @@ mixin _$BoardEvent {
     required TResult Function() refreshed,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialized,
@@ -50,15 +49,14 @@ mixin _$BoardEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(BoardEventInitialized value) initialized,
-    required TResult Function(BoardEventPortionRequested value) portionRequested,
+    required TResult Function(BoardEventPortionRequested value)
+        portionRequested,
     required TResult Function(BoardEventRefreshed value) refreshed,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BoardEventInitialized value)? initialized,
@@ -71,7 +69,9 @@ mixin _$BoardEvent {
 
 /// @nodoc
 abstract class $BoardEventCopyWith<$Res> {
-  factory $BoardEventCopyWith(BoardEvent value, $Res Function(BoardEvent) then) = _$BoardEventCopyWithImpl<$Res>;
+  factory $BoardEventCopyWith(
+          BoardEvent value, $Res Function(BoardEvent) then) =
+      _$BoardEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
@@ -79,21 +79,23 @@ class _$BoardEventCopyWithImpl<$Res> implements $BoardEventCopyWith<$Res> {
   _$BoardEventCopyWithImpl(this._value, this._then);
 
   final BoardEvent _value;
-
   // ignore: unused_field
   final $Res Function(BoardEvent) _then;
 }
 
 /// @nodoc
 abstract class $BoardEventInitializedCopyWith<$Res> {
-  factory $BoardEventInitializedCopyWith(BoardEventInitialized value, $Res Function(BoardEventInitialized) then) =
+  factory $BoardEventInitializedCopyWith(BoardEventInitialized value,
+          $Res Function(BoardEventInitialized) then) =
       _$BoardEventInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BoardEventInitializedCopyWithImpl<$Res> extends _$BoardEventCopyWithImpl<$Res>
+class _$BoardEventInitializedCopyWithImpl<$Res>
+    extends _$BoardEventCopyWithImpl<$Res>
     implements $BoardEventInitializedCopyWith<$Res> {
-  _$BoardEventInitializedCopyWithImpl(BoardEventInitialized _value, $Res Function(BoardEventInitialized) _then)
+  _$BoardEventInitializedCopyWithImpl(
+      BoardEventInitialized _value, $Res Function(BoardEventInitialized) _then)
       : super(_value, (v) => _then(v as BoardEventInitialized));
 
   @override
@@ -145,7 +147,8 @@ class _$BoardEventInitialized implements BoardEventInitialized {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(BoardEventInitialized value) initialized,
-    required TResult Function(BoardEventPortionRequested value) portionRequested,
+    required TResult Function(BoardEventPortionRequested value)
+        portionRequested,
     required TResult Function(BoardEventRefreshed value) refreshed,
   }) {
     return initialized(this);
@@ -172,20 +175,22 @@ abstract class BoardEventInitialized implements BoardEvent {
 
 /// @nodoc
 abstract class $BoardEventPortionRequestedCopyWith<$Res> {
-  factory $BoardEventPortionRequestedCopyWith(
-          BoardEventPortionRequested value, $Res Function(BoardEventPortionRequested) then) =
+  factory $BoardEventPortionRequestedCopyWith(BoardEventPortionRequested value,
+          $Res Function(BoardEventPortionRequested) then) =
       _$BoardEventPortionRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BoardEventPortionRequestedCopyWithImpl<$Res> extends _$BoardEventCopyWithImpl<$Res>
+class _$BoardEventPortionRequestedCopyWithImpl<$Res>
+    extends _$BoardEventCopyWithImpl<$Res>
     implements $BoardEventPortionRequestedCopyWith<$Res> {
-  _$BoardEventPortionRequestedCopyWithImpl(
-      BoardEventPortionRequested _value, $Res Function(BoardEventPortionRequested) _then)
+  _$BoardEventPortionRequestedCopyWithImpl(BoardEventPortionRequested _value,
+      $Res Function(BoardEventPortionRequested) _then)
       : super(_value, (v) => _then(v as BoardEventPortionRequested));
 
   @override
-  BoardEventPortionRequested get _value => super._value as BoardEventPortionRequested;
+  BoardEventPortionRequested get _value =>
+      super._value as BoardEventPortionRequested;
 }
 
 /// @nodoc
@@ -233,7 +238,8 @@ class _$BoardEventPortionRequested implements BoardEventPortionRequested {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(BoardEventInitialized value) initialized,
-    required TResult Function(BoardEventPortionRequested value) portionRequested,
+    required TResult Function(BoardEventPortionRequested value)
+        portionRequested,
     required TResult Function(BoardEventRefreshed value) refreshed,
   }) {
     return portionRequested(this);
@@ -260,14 +266,17 @@ abstract class BoardEventPortionRequested implements BoardEvent {
 
 /// @nodoc
 abstract class $BoardEventRefreshedCopyWith<$Res> {
-  factory $BoardEventRefreshedCopyWith(BoardEventRefreshed value, $Res Function(BoardEventRefreshed) then) =
+  factory $BoardEventRefreshedCopyWith(
+          BoardEventRefreshed value, $Res Function(BoardEventRefreshed) then) =
       _$BoardEventRefreshedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BoardEventRefreshedCopyWithImpl<$Res> extends _$BoardEventCopyWithImpl<$Res>
+class _$BoardEventRefreshedCopyWithImpl<$Res>
+    extends _$BoardEventCopyWithImpl<$Res>
     implements $BoardEventRefreshedCopyWith<$Res> {
-  _$BoardEventRefreshedCopyWithImpl(BoardEventRefreshed _value, $Res Function(BoardEventRefreshed) _then)
+  _$BoardEventRefreshedCopyWithImpl(
+      BoardEventRefreshed _value, $Res Function(BoardEventRefreshed) _then)
       : super(_value, (v) => _then(v as BoardEventRefreshed));
 
   @override
@@ -319,7 +328,8 @@ class _$BoardEventRefreshed implements BoardEventRefreshed {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(BoardEventInitialized value) initialized,
-    required TResult Function(BoardEventPortionRequested value) portionRequested,
+    required TResult Function(BoardEventPortionRequested value)
+        portionRequested,
     required TResult Function(BoardEventRefreshed value) refreshed,
   }) {
     return refreshed(this);

@@ -48,7 +48,6 @@ mixin _$ThreadState {
     required TResult Function() threadsListIsEmpty,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
@@ -58,16 +57,15 @@ mixin _$ThreadState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ThreadStateInitial value) initial,
     required TResult Function(ThreadStateLoadSuccess value) loadSuccess,
     required TResult Function(ThreadStateLoadError value) loadError,
-    required TResult Function(ThreadStateThreadsListIsEmpty value) threadsListIsEmpty,
+    required TResult Function(ThreadStateThreadsListIsEmpty value)
+        threadsListIsEmpty,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ThreadStateInitial value)? initial,
@@ -81,7 +79,9 @@ mixin _$ThreadState {
 
 /// @nodoc
 abstract class $ThreadStateCopyWith<$Res> {
-  factory $ThreadStateCopyWith(ThreadState value, $Res Function(ThreadState) then) = _$ThreadStateCopyWithImpl<$Res>;
+  factory $ThreadStateCopyWith(
+          ThreadState value, $Res Function(ThreadState) then) =
+      _$ThreadStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
@@ -89,21 +89,23 @@ class _$ThreadStateCopyWithImpl<$Res> implements $ThreadStateCopyWith<$Res> {
   _$ThreadStateCopyWithImpl(this._value, this._then);
 
   final ThreadState _value;
-
   // ignore: unused_field
   final $Res Function(ThreadState) _then;
 }
 
 /// @nodoc
 abstract class $ThreadStateInitialCopyWith<$Res> {
-  factory $ThreadStateInitialCopyWith(ThreadStateInitial value, $Res Function(ThreadStateInitial) then) =
+  factory $ThreadStateInitialCopyWith(
+          ThreadStateInitial value, $Res Function(ThreadStateInitial) then) =
       _$ThreadStateInitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ThreadStateInitialCopyWithImpl<$Res> extends _$ThreadStateCopyWithImpl<$Res>
+class _$ThreadStateInitialCopyWithImpl<$Res>
+    extends _$ThreadStateCopyWithImpl<$Res>
     implements $ThreadStateInitialCopyWith<$Res> {
-  _$ThreadStateInitialCopyWithImpl(ThreadStateInitial _value, $Res Function(ThreadStateInitial) _then)
+  _$ThreadStateInitialCopyWithImpl(
+      ThreadStateInitial _value, $Res Function(ThreadStateInitial) _then)
       : super(_value, (v) => _then(v as ThreadStateInitial));
 
   @override
@@ -159,7 +161,8 @@ class _$ThreadStateInitial implements ThreadStateInitial {
     required TResult Function(ThreadStateInitial value) initial,
     required TResult Function(ThreadStateLoadSuccess value) loadSuccess,
     required TResult Function(ThreadStateLoadError value) loadError,
-    required TResult Function(ThreadStateThreadsListIsEmpty value) threadsListIsEmpty,
+    required TResult Function(ThreadStateThreadsListIsEmpty value)
+        threadsListIsEmpty,
   }) {
     return initial(this);
   }
@@ -186,16 +189,18 @@ abstract class ThreadStateInitial implements ThreadState {
 
 /// @nodoc
 abstract class $ThreadStateLoadSuccessCopyWith<$Res> {
-  factory $ThreadStateLoadSuccessCopyWith(ThreadStateLoadSuccess value, $Res Function(ThreadStateLoadSuccess) then) =
+  factory $ThreadStateLoadSuccessCopyWith(ThreadStateLoadSuccess value,
+          $Res Function(ThreadStateLoadSuccess) then) =
       _$ThreadStateLoadSuccessCopyWithImpl<$Res>;
-
   $Res call({List<Post> posts});
 }
 
 /// @nodoc
-class _$ThreadStateLoadSuccessCopyWithImpl<$Res> extends _$ThreadStateCopyWithImpl<$Res>
+class _$ThreadStateLoadSuccessCopyWithImpl<$Res>
+    extends _$ThreadStateCopyWithImpl<$Res>
     implements $ThreadStateLoadSuccessCopyWith<$Res> {
-  _$ThreadStateLoadSuccessCopyWithImpl(ThreadStateLoadSuccess _value, $Res Function(ThreadStateLoadSuccess) _then)
+  _$ThreadStateLoadSuccessCopyWithImpl(ThreadStateLoadSuccess _value,
+      $Res Function(ThreadStateLoadSuccess) _then)
       : super(_value, (v) => _then(v as ThreadStateLoadSuccess));
 
   @override
@@ -230,16 +235,19 @@ class _$ThreadStateLoadSuccess implements ThreadStateLoadSuccess {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is ThreadStateLoadSuccess &&
-            (identical(other.posts, posts) || const DeepCollectionEquality().equals(other.posts, posts)));
+            (identical(other.posts, posts) ||
+                const DeepCollectionEquality().equals(other.posts, posts)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ const DeepCollectionEquality().hash(posts);
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(posts);
 
   @JsonKey(ignore: true)
   @override
   $ThreadStateLoadSuccessCopyWith<ThreadStateLoadSuccess> get copyWith =>
-      _$ThreadStateLoadSuccessCopyWithImpl<ThreadStateLoadSuccess>(this, _$identity);
+      _$ThreadStateLoadSuccessCopyWithImpl<ThreadStateLoadSuccess>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -273,7 +281,8 @@ class _$ThreadStateLoadSuccess implements ThreadStateLoadSuccess {
     required TResult Function(ThreadStateInitial value) initial,
     required TResult Function(ThreadStateLoadSuccess value) loadSuccess,
     required TResult Function(ThreadStateLoadError value) loadError,
-    required TResult Function(ThreadStateThreadsListIsEmpty value) threadsListIsEmpty,
+    required TResult Function(ThreadStateThreadsListIsEmpty value)
+        threadsListIsEmpty,
   }) {
     return loadSuccess(this);
   }
@@ -295,24 +304,28 @@ class _$ThreadStateLoadSuccess implements ThreadStateLoadSuccess {
 }
 
 abstract class ThreadStateLoadSuccess implements ThreadState {
-  const factory ThreadStateLoadSuccess({required List<Post> posts}) = _$ThreadStateLoadSuccess;
+  const factory ThreadStateLoadSuccess({required List<Post> posts}) =
+      _$ThreadStateLoadSuccess;
 
   List<Post> get posts => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
-  $ThreadStateLoadSuccessCopyWith<ThreadStateLoadSuccess> get copyWith => throw _privateConstructorUsedError;
+  $ThreadStateLoadSuccessCopyWith<ThreadStateLoadSuccess> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ThreadStateLoadErrorCopyWith<$Res> {
-  factory $ThreadStateLoadErrorCopyWith(ThreadStateLoadError value, $Res Function(ThreadStateLoadError) then) =
+  factory $ThreadStateLoadErrorCopyWith(ThreadStateLoadError value,
+          $Res Function(ThreadStateLoadError) then) =
       _$ThreadStateLoadErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ThreadStateLoadErrorCopyWithImpl<$Res> extends _$ThreadStateCopyWithImpl<$Res>
+class _$ThreadStateLoadErrorCopyWithImpl<$Res>
+    extends _$ThreadStateCopyWithImpl<$Res>
     implements $ThreadStateLoadErrorCopyWith<$Res> {
-  _$ThreadStateLoadErrorCopyWithImpl(ThreadStateLoadError _value, $Res Function(ThreadStateLoadError) _then)
+  _$ThreadStateLoadErrorCopyWithImpl(
+      ThreadStateLoadError _value, $Res Function(ThreadStateLoadError) _then)
       : super(_value, (v) => _then(v as ThreadStateLoadError));
 
   @override
@@ -368,7 +381,8 @@ class _$ThreadStateLoadError implements ThreadStateLoadError {
     required TResult Function(ThreadStateInitial value) initial,
     required TResult Function(ThreadStateLoadSuccess value) loadSuccess,
     required TResult Function(ThreadStateLoadError value) loadError,
-    required TResult Function(ThreadStateThreadsListIsEmpty value) threadsListIsEmpty,
+    required TResult Function(ThreadStateThreadsListIsEmpty value)
+        threadsListIsEmpty,
   }) {
     return loadError(this);
   }
@@ -396,19 +410,23 @@ abstract class ThreadStateLoadError implements ThreadState {
 /// @nodoc
 abstract class $ThreadStateThreadsListIsEmptyCopyWith<$Res> {
   factory $ThreadStateThreadsListIsEmptyCopyWith(
-          ThreadStateThreadsListIsEmpty value, $Res Function(ThreadStateThreadsListIsEmpty) then) =
+          ThreadStateThreadsListIsEmpty value,
+          $Res Function(ThreadStateThreadsListIsEmpty) then) =
       _$ThreadStateThreadsListIsEmptyCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ThreadStateThreadsListIsEmptyCopyWithImpl<$Res> extends _$ThreadStateCopyWithImpl<$Res>
+class _$ThreadStateThreadsListIsEmptyCopyWithImpl<$Res>
+    extends _$ThreadStateCopyWithImpl<$Res>
     implements $ThreadStateThreadsListIsEmptyCopyWith<$Res> {
   _$ThreadStateThreadsListIsEmptyCopyWithImpl(
-      ThreadStateThreadsListIsEmpty _value, $Res Function(ThreadStateThreadsListIsEmpty) _then)
+      ThreadStateThreadsListIsEmpty _value,
+      $Res Function(ThreadStateThreadsListIsEmpty) _then)
       : super(_value, (v) => _then(v as ThreadStateThreadsListIsEmpty));
 
   @override
-  ThreadStateThreadsListIsEmpty get _value => super._value as ThreadStateThreadsListIsEmpty;
+  ThreadStateThreadsListIsEmpty get _value =>
+      super._value as ThreadStateThreadsListIsEmpty;
 }
 
 /// @nodoc
@@ -460,7 +478,8 @@ class _$ThreadStateThreadsListIsEmpty implements ThreadStateThreadsListIsEmpty {
     required TResult Function(ThreadStateInitial value) initial,
     required TResult Function(ThreadStateLoadSuccess value) loadSuccess,
     required TResult Function(ThreadStateLoadError value) loadError,
-    required TResult Function(ThreadStateThreadsListIsEmpty value) threadsListIsEmpty,
+    required TResult Function(ThreadStateThreadsListIsEmpty value)
+        threadsListIsEmpty,
   }) {
     return threadsListIsEmpty(this);
   }
@@ -482,5 +501,6 @@ class _$ThreadStateThreadsListIsEmpty implements ThreadStateThreadsListIsEmpty {
 }
 
 abstract class ThreadStateThreadsListIsEmpty implements ThreadState {
-  const factory ThreadStateThreadsListIsEmpty() = _$ThreadStateThreadsListIsEmpty;
+  const factory ThreadStateThreadsListIsEmpty() =
+      _$ThreadStateThreadsListIsEmpty;
 }

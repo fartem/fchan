@@ -36,7 +36,6 @@ mixin _$ThreadEvent {
     required TResult Function() refreshRequested,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialized,
@@ -44,14 +43,13 @@ mixin _$ThreadEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ThreadEventInitialized value) initialized,
-    required TResult Function(ThreadEventRefreshRequested value) refreshRequested,
+    required TResult Function(ThreadEventRefreshRequested value)
+        refreshRequested,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ThreadEventInitialized value)? initialized,
@@ -63,7 +61,9 @@ mixin _$ThreadEvent {
 
 /// @nodoc
 abstract class $ThreadEventCopyWith<$Res> {
-  factory $ThreadEventCopyWith(ThreadEvent value, $Res Function(ThreadEvent) then) = _$ThreadEventCopyWithImpl<$Res>;
+  factory $ThreadEventCopyWith(
+          ThreadEvent value, $Res Function(ThreadEvent) then) =
+      _$ThreadEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
@@ -71,21 +71,23 @@ class _$ThreadEventCopyWithImpl<$Res> implements $ThreadEventCopyWith<$Res> {
   _$ThreadEventCopyWithImpl(this._value, this._then);
 
   final ThreadEvent _value;
-
   // ignore: unused_field
   final $Res Function(ThreadEvent) _then;
 }
 
 /// @nodoc
 abstract class $ThreadEventInitializedCopyWith<$Res> {
-  factory $ThreadEventInitializedCopyWith(ThreadEventInitialized value, $Res Function(ThreadEventInitialized) then) =
+  factory $ThreadEventInitializedCopyWith(ThreadEventInitialized value,
+          $Res Function(ThreadEventInitialized) then) =
       _$ThreadEventInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ThreadEventInitializedCopyWithImpl<$Res> extends _$ThreadEventCopyWithImpl<$Res>
+class _$ThreadEventInitializedCopyWithImpl<$Res>
+    extends _$ThreadEventCopyWithImpl<$Res>
     implements $ThreadEventInitializedCopyWith<$Res> {
-  _$ThreadEventInitializedCopyWithImpl(ThreadEventInitialized _value, $Res Function(ThreadEventInitialized) _then)
+  _$ThreadEventInitializedCopyWithImpl(ThreadEventInitialized _value,
+      $Res Function(ThreadEventInitialized) _then)
       : super(_value, (v) => _then(v as ThreadEventInitialized));
 
   @override
@@ -135,7 +137,8 @@ class _$ThreadEventInitialized implements ThreadEventInitialized {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ThreadEventInitialized value) initialized,
-    required TResult Function(ThreadEventRefreshRequested value) refreshRequested,
+    required TResult Function(ThreadEventRefreshRequested value)
+        refreshRequested,
   }) {
     return initialized(this);
   }
@@ -161,19 +164,22 @@ abstract class ThreadEventInitialized implements ThreadEvent {
 /// @nodoc
 abstract class $ThreadEventRefreshRequestedCopyWith<$Res> {
   factory $ThreadEventRefreshRequestedCopyWith(
-          ThreadEventRefreshRequested value, $Res Function(ThreadEventRefreshRequested) then) =
+          ThreadEventRefreshRequested value,
+          $Res Function(ThreadEventRefreshRequested) then) =
       _$ThreadEventRefreshRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ThreadEventRefreshRequestedCopyWithImpl<$Res> extends _$ThreadEventCopyWithImpl<$Res>
+class _$ThreadEventRefreshRequestedCopyWithImpl<$Res>
+    extends _$ThreadEventCopyWithImpl<$Res>
     implements $ThreadEventRefreshRequestedCopyWith<$Res> {
-  _$ThreadEventRefreshRequestedCopyWithImpl(
-      ThreadEventRefreshRequested _value, $Res Function(ThreadEventRefreshRequested) _then)
+  _$ThreadEventRefreshRequestedCopyWithImpl(ThreadEventRefreshRequested _value,
+      $Res Function(ThreadEventRefreshRequested) _then)
       : super(_value, (v) => _then(v as ThreadEventRefreshRequested));
 
   @override
-  ThreadEventRefreshRequested get _value => super._value as ThreadEventRefreshRequested;
+  ThreadEventRefreshRequested get _value =>
+      super._value as ThreadEventRefreshRequested;
 }
 
 /// @nodoc
@@ -219,7 +225,8 @@ class _$ThreadEventRefreshRequested implements ThreadEventRefreshRequested {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ThreadEventInitialized value) initialized,
-    required TResult Function(ThreadEventRefreshRequested value) refreshRequested,
+    required TResult Function(ThreadEventRefreshRequested value)
+        refreshRequested,
   }) {
     return refreshRequested(this);
   }

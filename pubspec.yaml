@@ -11,6 +11,10 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  mobx: ^2.0.0
+  mobx_codegen: ^2.0.0
+  flutter_mobx: ^2.0.0
+
   # A predictable state management library that helps implement
   # the BLoC (Business Logic Component) design pattern.
   # See the following page: https://pub.dev/packages/bloc

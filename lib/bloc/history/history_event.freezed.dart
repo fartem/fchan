@@ -32,7 +32,8 @@ class _$HistoryEventTearOff {
     return const HistoryEventClearRequested();
   }
 
-  HistoryEventThreadRemovedFromHistory threadRemovedFromHistory({required Thread thread}) {
+  HistoryEventThreadRemovedFromHistory threadRemovedFromHistory(
+      {required Thread thread}) {
     return HistoryEventThreadRemovedFromHistory(
       thread: thread,
     );
@@ -53,7 +54,6 @@ mixin _$HistoryEvent {
     required TResult Function(Thread thread) threadRemovedFromHistory,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initialized,
@@ -64,24 +64,26 @@ mixin _$HistoryEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HistoryEventInitialized value) initialized,
-    required TResult Function(HistoryEventPortionRequested value) portionRequested,
-    required TResult Function(HistoryEventUpdateRequested value) updateRequested,
+    required TResult Function(HistoryEventPortionRequested value)
+        portionRequested,
+    required TResult Function(HistoryEventUpdateRequested value)
+        updateRequested,
     required TResult Function(HistoryEventClearRequested value) clearRequested,
-    required TResult Function(HistoryEventThreadRemovedFromHistory value) threadRemovedFromHistory,
+    required TResult Function(HistoryEventThreadRemovedFromHistory value)
+        threadRemovedFromHistory,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(HistoryEventInitialized value)? initialized,
     TResult Function(HistoryEventPortionRequested value)? portionRequested,
     TResult Function(HistoryEventUpdateRequested value)? updateRequested,
     TResult Function(HistoryEventClearRequested value)? clearRequested,
-    TResult Function(HistoryEventThreadRemovedFromHistory value)? threadRemovedFromHistory,
+    TResult Function(HistoryEventThreadRemovedFromHistory value)?
+        threadRemovedFromHistory,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -89,7 +91,8 @@ mixin _$HistoryEvent {
 
 /// @nodoc
 abstract class $HistoryEventCopyWith<$Res> {
-  factory $HistoryEventCopyWith(HistoryEvent value, $Res Function(HistoryEvent) then) =
+  factory $HistoryEventCopyWith(
+          HistoryEvent value, $Res Function(HistoryEvent) then) =
       _$HistoryEventCopyWithImpl<$Res>;
 }
 
@@ -98,21 +101,23 @@ class _$HistoryEventCopyWithImpl<$Res> implements $HistoryEventCopyWith<$Res> {
   _$HistoryEventCopyWithImpl(this._value, this._then);
 
   final HistoryEvent _value;
-
   // ignore: unused_field
   final $Res Function(HistoryEvent) _then;
 }
 
 /// @nodoc
 abstract class $HistoryEventInitializedCopyWith<$Res> {
-  factory $HistoryEventInitializedCopyWith(HistoryEventInitialized value, $Res Function(HistoryEventInitialized) then) =
+  factory $HistoryEventInitializedCopyWith(HistoryEventInitialized value,
+          $Res Function(HistoryEventInitialized) then) =
       _$HistoryEventInitializedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HistoryEventInitializedCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
+class _$HistoryEventInitializedCopyWithImpl<$Res>
+    extends _$HistoryEventCopyWithImpl<$Res>
     implements $HistoryEventInitializedCopyWith<$Res> {
-  _$HistoryEventInitializedCopyWithImpl(HistoryEventInitialized _value, $Res Function(HistoryEventInitialized) _then)
+  _$HistoryEventInitializedCopyWithImpl(HistoryEventInitialized _value,
+      $Res Function(HistoryEventInitialized) _then)
       : super(_value, (v) => _then(v as HistoryEventInitialized));
 
   @override
@@ -168,10 +173,13 @@ class _$HistoryEventInitialized implements HistoryEventInitialized {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HistoryEventInitialized value) initialized,
-    required TResult Function(HistoryEventPortionRequested value) portionRequested,
-    required TResult Function(HistoryEventUpdateRequested value) updateRequested,
+    required TResult Function(HistoryEventPortionRequested value)
+        portionRequested,
+    required TResult Function(HistoryEventUpdateRequested value)
+        updateRequested,
     required TResult Function(HistoryEventClearRequested value) clearRequested,
-    required TResult Function(HistoryEventThreadRemovedFromHistory value) threadRemovedFromHistory,
+    required TResult Function(HistoryEventThreadRemovedFromHistory value)
+        threadRemovedFromHistory,
   }) {
     return initialized(this);
   }
@@ -183,7 +191,8 @@ class _$HistoryEventInitialized implements HistoryEventInitialized {
     TResult Function(HistoryEventPortionRequested value)? portionRequested,
     TResult Function(HistoryEventUpdateRequested value)? updateRequested,
     TResult Function(HistoryEventClearRequested value)? clearRequested,
-    TResult Function(HistoryEventThreadRemovedFromHistory value)? threadRemovedFromHistory,
+    TResult Function(HistoryEventThreadRemovedFromHistory value)?
+        threadRemovedFromHistory,
     required TResult orElse(),
   }) {
     if (initialized != null) {
@@ -200,19 +209,23 @@ abstract class HistoryEventInitialized implements HistoryEvent {
 /// @nodoc
 abstract class $HistoryEventPortionRequestedCopyWith<$Res> {
   factory $HistoryEventPortionRequestedCopyWith(
-          HistoryEventPortionRequested value, $Res Function(HistoryEventPortionRequested) then) =
+          HistoryEventPortionRequested value,
+          $Res Function(HistoryEventPortionRequested) then) =
       _$HistoryEventPortionRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HistoryEventPortionRequestedCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
+class _$HistoryEventPortionRequestedCopyWithImpl<$Res>
+    extends _$HistoryEventCopyWithImpl<$Res>
     implements $HistoryEventPortionRequestedCopyWith<$Res> {
   _$HistoryEventPortionRequestedCopyWithImpl(
-      HistoryEventPortionRequested _value, $Res Function(HistoryEventPortionRequested) _then)
+      HistoryEventPortionRequested _value,
+      $Res Function(HistoryEventPortionRequested) _then)
       : super(_value, (v) => _then(v as HistoryEventPortionRequested));
 
   @override
-  HistoryEventPortionRequested get _value => super._value as HistoryEventPortionRequested;
+  HistoryEventPortionRequested get _value =>
+      super._value as HistoryEventPortionRequested;
 }
 
 /// @nodoc
@@ -264,10 +277,13 @@ class _$HistoryEventPortionRequested implements HistoryEventPortionRequested {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HistoryEventInitialized value) initialized,
-    required TResult Function(HistoryEventPortionRequested value) portionRequested,
-    required TResult Function(HistoryEventUpdateRequested value) updateRequested,
+    required TResult Function(HistoryEventPortionRequested value)
+        portionRequested,
+    required TResult Function(HistoryEventUpdateRequested value)
+        updateRequested,
     required TResult Function(HistoryEventClearRequested value) clearRequested,
-    required TResult Function(HistoryEventThreadRemovedFromHistory value) threadRemovedFromHistory,
+    required TResult Function(HistoryEventThreadRemovedFromHistory value)
+        threadRemovedFromHistory,
   }) {
     return portionRequested(this);
   }
@@ -279,7 +295,8 @@ class _$HistoryEventPortionRequested implements HistoryEventPortionRequested {
     TResult Function(HistoryEventPortionRequested value)? portionRequested,
     TResult Function(HistoryEventUpdateRequested value)? updateRequested,
     TResult Function(HistoryEventClearRequested value)? clearRequested,
-    TResult Function(HistoryEventThreadRemovedFromHistory value)? threadRemovedFromHistory,
+    TResult Function(HistoryEventThreadRemovedFromHistory value)?
+        threadRemovedFromHistory,
     required TResult orElse(),
   }) {
     if (portionRequested != null) {
@@ -296,19 +313,22 @@ abstract class HistoryEventPortionRequested implements HistoryEvent {
 /// @nodoc
 abstract class $HistoryEventUpdateRequestedCopyWith<$Res> {
   factory $HistoryEventUpdateRequestedCopyWith(
-          HistoryEventUpdateRequested value, $Res Function(HistoryEventUpdateRequested) then) =
+          HistoryEventUpdateRequested value,
+          $Res Function(HistoryEventUpdateRequested) then) =
       _$HistoryEventUpdateRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HistoryEventUpdateRequestedCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
+class _$HistoryEventUpdateRequestedCopyWithImpl<$Res>
+    extends _$HistoryEventCopyWithImpl<$Res>
     implements $HistoryEventUpdateRequestedCopyWith<$Res> {
-  _$HistoryEventUpdateRequestedCopyWithImpl(
-      HistoryEventUpdateRequested _value, $Res Function(HistoryEventUpdateRequested) _then)
+  _$HistoryEventUpdateRequestedCopyWithImpl(HistoryEventUpdateRequested _value,
+      $Res Function(HistoryEventUpdateRequested) _then)
       : super(_value, (v) => _then(v as HistoryEventUpdateRequested));
 
   @override
-  HistoryEventUpdateRequested get _value => super._value as HistoryEventUpdateRequested;
+  HistoryEventUpdateRequested get _value =>
+      super._value as HistoryEventUpdateRequested;
 }
 
 /// @nodoc
@@ -360,10 +380,13 @@ class _$HistoryEventUpdateRequested implements HistoryEventUpdateRequested {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HistoryEventInitialized value) initialized,
-    required TResult Function(HistoryEventPortionRequested value) portionRequested,
-    required TResult Function(HistoryEventUpdateRequested value) updateRequested,
+    required TResult Function(HistoryEventPortionRequested value)
+        portionRequested,
+    required TResult Function(HistoryEventUpdateRequested value)
+        updateRequested,
     required TResult Function(HistoryEventClearRequested value) clearRequested,
-    required TResult Function(HistoryEventThreadRemovedFromHistory value) threadRemovedFromHistory,
+    required TResult Function(HistoryEventThreadRemovedFromHistory value)
+        threadRemovedFromHistory,
   }) {
     return updateRequested(this);
   }
@@ -375,7 +398,8 @@ class _$HistoryEventUpdateRequested implements HistoryEventUpdateRequested {
     TResult Function(HistoryEventPortionRequested value)? portionRequested,
     TResult Function(HistoryEventUpdateRequested value)? updateRequested,
     TResult Function(HistoryEventClearRequested value)? clearRequested,
-    TResult Function(HistoryEventThreadRemovedFromHistory value)? threadRemovedFromHistory,
+    TResult Function(HistoryEventThreadRemovedFromHistory value)?
+        threadRemovedFromHistory,
     required TResult orElse(),
   }) {
     if (updateRequested != null) {
@@ -391,20 +415,22 @@ abstract class HistoryEventUpdateRequested implements HistoryEvent {
 
 /// @nodoc
 abstract class $HistoryEventClearRequestedCopyWith<$Res> {
-  factory $HistoryEventClearRequestedCopyWith(
-          HistoryEventClearRequested value, $Res Function(HistoryEventClearRequested) then) =
+  factory $HistoryEventClearRequestedCopyWith(HistoryEventClearRequested value,
+          $Res Function(HistoryEventClearRequested) then) =
       _$HistoryEventClearRequestedCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$HistoryEventClearRequestedCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
+class _$HistoryEventClearRequestedCopyWithImpl<$Res>
+    extends _$HistoryEventCopyWithImpl<$Res>
     implements $HistoryEventClearRequestedCopyWith<$Res> {
-  _$HistoryEventClearRequestedCopyWithImpl(
-      HistoryEventClearRequested _value, $Res Function(HistoryEventClearRequested) _then)
+  _$HistoryEventClearRequestedCopyWithImpl(HistoryEventClearRequested _value,
+      $Res Function(HistoryEventClearRequested) _then)
       : super(_value, (v) => _then(v as HistoryEventClearRequested));
 
   @override
-  HistoryEventClearRequested get _value => super._value as HistoryEventClearRequested;
+  HistoryEventClearRequested get _value =>
+      super._value as HistoryEventClearRequested;
 }
 
 /// @nodoc
@@ -456,10 +482,13 @@ class _$HistoryEventClearRequested implements HistoryEventClearRequested {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HistoryEventInitialized value) initialized,
-    required TResult Function(HistoryEventPortionRequested value) portionRequested,
-    required TResult Function(HistoryEventUpdateRequested value) updateRequested,
+    required TResult Function(HistoryEventPortionRequested value)
+        portionRequested,
+    required TResult Function(HistoryEventUpdateRequested value)
+        updateRequested,
     required TResult Function(HistoryEventClearRequested value) clearRequested,
-    required TResult Function(HistoryEventThreadRemovedFromHistory value) threadRemovedFromHistory,
+    required TResult Function(HistoryEventThreadRemovedFromHistory value)
+        threadRemovedFromHistory,
   }) {
     return clearRequested(this);
   }
@@ -471,7 +500,8 @@ class _$HistoryEventClearRequested implements HistoryEventClearRequested {
     TResult Function(HistoryEventPortionRequested value)? portionRequested,
     TResult Function(HistoryEventUpdateRequested value)? updateRequested,
     TResult Function(HistoryEventClearRequested value)? clearRequested,
-    TResult Function(HistoryEventThreadRemovedFromHistory value)? threadRemovedFromHistory,
+    TResult Function(HistoryEventThreadRemovedFromHistory value)?
+        threadRemovedFromHistory,
     required TResult orElse(),
   }) {
     if (clearRequested != null) {
@@ -488,21 +518,24 @@ abstract class HistoryEventClearRequested implements HistoryEvent {
 /// @nodoc
 abstract class $HistoryEventThreadRemovedFromHistoryCopyWith<$Res> {
   factory $HistoryEventThreadRemovedFromHistoryCopyWith(
-          HistoryEventThreadRemovedFromHistory value, $Res Function(HistoryEventThreadRemovedFromHistory) then) =
+          HistoryEventThreadRemovedFromHistory value,
+          $Res Function(HistoryEventThreadRemovedFromHistory) then) =
       _$HistoryEventThreadRemovedFromHistoryCopyWithImpl<$Res>;
-
   $Res call({Thread thread});
 }
 
 /// @nodoc
-class _$HistoryEventThreadRemovedFromHistoryCopyWithImpl<$Res> extends _$HistoryEventCopyWithImpl<$Res>
+class _$HistoryEventThreadRemovedFromHistoryCopyWithImpl<$Res>
+    extends _$HistoryEventCopyWithImpl<$Res>
     implements $HistoryEventThreadRemovedFromHistoryCopyWith<$Res> {
   _$HistoryEventThreadRemovedFromHistoryCopyWithImpl(
-      HistoryEventThreadRemovedFromHistory _value, $Res Function(HistoryEventThreadRemovedFromHistory) _then)
+      HistoryEventThreadRemovedFromHistory _value,
+      $Res Function(HistoryEventThreadRemovedFromHistory) _then)
       : super(_value, (v) => _then(v as HistoryEventThreadRemovedFromHistory));
 
   @override
-  HistoryEventThreadRemovedFromHistory get _value => super._value as HistoryEventThreadRemovedFromHistory;
+  HistoryEventThreadRemovedFromHistory get _value =>
+      super._value as HistoryEventThreadRemovedFromHistory;
 
   @override
   $Res call({
@@ -518,7 +551,8 @@ class _$HistoryEventThreadRemovedFromHistoryCopyWithImpl<$Res> extends _$History
 }
 
 /// @nodoc
-class _$HistoryEventThreadRemovedFromHistory implements HistoryEventThreadRemovedFromHistory {
+class _$HistoryEventThreadRemovedFromHistory
+    implements HistoryEventThreadRemovedFromHistory {
   const _$HistoryEventThreadRemovedFromHistory({required this.thread});
 
   @override
@@ -533,16 +567,20 @@ class _$HistoryEventThreadRemovedFromHistory implements HistoryEventThreadRemove
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is HistoryEventThreadRemovedFromHistory &&
-            (identical(other.thread, thread) || const DeepCollectionEquality().equals(other.thread, thread)));
+            (identical(other.thread, thread) ||
+                const DeepCollectionEquality().equals(other.thread, thread)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ const DeepCollectionEquality().hash(thread);
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(thread);
 
   @JsonKey(ignore: true)
   @override
-  $HistoryEventThreadRemovedFromHistoryCopyWith<HistoryEventThreadRemovedFromHistory> get copyWith =>
-      _$HistoryEventThreadRemovedFromHistoryCopyWithImpl<HistoryEventThreadRemovedFromHistory>(this, _$identity);
+  $HistoryEventThreadRemovedFromHistoryCopyWith<
+          HistoryEventThreadRemovedFromHistory>
+      get copyWith => _$HistoryEventThreadRemovedFromHistoryCopyWithImpl<
+          HistoryEventThreadRemovedFromHistory>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -576,10 +614,13 @@ class _$HistoryEventThreadRemovedFromHistory implements HistoryEventThreadRemove
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(HistoryEventInitialized value) initialized,
-    required TResult Function(HistoryEventPortionRequested value) portionRequested,
-    required TResult Function(HistoryEventUpdateRequested value) updateRequested,
+    required TResult Function(HistoryEventPortionRequested value)
+        portionRequested,
+    required TResult Function(HistoryEventUpdateRequested value)
+        updateRequested,
     required TResult Function(HistoryEventClearRequested value) clearRequested,
-    required TResult Function(HistoryEventThreadRemovedFromHistory value) threadRemovedFromHistory,
+    required TResult Function(HistoryEventThreadRemovedFromHistory value)
+        threadRemovedFromHistory,
   }) {
     return threadRemovedFromHistory(this);
   }
@@ -591,7 +632,8 @@ class _$HistoryEventThreadRemovedFromHistory implements HistoryEventThreadRemove
     TResult Function(HistoryEventPortionRequested value)? portionRequested,
     TResult Function(HistoryEventUpdateRequested value)? updateRequested,
     TResult Function(HistoryEventClearRequested value)? clearRequested,
-    TResult Function(HistoryEventThreadRemovedFromHistory value)? threadRemovedFromHistory,
+    TResult Function(HistoryEventThreadRemovedFromHistory value)?
+        threadRemovedFromHistory,
     required TResult orElse(),
   }) {
     if (threadRemovedFromHistory != null) {
@@ -602,11 +644,12 @@ class _$HistoryEventThreadRemovedFromHistory implements HistoryEventThreadRemove
 }
 
 abstract class HistoryEventThreadRemovedFromHistory implements HistoryEvent {
-  const factory HistoryEventThreadRemovedFromHistory({required Thread thread}) = _$HistoryEventThreadRemovedFromHistory;
+  const factory HistoryEventThreadRemovedFromHistory({required Thread thread}) =
+      _$HistoryEventThreadRemovedFromHistory;
 
   Thread get thread => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
-  $HistoryEventThreadRemovedFromHistoryCopyWith<HistoryEventThreadRemovedFromHistory> get copyWith =>
-      throw _privateConstructorUsedError;
+  $HistoryEventThreadRemovedFromHistoryCopyWith<
+          HistoryEventThreadRemovedFromHistory>
+      get copyWith => throw _privateConstructorUsedError;
 }

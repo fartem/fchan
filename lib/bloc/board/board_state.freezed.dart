@@ -20,7 +20,8 @@ class _$BoardStateTearOff {
     return const BoardStateInitial();
   }
 
-  BoardStateLoadSuccess loadSuccess({required List<Thread> threads, required bool isLastPage}) {
+  BoardStateLoadSuccess loadSuccess(
+      {required List<Thread> threads, required bool isLastPage}) {
     return BoardStateLoadSuccess(
       threads: threads,
       isLastPage: isLastPage,
@@ -44,12 +45,12 @@ mixin _$BoardState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Thread> threads, bool isLastPage) loadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage)
+        loadSuccess,
     required TResult Function() loadError,
     required TResult Function() isEmpty,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
@@ -59,7 +60,6 @@ mixin _$BoardState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(BoardStateInitial value) initial,
@@ -68,7 +68,6 @@ mixin _$BoardState {
     required TResult Function(BoardStateIsEmpty value) isEmpty,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(BoardStateInitial value)? initial,
@@ -82,7 +81,9 @@ mixin _$BoardState {
 
 /// @nodoc
 abstract class $BoardStateCopyWith<$Res> {
-  factory $BoardStateCopyWith(BoardState value, $Res Function(BoardState) then) = _$BoardStateCopyWithImpl<$Res>;
+  factory $BoardStateCopyWith(
+          BoardState value, $Res Function(BoardState) then) =
+      _$BoardStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
@@ -90,21 +91,23 @@ class _$BoardStateCopyWithImpl<$Res> implements $BoardStateCopyWith<$Res> {
   _$BoardStateCopyWithImpl(this._value, this._then);
 
   final BoardState _value;
-
   // ignore: unused_field
   final $Res Function(BoardState) _then;
 }
 
 /// @nodoc
 abstract class $BoardStateInitialCopyWith<$Res> {
-  factory $BoardStateInitialCopyWith(BoardStateInitial value, $Res Function(BoardStateInitial) then) =
+  factory $BoardStateInitialCopyWith(
+          BoardStateInitial value, $Res Function(BoardStateInitial) then) =
       _$BoardStateInitialCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BoardStateInitialCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
+class _$BoardStateInitialCopyWithImpl<$Res>
+    extends _$BoardStateCopyWithImpl<$Res>
     implements $BoardStateInitialCopyWith<$Res> {
-  _$BoardStateInitialCopyWithImpl(BoardStateInitial _value, $Res Function(BoardStateInitial) _then)
+  _$BoardStateInitialCopyWithImpl(
+      BoardStateInitial _value, $Res Function(BoardStateInitial) _then)
       : super(_value, (v) => _then(v as BoardStateInitial));
 
   @override
@@ -132,7 +135,8 @@ class _$BoardStateInitial implements BoardStateInitial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Thread> threads, bool isLastPage) loadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage)
+        loadSuccess,
     required TResult Function() loadError,
     required TResult Function() isEmpty,
   }) {
@@ -187,16 +191,18 @@ abstract class BoardStateInitial implements BoardState {
 
 /// @nodoc
 abstract class $BoardStateLoadSuccessCopyWith<$Res> {
-  factory $BoardStateLoadSuccessCopyWith(BoardStateLoadSuccess value, $Res Function(BoardStateLoadSuccess) then) =
+  factory $BoardStateLoadSuccessCopyWith(BoardStateLoadSuccess value,
+          $Res Function(BoardStateLoadSuccess) then) =
       _$BoardStateLoadSuccessCopyWithImpl<$Res>;
-
   $Res call({List<Thread> threads, bool isLastPage});
 }
 
 /// @nodoc
-class _$BoardStateLoadSuccessCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
+class _$BoardStateLoadSuccessCopyWithImpl<$Res>
+    extends _$BoardStateCopyWithImpl<$Res>
     implements $BoardStateLoadSuccessCopyWith<$Res> {
-  _$BoardStateLoadSuccessCopyWithImpl(BoardStateLoadSuccess _value, $Res Function(BoardStateLoadSuccess) _then)
+  _$BoardStateLoadSuccessCopyWithImpl(
+      BoardStateLoadSuccess _value, $Res Function(BoardStateLoadSuccess) _then)
       : super(_value, (v) => _then(v as BoardStateLoadSuccess));
 
   @override
@@ -222,7 +228,8 @@ class _$BoardStateLoadSuccessCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl
 
 /// @nodoc
 class _$BoardStateLoadSuccess implements BoardStateLoadSuccess {
-  const _$BoardStateLoadSuccess({required this.threads, required this.isLastPage});
+  const _$BoardStateLoadSuccess(
+      {required this.threads, required this.isLastPage});
 
   @override
   final List<Thread> threads;
@@ -238,9 +245,12 @@ class _$BoardStateLoadSuccess implements BoardStateLoadSuccess {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is BoardStateLoadSuccess &&
-            (identical(other.threads, threads) || const DeepCollectionEquality().equals(other.threads, threads)) &&
+            (identical(other.threads, threads) ||
+                const DeepCollectionEquality()
+                    .equals(other.threads, threads)) &&
             (identical(other.isLastPage, isLastPage) ||
-                const DeepCollectionEquality().equals(other.isLastPage, isLastPage)));
+                const DeepCollectionEquality()
+                    .equals(other.isLastPage, isLastPage)));
   }
 
   @override
@@ -252,13 +262,15 @@ class _$BoardStateLoadSuccess implements BoardStateLoadSuccess {
   @JsonKey(ignore: true)
   @override
   $BoardStateLoadSuccessCopyWith<BoardStateLoadSuccess> get copyWith =>
-      _$BoardStateLoadSuccessCopyWithImpl<BoardStateLoadSuccess>(this, _$identity);
+      _$BoardStateLoadSuccessCopyWithImpl<BoardStateLoadSuccess>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Thread> threads, bool isLastPage) loadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage)
+        loadSuccess,
     required TResult Function() loadError,
     required TResult Function() isEmpty,
   }) {
@@ -308,27 +320,30 @@ class _$BoardStateLoadSuccess implements BoardStateLoadSuccess {
 }
 
 abstract class BoardStateLoadSuccess implements BoardState {
-  const factory BoardStateLoadSuccess({required List<Thread> threads, required bool isLastPage}) =
-      _$BoardStateLoadSuccess;
+  const factory BoardStateLoadSuccess(
+      {required List<Thread> threads,
+      required bool isLastPage}) = _$BoardStateLoadSuccess;
 
   List<Thread> get threads => throw _privateConstructorUsedError;
-
   bool get isLastPage => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
-  $BoardStateLoadSuccessCopyWith<BoardStateLoadSuccess> get copyWith => throw _privateConstructorUsedError;
+  $BoardStateLoadSuccessCopyWith<BoardStateLoadSuccess> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $BoardStateLoadErrorCopyWith<$Res> {
-  factory $BoardStateLoadErrorCopyWith(BoardStateLoadError value, $Res Function(BoardStateLoadError) then) =
+  factory $BoardStateLoadErrorCopyWith(
+          BoardStateLoadError value, $Res Function(BoardStateLoadError) then) =
       _$BoardStateLoadErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BoardStateLoadErrorCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
+class _$BoardStateLoadErrorCopyWithImpl<$Res>
+    extends _$BoardStateCopyWithImpl<$Res>
     implements $BoardStateLoadErrorCopyWith<$Res> {
-  _$BoardStateLoadErrorCopyWithImpl(BoardStateLoadError _value, $Res Function(BoardStateLoadError) _then)
+  _$BoardStateLoadErrorCopyWithImpl(
+      BoardStateLoadError _value, $Res Function(BoardStateLoadError) _then)
       : super(_value, (v) => _then(v as BoardStateLoadError));
 
   @override
@@ -356,7 +371,8 @@ class _$BoardStateLoadError implements BoardStateLoadError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Thread> threads, bool isLastPage) loadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage)
+        loadSuccess,
     required TResult Function() loadError,
     required TResult Function() isEmpty,
   }) {
@@ -411,14 +427,17 @@ abstract class BoardStateLoadError implements BoardState {
 
 /// @nodoc
 abstract class $BoardStateIsEmptyCopyWith<$Res> {
-  factory $BoardStateIsEmptyCopyWith(BoardStateIsEmpty value, $Res Function(BoardStateIsEmpty) then) =
+  factory $BoardStateIsEmptyCopyWith(
+          BoardStateIsEmpty value, $Res Function(BoardStateIsEmpty) then) =
       _$BoardStateIsEmptyCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$BoardStateIsEmptyCopyWithImpl<$Res> extends _$BoardStateCopyWithImpl<$Res>
+class _$BoardStateIsEmptyCopyWithImpl<$Res>
+    extends _$BoardStateCopyWithImpl<$Res>
     implements $BoardStateIsEmptyCopyWith<$Res> {
-  _$BoardStateIsEmptyCopyWithImpl(BoardStateIsEmpty _value, $Res Function(BoardStateIsEmpty) _then)
+  _$BoardStateIsEmptyCopyWithImpl(
+      BoardStateIsEmpty _value, $Res Function(BoardStateIsEmpty) _then)
       : super(_value, (v) => _then(v as BoardStateIsEmpty));
 
   @override
@@ -446,7 +465,8 @@ class _$BoardStateIsEmpty implements BoardStateIsEmpty {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<Thread> threads, bool isLastPage) loadSuccess,
+    required TResult Function(List<Thread> threads, bool isLastPage)
+        loadSuccess,
     required TResult Function() loadError,
     required TResult Function() isEmpty,
   }) {
