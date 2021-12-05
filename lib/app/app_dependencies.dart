@@ -5,12 +5,13 @@ import 'package:fchan/data/providers/remote/impl/remote_data_provider_impl.dart'
 import 'package:fchan/data/repositories/api/boards_repository.dart';
 import 'package:fchan/data/repositories/api/favorites_repository.dart';
 import 'package:fchan/data/repositories/api/posts_repository.dart';
+import 'package:fchan/data/repositories/api/threads_repository.dart';
 import 'package:fchan/data/repositories/impl/boards_repository_impl.dart';
 import 'package:fchan/data/repositories/impl/favorites_repository_impl.dart';
 import 'package:fchan/data/repositories/impl/posts_repository_impl.dart';
+import 'package:fchan/data/repositories/impl/threads_repository_impl.dart';
 import 'package:fchan/features/explore_boards/stores/explore_boards_store.dart';
 import 'package:fchan/features/favorites/stores/favorites_store.dart';
-import 'package:fchan/features/thread/stores/thread_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,15 +27,16 @@ class AppDependencies extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider<LocalDataProvider>(
-          create: (_) => LocalDataProviderImpl(),
-        ),
-        Provider<RemoteDataProvider>(
-          create: (_) => RemoteDataProviderImpl(),
-        ),
+        Provider<LocalDataProvider>(create: (_) => LocalDataProviderImpl()),
+        Provider<RemoteDataProvider>(create: (_) => RemoteDataProviderImpl()),
         ProxyProvider<LocalDataProvider, FavoritesRepository>(
           update: (_, localDataProvider, __) => FavoritesRepositoryImpl(
             localDataProvider: localDataProvider,
+          ),
+        ),
+        ProxyProvider<RemoteDataProvider, ThreadsRepository>(
+          update: (_, remoteDataProvider, __) => ThreadsRepositoryImpl(
+            remoteDataProvider: remoteDataProvider,
           ),
         ),
         ProxyProvider<RemoteDataProvider, PostsRepository>(
@@ -56,11 +58,6 @@ class AppDependencies extends StatelessWidget {
         ProxyProvider<BoardsRepository, ExploreBoardsStore>(
           update: (_, boardsRepository, __) => ExploreBoardsStore(
             boardsRepository: boardsRepository,
-          ),
-        ),
-        ProxyProvider<PostsRepository, ThreadStore>(
-          update: (_, postsRepository, __) => ThreadStore(
-            postsRepository: postsRepository,
           ),
         ),
       ],

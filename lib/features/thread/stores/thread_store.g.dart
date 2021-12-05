@@ -42,8 +42,8 @@ mixin _$ThreadStore on _ThreadStore, Store {
   final _$initAsyncAction = AsyncAction('_ThreadStore.init');
 
   @override
-  Future<void> init(Thread thread) {
-    return _$initAsyncAction.run(() => super.init(thread));
+  Future<void> init() {
+    return _$initAsyncAction.run(() => super.init());
   }
 
   @override

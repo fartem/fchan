@@ -1,5 +1,6 @@
 import 'package:fchan/components/widgets/app_centered_text.dart';
 import 'package:fchan/components/widgets/app_post_card.dart';
+import 'package:fchan/data/repositories/api/posts_repository.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:fchan/features/thread/stores/thread_store.dart';
@@ -27,8 +28,11 @@ class _ThreadPageState extends State<ThreadPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _threadStore ??= Provider.of<ThreadStore>(context);
-    _threadStore!.init(widget.thread);
+    _threadStore ??= ThreadStore(
+      postsRepository: Provider.of<PostsRepository>(context),
+      thread: widget.thread,
+    );
+    _threadStore!.init();
   }
 
   @override

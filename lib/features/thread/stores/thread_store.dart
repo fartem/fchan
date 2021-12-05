@@ -9,8 +9,7 @@ class ThreadStore = _ThreadStore with _$ThreadStore;
 
 abstract class _ThreadStore with Store {
   final PostsRepository postsRepository;
-
-  late Thread thread;
+  final Thread thread;
 
   @observable
   var posts = ObservableList<Post>();
@@ -18,11 +17,13 @@ abstract class _ThreadStore with Store {
   @observable
   ObservableFuture? initFuture;
 
-  _ThreadStore({required this.postsRepository});
+  _ThreadStore({
+    required this.postsRepository,
+    required this.thread,
+  });
 
   @action
-  Future<void> init(Thread thread) async {
-    this.thread = thread;
+  Future<void> init() async {
     initFuture = ObservableFuture(_initPosts());
     try {
       await initFuture;

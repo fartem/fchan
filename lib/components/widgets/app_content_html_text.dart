@@ -19,12 +19,8 @@ class AppContentHtmlText extends StatelessWidget {
     return Html(
       data: text,
       style: {
-        'a': Style(
-          color: Colors.red[700],
-        ),
-        'b': Style(
-          fontWeight: FontWeight.bold,
-        ),
+        'a': Style(color: Colors.red[700]),
+        'b': Style(fontWeight: FontWeight.bold),
         'body': Style(
           margin: EdgeInsets.zero,
           padding: EdgeInsets.zero,
@@ -32,9 +28,7 @@ class AppContentHtmlText extends StatelessWidget {
           maxLines: wrapText ? 5 : null,
           textOverflow: TextOverflow.ellipsis,
         ),
-        'span': Style(
-          color: Colors.green[700],
-        ),
+        'span': Style(color: Colors.green[700]),
       },
     );
   }

@@ -5,8 +5,10 @@ class AppListLoader extends StatelessWidget {
   const AppListLoader({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => const SizedBox(
-        height: 172,
-        child: AppCenteredCircularProgressIndicator(),
-      );
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      height: 172,
+      child: AppCenteredCircularProgressIndicator(),
+    );
+  }
 }

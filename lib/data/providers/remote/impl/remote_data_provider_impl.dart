@@ -17,9 +17,7 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
 
   RemoteDataProviderImpl() {
     _dio = Dio(
-      BaseOptions(
-        baseUrl: _baseUrl,
-      ),
+      BaseOptions(baseUrl: _baseUrl),
     )..interceptors.add(LoggerInterceptor());
   }
 
@@ -34,9 +32,7 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
       final boards = response.data!['boards'].map((rawBoard) => Board.fromJson(rawBoard)).toList();
       return List<Board>.from(boards);
     } else {
-      throw const HttpException(
-        'Cannot fetch boards from $url',
-      );
+      throw const HttpException('Cannot fetch boards from $url');
     }
   }
 
@@ -57,9 +53,7 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
         isLastPage: threads.isEmpty,
       );
     } else {
-      throw HttpException(
-        'Cannot fetch threads from $uri',
-      );
+      throw HttpException('Cannot fetch threads from $uri');
     }
   }
 
@@ -70,9 +64,7 @@ class RemoteDataProviderImpl extends RemoteDataProvider {
     if (response.statusCode == HttpStatus.ok) {
       return (response.data!['posts'] as List).map((rawPost) => Post.fromJson(rawPost)..board = thread.board).toList();
     } else {
-      throw HttpException(
-        'Cannot fetch posts from $uri',
-      );
+      throw HttpException('Cannot fetch posts from $uri');
     }
   }
 

@@ -51,10 +51,7 @@ class LocalDataProviderImpl extends LocalDataProvider {
       start = 0;
     }
     return EntityPortion(
-      entities: _history.values.toList().sublist(
-            start,
-            last,
-          ),
+      entities: _history.values.toList().sublist(start, last),
       isLastPage: _history.length == last,
     );
   }
@@ -98,10 +95,7 @@ class LocalDataProviderImpl extends LocalDataProvider {
       start = 0;
     }
     return EntityPortion(
-      entities: _bookmarks.values.toList().sublist(
-            start,
-            last,
-          ),
+      entities: _bookmarks.values.toList().sublist(start, last),
       isLastPage: _bookmarks.length == last,
     );
   }

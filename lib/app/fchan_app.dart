@@ -3,11 +3,11 @@ import 'package:fchan/components/themes/fchan_themes.dart';
 import 'package:fchan/entities/board.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
+import 'package:fchan/features/board/page/board_page.dart';
 import 'package:fchan/features/explore_boards/page/explore_boards_page.dart';
 import 'package:fchan/features/favorites/page/favorites_page.dart';
 import 'package:fchan/features/splash/splash_page.dart';
 import 'package:fchan/features/thread/page/thread_page.dart';
-import 'package:fchan/screens/board_screen.dart';
 import 'package:fchan/screens/bookmarks_screen.dart';
 import 'package:fchan/screens/history_screen.dart';
 import 'package:flutter/foundation.dart';
@@ -29,26 +29,26 @@ class FChanAppState extends State<FChanApp> {
         switch (settings.name) {
           case routeInit:
             return MaterialPageRoute(
-              builder: (_) => const SplashPage(),
+              builder: (_) => const SplashPage()
             );
           case routeHome:
             return MaterialPageRoute(
-              builder: (_) => const FChan(),
+              builder: (_) => const FChan()
             );
           case routeExploreBoards:
             return MaterialPageRoute(
-              builder: (_) => const ExploreBoardsPage(),
+              builder: (_) => const ExploreBoardsPage()
             );
           case routeBoard:
             return MaterialPageRoute(
-              builder: (_) => BoardScreen(
-                board: settings.arguments as Board,
+              builder: (_) => BoardPage(
+                board: settings.arguments as Board
               ),
             );
           case routeThread:
             return MaterialPageRoute(
               builder: (_) => ThreadPage(
-                thread: settings.arguments as Thread,
+                thread: settings.arguments as Thread
               ),
             );
           default:
