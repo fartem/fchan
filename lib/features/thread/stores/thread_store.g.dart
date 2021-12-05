@@ -24,17 +24,33 @@ mixin _$ThreadStore on _ThreadStore, Store {
     });
   }
 
+  final _$initFutureAtom = Atom(name: '_ThreadStore.initFuture');
+
+  @override
+  ObservableFuture<dynamic>? get initFuture {
+    _$initFutureAtom.reportRead();
+    return super.initFuture;
+  }
+
+  @override
+  set initFuture(ObservableFuture<dynamic>? value) {
+    _$initFutureAtom.reportWrite(value, super.initFuture, () {
+      super.initFuture = value;
+    });
+  }
+
   final _$initAsyncAction = AsyncAction('_ThreadStore.init');
 
   @override
-  Future<void> init() {
-    return _$initAsyncAction.run(() => super.init());
+  Future<void> init(Thread thread) {
+    return _$initAsyncAction.run(() => super.init(thread));
   }
 
   @override
   String toString() {
     return '''
-posts: ${posts}
+posts: ${posts},
+initFuture: ${initFuture}
     ''';
   }
 }

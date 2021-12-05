@@ -7,6 +7,7 @@ import 'package:fchan/features/favorites/stores/favorites_store.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
 
 class FavoritesPage extends StatefulWidget {
@@ -40,26 +41,28 @@ class _FavoritesPageState extends State<FavoritesPage> {
       ],
       body: Observer(
         builder: (_) {
-          if (_store!.isBusy) {
-            return const AppCenteredCircularProgressIndicator();
-          } else if (_store!.favorites.isEmpty || _store!.hasError) {
-            return AppCenteredText(
-              text: context.localizations.messageFavoritesIsEmpty,
-            );
-          }
-          return ListView.builder(
-            itemBuilder: (context, index) {
-              final board = _store!.favorites.elementAt(index);
-              return ListTile(
-                title: Text(board.toString()),
-                onTap: () => Navigator.of(context).pushNamed(
-                  routeBoard,
-                  arguments: board,
-                ),
+          switch (_store!.initFuture!.status) {
+            case FutureStatus.pending:
+              return const AppCenteredCircularProgressIndicator();
+            case FutureStatus.rejected:
+              return AppCenteredText(
+                text: context.localizations.messageFavoritesIsEmpty,
               );
-            },
-            itemCount: _store!.favorites.length,
-          );
+            case FutureStatus.fulfilled:
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                  final board = _store!.favorites.elementAt(index);
+                  return ListTile(
+                    title: Text(board.toString()),
+                    onTap: () => Navigator.of(context).pushNamed(
+                      routeBoard,
+                      arguments: board,
+                    ),
+                  );
+                },
+                itemCount: _store!.favorites.length,
+              );
+          }
         },
       ),
     );

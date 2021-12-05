@@ -12,13 +12,9 @@ class Board {
   @HiveField(1)
   final String title;
 
-  @HiveField(2)
-  bool? isFavorite;
-
   Board({
     required this.board,
     required this.title,
-    this.isFavorite = false,
   });
 
   @override

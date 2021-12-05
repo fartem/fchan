@@ -35,16 +35,10 @@ class LocalDataProviderImpl extends LocalDataProvider {
   Future<List<Board>> favorites() async => _favorites.values.toList();
 
   @override
-  Future<void> addBoardToFavorites(Board board) async {
-    board.isFavorite = true;
-    await _favorites.put(board.board, board);
-  }
+  Future<void> addBoardToFavorites(Board board) => _favorites.put(board.board, board);
 
   @override
-  Future<void> removeBoardFromFavorites(Board board) async {
-    board.isFavorite = false;
-    await _favorites.delete(board.board);
-  }
+  Future<void> removeBoardFromFavorites(Board board) => _favorites.delete(board.board);
 
   @override
   Future<EntityPortion<Thread>> historyThreads(EntityPage entityPage) async {

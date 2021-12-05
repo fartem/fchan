@@ -10,27 +10,36 @@ abstract class _FavoritesStore with Store {
   final FavoritesRepository favoritesRepository;
 
   @observable
-  var favorites = ObservableList<Board>();
+  var favorites = ObservableSet<Board>();
 
   @observable
-  bool isBusy = false;
-
-  @observable
-  bool hasError = false;
+  ObservableFuture? initFuture;
 
   _FavoritesStore({required this.favoritesRepository});
 
   @action
   Future<void> load() async {
-    isBusy = true;
-    hasError = false;
+    initFuture = ObservableFuture(_initFavorites());
     try {
-      favorites
-        ..clear()
-        ..addAll(await favoritesRepository.favorites());
+      await initFuture;
     } on Exception {
-      hasError = true;
+      initFuture = ObservableFuture.error('');
     }
-    isBusy = false;
+  }
+
+  Future<void> _initFavorites() async => favorites
+    ..clear()
+    ..addAll(await favoritesRepository.favorites());
+
+  @action
+  Future<void> addToFavorites(Board board) async {
+    favorites.add(board);
+    await favoritesRepository.addBoardToFavorites(board);
+  }
+
+  @action
+  Future<void> removeFromFavorites(Board board) async {
+    favorites.remove(board);
+    await favoritesRepository.removeBoardFromFavorites(board);
   }
 }

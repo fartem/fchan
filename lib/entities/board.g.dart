@@ -19,20 +19,17 @@ class BoardAdapter extends TypeAdapter<Board> {
     return Board(
       board: fields[0] as String,
       title: fields[1] as String,
-      isFavorite: fields[2] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Board obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(2)
       ..writeByte(0)
       ..write(obj.board)
       ..writeByte(1)
-      ..write(obj.title)
-      ..writeByte(2)
-      ..write(obj.isFavorite);
+      ..write(obj.title);
   }
 
   @override
@@ -54,12 +51,10 @@ Board _$BoardFromJson(Map<String, dynamic> json) {
   return Board(
     board: json['board'] as String,
     title: json['title'] as String,
-    isFavorite: json['isFavorite'] as bool?,
   );
 }
 
 Map<String, dynamic> _$BoardToJson(Board instance) => <String, dynamic>{
       'board': instance.board,
       'title': instance.title,
-      'isFavorite': instance.isFavorite,
     };

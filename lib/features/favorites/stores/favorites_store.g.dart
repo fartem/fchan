@@ -12,45 +12,30 @@ mixin _$FavoritesStore on _FavoritesStore, Store {
   final _$favoritesAtom = Atom(name: '_FavoritesStore.favorites');
 
   @override
-  ObservableList<Board> get favorites {
+  ObservableSet<Board> get favorites {
     _$favoritesAtom.reportRead();
     return super.favorites;
   }
 
   @override
-  set favorites(ObservableList<Board> value) {
+  set favorites(ObservableSet<Board> value) {
     _$favoritesAtom.reportWrite(value, super.favorites, () {
       super.favorites = value;
     });
   }
 
-  final _$isBusyAtom = Atom(name: '_FavoritesStore.isBusy');
+  final _$initFutureAtom = Atom(name: '_FavoritesStore.initFuture');
 
   @override
-  bool get isBusy {
-    _$isBusyAtom.reportRead();
-    return super.isBusy;
+  ObservableFuture<dynamic>? get initFuture {
+    _$initFutureAtom.reportRead();
+    return super.initFuture;
   }
 
   @override
-  set isBusy(bool value) {
-    _$isBusyAtom.reportWrite(value, super.isBusy, () {
-      super.isBusy = value;
-    });
-  }
-
-  final _$hasErrorAtom = Atom(name: '_FavoritesStore.hasError');
-
-  @override
-  bool get hasError {
-    _$hasErrorAtom.reportRead();
-    return super.hasError;
-  }
-
-  @override
-  set hasError(bool value) {
-    _$hasErrorAtom.reportWrite(value, super.hasError, () {
-      super.hasError = value;
+  set initFuture(ObservableFuture<dynamic>? value) {
+    _$initFutureAtom.reportWrite(value, super.initFuture, () {
+      super.initFuture = value;
     });
   }
 
@@ -61,12 +46,28 @@ mixin _$FavoritesStore on _FavoritesStore, Store {
     return _$loadAsyncAction.run(() => super.load());
   }
 
+  final _$addToFavoritesAsyncAction =
+      AsyncAction('_FavoritesStore.addToFavorites');
+
+  @override
+  Future<void> addToFavorites(Board board) {
+    return _$addToFavoritesAsyncAction.run(() => super.addToFavorites(board));
+  }
+
+  final _$removeFromFavoritesAsyncAction =
+      AsyncAction('_FavoritesStore.removeFromFavorites');
+
+  @override
+  Future<void> removeFromFavorites(Board board) {
+    return _$removeFromFavoritesAsyncAction
+        .run(() => super.removeFromFavorites(board));
+  }
+
   @override
   String toString() {
     return '''
 favorites: ${favorites},
-isBusy: ${isBusy},
-hasError: ${hasError}
+initFuture: ${initFuture}
     ''';
   }
 }

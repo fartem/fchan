@@ -1,15 +1,13 @@
-import 'package:fchan/bloc/thread/thread_bloc.dart';
-import 'package:fchan/bloc/thread/thread_event.dart';
-import 'package:fchan/bloc/thread/thread_state.dart';
-import 'package:fchan/components/widgets/app_centered_circular_progress_indicator.dart';
 import 'package:fchan/components/widgets/app_centered_text.dart';
 import 'package:fchan/components/widgets/app_post_card.dart';
-import 'package:fchan/data/repositories/api/posts_repository.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
+import 'package:fchan/features/thread/stores/thread_store.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
+import 'package:provider/provider.dart';
 
 class ThreadPage extends StatefulWidget {
   final Thread thread;
@@ -24,49 +22,44 @@ class ThreadPage extends StatefulWidget {
 }
 
 class _ThreadPageState extends State<ThreadPage> {
-  final ScrollController _scrollController = ScrollController();
+  ThreadStore? _threadStore;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _threadStore ??= Provider.of<ThreadStore>(context);
+    _threadStore!.init(widget.thread);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ThreadBloc>(
-      create: (context) => ThreadBloc(
-        postsRepository: context.read<PostsRepository>(),
-        thread: widget.thread,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          widget.thread.toString(),
+        ),
       ),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            widget.thread.toString(),
-          ),
-        ),
-        body: BlocBuilder<ThreadBloc, ThreadState>(
-          builder: (context, state) {
-            return state.when(
-              initial: () => const AppCenteredCircularProgressIndicator(),
-              loadSuccess: (posts) {
-                return ListView.builder(
-                  itemBuilder: (context, index) => AppPostCard(
-                    post: posts[index],
-                  ),
-                  itemCount: posts.length,
-                  controller: _scrollController,
-                );
-              },
-              loadError: () => AppCenteredText(
+      body: Observer(
+        builder: (_) {
+          switch (_threadStore!.initFuture!.status) {
+            case FutureStatus.pending:
+              return AppCenteredText(
                 text: context.localizations.messageThreadIsEmpty,
-              ),
-              threadsListIsEmpty: () => AppCenteredText(
+              );
+            case FutureStatus.rejected:
+              return AppCenteredText(
                 text: context.localizations.messageThreadIsEmpty,
-              ),
-            );
-          },
-        ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.refresh),
-          onPressed: () => context.read<ThreadBloc>().add(
-                const ThreadEventRefreshRequested(),
-              ),
-        ),
+              );
+            case FutureStatus.fulfilled:
+              final posts = _threadStore!.posts;
+              return ListView.builder(
+                itemBuilder: (context, index) => AppPostCard(
+                  post: posts[index],
+                ),
+                itemCount: posts.length,
+              );
+          }
+        },
       ),
     );
   }

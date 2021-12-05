@@ -24,33 +24,18 @@ mixin _$ExploreBoardsStore on _ExploreBoardsStore, Store {
     });
   }
 
-  final _$isBusyAtom = Atom(name: '_ExploreBoardsStore.isBusy');
+  final _$initFutureAtom = Atom(name: '_ExploreBoardsStore.initFuture');
 
   @override
-  bool get isBusy {
-    _$isBusyAtom.reportRead();
-    return super.isBusy;
+  ObservableFuture<dynamic>? get initFuture {
+    _$initFutureAtom.reportRead();
+    return super.initFuture;
   }
 
   @override
-  set isBusy(bool value) {
-    _$isBusyAtom.reportWrite(value, super.isBusy, () {
-      super.isBusy = value;
-    });
-  }
-
-  final _$hasErrorAtom = Atom(name: '_ExploreBoardsStore.hasError');
-
-  @override
-  bool get hasError {
-    _$hasErrorAtom.reportRead();
-    return super.hasError;
-  }
-
-  @override
-  set hasError(bool value) {
-    _$hasErrorAtom.reportWrite(value, super.hasError, () {
-      super.hasError = value;
+  set initFuture(ObservableFuture<dynamic>? value) {
+    _$initFutureAtom.reportWrite(value, super.initFuture, () {
+      super.initFuture = value;
     });
   }
 
@@ -65,8 +50,7 @@ mixin _$ExploreBoardsStore on _ExploreBoardsStore, Store {
   String toString() {
     return '''
 boards: ${boards},
-isBusy: ${isBusy},
-hasError: ${hasError}
+initFuture: ${initFuture}
     ''';
   }
 }

@@ -4,10 +4,13 @@ import 'package:fchan/data/providers/remote/api/remote_data_provider.dart';
 import 'package:fchan/data/providers/remote/impl/remote_data_provider_impl.dart';
 import 'package:fchan/data/repositories/api/boards_repository.dart';
 import 'package:fchan/data/repositories/api/favorites_repository.dart';
+import 'package:fchan/data/repositories/api/posts_repository.dart';
 import 'package:fchan/data/repositories/impl/boards_repository_impl.dart';
 import 'package:fchan/data/repositories/impl/favorites_repository_impl.dart';
+import 'package:fchan/data/repositories/impl/posts_repository_impl.dart';
 import 'package:fchan/features/explore_boards/stores/explore_boards_store.dart';
 import 'package:fchan/features/favorites/stores/favorites_store.dart';
+import 'package:fchan/features/thread/stores/thread_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +37,11 @@ class AppDependencies extends StatelessWidget {
             localDataProvider: localDataProvider,
           ),
         ),
+        ProxyProvider<RemoteDataProvider, PostsRepository>(
+          update: (_, remoteDataProvider, __) => PostsRepositoryImpl(
+            remoteDataProvider: remoteDataProvider,
+          ),
+        ),
         ProxyProvider2<RemoteDataProvider, FavoritesRepository, BoardsRepository>(
           update: (_, remoteDataProvider, favoritesRepository, __) => BoardsRepositoryImpl(
             remoteDataProvider: remoteDataProvider,
@@ -45,10 +53,14 @@ class AppDependencies extends StatelessWidget {
             favoritesRepository: favoritesRepository,
           ),
         ),
-        ProxyProvider2<BoardsRepository, FavoritesStore, ExploreBoardsStore>(
-          update: (_, boardsRepository, exploreBoardsStore, __) => ExploreBoardsStore(
+        ProxyProvider<BoardsRepository, ExploreBoardsStore>(
+          update: (_, boardsRepository, __) => ExploreBoardsStore(
             boardsRepository: boardsRepository,
-            favoritesStore: exploreBoardsStore,
+          ),
+        ),
+        ProxyProvider<PostsRepository, ThreadStore>(
+          update: (_, postsRepository, __) => ThreadStore(
+            postsRepository: postsRepository,
           ),
         ),
       ],
