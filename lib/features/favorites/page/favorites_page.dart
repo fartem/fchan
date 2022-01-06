@@ -45,9 +45,15 @@ class _FavoritesPageState extends State<FavoritesPage> {
               return const AppCenteredCircularProgressIndicator();
             case FutureStatus.rejected:
               return AppCenteredText(
-                text: context.localizations.messageFavoritesIsEmpty,
+                text: context.localizations.messageFavoritesAreEmpty,
               );
             case FutureStatus.fulfilled:
+              final boards = _store!.favorites;
+              if (boards.isEmpty) {
+                return AppCenteredText(
+                  text: context.localizations.messageFavoritesAreEmpty,
+                );
+              }
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final board = _store!.favorites.elementAt(index);

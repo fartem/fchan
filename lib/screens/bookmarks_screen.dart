@@ -64,11 +64,11 @@ class _BookmarksScreenState extends State<BookmarksScreen> {
                 );
               },
               loadError: () => AppCenteredText(
-                text: context.localizations.messageBookmarksIsEmpty,
+                text: context.localizations.messageBookmarksAreEmpty,
               ),
               clearInProgress: () => const AppCenteredCircularProgressIndicator(),
               bookmarksListIsEmpty: () => AppCenteredText(
-                text: context.localizations.messageBookmarksIsEmpty,
+                text: context.localizations.messageBookmarksAreEmpty,
               ),
             );
           },

@@ -42,7 +42,7 @@ class _ExploreBoardsPageState extends State<ExploreBoardsPage> {
               return const AppCenteredCircularProgressIndicator();
             case FutureStatus.rejected:
               return AppCenteredText(
-                text: context.localizations.messageBoardsIsEmpty,
+                text: context.localizations.messageBoardsAreEmpty,
               );
             case FutureStatus.fulfilled:
               return ListView.builder(

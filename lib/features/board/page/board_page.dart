@@ -57,13 +57,13 @@ class _BoardPageState extends State<BoardPage> {
               return const AppCenteredCircularProgressIndicator();
             case FutureStatus.rejected:
               return AppCenteredText(
-                text: context.localizations.messageBoardIsEmpty,
+                text: context.localizations.messageBoardAreEmpty,
               );
             case FutureStatus.fulfilled:
               final threads = _boardStore!.threads;
               if (threads.isEmpty) {
                 return AppCenteredText(
-                  text: context.localizations.messageBoardIsEmpty,
+                  text: context.localizations.messageBoardAreEmpty,
                 );
               }
               return StaggeredGridView.countBuilder(

@@ -47,11 +47,11 @@ class _ThreadPageState extends State<ThreadPage> {
           switch (_threadStore!.initFuture!.status) {
             case FutureStatus.pending:
               return AppCenteredText(
-                text: context.localizations.messageThreadIsEmpty,
+                text: context.localizations.messageThreadAreEmpty,
               );
             case FutureStatus.rejected:
               return AppCenteredText(
-                text: context.localizations.messageThreadIsEmpty,
+                text: context.localizations.messageThreadAreEmpty,
               );
             case FutureStatus.fulfilled:
               final posts = _threadStore!.posts;

@@ -93,10 +93,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 );
               },
               loadError: () => AppCenteredText(
-                text: context.localizations.messageHistoryIsEmpty,
+                text: context.localizations.messageHistoryAreEmpty,
               ),
               historyIsEmpty: () => AppCenteredText(
-                text: context.localizations.messageHistoryIsEmpty,
+                text: context.localizations.messageHistoryAreEmpty,
               ),
               clearInProgress: () => const AppCenteredCircularProgressIndicator(),
             );
