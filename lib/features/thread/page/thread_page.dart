@@ -4,7 +4,6 @@ import 'package:fchan/data/repositories/api/posts_repository.dart';
 import 'package:fchan/entities/thread.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:fchan/features/thread/stores/thread_store.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';

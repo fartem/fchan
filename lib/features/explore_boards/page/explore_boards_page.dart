@@ -3,7 +3,6 @@ import 'package:fchan/components/widgets/app_centered_text.dart';
 import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:fchan/features/explore_boards/stores/explore_boards_store.dart';
 import 'package:fchan/features/favorites/stores/favorites_store.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';

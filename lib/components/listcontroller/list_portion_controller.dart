@@ -18,7 +18,7 @@ class ListPortionController<T> {
     if (!isLoading && !isLastPage) {
       isLoading = true;
       final EntityPortion<T> portion = await portionProvider(
-        EntityPage.paging(
+        EntityPage(
           page: _page,
           pageSize: _pageSize,
         ),

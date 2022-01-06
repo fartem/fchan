@@ -10,7 +10,6 @@ import 'package:fchan/features/splash/splash_page.dart';
 import 'package:fchan/features/thread/page/thread_page.dart';
 import 'package:fchan/screens/bookmarks_screen.dart';
 import 'package:fchan/screens/history_screen.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
