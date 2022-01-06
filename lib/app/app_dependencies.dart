@@ -3,11 +3,15 @@ import 'package:fchan/data/providers/local/impl/local_data_provider_impl.dart';
 import 'package:fchan/data/providers/remote/api/remote_data_provider.dart';
 import 'package:fchan/data/providers/remote/impl/remote_data_provider_impl.dart';
 import 'package:fchan/data/repositories/api/boards_repository.dart';
+import 'package:fchan/data/repositories/api/bookmarks_repository.dart';
 import 'package:fchan/data/repositories/api/favorites_repository.dart';
+import 'package:fchan/data/repositories/api/history_repository.dart';
 import 'package:fchan/data/repositories/api/posts_repository.dart';
 import 'package:fchan/data/repositories/api/threads_repository.dart';
 import 'package:fchan/data/repositories/impl/boards_repository_impl.dart';
+import 'package:fchan/data/repositories/impl/bookmarks_repository_impl.dart';
 import 'package:fchan/data/repositories/impl/favorites_repository_impl.dart';
+import 'package:fchan/data/repositories/impl/history_repository_impl.dart';
 import 'package:fchan/data/repositories/impl/posts_repository_impl.dart';
 import 'package:fchan/data/repositories/impl/threads_repository_impl.dart';
 import 'package:fchan/features/explore_boards/stores/explore_boards_store.dart';
@@ -58,6 +62,16 @@ class AppDependencies extends StatelessWidget {
         ProxyProvider<BoardsRepository, ExploreBoardsStore>(
           update: (_, boardsRepository, __) => ExploreBoardsStore(
             boardsRepository: boardsRepository,
+          ),
+        ),
+        ProxyProvider<LocalDataProvider, HistoryRepository>(
+          update: (_, localDataProvider, ___) => HistoryRepositoryImpl(
+            localDataProvider: localDataProvider,
+          ),
+        ),
+        ProxyProvider<LocalDataProvider, BookmarksRepository>(
+          update: (_, localDataProvider, ___) => BookmarksRepositoryImpl(
+            localDataProvider: localDataProvider,
           ),
         ),
       ],

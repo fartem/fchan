@@ -54,4 +54,12 @@ abstract class _BoardStore with Store {
       ..addAll(_listPortionController.items);
     isLastPage = _listPortionController.isLastPage;
   }
+
+  Future<void> requestThreadsPortion() async {
+    await _listPortionController.loadMore();
+    threads
+      ..clear()
+      ..addAll(_listPortionController.items);
+    isLastPage = _listPortionController.isLastPage;
+  }
 }

@@ -99,7 +99,7 @@ class _BoardPageState extends State<BoardPage> {
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.maxScrollExtent == _scrollController.position.pixels) {
-        // _boardBloc.add(const BoardEventPortionRequested());
+        _boardStore?.requestThreadsPortion();
       }
     });
   }

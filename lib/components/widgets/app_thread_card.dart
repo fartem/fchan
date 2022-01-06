@@ -1,8 +1,19 @@
+import 'package:clipboard/clipboard.dart';
+import 'package:fchan/components/routes/fchan_routes.dart';
+import 'package:fchan/components/widgets/app_cached_network_image_with_loader.dart';
+import 'package:fchan/components/widgets/app_content_html_text.dart';
+import 'package:fchan/data/repositories/api/bookmarks_repository.dart';
+import 'package:fchan/data/repositories/api/history_repository.dart';
+import 'package:fchan/data/repositories/api/threads_repository.dart';
 import 'package:fchan/entities/thread.dart';
+import 'package:fchan/extensions/build_context_extensions.dart';
 import 'package:fchan/extensions/duration_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+// TODO(fartem): separate as widget + store
 class AppThreadCard extends StatelessWidget {
   final Thread thread;
   final Function? tapNotifier;
@@ -19,119 +30,119 @@ class AppThreadCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO(fartem): move to BLoC
-    return Container();
-    // final dataRepository = context.read<DataRepository>();
-    // return Card(
-    //   margin: const EdgeInsets.all(4),
-    //   child: InkWell(
-    //     child: Padding(
-    //       padding: const EdgeInsets.all(8),
-    //       child: Column(
-    //         children: [
-    //           Row(
-    //             children: [
-    //               Expanded(
-    //                 child: Column(
-    //                   children: [
-    //                     Align(
-    //                       alignment: AlignmentDirectional.centerStart,
-    //                       child: Text(
-    //                         _prepareThreadDateAndImageFormatInfo(thread),
-    //                         style: TextStyle(
-    //                           fontSize: 12,
-    //                           color: Colors.grey[700],
-    //                         ),
-    //                       ),
-    //                     ),
-    //                     Align(
-    //                       alignment: AlignmentDirectional.centerStart,
-    //                       child: Text(
-    //                         _prepareThreadRepliesAndImagesInfo(
-    //                           localizations: context.localizations,
-    //                           thread: thread,
-    //                         ),
-    //                         style: TextStyle(
-    //                           fontSize: 12,
-    //                           color: Colors.grey[700],
-    //                         ),
-    //                       ),
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ),
-    //               PopupMenuButton<ThreadPopupMenuAction>(
-    //                 itemBuilder: (context) => availableActions
-    //                     .map((action) => PopupMenuItem<ThreadPopupMenuAction>(
-    //                           value: action,
-    //                           child: Text(
-    //                             _wordForPopupActions(
-    //                               localizations: context.localizations,
-    //                               action: action,
-    //                             ),
-    //                           ),
-    //                         ))
-    //                     .toList(),
-    //                 onSelected: (action) async {
-    //                   switch (action) {
-    //                     case ThreadPopupMenuAction.openLink:
-    //                       await launch(dataRepository.urlForThread(thread));
-    //                       break;
-    //                     case ThreadPopupMenuAction.copyLink:
-    //                       await FlutterClipboard.copy(
-    //                         dataRepository.urlForThread(thread),
-    //                       );
-    //                       break;
-    //                     case ThreadPopupMenuAction.removeFromHistory:
-    //                       await dataRepository.removeThreadFromHistory(thread);
-    //                       break;
-    //                     case ThreadPopupMenuAction.addToBookmarks:
-    //                       await dataRepository.addThreadToBookmarks(thread);
-    //                       break;
-    //                     case ThreadPopupMenuAction.removeFromBookmarks:
-    //                       await dataRepository.removeThreadFromBookmarks(thread);
-    //                       break;
-    //                   }
-    //                   actionNotifier?.call(action);
-    //                 },
-    //                 child: const Icon(Icons.more_vert),
-    //               ),
-    //             ],
-    //           ),
-    //           if (thread.hasImage())
-    //             AppCachedNetworkImageWithLoader(
-    //               url: dataRepository.urlForThreadsImageThumbnail(thread),
-    //               width: thread.thumbnailWidth!.toDouble(),
-    //               height: thread.thumbnailHeight!.toDouble(),
-    //             ),
-    //           if (thread.sub != null)
-    //             Align(
-    //               alignment: AlignmentDirectional.centerStart,
-    //               child: AppContentHtmlText(
-    //                 text: thread.sub!,
-    //                 bodyWeight: FontWeight.bold,
-    //               ),
-    //             ),
-    //           if (thread.com != null)
-    //             Align(
-    //               alignment: AlignmentDirectional.centerStart,
-    //               child: AppContentHtmlText(
-    //                 text: thread.com!,
-    //                 wrapText: true,
-    //               ),
-    //             ),
-    //         ],
-    //       ),
-    //     ),
-    //     onTap: () {
-    //       tapNotifier?.call();
-    //       context.push(
-    //         route: routeThread,
-    //         arguments: thread,
-    //       );
-    //     },
-    //   ),
-    // );
+    final threadsRepository = context.read<ThreadsRepository>();
+    final historyRepository = context.read<HistoryRepository>();
+    final bookmarksRepository = context.read<BookmarksRepository>();
+    return Card(
+      margin: const EdgeInsets.all(4),
+      child: InkWell(
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Text(
+                            _prepareThreadDateAndImageFormatInfo(thread),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional.centerStart,
+                          child: Text(
+                            _prepareThreadRepliesAndImagesInfo(
+                              localizations: context.localizations,
+                              thread: thread,
+                            ),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  PopupMenuButton<ThreadPopupMenuAction>(
+                    itemBuilder: (context) => availableActions
+                        .map((action) => PopupMenuItem<ThreadPopupMenuAction>(
+                              value: action,
+                              child: Text(
+                                _wordForPopupActions(
+                                  localizations: context.localizations,
+                                  action: action,
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                    onSelected: (action) async {
+                      switch (action) {
+                        case ThreadPopupMenuAction.openLink:
+                          await launch(threadsRepository.urlForThread(thread));
+                          break;
+                        case ThreadPopupMenuAction.copyLink:
+                          await FlutterClipboard.copy(
+                            threadsRepository.urlForThread(thread),
+                          );
+                          break;
+                        case ThreadPopupMenuAction.removeFromHistory:
+                          await historyRepository.removeThreadFromHistory(thread);
+                          break;
+                        case ThreadPopupMenuAction.addToBookmarks:
+                          await bookmarksRepository.addThreadToBookmarks(thread);
+                          break;
+                        case ThreadPopupMenuAction.removeFromBookmarks:
+                          await bookmarksRepository.removeThreadFromBookmarks(thread);
+                          break;
+                      }
+                      actionNotifier?.call(action);
+                    },
+                    child: const Icon(Icons.more_vert),
+                  ),
+                ],
+              ),
+              if (thread.hasImage())
+                AppCachedNetworkImageWithLoader(
+                  url: threadsRepository.urlForThreadsImageThumbnail(thread),
+                  width: thread.thumbnailWidth!.toDouble(),
+                  height: thread.thumbnailHeight!.toDouble(),
+                ),
+              if (thread.sub != null)
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: AppContentHtmlText(
+                    text: thread.sub!,
+                    bodyWeight: FontWeight.bold,
+                  ),
+                ),
+              if (thread.com != null)
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: AppContentHtmlText(
+                    text: thread.com!,
+                    wrapText: true,
+                  ),
+                ),
+            ],
+          ),
+        ),
+        onTap: () {
+          tapNotifier?.call();
+          context.push(
+            route: routeThread,
+            arguments: thread,
+          );
+        },
+      ),
+    );
   }
 
   String _prepareThreadDateAndImageFormatInfo(Thread thread) {
